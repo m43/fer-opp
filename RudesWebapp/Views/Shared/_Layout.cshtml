@@ -13,38 +13,65 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/678999c602.js" crossorigin="anonymous"></script>
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    <header>
+    <header id="myNavHeader">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RudesWebapp</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <a asp-controller="Home" asp-action="Index"><img src="~/images/rudes-logo.jpg" width="30px;" /></a>
+                <div class="my-navbar-button">
+                    <a>Timovi</a>
+                </div>
+                <div class="my-navbar-button">
+                    <a>Škola košarke</a>
+                </div>
+                <div class="my-navbar-button">
+                    <a asp-controller="Home" asp-action="Media">Media</a>
+                </div>
+                <div class="my-navbar-button">
+                    <a asp-controller="Home" asp-action="About">O klubu</a>
+                </div>
+                <div>
+                    <i class="fas fa-shopping-bag" style="font-size: 20px;"></i>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    <div class="container" style="margin-top: 40px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="position: static;">
         <div class="container">
-            &copy; 2019 - RudesWebapp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div>
+                <a>Kontakt</a>
+            </div>
+            <div>
+                <a>Česta pitanja</a>
+            </div>
+            <div>
+                <a>Opći uvjeti i odredbe</a>
+            </div>
+            <div>
+                <a>Plaćanje i dostava</a>
+            </div>
+            <div>
+                <a>Povrat i reklamacije</a>
+            </div>
+            <div>
+                <img src="~/images/facebook-logo.png" width="30px"/>
+                <img src="~/images/instagram-logo.jpg" width="20px"/>
+                <img src="~/images/american-express-logo.jpg" width="30px"/>
+                <img src="~/images/diners-club-logo.jpg" width="30px"/>
+                <img src="~/images/maestro-logo.jpg" width="30px"/>
+                <img src="~/images/master-card-logo.jpg" width="30px"/>
+                <img src="~/images/visa-logo.jpg" width="30px"/>
+            </div>
         </div>
     </footer>
 

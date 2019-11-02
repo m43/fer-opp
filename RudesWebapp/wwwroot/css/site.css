@@ -62,10 +62,29 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+.my-navbar-button {
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: rgb(100, 96, 96) 2px 2px;
+}
+
+    .my-navbar-button:hover {
+        background-color: grey;
+        box-shadow: rgb(100, 96, 96) 4px 4px;
+    }
+
+#myNavHeader {
+    top: 0;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
 }
