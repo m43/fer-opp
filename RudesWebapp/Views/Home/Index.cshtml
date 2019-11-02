@@ -2,13 +2,34 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center" id="forPetlja">
-    <h1 class="display-4">Welcome</h1>
+<style>
+.button{
+  background-color: #4682B4;
+  border: none;
+  color: white;
+  padding: 5px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">
+        <img src="http://www.kkrudes.hr/images/logo-rudes-novo3.jpg" alt="kkrudes_logo" width="80px" />
+        <b>K.K. Rudeš</b>
+    </h1>
+    <p>Dobrodošli na službenu stranicu košarkaškog kluba "Rudeš".</p>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <div v-for="i in 100">
-        {{ i }}
-        Imaš virus!!! Čuljak patuljak smotuljak crvenkapak!!!
+
+    <img src="http://www.kkrudes.hr/images/slika229.jpg" alt="igra" />
+
+    <div>
+        <form action="http://www.kkrudes.hr/images/tablica1.jpg">
+            <button class="button" type="submit"> TABLICA SENIORA </button>
+        </form>
     </div>
 </div>
-
-<script src="~/js/index.js"></script>
