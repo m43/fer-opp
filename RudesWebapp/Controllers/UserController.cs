@@ -10,7 +10,6 @@ namespace RudesWebapp.Controllers
         {
            
         }
-        [HttpPost]
         public String HashPassword(string password)
 
         {
