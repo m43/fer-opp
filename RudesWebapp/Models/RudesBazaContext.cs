@@ -15,20 +15,20 @@ namespace RudesWebapp.Models
         {
         }
 
-        public virtual DbSet<Artikl> Artikl { get; set; }
-        public virtual DbSet<ArtiklDostupnost> ArtiklDostupnost { get; set; }
-        public virtual DbSet<ArtiklKosarice> ArtiklKosarice { get; set; }
-        public virtual DbSet<ArtiklNarudzbe> ArtiklNarudzbe { get; set; }
-        public virtual DbSet<Igrac> Igrac { get; set; }
-        public virtual DbSet<Korisnik> Korisnik { get; set; }
-        public virtual DbSet<Kosarica> Kosarica { get; set; }
-        public virtual DbSet<Narudzba> Narudzba { get; set; }
-        public virtual DbSet<Objava> Objava { get; set; }
-        public virtual DbSet<Popust> Popust { get; set; }
-        public virtual DbSet<Recenzija> Recenzija { get; set; }
-        public virtual DbSet<Slika> Slika { get; set; }
-        public virtual DbSet<Transakcija> Transakcija { get; set; }
-        public virtual DbSet<Utakmica> Utakmica { get; set; }
+        public virtual DbSet<Article> Article { get; set; }
+        public virtual DbSet<ArticleAvailability> ArticleAvailability { get; set; }
+        public virtual DbSet<Discount> Discount { get; set; }
+        public virtual DbSet<Image> Image { get; set; }
+        public virtual DbSet<Match> Match { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderArticle> OrderArticle { get; set; }
+        public virtual DbSet<Player> Player { get; set; }
+        public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<Review> Review { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
+        public virtual DbSet<ShoppingCartArticle> ShoppingCartArticle { get; set; }
+        public virtual DbSet<Transaction> Transaction { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,386 +41,108 @@ namespace RudesWebapp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Artikl>(entity =>
+            modelBuilder.Entity<Article>(entity =>
             {
-                entity.ToTable("artikl");
+                entity.ToTable("article");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Cijena).HasColumnName("cijena");
-
-                entity.Property(e => e.DatumDodavanja)
-                    .HasColumnName("datum_dodavanja")
+                entity.Property(e => e.CreationDate)
+                    .HasColumnName("creation_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.DatumPosljednjeIzmjene)
-                    .HasColumnName("datum_posljednje_izmjene")
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.ImageId).HasColumnName("image_ID");
+
+                entity.Property(e => e.LastModificationDate)
+                    .HasColumnName("last_modification_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.IdSlika).HasColumnName("ID_slika");
-
-                entity.Property(e => e.Naziv)
-                    .HasColumnName("naziv")
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Opis)
-                    .HasColumnName("opis")
+                entity.Property(e => e.Price).HasColumnName("price");
+
+                entity.Property(e => e.Type)
+                    .HasColumnName("type")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Tip)
-                    .HasColumnName("tip")
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.IdSlikaNavigation)
-                    .WithMany(p => p.Artikl)
-                    .HasForeignKey(d => d.IdSlika)
-                    .HasConstraintName("FK__artikl__ID_slika__46E78A0C");
+                entity.HasOne(d => d.Image)
+                    .WithMany(p => p.Article)
+                    .HasForeignKey(d => d.ImageId)
+                    .HasConstraintName("FK__article__image_I__46E78A0C");
             });
 
-            modelBuilder.Entity<ArtiklDostupnost>(entity =>
+            modelBuilder.Entity<ArticleAvailability>(entity =>
             {
-                entity.HasKey(e => e.IdArtikla)
-                    .HasName("PK__artikl_d__321CEECE288AB96A");
+                entity.HasKey(e => e.ArticleId)
+                    .HasName("PK__article___CC37F2680A55149B");
 
-                entity.ToTable("artikl_dostupnost");
+                entity.ToTable("article_availability");
 
-                entity.Property(e => e.IdArtikla)
-                    .HasColumnName("ID_artikla")
+                entity.Property(e => e.ArticleId)
+                    .HasColumnName("article_ID")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Kolicina).HasColumnName("kolicina");
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.Property(e => e.Velicina)
-                    .HasColumnName("velicina")
+                entity.Property(e => e.Size)
+                    .HasColumnName("size")
                     .HasMaxLength(255);
 
-                entity.HasOne(d => d.IdArtiklaNavigation)
-                    .WithOne(p => p.ArtiklDostupnost)
-                    .HasForeignKey<ArtiklDostupnost>(d => d.IdArtikla)
+                entity.HasOne(d => d.Article)
+                    .WithOne(p => p.ArticleAvailability)
+                    .HasForeignKey<ArticleAvailability>(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__artikl_do__ID_ar__403A8C7D");
+                    .HasConstraintName("FK__article_a__artic__403A8C7D");
             });
 
-            modelBuilder.Entity<ArtiklKosarice>(entity =>
+            modelBuilder.Entity<Discount>(entity =>
             {
-                entity.HasKey(e => new { e.IdKosarice, e.IdArtikla })
-                    .HasName("PK__artikl_k__9D8568CCDB49831C");
+                entity.HasKey(e => new { e.Id, e.ArticleId })
+                    .HasName("PK__discount__AED79301C419BEB6");
 
-                entity.ToTable("artikl_kosarice");
-
-                entity.Property(e => e.IdKosarice).HasColumnName("ID_kosarice");
-
-                entity.Property(e => e.IdArtikla).HasColumnName("ID_artikla");
-
-                entity.Property(e => e.Kolicina).HasColumnName("kolicina");
-
-                entity.Property(e => e.KupovnaCijena)
-                    .HasColumnName("kupovna_cijena")
-                    .HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.KupovniPopust).HasColumnName("kupovni_popust");
-
-                entity.Property(e => e.Velicina)
-                    .HasColumnName("velicina")
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.IdArtiklaNavigation)
-                    .WithMany(p => p.ArtiklKosarice)
-                    .HasForeignKey(d => d.IdArtikla)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__artikl_ko__ID_ar__4222D4EF");
-
-                entity.HasOne(d => d.IdKosariceNavigation)
-                    .WithMany(p => p.ArtiklKosarice)
-                    .HasForeignKey(d => d.IdKosarice)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__artikl_ko__ID_ko__4316F928");
-            });
-
-            modelBuilder.Entity<ArtiklNarudzbe>(entity =>
-            {
-                entity.HasKey(e => new { e.IdNarudzbe, e.IdArtikla })
-                    .HasName("PK__artikl_n__97E8649ED24A0BDB");
-
-                entity.ToTable("artikl_narudzbe");
-
-                entity.Property(e => e.IdNarudzbe).HasColumnName("ID_narudzbe");
-
-                entity.Property(e => e.IdArtikla).HasColumnName("ID_artikla");
-
-                entity.Property(e => e.Kolicina).HasColumnName("kolicina");
-
-                entity.Property(e => e.KupovnaCijena)
-                    .HasColumnName("kupovna_cijena")
-                    .HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.KupovniPopust).HasColumnName("kupovni_popust");
-
-                entity.Property(e => e.Velicina)
-                    .HasColumnName("velicina")
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.IdArtiklaNavigation)
-                    .WithMany(p => p.ArtiklNarudzbe)
-                    .HasForeignKey(d => d.IdArtikla)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__artikl_na__ID_ar__3F466844");
-
-                entity.HasOne(d => d.IdNarudzbeNavigation)
-                    .WithMany(p => p.ArtiklNarudzbe)
-                    .HasForeignKey(d => d.IdNarudzbe)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__artikl_na__ID_na__412EB0B6");
-            });
-
-            modelBuilder.Entity<Igrac>(entity =>
-            {
-                entity.ToTable("igrac");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.DatumDodavanja)
-                    .HasColumnName("datum_dodavanja")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.DatumPosljednjeIzmjene)
-                    .HasColumnName("datum_posljednje_izmjene")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.DatumRodenja)
-                    .HasColumnName("datum_rodenja")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.Ime)
-                    .HasColumnName("ime")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Pozicija)
-                    .HasColumnName("pozicija")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Prezime)
-                    .HasColumnName("prezime")
-                    .HasMaxLength(255);
-            });
-
-            modelBuilder.Entity<Korisnik>(entity =>
-            {
-                entity.HasKey(e => e.KorisnickoIme)
-                    .HasName("PK__korisnik__ACB74FFDE3D37DEE");
-
-                entity.ToTable("korisnik");
-
-                entity.HasIndex(e => e.Email)
-                    .HasName("UQ__korisnik__AB6E61643896C425")
-                    .IsUnique();
-
-                entity.Property(e => e.KorisnickoIme)
-                    .HasColumnName("korisnicko_ime")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.BrojMob)
-                    .HasColumnName("broj_mob")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.DatumRegistracije)
-                    .HasColumnName("datum_registracije")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Ime)
-                    .HasColumnName("ime")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.LozinkaHash)
-                    .HasColumnName("lozinka_hash")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Prezime)
-                    .HasColumnName("prezime")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.RazinaOvlasti).HasColumnName("razina_ovlasti");
-            });
-
-            modelBuilder.Entity<Kosarica>(entity =>
-            {
-                entity.ToTable("kosarica");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Datum)
-                    .HasColumnName("datum")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.KorisnickoIme)
-                    .HasColumnName("korisnicko_ime")
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.KorisnickoImeNavigation)
-                    .WithMany(p => p.Kosarica)
-                    .HasForeignKey(d => d.KorisnickoIme)
-                    .HasConstraintName("FK__kosarica__korisn__440B1D61");
-            });
-
-            modelBuilder.Entity<Narudzba>(entity =>
-            {
-                entity.ToTable("narudzba");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Adresa)
-                    .HasColumnName("adresa")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Datum)
-                    .HasColumnName("datum")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.IdTransakcije).HasColumnName("ID_transakcije");
-
-                entity.Property(e => e.KorisnickoIme)
-                    .HasColumnName("korisnicko_ime")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Mjesto)
-                    .HasColumnName("mjesto")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.PostanskiBroj).HasColumnName("postanski_broj");
-
-                entity.Property(e => e.Zaprimljenost).HasColumnName("zaprimljenost");
-
-                entity.HasOne(d => d.IdTransakcijeNavigation)
-                    .WithMany(p => p.Narudzba)
-                    .HasForeignKey(d => d.IdTransakcije)
-                    .HasConstraintName("FK__narudzba__ID_tra__3E52440B");
-
-                entity.HasOne(d => d.KorisnickoImeNavigation)
-                    .WithMany(p => p.Narudzba)
-                    .HasForeignKey(d => d.KorisnickoIme)
-                    .HasConstraintName("FK__narudzba__korisn__3D5E1FD2");
-            });
-
-            modelBuilder.Entity<Objava>(entity =>
-            {
-                entity.ToTable("objava");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.DatumIsteka)
-                    .HasColumnName("datum_isteka")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.DatumObjave)
-                    .HasColumnName("datum_objave")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.DatumPocetka)
-                    .HasColumnName("datum_pocetka")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.DatumPosljednjeIzmjene)
-                    .HasColumnName("datum_posljednje_izmjene")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.IdSlika).HasColumnName("ID_slika");
-
-                entity.Property(e => e.Sadrzaj)
-                    .HasColumnName("sadrzaj")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.VrstaObjave)
-                    .HasColumnName("vrsta_objave")
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.IdSlikaNavigation)
-                    .WithMany(p => p.Objava)
-                    .HasForeignKey(d => d.IdSlika)
-                    .HasConstraintName("FK__objava__ID_slika__47DBAE45");
-            });
-
-            modelBuilder.Entity<Popust>(entity =>
-            {
-                entity.HasKey(e => new { e.Id, e.IdArtikla })
-                    .HasName("PK__popust__C13522CB2AB233D2");
-
-                entity.ToTable("popust");
+                entity.ToTable("discount");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
                     .ValueGeneratedOnAdd();
 
-                entity.Property(e => e.IdArtikla).HasColumnName("ID_artikla");
+                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
 
-                entity.Property(e => e.Datum)
-                    .HasColumnName("datum")
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.DatumKraja)
-                    .HasColumnName("datum_kraja")
+                entity.Property(e => e.EndDate)
+                    .HasColumnName("end_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.DatumPocetka)
-                    .HasColumnName("datum_pocetka")
+                entity.Property(e => e.Percentage).HasColumnName("percentage");
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnName("start_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Postotak).HasColumnName("postotak");
-
-                entity.HasOne(d => d.IdArtiklaNavigation)
-                    .WithMany(p => p.Popust)
-                    .HasForeignKey(d => d.IdArtikla)
+                entity.HasOne(d => d.Article)
+                    .WithMany(p => p.Discount)
+                    .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__popust__ID_artik__44FF419A");
+                    .HasConstraintName("FK__discount__articl__44FF419A");
             });
 
-            modelBuilder.Entity<Recenzija>(entity =>
+            modelBuilder.Entity<Image>(entity =>
             {
-                entity.HasKey(e => new { e.Id, e.IdArtikla })
-                    .HasName("PK__recenzij__C13522CB618A7CCA");
-
-                entity.ToTable("recenzija");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.IdArtikla).HasColumnName("ID_artikla");
-
-                entity.Property(e => e.Blokirano).HasColumnName("blokirano");
-
-                entity.Property(e => e.Datum)
-                    .HasColumnName("datum")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.Komentar)
-                    .HasColumnName("komentar")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.KorisnickoIme)
-                    .HasColumnName("korisnicko_ime")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Ocjena).HasColumnName("ocjena");
-
-                entity.HasOne(d => d.IdArtiklaNavigation)
-                    .WithMany(p => p.Recenzija)
-                    .HasForeignKey(d => d.IdArtikla)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__recenzija__ID_ar__45F365D3");
-            });
-
-            modelBuilder.Entity<Slika>(entity =>
-            {
-                entity.ToTable("slika");
+                entity.ToTable("image");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Datum)
-                    .HasColumnName("datum")
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Path)
@@ -428,54 +150,332 @@ namespace RudesWebapp.Models
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<Transakcija>(entity =>
+            modelBuilder.Entity<Match>(entity =>
             {
-                entity.ToTable("transakcija");
+                entity.ToTable("match");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Datum)
-                    .HasColumnName("datum")
+                entity.Property(e => e.AwayTeam)
+                    .HasColumnName("away_team")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.City)
+                    .HasColumnName("city")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Country)
+                    .HasColumnName("country")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Iznos)
-                    .HasColumnName("iznos")
-                    .HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.HomeTeam)
+                    .HasColumnName("home_team")
+                    .HasMaxLength(255);
 
-                entity.Property(e => e.Kartica)
-                    .HasColumnName("kartica")
+                entity.Property(e => e.SportsHall)
+                    .HasColumnName("sports_hall")
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<Utakmica>(entity =>
+            modelBuilder.Entity<Order>(entity =>
             {
-                entity.ToTable("utakmica");
+                entity.ToTable("order");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Datum)
-                    .HasColumnName("datum")
+                entity.Property(e => e.Adress)
+                    .HasColumnName("adress")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.City)
+                    .HasColumnName("city")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Drzava)
-                    .HasColumnName("drzava")
+                entity.Property(e => e.Fulfilled).HasColumnName("fulfilled");
+
+                entity.Property(e => e.IdTransaction).HasColumnName("ID_transaction");
+
+                entity.Property(e => e.PostalCode).HasColumnName("postal_code");
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Dvorana)
-                    .HasColumnName("dvorana")
+                entity.HasOne(d => d.IdTransactionNavigation)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.IdTransaction)
+                    .HasConstraintName("FK__order__ID_transa__3E52440B");
+
+                entity.HasOne(d => d.UsernameNavigation)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.Username)
+                    .HasConstraintName("FK__order__username__3D5E1FD2");
+            });
+
+            modelBuilder.Entity<OrderArticle>(entity =>
+            {
+                entity.HasKey(e => new { e.OrderId, e.ArticleId })
+                    .HasName("PK__order_ar__DA851AC7823BC41D");
+
+                entity.ToTable("order_article");
+
+                entity.Property(e => e.OrderId).HasColumnName("order_ID");
+
+                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
+
+                entity.Property(e => e.PurchaseDiscount).HasColumnName("purchase_discount");
+
+                entity.Property(e => e.PurchasePrice)
+                    .HasColumnName("purchase_price")
+                    .HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Size)
+                    .HasColumnName("size")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Mjesto)
-                    .HasColumnName("mjesto")
+                entity.HasOne(d => d.Article)
+                    .WithMany(p => p.OrderArticle)
+                    .HasForeignKey(d => d.ArticleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__order_art__artic__3F466844");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.OrderArticle)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__order_art__order__412EB0B6");
+            });
+
+            modelBuilder.Entity<Player>(entity =>
+            {
+                entity.ToTable("player");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BirthDate)
+                    .HasColumnName("birth_date")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnName("creation_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.LastModificationDate)
+                    .HasColumnName("last_modification_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.LastName)
+                    .HasColumnName("last_name")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.TimDomacin)
-                    .HasColumnName("tim_domacin")
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.TimGost)
-                    .HasColumnName("tim_gost")
+                entity.Property(e => e.Position)
+                    .HasColumnName("position")
                     .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Post>(entity =>
+            {
+                entity.ToTable("post");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Content)
+                    .HasColumnName("content")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.EndDate)
+                    .HasColumnName("end_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ImageId).HasColumnName("image_ID");
+
+                entity.Property(e => e.LastModificationDate)
+                    .HasColumnName("last_modification_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.PostDate)
+                    .HasColumnName("post_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.PostType)
+                    .HasColumnName("post_type")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnName("start_date")
+                    .HasColumnType("datetime");
+
+                entity.HasOne(d => d.Image)
+                    .WithMany(p => p.Post)
+                    .HasForeignKey(d => d.ImageId)
+                    .HasConstraintName("FK__post__image_ID__47DBAE45");
+            });
+
+            modelBuilder.Entity<Review>(entity =>
+            {
+                entity.HasKey(e => new { e.Id, e.ArticleId })
+                    .HasName("PK__review__AED793010ECF51E0");
+
+                entity.ToTable("review");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
+
+                entity.Property(e => e.Blocked).HasColumnName("blocked");
+
+                entity.Property(e => e.Comment)
+                    .HasColumnName("comment")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Rating).HasColumnName("rating");
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.Article)
+                    .WithMany(p => p.Review)
+                    .HasForeignKey(d => d.ArticleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__review__article___45F365D3");
+            });
+
+            modelBuilder.Entity<ShoppingCart>(entity =>
+            {
+                entity.ToTable("shopping_cart");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.UsernameNavigation)
+                    .WithMany(p => p.ShoppingCart)
+                    .HasForeignKey(d => d.Username)
+                    .HasConstraintName("FK__shopping___usern__440B1D61");
+            });
+
+            modelBuilder.Entity<ShoppingCartArticle>(entity =>
+            {
+                entity.HasKey(e => new { e.ShoppingCartId, e.ArticleId })
+                    .HasName("PK__shopping__B7E583C151B3360B");
+
+                entity.ToTable("shopping_cart_article");
+
+                entity.Property(e => e.ShoppingCartId).HasColumnName("shopping_cart_ID");
+
+                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
+
+                entity.Property(e => e.PurchaseDiscount).HasColumnName("purchase_discount");
+
+                entity.Property(e => e.PurchasePrice)
+                    .HasColumnName("purchase_price")
+                    .HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Size)
+                    .HasColumnName("size")
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.Article)
+                    .WithMany(p => p.ShoppingCartArticle)
+                    .HasForeignKey(d => d.ArticleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__shopping___artic__4222D4EF");
+
+                entity.HasOne(d => d.ShoppingCart)
+                    .WithMany(p => p.ShoppingCartArticle)
+                    .HasForeignKey(d => d.ShoppingCartId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__shopping___shopp__4316F928");
+            });
+
+            modelBuilder.Entity<Transaction>(entity =>
+            {
+                entity.ToTable("transaction");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Amount)
+                    .HasColumnName("amount")
+                    .HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.Card)
+                    .HasColumnName("card")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
+                    .HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(e => e.Username)
+                    .HasName("PK__user__F3DBC57307D3AF22");
+
+                entity.ToTable("user");
+
+                entity.HasIndex(e => e.Email)
+                    .HasName("UQ__user__AB6E61640B9CFCFF")
+                    .IsUnique();
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.LastName)
+                    .HasColumnName("last_name")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PasswordHash)
+                    .HasColumnName("password_hash")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PhoneNumber)
+                    .HasColumnName("phone_number")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.RegistrationDate)
+                    .HasColumnName("registration_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Role).HasColumnName("role");
             });
 
             OnModelCreatingPartial(modelBuilder);
