@@ -1,42 +1,75 @@
 ﻿<div class="container" style="height: 900px; margin-top: 20px;">
     <div class="row" style="height: 500px;">
         <div class="column col-3 border border-dark" style="height: 900px;">
+            <p>FILTERI</p>
+            <p>
+                Filtriraj po cijeni
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                </div>
+            </p>
+            <p>
+                Filtriraj po tipu (majica, hoodica)
+                <div>
+                    <input type="checkbox" name="option1" value="Shirt"> Majica <br />
+                    <input type="checkbox" name="option2" value="Hoodie"> Hoodie <br />
+                </div>
+            </p>
+            <p>
+                Filtriraj po dostupnim velicinama
+                <input type="checkbox" name="size1" value="Shirt"> XS <br />
+                <input type="checkbox" name="size2" value="Hoodie"> S <br />
+                <input type="checkbox" name="size1" value="Shirt"> M <br />
+                <input type="checkbox" name="size2" value="Hoodie"> L <br />
+                <input type="checkbox" name="size2" value="Hoodie"> XL <br />
+            </p>
+            <p>
+                Filtriraj po boji
+                <div class="foo blue"></div>
+                <div class="foo purple"></div>
+                <div class="foo wine"></div> <br />
+            </p>
+
+            <p>
+                <button type="button">Filtriraj</button>
+            </p>
         </div>
-        <div class="column col-9" style="height: 900px;">
+        <div class="column col-9" style="height: 900px;" >
             <div class='row'>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg"  width="213" alt="Rudeš Logo"  style="width:100%; display: block; margin-left: auto; margin-right: auto; margin-top: 10px;" />
+                <div id ="prvi" class='col-xs-12 col-md-4 border border-dark arikl'>
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl">
                 </div>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg" width="213" alt="Rudeš Logo" style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl'>
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl"/>
                 </div>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg" width="213" alt="Rudeš Logo" style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl'>
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
                 </div>
             </div>
             <div class='row'>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg" width="213" alt="Rudeš Logo" style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl'>
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl"/>
                 </div>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg" width="213" alt="Rudeš Logo" style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl' >
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl"/>
                 </div>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg" width="213" alt="Rudeš Logo" style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl' >
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
                 </div>
             </div>
             <div class='row'>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg" width="213" alt="Rudeš Logo" style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl' >
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo"class="artikl" />
                 </div>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg" width="213" alt="Rudeš Logo" style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl' >
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl"/>
                 </div>
-                <div class='col-xs-12 col-md-4 border border-dark' style="height: 300px;">
-                    <img src="~/images/rudes-logo.jpg"  width="213" alt="Rudeš Logo"  style="width:100%; display: block; margin-left: auto; margin-right: auto;  margin-top: 10px;" />
+                <div class='col-xs-12 col-md-4 border border-dark artikl' >
+                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<link rel="stylesheet" type="text/css" href="~/css/webshop.css">
