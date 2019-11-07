@@ -19,7 +19,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
-            <div class="container">
+            <div class="container" id="navbar">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                     <img src="~/images/rudes-logo.jpg" width="30" height="30" alt="Rudeš Logo" />
                 </a>
@@ -54,13 +54,24 @@
                     </div>
                 </a>
 
-                <div class="dropdown">
+                <div v-if="!loggedIn" class="dropdown">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user" style="font-size: 20px; margin-right: 3px;"></i> Sign In
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Login">Login</a>
+                        @*<a class="dropdown-item" asp-controller="Home" asp-action="Login">Login</a>*@
+                        <a class="dropdown-item" @@click="switchLoginStatus()">Login</a>
                         <a class="dropdown-item" asp-controller="Home" asp-action="Register">Register</a>
+                    </div>
+                </div>
+
+                <div v-else class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user" style="font-size: 20px; margin-right: 3px;"></i> {{dummyUsername}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item">Edit Profile</a>
+                        <a class="dropdown-item" @@click="switchLoginStatus()">Logout</a>
                     </div>
                 </div>
             </div>
@@ -112,6 +123,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/navbar.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
