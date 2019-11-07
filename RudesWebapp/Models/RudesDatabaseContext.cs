@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace RudesWebapp.Models
 {
-    public partial class RudesBazaContext : DbContext
+    public partial class RudesDatabaseContext : DbContext
     {
-        public RudesBazaContext()
+        public RudesDatabaseContext()
         {
         }
 
-        public RudesBazaContext(DbContextOptions<RudesBazaContext> options)
+        public RudesDatabaseContext(DbContextOptions<RudesDatabaseContext> options)
             : base(options)
         {
         }
