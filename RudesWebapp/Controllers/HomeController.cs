@@ -43,6 +43,25 @@ namespace RudesWebapp.Controllers
             return View();
         }
 
+        public IActionResult Seniors()
+        {
+            return View();
+        }
+
+        public IActionResult Juniors()
+        {
+            return View();
+        }
+
+        public IActionResult Cadets()
+        {
+            return View();
+        }
+
+        public IActionResult YoungCadets()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

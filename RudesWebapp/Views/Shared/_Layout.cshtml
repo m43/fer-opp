@@ -24,11 +24,17 @@
                     <img src="~/images/rudes-logo.jpg" width="30" height="30" alt="Rudeš Logo" />
                 </a>
 
-                <a>
-                    <div class="my-navbar-button">
-                        Timovi
+                <div class="my-navbar-button dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownTeamsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user" style="font-size: 20px; margin-right: 3px;"></i> Timovi
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownTeamsButton">
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Seniors">Seniori</a>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Juniors">Juniori</a>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Cadets">Kadeti</a>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="YoungCadets">Mlađi kadeti</a>
                     </div>
-                </a>
+                </div>
 
                 <a>
                     <div class="my-navbar-button">
@@ -61,7 +67,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @*<a class="dropdown-item" asp-controller="Home" asp-action="Login">Login</a>*@
                         <a class="dropdown-item" @@click="switchLoginStatus()">Login</a>
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Register">Register</a>
+                        @*<a class="dropdown-item" asp-controller="Home" asp-action="Register">Register</a>*@
                     </div>
                 </div>
 
