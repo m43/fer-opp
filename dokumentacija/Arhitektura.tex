@@ -1,13 +1,23 @@
 \chapter{Arhitektura i dizajn sustava}
 		
-		\textbf{\textit{dio 1. revizije}}\\
 
-		\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
+		\textnormal{ Arhitektura sustava ovog projekta može se podijeliti u tri sustava:}
 	\begin{itemize}
-		\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
-		\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
-		\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }		
+		\item 	\textit{Baza podataka}
+		\item 	\textit{Web aplikacija}
+		\item 	\textit{Web poslužitelj}		
 	\end{itemize}
+\textnormal {\textbf{Web poslužitelj} osnova je rada web aplikacije. Njegova primarna zadaća je komunikacija klijenta s aplikacijom. Komunikacija se odvija preko HTTP (engl. Hyper Text Transfer Protocol) protokola. Poslužitelj je onaj koji pokreće web aplikaciju te joj prosljeđuje zahtjev. \textbf{Web preglednik} je program koji korisniku omogućuje pregled web stranica i multimedijalnih sadržaja vezanih uz njih.Korisnik i web aplikacija komuniciraju s web preglednikom. Korisnik preko \textbf{web aplikacije} obrađuje zahtjeve. Web aplikacija obrađuje zahtjeve te komunicira s bazom podataka. }
+\bigbreak
+\textnormal {Programski jezik koji smo odabrali za našu web aplikaciju jest C\# Odabrali smo ga jer je većina današnjih web aplikacija napisana u C\#. Također, odlučili smo se na ASP NET CORE 3 radni okvir koji pruža mnogo funkcionalnosti. Koristimo i Vue.js radni okvir za JavaScript. Za razvojno okruženje odabrali smo Microsoft Visual Studio.}
+\bigbreak
+\textnormal{Arhitektura sustava temelji se na MVC(Model-View-Controller) konceptu.Taj je koncep podržan od ASP NET CORE 3 radnog okvira i olakšava razvoj web aplikacije zbog svojih gotovih predložaka. MVC koncept karakterističan je po tome što se pojedini dijelovi aplikacije mogu razvijati nezavisno, što uvelike olakšava testiranje, razvijanje te dodavanje novih mogućnosti u sustav. MVC koncep sadržava:}
+\bigbreak
+	\begin{itemize}
+	\item 	\textbf{Model} - prima ulazne podatke od Controllera, predstavlja strukture podataka koje su dinamične i neovisne o korisničkom sučelju. Središnja je komponenta sustava jer izravno upravlja pravilima web aplikacije.
+	\item 	\textbf{View} - prikaz podataka s mogućnosću različitih prikaza.
+	\item 	\textbf{Controller}	- upravlja korisničkim zahtjevima te prima ulaze i prilagođava ih za prosljeđivanje Modelu ili Viewu, ovisno o potrebi.
+\end{itemize}
 
 	
 		
@@ -17,9 +27,26 @@
 				
 		\section{Baza podataka}
 			
-			\textbf{\textit{dio 1. revizije}}\\
 			
-		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
+		\textnormal{Za naš projekt odabrali smo relacijsku bazu podataka. Njezina osnovna jedinica je tablica definirana imenom i skupom atributa. Zadaća naše baze podataka je brza i jednostavna pohrana podataka, izmjena, brisanje i dohvat tih podataka. Baza podataka ove aplikacije sastoji se od sljedećih entiteta:}
+		\bigbreak
+			\begin{itemize}
+			\item  Košarica
+			\item  Korisnik
+			\item  Narudžba
+			\item Transakcija
+			\item Artikl košarice
+			\item Artikl narudžbe
+			\item Artikl
+			\item Artikl dostupnost
+			\item Recenzija
+			\item Utakmica
+			\item Popust
+			\item Slika
+			\item Objava
+			\item Igrač
+		\end{itemize}
+		
 		
 			\subsection{Opis tablica}
 			

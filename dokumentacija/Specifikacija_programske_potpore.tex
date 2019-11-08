@@ -122,26 +122,78 @@
 						
 						\item[] \begin{packed_enum}
 	
-							\item 1. Stranica je prikazana tijekom pokretanja aplikacije
+							\item Stranica je prikazana tijekom pokretanja aplikacije
 							\item Korisnik ili klijent pregledava sadržaj (Kontak, O nama, ...)
+						\end{packed_enum}
+						
+				
+						\end{packed_item}
+					
+					\noindent \underbar{\textbf{UC2: Registracija}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik: } Korisnik
+						\item  \textbf{Cilj:} Stvoriti korisnički račun
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+							
+							\item Korisnik odabire opciju za registraciju
+							\item Korisnik unosi podatke potrebne za registraciju
+							\item Korisnik dobiva obavijest o uspješnoj registraciji
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
-	
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							
+							\item[2.a] Odabir već zauzetog korisničkog imena ili e-maila, unos korisničkog podatka u nedozvoljenom formatu ili pružanje neispravnoga e-maila
+							
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Sustav obavještava korisnika o neuspjelom upisu
+								\item Korisnik mijenja potrebne podatke te završava unos ili odustaje od registracije
+								
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
 							
 						\end{packed_item}
-						\end{packed_item}
+					\end{packed_item}
+				
+				\noindent \underbar{\textbf{UC3: Prijava u sustav}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik: } Klijent
+					\item  \textbf{Cilj:} Dobiti pristup sustavu
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Registracija
+					\item  \textbf{Opis osnovnog tijeka:}
+					
+					\item[] \begin{packed_enum}
+						
+						\item Korisnik odabire opciju za prijavu
+						\item Korisnik unosi podatke potrebne za prijavu (korisničko ime i lozinka)
+						\item Korisnik dobiva pristup korisničkim funkcijama
+					\end{packed_enum}
+					
+					\item  \textbf{Opis mogućih odstupanja:}
+					
+					\item[] \begin{packed_item}
+						
+						\item[2.a] Neispravno korisničko ime ili lozinka
+						
+						\item[] \begin{packed_enum}
+							
+							\item Sustav obavještava korisnika o neuspjelom upisu
+
+							
+							
+						\end{packed_enum}
+						
+					\end{packed_item}
+				\end{packed_item}
 					
 					
 					
@@ -150,7 +202,7 @@
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
-					\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
+				
 					
 					\begin{figure}[H]
 						\includegraphics[width=\linewidth]{dijagrami/Funkcionalnosti_korisnika_i_klijenta.png}
@@ -184,39 +236,50 @@
 				
 			\subsection{Sekvencijski dijagrami}
 				
-				\textbf{\textit{dio 1. revizije}}\\
-				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
-				\eject
-				
+				\textbf {Obrazac uporabe UC10: Stavljanje artikla u košaricu }
+				\bigbreak
+				\textnormal {Korisnik šalje zahtjev za prikaz web shop-a kako bi mogao pregledati artikle. Poslužitelj dohvaća popis artikala i vraća ih te ih prikazuje u web shop-u koji korisnik pregledava. Odabirom artikla, koje korisnik bira dok ne odabere sve željene proizvode, korisnik bira količinu i veličinu proizvoda. Poslužitelj provjerava dostupnost artikla s bazom podataka i vraća informacije o artiklu. Ukoliko je artikl dostupan, korisniku se ispisuje poruka da je artikl dostupan i on šalje zahtjev za dodavanjem u košaricu. Poslužitelj šalje bazi zahtjev za mijenjanje sadržaja košarice, odnosno dodavanja artikla te baza sprema promjene. Ukoliko artikl nije dostupan, korisniku se ispisuje poruka.}
 				\begin{figure}[H]
 					\includegraphics[width=\linewidth]{dijagrami/UC10.png}
 					\centering
 					\caption{UC10, Stavljanje artikla u košaricu}
 					\label{fig:SequanceDiagram1}
 				\end{figure}
+			\bigskip
+			\bigskip
+			\bigskip
 			
+			\textbf {Obrazac uporabe UC15:Plaćanje}
+			\bigbreak
+			\textnormal {Klijent šalje zahtjev za pregled košarice kako bi mogao vidjeti odabrane artikle u košarici. Poslužitelj dohvaća sadržaj košarice iz baze te ga prikazuje klijentu. Klijent zatraži plaćanje te poslužitelj prikazuje formu za plaćanje koju klijent ispunjava te šalje nazad poslužitelju. Poslužitelj šalje banci zahtjev za transakcijom s određenim iznosom i karticom te banka vraća status transakcije poslužitelju. Na temelju statusa transakcije poslužitelj u bazi formira narudžbu i transakciju te isprazni košaricu. Ukoliko je transakcija odobrena, ispisuje se poruka korisniku. Ukoliko nije, također se ispisuje poruka o neuspješnoj transakciji.}
 				\begin{figure}[H]
 					\includegraphics[width=\linewidth]{dijagrami/UC15.png}
 					\centering
 					\caption{UC15, Plaćanje}
 					\label{fig:SequanceDiagram2}
 				\end{figure}
-			
+			\bigskip
+			\bigskip
+			\textbf{Obrazac uporabe UC19: Označavanje narudžbe zaprimljenom}
+			\bigbreak
+			\textnormal {Član uprave zatraži listu aktivnih narudžbi koju poslužitelj proslijeđuje bazi te baza vraća listu aktivnih narudžbi poslužitelju. Ukoliko postoje aktivne narudžbe, poslužitelj ih prikazuje. Dok član uprave ne odabere sve narudžbe koje želi zaprimiti, šalje zahtjev za označavanje narudžbe zaprimljenom poslužitelju koji ih proslijeđuje bazi. Baza zatim potvrđuje izmjene i poslužitelj javlja da su promjene pohranjene. Ukoliko ne postoje aktivne narudžbe, poslužitelj ispisuje odgovarajuću poruku članu uprave.
+			}
 				\begin{figure}[H]
 					\includegraphics[width=\linewidth]{dijagrami/UC19.png}
 					\centering
 					\caption{UC19, Označavanje narudžbe gotovom}
 					\label{fig:SequanceDiagram3}
 				\end{figure}
-			
+			\textbf{Obrazac uporabe UC21: Uređivanje artikala u web shop-u}
+			\bigbreak
+			\textnormal {Član uprave šalje zahtjev za prikaz artikala koje poslužitelj dohvaća iz baze te ih prikazuje članu uprave. Član uprave odabere artikl, poslužitelj zatim šalje zahtjev bazi za njegov dohvat te baza vraća artikl koji se prikaže. Član uprave zatraži promjenu proizvoda sa starog na novi te poslužitelj vraća da je pristup odobren. Član uprave šalje promjenu proizvoda koju poslužitelj unosi u bazu podataka koja sprema promjene.}
 				\begin{figure}[H]
 					\includegraphics[width=\linewidth]{dijagrami/UC21.png}
 					\centering
 					\caption{UC21, Uređivanje artikala u web shopu}
 					\label{fig:SequanceDiagram4}
 				\end{figure}
-	
+	\eject
 		\section{Ostali zahtjevi}
 		
 			\begin{packed_item}
