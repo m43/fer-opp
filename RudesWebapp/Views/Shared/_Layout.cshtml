@@ -54,15 +54,16 @@
                     </div>
                 </a>
 
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user" style="font-size: 20px; margin-right: 3px;"></i> Sign In
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Login">Login</a>
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Register">Register</a>
-                    </div>
-                </div>
+                @* <div class="dropdown"> *@
+                @*     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> *@
+                @*         <i class="fas fa-user" style="font-size: 20px; margin-right: 3px;"></i> Sign In *@
+                @*     </button> *@
+                @*     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> *@
+                @*         <a class="dropdown-item" asp-controller="Home" asp-action="Login">Login</a> *@
+                @*         <a class="dropdown-item" asp-controller="Home" asp-action="Register">Register</a> *@
+                @*     </div> *@
+                @* </div> *@
+                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>

@@ -1,10 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace RudesWebapp.Models
 {
-    public partial class RudesDatabaseContext : DbContext
+    public partial class RudesDatabaseContext : IdentityDbContext
     {
         public RudesDatabaseContext()
         {
@@ -30,17 +32,11 @@ namespace RudesWebapp.Models
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<User> User { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(LocalDB)\\rudes;Database=RudesBaza;Integrated Security=True");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder); // TODO not sure if needed
+
             modelBuilder.Entity<Article>(entity =>
             {
                 entity.ToTable("article");
