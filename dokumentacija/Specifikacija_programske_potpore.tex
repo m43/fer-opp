@@ -109,6 +109,9 @@
 			\subsection{Obrasci uporabe}
 				
 				
+				\textbf{Opis obrazaca uporabe}
+
+				
 				\noindent \underbar{\textbf{UC1: Pregled web stranice}}
 				\begin{packed_item}
 					
@@ -760,10 +763,7 @@
 					\caption{UC10, Stavljanje artikla u košaricu}
 					\label{fig:SequanceDiagram1}
 				\end{figure}
-			\bigskip
-			\bigskip
-			\bigskip
-			
+			\pagebreak
 			\textbf {Obrazac uporabe UC15:Plaćanje}
 			\bigbreak
 			\textnormal {Klijent šalje zahtjev za pregled košarice kako bi mogao vidjeti odabrane artikle u košarici. Poslužitelj dohvaća sadržaj košarice iz baze te ga prikazuje klijentu. Klijent zatraži plaćanje te poslužitelj prikazuje formu za plaćanje koju klijent ispunjava te šalje nazad poslužitelju. Poslužitelj šalje banci zahtjev za transakcijom s određenim iznosom i karticom te banka vraća status transakcije poslužitelju. Na temelju statusa transakcije poslužitelj u bazi formira narudžbu i transakciju te isprazni košaricu. Ukoliko je transakcija odobrena, ispisuje se poruka korisniku. Ukoliko nije, također se ispisuje poruka o neuspješnoj transakciji.}
@@ -773,8 +773,7 @@
 					\caption{UC15, Plaćanje}
 					\label{fig:SequanceDiagram2}
 				\end{figure}
-			\bigskip
-			\bigskip
+			\pagebreak
 			\textbf{Obrazac uporabe UC19: Označavanje narudžbe zaprimljenom}
 			\bigbreak
 			\textnormal {Član uprave zatraži listu aktivnih narudžbi koju poslužitelj proslijeđuje bazi te baza vraća listu aktivnih narudžbi poslužitelju. Ukoliko postoje aktivne narudžbe, poslužitelj ih prikazuje. Dok član uprave ne odabere sve narudžbe koje želi zaprimiti, šalje zahtjev za označavanje narudžbe zaprimljenom poslužitelju koji ih proslijeđuje bazi. Baza zatim potvrđuje izmjene i poslužitelj javlja da su promjene pohranjene. Ukoliko ne postoje aktivne narudžbe, poslužitelj ispisuje odgovarajuću poruku članu uprave.
@@ -785,6 +784,7 @@
 					\caption{UC19, Označavanje narudžbe gotovom}
 					\label{fig:SequanceDiagram3}
 				\end{figure}
+			\pagebreak
 			\textbf{Obrazac uporabe UC21: Uređivanje artikala u web shop-u}
 			\bigbreak
 			\textnormal {Član uprave šalje zahtjev za prikaz artikala koje poslužitelj dohvaća iz baze te ih prikazuje članu uprave. Član uprave odabere artikl, poslužitelj zatim šalje zahtjev bazi za njegov dohvat te baza vraća artikl koji se prikaže. Član uprave zatraži promjenu proizvoda sa starog na novi te poslužitelj vraća da je pristup odobren. Član uprave šalje promjenu proizvoda koju poslužitelj unosi u bazu podataka koja sprema promjene.}
