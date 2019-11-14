@@ -29,8 +29,9 @@
 			
 			
 		\textnormal{Za naš projekt odabrali smo relacijsku bazu podataka. Njezina osnovna jedinica je tablica definirana imenom i skupom atributa. Zadaća naše baze podataka je brza i jednostavna pohrana podataka, izmjena, brisanje i dohvat tih podataka. Baza podataka ove aplikacije sastoji se od sljedećih entiteta:}
-		\bigbreak
-			\begin{itemize}
+		\smallbreak
+			\begin{packed_item}
+				\setlength\itemsep{0.01em}
 			\item  Košarica
 			\item  Korisnik
 			\item  Narudžba
@@ -45,7 +46,7 @@
 			\item Slika
 			\item Objava
 			\item Igrač
-		\end{itemize}
+		\end{packed_item}
 		
 		
 			\subsection{Opis tablica}
@@ -373,7 +374,14 @@
 			
 		\section{Dijagram razreda}
 		
-			\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
+			\textnormal{Na slikama 4.1 i 4.2 su prikazani razredi koji pripadaju backend dijelu MVC arhitekture. Razredi prikazani na slici 4.1 nasljeduju Controller razred. Razredi su podijeljeni  pravu pristupa metodama odredenih aktora. Iz naziva i tipova atributa u razredima može se zaključiti vrsta ovisnosti medu različitim razredima.}\\
+			
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{dijagrami/DijagramRazredaController.png}
+				\centering
+				\caption{Dijagram razreda - dio Controllers}
+				\label{fig:ClassDiagram1}
+			\end{figure}
 			
 			\textbf{\textit{dio 1. revizije}}\\
 			
