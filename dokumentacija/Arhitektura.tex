@@ -1,17 +1,17 @@
 \chapter{Arhitektura i dizajn sustava}
 		
 
-		\textnormal{ Arhitektura sustava ovog projekta može se podijeliti u tri sustava:}
+		\textnormal{ Arhitektura sustava ovog projekta može se podijeliti u tri dijela:}
 	\begin{itemize}
 		\item 	\textit{Baza podataka}
 		\item 	\textit{Web aplikacija}
 		\item 	\textit{Web poslužitelj}		
 	\end{itemize}
-\textnormal {\textbf{Web poslužitelj} osnova je rada web aplikacije. Njegova primarna zadaća je komunikacija klijenta s aplikacijom. Komunikacija se odvija preko HTTP (engl. Hyper Text Transfer Protocol) protokola. Poslužitelj je onaj koji pokreće web aplikaciju te joj prosljeđuje zahtjev. \textbf{Web preglednik} je program koji korisniku omogućuje pregled web stranica i multimedijalnih sadržaja vezanih uz njih.Korisnik i web aplikacija komuniciraju s web preglednikom. Korisnik preko \textbf{web aplikacije} obrađuje zahtjeve. Web aplikacija obrađuje zahtjeve te komunicira s bazom podataka. }
+\textnormal {\textbf{Web poslužitelj} osnova je rada web aplikacije. Njegova primarna zadaća je komunikacija klijenta s aplikacijom. Komunikacija se odvija preko HTTP (engl. Hyper Text Transfer Protocol) protokola. Poslužitelj je onaj koji pokreće web aplikaciju te joj prosljeđuje zahtjev. \textbf{Web preglednik} je program koji korisniku omogućuje pregled web stranica i multimedijalnih sadržaja vezanih uz njih. Korisnik i web aplikacija komuniciraju s web preglednikom. Korisnik preko \textbf{web aplikacije} šalje zahtjeve. Web aplikacija obrađuje zahtjeve te komunicira s bazom podataka. }
 \bigbreak
-\textnormal {Programski jezik koji smo odabrali za našu web aplikaciju jest C\# Odabrali smo ga jer je većina današnjih web aplikacija napisana u C\#. Također, odlučili smo se na ASP NET CORE 3 radni okvir koji pruža mnogo funkcionalnosti. Koristimo i Vue.js radni okvir za JavaScript. Za razvojno okruženje odabrali smo Microsoft Visual Studio.}
+\textnormal {Programski jezik koji smo odabrali za našu web aplikaciju jest C\#. Odabrali smo ga jer je većina današnjih web aplikacija napisana u C\#. Također, odlučili smo se na ASP.NET Core 3 radni okvir koji pruža mnogo funkcionalnosti. Koristimo i Vue.js radni okvir za JavaScript. Za razvojno okruženje odabrali smo Microsoft Visual Studio.}
 \bigbreak
-\textnormal{Arhitektura sustava temelji se na MVC(Model-View-Controller) konceptu.Taj je koncep podržan od ASP NET CORE 3 radnog okvira i olakšava razvoj web aplikacije zbog svojih gotovih predložaka. MVC koncept karakterističan je po tome što se pojedini dijelovi aplikacije mogu razvijati nezavisno, što uvelike olakšava testiranje, razvijanje te dodavanje novih mogućnosti u sustav. MVC koncep sadržava:}
+\textnormal{Arhitektura sustava temelji se na MVC (Model-View-Controller) konceptu. Taj je koncept podržan od ASP.NET Core 3 radnog okvira i olakšava razvoj web aplikacije zbog svojih gotovih predložaka. MVC koncept karakterističan je po tome što se pojedini dijelovi aplikacije mogu razvijati nezavisno, što uvelike olakšava testiranje, razvijanje te dodavanje novih mogućnosti u sustav. MVC koncept sadržava:}
 \bigbreak
 	\begin{itemize}
 	\item 	\textbf{Model} - prima ulazne podatke od Controllera, predstavlja strukture podataka koje su dinamične i neovisne o korisničkom sučelju. Središnja je komponenta sustava jer izravno upravlja pravilima web aplikacije.
@@ -52,7 +52,7 @@
 			\subsection{Opis tablica}
 			
 
-				\textnormal{Tablica \textbf{Korisnik} opisuje svakog korisnika, klijenta, trenera, upravu ili administratora aplikacije. Sadrži atribute: korisničko ime, ime, prezime, e-mail, hash lozinke, razinu ovlasti, broj mobitela i datum registracije. Povezana je vezom \textit{One-to-Many}  s entitetima Narudžba , Košarica i Recenzija preko korisničkog imena. }
+				\textnormal{Tablica \textbf{Korisnik} opisuje svakog korisnika, klijenta, trenera, upravu ili administratora aplikacije. Sadrži atribute: korisničko ime, ime, prezime, e-mail, hash lozinke, razinu ovlasti, broj mobitela i datum registracije. Povezana je vezom \textit{One-to-Many} s entitetima Narudžba, Košarica i Recenzija preko korisničkog imena.}
 				
 				\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 					
@@ -97,7 +97,7 @@
 			\end{longtabu}
 		
 		
-		\textnormal{Tablica \textbf{Artikl Košarice} opisuje artikle košarice koje se koriste u web shop-u. Sadrži atribute: ID košarice, ID artikla, količinu artikla te veličinu artikla, kupovnu cijenu i kupovni popust. Povezana je vezom \textit{Many-to-One} s entitetima Artikl i Košarica preko ID artikla, odnosno ID košarice.  }
+		\textnormal{Tablica \textbf{Artikl Košarice} opisuje artikle košarice koje se koriste u web shop-u. Sadrži atribute: ID košarice, ID artikla, količinu artikla, veličinu artikla, kupovnu cijenu i kupovni popust. Povezana je vezom \textit{Many-to-One} s entitetima Artikl i Košarica preko ID artikla, odnosno ID košarice.}
 		
 		\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 			
@@ -118,11 +118,11 @@
 			kupovni\_popust & INT  & kupovni popust artikla  \\ \hline 
 			
 		\end{longtabu}
-		\textnormal{Tablica \textbf{Recenzija} opisuje recenzije ostavljene artiklu u web shop-u. Sadrži atribute: ID , ID artikla, datum, ocjena, komentar, korisničko ime i blokirano. Povezana je vezom \textit{Many-to-One} s entitima Artikl i Korisnik preko ID artikla, odnosno korisničkog imena. }
+		\textnormal{Tablica \textbf{Recenzija} opisuje recenzije ostavljene artiklu u web shop-u. Sadrži atribute: ID, ID artikla, datum, ocjena, komentar, korisničko ime i blokirano. Povezana je vezom \textit{Many-to-One} s entitima Artikl i Korisnik preko ID artikla, odnosno korisničkog imena. }
 	
 	\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 		
-		\hline \multicolumn{3}{|c|}{\textbf{Rcenzija}}	 \\[3pt] \hline
+		\hline \multicolumn{3}{|c|}{\textbf{Recenzija}}	 \\[3pt] \hline
 		\endfirsthead
 		
 		\hline \multicolumn{3}{|c|}{\textbf{Recenzija}}	 \\[3pt] \hline
@@ -136,7 +136,7 @@
 		datum & TIMESTAMP  & datum dodavanja recenzije \\ \hline 
 		ocjena & INT  & ocjena artikla \\ \hline 
 		komentar & VARCHAR  & komentar recenzije \\ \hline 
-		korisnicko\_ime & INT  & korisnicko ime korisnika koji ostavlja recenziju  \\ \hline 
+		korisnicko\_ime & INT  & korisničko ime korisnika koji ostavlja recenziju  \\ \hline 
 		blokirano & BOOLEAN  & dozvoljena ili blokirana recenzija \\ \hline 
 		
 	\end{longtabu}
@@ -156,11 +156,11 @@
 	
 	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator utakmice	\\ \hline
 	datum & TIMESTAMP &  jedinstveni identifikator artikla	\\ \hline 
-	tim\_domacin & VARCHAR  & tim domacin utakmice \\ \hline 
+	tim\_domacin & VARCHAR  & tim domaćin utakmice \\ \hline 
 	tim\_gost & VARCHAR  & tim gost utakmice  \\ \hline 
-	mjesto & VARCHAR  & mjesto događanja utakmice \\ \hline 
-	dvorana & VARCHAR  & dvorana događanja utakmice \\ \hline 
-	drzava & VARCHAR  & država događanja utakmice \\ \hline 
+	mjesto & VARCHAR  & mjesto održavanja utakmice \\ \hline 
+	dvorana & VARCHAR  & dvorana održavanja utakmice \\ \hline 
+	drzava & VARCHAR  & država održavanja utakmice \\ \hline 
 	
 \end{longtabu}
 
@@ -186,7 +186,7 @@
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Slika} opisuje slike dodane na web stranicu.. Sadrži atribute: ID, path, datum. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl, Objava i Igrač preko ID slike.}
+\textnormal{Tablica \textbf{Slika} opisuje slike dodane na web stranicu. Sadrži atribute: ID, path, datum. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl, Objava i Igrač preko ID slike.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -200,11 +200,11 @@
 	\endlastfoot
 	
 	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator slike	\\ \hline
-     path & VARCHAR  &  path slike	\\ \hline 
+     path & VARCHAR  &  put do slike	\\ \hline 
 	datum & TIMESTAMP  & datum dodavanja slike \\ \hline 
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Artikl} opisuje artikle dodane na web shop. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, tip, cijenu, naziv, opis, ID slike. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Dostupnost,Popust, Artikl Narudžbe, Recenzija te Artikl Košarice preko ID artikla i vezom \textit{Many-to-One} s entitetom Slika preko ID slike.}
+\textnormal{Tablica \textbf{Artikl} opisuje artikle dodane na web shop. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, tip, cijenu, naziv, opis, ID slike. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Dostupnost, Popust, Artikl Narudžbe, Recenzija te Artikl Košarice preko ID artikla i vezom \textit{Many-to-One} s entitetom Slika preko ID slike.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -270,7 +270,7 @@
 	datum\_objave & TIMESTAMP  & datum postavljanja objave \\ \hline 
 	datum\_izmjene & TIMESTAMP  & datum posljednje izmjene objave \\ \hline
 	vrsta\_objave & VARCHAR  & vrsta objave \\ \hline 
-	datum\_pocetka & TIMESTAMP  & datum pocetka objave \\ \hline
+	datum\_pocetka & TIMESTAMP  & datum početka objave \\ \hline
 	datum\_isteka & TIMESTAMP  & datum isteka objave \\ \hline
 	
 \end{longtabu}
@@ -289,12 +289,12 @@
 	
 	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator transakcije	\\ \hline
 	datum & TIMESTAMP  & datum obavljanja transakcije  \\ \hline 
-	iznos & DECIMAL  & datum obavljanja transakcije \\ \hline
+	iznos & DECIMAL  & iznos transakcije \\ \hline
 	kartica & VARCHAR  & kartica transakcije  \\ \hline 
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Artikl dostupnost } opisuje dostupnost artikala. Sadrži atribute: ID artikla, veličina i količina. Entitet je povezan  vezom \textit{Many-to-One} s entitetom Artikla preko ID artikla.}
+\textnormal{Tablica \textbf{Artikl dostupnost} opisuje dostupnost artikala. Sadrži atribute: ID artikla, veličina i količina. Entitet je povezan  vezom \textit{Many-to-One} s entitetom Artikla preko ID artikla.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -335,7 +335,7 @@
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Igrač} opisuje sve igrače. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, ime, prezime, ID slike,datum rođenja i pozicija. Entitet je povezan vezom \textit{Many-to-One} s entitetom Slika.}
+\textnormal{Tablica \textbf{Igrač} opisuje sve igrače. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, ime, prezime, ID slike, datum rođenja i pozicija. Entitet je povezan vezom \textit{Many-to-One} s entitetom Slika.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -380,7 +380,7 @@
 			
 		\section{Dijagram razreda}
 		
-			\textnormal{Na slikama 4.1 i 4.2 su prikazani razredi koji pripadaju backend dijelu MVC arhitekture. Razredi prikazani na slici 4.1 nasljeduju Controller razred. Razredi su podijeljeni  pravu pristupa metodama odredenih aktora. Iz naziva i tipova atributa u razredima može se zaključiti vrsta ovisnosti medu različitim razredima.}\\
+			\textnormal{Na slikama 4.2 i 4.3 su prikazani razredi koji pripadaju backend dijelu MVC arhitekture. Razredi prikazani na slici 4.2 nasljeđuju Controller razred. Razredi su podijeljeni prema pravu pristupa metodama određenih aktora. Iz naziva i tipova atributa u razredima može se zaključiti vrsta ovisnosti medu različitim razredima.}\\
 			
 			\begin{figure}[H]
 				\includegraphics[width=\linewidth]{dijagrami/DijagramRazredaController.png}
@@ -389,7 +389,7 @@
 				\label{fig:ClassDiagram1}
 			\end{figure}
 		
-			\textnormal{ Model razredi na slici 4.2  preslikavaju strukturu baze podataka u aplikaciji. Implementirane metode direktno komuniciraju s bazom podataka te vraćaju tražene podatke. Razred Objava predstavlja objavu bilo koje vrste koja se prikazuje na stranici. Razred Igrač predstavlja igrače kluba kojima se mogu mijenjati podaci. Razred Slika predstavlja sve slike iz objava ili igrača. Razred Utakmica predstavlja utakmice koje klub igra. Nadalje, razredi Artikl, Popust, Artikl Dostupnost i Artikl Košarica predstavljaju artikle, odnosno popuste, dostupnost artikala i artikle stavljenje u košaricu web shop-a kluba. Također, razredi Narudžba i Narudžba Artikl i Košarica također su vezani uz web shop. Narudžba predstavlja sve narudžbe korisnika, Narudžba Artikl sve artikle jedne narudžbe, dok razred Košarica predstavlja košaricu web shop-a. Razred Transakcija su sve transakcije koje se obavljaju u web shop-u između klijenata kluba i banke. Razred Recenzija predstavlja recenzije proizvoda u web shopu koje razred Korisnik može ostaviti. Razred Korisnik predstavlja korisnike sustava koji se mogu registrirati i prijaviti u sustav.}\\
+			\textnormal{Model razredi na slici 4.3 preslikavaju strukturu baze podataka u aplikaciji. Implementirane metode direktno komuniciraju s bazom podataka te vraćaju tražene podatke. Razred Objava predstavlja objavu bilo koje vrste koja se prikazuje na stranici. Razred Igrač predstavlja igrače kluba kojima se mogu mijenjati podaci. Razred Slika predstavlja sve slike iz objava ili igrača. Razred Utakmica predstavlja utakmice koje klub igra. Nadalje, razredi Artikl, Popust, Artikl Dostupnost i Artikl Košarica predstavljaju artikle, odnosno popuste, dostupnost artikala i artikle stavljene u košaricu web shop-a kluba. Također, razredi Narudžba i Narudžba Artikl i Košarica također su vezani uz web shop. Narudžba predstavlja sve narudžbe korisnika, Narudžba Artikl sve artikle jedne narudžbe, dok razred Košarica predstavlja košaricu web shop-a. Razred Transakcija su sve transakcije koje se obavljaju u web shop-u između klijenata kluba i banke. Razred Recenzija predstavlja recenzije proizvoda u web shopu koje razred Korisnik može ostaviti. Razred Korisnik predstavlja korisnike sustava koji se mogu registrirati i prijaviti u sustav.}\\
 		
 		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{dijagrami/DijagramRazredaModels.png}
