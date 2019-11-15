@@ -52,6 +52,9 @@
 		
 			\subsection{Opis tablica}
 			
+				\textnormal{U nastavku su opisane tablice baze podatka. U napisanim tablicama je ključ tablice podebljan, a strani ključevi su napisani kurzivom.}
+				
+				\bigbreak
 
 				\textnormal{Tablica \textbf{Korisnik} opisuje svakog korisnika, klijenta, trenera, upravu ili administratora aplikacije. Sadrži atribute: korisničko ime, ime, prezime, e-mail, hash lozinke, razinu ovlasti, broj mobitela i datum registracije. Povezana je vezom \textit{One-to-Many} s entitetima Narudžba, Košarica i Recenzija preko korisničkog imena.}
 				
@@ -354,7 +357,7 @@
 	datum\_izmjene & TIMESTAMP  & datum izmjene igrača \\ \hline 
 	ime & VARCHAR  & ime igrača \\ \hline
 	prezime & VARCHAR  & prezime igrača \\ \hline
-	ID\_slike & INT  & jedinstveni identifikator slike igrača \\ \hline
+	\textit{ID\_slike} & INT  & jedinstveni identifikator slike igrača \\ \hline
 	datum\_rodenja & DATE  & datum rođenja igrača \\ \hline 
 	pozicija & VARCHAR  & pozicija igrača \\ \hline
 	
