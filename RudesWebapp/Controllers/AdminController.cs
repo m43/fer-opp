@@ -3,30 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-    public class WebshopController : Controller
+    public class AdminController : Controller
     {
-        //private Webshop webshop;
-        public IActionResult WebshopStart()
+        private User admin;
+
+        public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult FindArticle(string ArticleName)
+        public IActionResult ViewUsers()
         {
             return View();
         }
 
-        public IActionResult ShowFilters()
+        public IActionResult DeleteUser(int ID_user)
         {
             return View();
         }
 
-        public IActionResult ShowArticles()
+        public IActionResult DeleteReview(int ID_review)
         {
             return View();
         }
+        
+
     }
 }

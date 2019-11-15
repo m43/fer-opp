@@ -12,12 +12,15 @@ namespace RudesWebapp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        //private RudesDatabaseContext database;
+        //private User user;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
+        /*
         public IActionResult Index()
         {
             return View();
@@ -39,6 +42,12 @@ namespace RudesWebapp.Controllers
         }
 
         public IActionResult Register()
+        {
+            return View();
+        }
+        */
+
+        public IActionResult DisplayWebshop()
         {
             return View();
         }

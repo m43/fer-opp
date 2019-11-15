@@ -6,27 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RudesWebapp.Controllers
 {
-    public class WebshopController : Controller
+    public class BoardController : Controller
     {
-        //private Webshop webshop;
-        public IActionResult WebshopStart()
+        //private Board board;
+        public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult FindArticle(string ArticleName)
+        public IActionResult ViewActiveOrders()
         {
             return View();
         }
 
-        public IActionResult ShowFilters()
+        public IActionResult ReceiveOrder(int ID_order)
         {
             return View();
         }
 
-        public IActionResult ShowArticles()
-        {
-            return View();
-        }
     }
 }
