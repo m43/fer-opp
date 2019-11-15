@@ -52,7 +52,7 @@
 			\subsection{Opis tablica}
 			
 
-				\textnormal{Tablica \textbf{Korisnik} opisuje svakog korisnika, klijenta, trenera, upravu ili administratora aplikacije. Sadrži atribute: korisničko ime, ime, prezime, e-mail, hash lozinke, razinu ovlasti, broj mobitela i datum registracije. Povezana je vezom \textit{One-to-Many}  s entitetima Narudžba i Košarica preko korisničkog imena. }
+				\textnormal{Tablica \textbf{Korisnik} opisuje svakog korisnika, klijenta, trenera, upravu ili administratora aplikacije. Sadrži atribute: korisničko ime, ime, prezime, e-mail, hash lozinke, razinu ovlasti, broj mobitela i datum registracije. Povezana je vezom \textit{One-to-Many}  s entitetima Narudžba , Košarica i Recenzija preko korisničkog imena. }
 				
 				\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 					
@@ -118,7 +118,7 @@
 			kupovni\_popust & INT  & kupovni popust artikla  \\ \hline 
 			
 		\end{longtabu}
-		\textnormal{Tablica \textbf{Recenzija} opisuje recenzije ostavljene artiklu u web shop-u. Sadrži atribute: ID , ID artikla, datum, ocjena, komentar, korisničko ime i blokirano. Povezana je vezom \textit{Many-to-One} s entitom Artikl preko ID artikla. }
+		\textnormal{Tablica \textbf{Recenzija} opisuje recenzije ostavljene artiklu u web shop-u. Sadrži atribute: ID , ID artikla, datum, ocjena, komentar, korisničko ime i blokirano. Povezana je vezom \textit{Many-to-One} s entitima Artikl i Korisnik preko ID artikla, odnosno korisničkog imena. }
 	
 	\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 		
@@ -186,7 +186,7 @@
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Slika} opisuje slike dodane na web stranicu.. Sadrži atribute: ID, path, datum. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl i Objava preko ID slike.}
+\textnormal{Tablica \textbf{Slika} opisuje slike dodane na web stranicu.. Sadrži atribute: ID, path, datum. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl, Objava i Igrač preko ID slike.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -335,7 +335,7 @@
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Igrač} opisuje sve igrače. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, ime, prezime, datum rođenja i pozicija.}
+\textnormal{Tablica \textbf{Igrač} opisuje sve igrače. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, ime, prezime, ID slike,datum rođenja i pozicija. Entitet je povezan vezom \textit{Many-to-One} s entitetom Slika.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -353,6 +353,7 @@
 	datum\_izmjene & TIMESTAMP  & datum izmjene igrača \\ \hline 
 	ime & VARCHAR  & ime igrača \\ \hline
 	prezime & VARCHAR  & prezime igrača \\ \hline
+	ID\_slike & INT  & jedinstveni identifikator slike igrača \\ \hline
 	datum\_rodenja & DATE  & datum rođenja igrača \\ \hline 
 	pozicija & VARCHAR  & pozicija igrača \\ \hline
 	
