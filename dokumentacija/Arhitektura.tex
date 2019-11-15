@@ -48,6 +48,7 @@
 			\item Igrač
 		\end{packed_item}
 		
+		\pagebreak
 		
 			\subsection{Opis tablica}
 			
@@ -65,7 +66,7 @@
 					\hline 
 					\endlastfoot
 					
-					\cellcolor {LightGreen} korisnicko\_ime & VARCHAR	&  jedinstveni identifikator korisnika	\\ \hline
+					\textbf{korisnicko\_ime}  & VARCHAR	&  jedinstveni identifikator korisnika	\\ \hline
 					ime	& VARCHAR &   ime korisnika	\\ \hline 
 					prezime & VARCHAR & prezime korisnika \\ \hline
 					e-mail & VARCHAR & e-mail korisnika  \\ \hline 
@@ -90,8 +91,8 @@
 				\hline 
 				\endlastfoot
 				
-				\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator košarice	\\ \hline
-				\cellcolor{LightBlue} korisnicko\_ime	& VARCHAR &   ime korisnika koji koristi košaricu	\\ \hline 
+				\textbf{ID} & INT	&  jedinstveni identifikator košarice	\\ \hline
+				\textit{korisnicko\_ime} 	& VARCHAR &   ime korisnika koji koristi košaricu	\\ \hline 
 				datum& TIMESTAMP & datum kreiranja košarice	\\ \hline 
 				
 			\end{longtabu}
@@ -110,8 +111,8 @@
 			\hline 
 			\endlastfoot
 			
-			\cellcolor {LightGreen} ID\_košarice& INT	&  jedinstveni identifikator košarice	\\ \hline
-			\cellcolor{LightGreen} ID\_artikla	& int &  jedinstveni identifikator artikla	\\ \hline 
+			\textbf{ID\_košarice} & INT	&  jedinstveni identifikator košarice	\\ \hline
+			\textbf{ID\_artikla}	& int &  jedinstveni identifikator artikla	\\ \hline 
 			kolicina & INT  & količina artikla \\ \hline 
 			velicina & VARCHAR  & veličina artikla \\ \hline 
 			kupovna\_cijena & DECIMAL  & kupovna cijena artikla \\ \hline 
@@ -131,8 +132,8 @@
 		\hline 
 		\endlastfoot
 		
-		\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator recenzije	\\ \hline
-		\cellcolor{LightGreen} ID\_artikla	& INT &  jedinstveni identifikator artikla	\\ \hline 
+		\textbf{ID} & INT	&  jedinstveni identifikator recenzije	\\ \hline
+		\textit{ID\_artikla}	& INT &  jedinstveni identifikator artikla	\\ \hline 
 		datum & TIMESTAMP  & datum dodavanja recenzije \\ \hline 
 		ocjena & INT  & ocjena artikla \\ \hline 
 		komentar & VARCHAR  & komentar recenzije \\ \hline 
@@ -154,7 +155,7 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator utakmice	\\ \hline
+	\textbf{ID} & INT	&  jedinstveni identifikator utakmice	\\ \hline
 	datum & TIMESTAMP &  jedinstveni identifikator artikla	\\ \hline 
 	tim\_domacin & VARCHAR  & tim domaćin utakmice \\ \hline 
 	tim\_gost & VARCHAR  & tim gost utakmice  \\ \hline 
@@ -177,8 +178,8 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator popusta	\\ \hline
-	\cellcolor {LightGreen} ID\_artikla & INT &  jedinstveni identifikator artikla	\\ \hline 
+	\textbf{ID} & INT	&  jedinstveni identifikator popusta	\\ \hline
+	\textit{ID\_artikla} & INT &  jedinstveni identifikator artikla	\\ \hline 
 	datum & TIMESTAMP  & datum stvaranja popusta \\ \hline 
 	datum\_pocetka & TIMESTAMP  & datum početka popusta  \\ \hline 
 	datum\_kraja & TIMESTAMP  & datum završetka popusta \\ \hline 
@@ -199,7 +200,7 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator slike	\\ \hline
+	\textbf{ID} & INT	&  jedinstveni identifikator slike	\\ \hline
      path & VARCHAR  &  put do slike	\\ \hline 
 	datum & TIMESTAMP  & datum dodavanja slike \\ \hline 
 \end{longtabu}
@@ -217,14 +218,14 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator artikla	\\ \hline
+	\textbf{ID} & INT	&  jedinstveni identifikator artikla	\\ \hline
 	datum\_dodavanja & TIMESTAMP  & datum dodavanja artikla \\ \hline 
 	datum\_izmjene & TIMESTAMP  & datum posljednje izmjene slike \\ \hline 
 	tip & VARCHAR  & tip artikla \\ \hline 
 	cijena & INT  & cijena artikla \\ \hline 
 	naziv  & VARCHAR  & naziv artikla \\ \hline 
 	opis & VARCHAR  & opis artikla \\ \hline 
-	\cellcolor{LightBlue} ID\_slike & INT  & jedinstveni identifikator slike  \\ \hline 
+	\textit{ID\_slike} & INT  & jedinstveni identifikator slike  \\ \hline 
 	 
 \end{longtabu}
 \textnormal{Tablica \textbf{Narudžba} opisuje narudžbe artikala aplikacije. Sadrži atribute: ID, ID transakcije, korisničko ime, datum, zaprimljenost, adresa, mjesto, poštanski broj. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Narudžbe i Transakcija preko ID narudžbe i vezom \textit{Many-to-One} s entitetom Korisnik preko korisničkog imena.}
@@ -240,9 +241,9 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator narudžbe	\\ \hline
-	\cellcolor {LightBlue} ID\_transakcije & INT  & jedinstveni identifikator transakcije \\ \hline 
-	\cellcolor {LightBlue} korisnicko\_ime & VARCHAR  & korisničko ime korisnika koji naručuje \\ \hline 
+	\textbf{ID} & INT	&  jedinstveni identifikator narudžbe	\\ \hline
+	\textit{ID\_transakcije} & INT  & jedinstveni identifikator transakcije \\ \hline 
+	\textit{korisnicko\_ime} & VARCHAR  & korisničko ime korisnika koji naručuje \\ \hline 
 	datum & TIMESTAMP  & datum formiranja narudžbe\\ \hline 
 	zaprimljenost & BOOLEAN  & oznaka zaprimljenosti narudžbe \\ \hline 
 	adresa  & VARCHAR  & adresa korisnika koji naručuje \\ \hline 
@@ -264,9 +265,9 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator objave	\\ \hline
+	\textbf{ID} & INT	&  jedinstveni identifikator objave	\\ \hline
 	 sadržaj & VARCHAR  & sadržaj objave \\ \hline 
-	\cellcolor {LightBlue} ID\_slike & ID  & jedinstveni identifikator slike  \\ \hline 
+	\textit{ID\_slike} & ID  & jedinstveni identifikator slike  \\ \hline 
 	datum\_objave & TIMESTAMP  & datum postavljanja objave \\ \hline 
 	datum\_izmjene & TIMESTAMP  & datum posljednje izmjene objave \\ \hline
 	vrsta\_objave & VARCHAR  & vrsta objave \\ \hline 
@@ -287,7 +288,7 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID & INT	&  jedinstveni identifikator transakcije	\\ \hline
+	\textbf{ID} & INT	&  jedinstveni identifikator transakcije	\\ \hline
 	datum & TIMESTAMP  & datum obavljanja transakcije  \\ \hline 
 	iznos & DECIMAL  & iznos transakcije \\ \hline
 	kartica & VARCHAR  & kartica transakcije  \\ \hline 
@@ -307,7 +308,7 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID\_artikla & INT	&  jedinstveni identifikator artikla	\\ \hline
+	\textbf{ID\_artikla} & INT	&  jedinstveni identifikator artikla	\\ \hline
 	količina & INT  & količina artikla  \\ \hline 
 	veličina & VARCHAR  & veličina artikla \\ \hline
 	
@@ -326,8 +327,8 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID\_narudzbe & INT	&  jedinstveni identifikator narudžbe	\\ \hline
-	\cellcolor {LightGreen} ID\_artikla & INT	&  jedinstveni identifikator artikla	\\ \hline
+	\textbf{ID\_narudzbe} & INT	&  jedinstveni identifikator narudžbe	\\ \hline
+	\textbf{ID\_artikla} & INT	&  jedinstveni identifikator artikla	\\ \hline
 	količina & INT  & količina artikla  \\ \hline 
 	veličina & VARCHAR  & veličina artikla \\ \hline
 	kupovna\_cijena & DECIMAL  & kupovna cijena  \\ \hline 
@@ -348,7 +349,7 @@
 	\hline 
 	\endlastfoot
 	
-	\cellcolor {LightGreen} ID\_narudzbe & INT	&  jedinstveni identifikator igrača	\\ \hline
+	\textbf{ID\_narudzbe} & INT	&  jedinstveni identifikator igrača	\\ \hline
 	datum\_dodavanja & TIMESTAMP  & datum dodavanja igrača \\ \hline 
 	datum\_izmjene & TIMESTAMP  & datum izmjene igrača \\ \hline 
 	ime & VARCHAR  & ime igrača \\ \hline
@@ -398,13 +399,13 @@
 			\label{fig:ClassDiagram1}
 		\end{figure}
 			
-			\textbf{\textit{dio 1. revizije}}\\
+		%	\textbf{\textit{dio 1. revizije}}\\
 			
-			\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
+		%	\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
 			
-			\textbf{\textit{dio 2. revizije}}\\			
+		%	\textbf{\textit{dio 2. revizije}}\\			
 			
-			\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
+		%	\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
 			
 			
 			
