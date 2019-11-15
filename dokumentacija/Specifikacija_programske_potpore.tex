@@ -27,7 +27,7 @@
 			
 			
 			\begin{packed_enum}
-				\item  \underbar{Neregistrirani/Neprijavljeni korisnik(inicijator) može:}
+				\item  \underbar{Neregistrirani/neprijavljeni korisnik(inicijator) može:}
 				
 				\begin{packed_enum}
 					
@@ -37,7 +37,7 @@
 					\item promijeniti jezik aplikacije				
 				\end{packed_enum}
 			
-				\item  \underbar{Klijent aplikacije može:}
+				\item  \underbar{Klijent (inicijator) aplikacije može:}
 				
 				\begin{packed_enum}
 					
@@ -50,6 +50,7 @@
 					\item koristiti chat uslugu pri gledanju prijenosa uživo
 					
 				\end{packed_enum}
+			\pagebreak
 			\item  \underbar{Trener, odnosno upravitelj kluba (inicijator) može:}
 			
 			\begin{packed_enum}
@@ -72,7 +73,7 @@
 			
 		\end{packed_enum}
 	
-	\item  \underbar{Aministrator aplikacije (inicijator) može:}
+	\item  \underbar{Administrator aplikacije (inicijator) može:}
 	
 	\begin{packed_enum}
 		
@@ -100,6 +101,13 @@
 			
 			
 		\end{packed_enum}
+	
+		\item  \underbar{YouTube (sudionik):}
+		
+		\begin{packed_enum}
+			\item pruža sučelje za dohvaćanje prijenosa utakmice uživo
+		\end{packed_enum}
+		
 			\end{packed_enum}
 			
 			\eject 
@@ -108,7 +116,7 @@
 				
 			\subsection{Obrasci uporabe}
 				
-				
+				\vspace{20px}
 				\textbf{Opis obrazaca uporabe}
 
 				
@@ -116,7 +124,7 @@
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik: } Korisnik, klijent
-					\item  \textbf{Cilj:} Pregledati sadržaj web stranice, uključujući webshop
+					\item  \textbf{Cilj:} Pregledati sadržaj web stranice, uključujući web shop
 					\item  \textbf{Sudionici:} Baza podataka
 					\item  \textbf{Preduvjet:}  - 
 					\item  \textbf{Opis osnovnog tijeka:}
@@ -126,6 +134,8 @@
 						\item Korisnik/klijent pregledava sadržaj (Kontakt, O nama, …) 
 					\end{packed_enum}
 				\end{packed_item}
+				
+				\vspace{10px}
 				
 				\noindent \underbar{\textbf{UC2: Registracija}}
 				\begin{packed_item}
@@ -154,6 +164,8 @@
 					\end{packed_item}
 				\end{packed_item}
 				
+				\pagebreak
+				
 				\noindent \underbar{\textbf{UC3: Prijava u sustav}}
 				\begin{packed_item}
 					
@@ -176,6 +188,8 @@
 						\end{packed_enum}
 					\end{packed_item}
 				\end{packed_item}
+			
+				\vspace{10px}
 				
 				\noindent \underbar{\textbf{UC4: Odjava iz sustava}}
 				\begin{packed_item}
@@ -192,6 +206,8 @@
 					\end{packed_enum}
 				\end{packed_item}
 				
+				\vspace{10px}
+				
 				\noindent \underbar{\textbf{UC5: Pregled osobnih podataka}}
 				\begin{packed_item}
 					
@@ -206,6 +222,8 @@
 						\item Aplikacija nudi prikaz osobnih podataka
 					\end{packed_enum}
 				\end{packed_item}
+				
+				\pagebreak
 				
 				\noindent \underbar{\textbf{UC6: Promjena osobnih podataka}}
 				\begin{packed_item}
@@ -226,7 +244,7 @@
 					\item[] \begin{packed_item}
 						\item[3.a]      Klijent nije spremio promjene
 						\item[] \begin{packed_enum}
-							\item         Sustav obavještava korisnika da nije spremio podatke
+							\item         Sustav obavještava korisnika da nije spremio promjene
 						\end{packed_enum}
 					\end{packed_item}
 				\end{packed_item}
@@ -266,6 +284,9 @@
 					\end{packed_enum}
 				\end{packed_item}
 				
+				\pagebreak
+								
+				
 				\noindent \underbar{\textbf{UC9: Dodavanje novog računa}}
 				\begin{packed_item}
 					
@@ -293,7 +314,7 @@
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
-						\item Korisnik/klijent ulazi u webshop
+						\item Korisnik/klijent ulazi u web shop
 						\item Otvara se pregled ponude
 						\item Korisnik/klijent odabire artikl s veličinom koju želi klikom na “Dodaj u košaricu”
 						\item Artikl se dodaje u košaricu
@@ -306,6 +327,9 @@
 						\end{packed_enum}
 					\end{packed_item}
 				\end{packed_item}
+				
+				\pagebreak
+				
 				
 				\noindent \underbar{\textbf{UC11: Brisanje artikla iz košarice}}
 				\begin{packed_item}
@@ -334,7 +358,7 @@
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
-						\item Korisnik/klijent ulazi u webshop
+						\item Korisnik/klijent ulazi u web shop
 						\item Otvara se pregled ponude
 						\item Korisnik/klijent odabire opciju “Pregled košarice”
 						\item Prikazuje se pregled košarice
@@ -342,6 +366,7 @@
 						\item Podaci se ažuriraju
 					\end{packed_enum}
 				\end{packed_item}
+				
 				
 				\noindent \underbar{\textbf{UC13: Pregled košarice}}
 				\begin{packed_item}
@@ -353,12 +378,14 @@
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
-						\item Korisnik/klijent ulazi u webshop
+						\item Korisnik/klijent ulazi u web shop
 						\item Otvara se pregled ponude
 						\item Korisnik/klijent odabire opciju “Pregled košarice”
 						\item Prikazuje se pregled košarice
 					\end{packed_enum}
 				\end{packed_item}
+			
+				\pagebreak
 				
 				\noindent \underbar{\textbf{UC14: Izmjena količine pojedinog artikla u košarici}}
 				\begin{packed_item}
@@ -370,7 +397,7 @@
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
-						\item Korisnik/klijent ulazi u webshop
+						\item Korisnik/klijent ulazi u web shop
 						\item Otvara se pregled ponude
 						\item Korisnik/klijent odabire opciju “Pregled košarice”
 						\item Prikazuje se pregled košarice
@@ -399,12 +426,12 @@
 					\item[] \begin{packed_item}
 						\item[3.a]      Klijent unosi neispravnu karticu
 						\item[] \begin{packed_enum}
-							\item         1. Sustav obavještava korisnika da je broj kartice neispravan te nudi opciju ponovnog upisa ili odustajanja od narudžbe
+							\item         Sustav obavještava korisnika da je broj kartice neispravan te nudi opciju ponovnog upisa ili odustajanja od narudžbe
 						\end{packed_enum}
 						
 						\item[4.a]      Odustajanje od narudžbe
 						\item[] \begin{packed_enum}
-							\item         Sustav nudi opciju “Jeste li sigurni da želite odustati”
+							\item         Sustav nudi opciju “Jeste li sigurni da želite odustati?”
 						\end{packed_enum}
 						\item[5.a]  Nedovoljan iznos na računu
 						\item[] \begin{packed_enum}
@@ -413,17 +440,19 @@
 					\end{packed_item}
 				\end{packed_item}
 				
+				\pagebreak
+				
 				\noindent \underbar{\textbf{UC16: Recenzija proizvoda}}
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik: } Klijent
-					\item  \textbf{Cilj:} Ocijeniti proizvod u webshopu
+					\item  \textbf{Cilj:} Ocijeniti proizvod u web shopu
 					\item  \textbf{Sudionici:} Baza podataka
 					\item  \textbf{Preduvjet:}  Prijava u sustav, plaćanje proizvoda, potvrda od uprave o dovršenoj narudžbi
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
-						\item Klijent ulazi u webshop
+						\item Klijent ulazi u web shop
 						\item Otvara se pregled ponude
 						\item Klijent odabire artikl i opciju “Ostavi recenziju”
 						\item Klijent upiše ocjenu i recenziju 
@@ -439,6 +468,9 @@
 					\end{packed_item}
 				\end{packed_item}
 				
+				\vspace{10px}
+				
+				
 				\noindent \underbar{\textbf{UC17: Brisanje recenzije}}
 				\begin{packed_item}
 					
@@ -453,6 +485,8 @@
 						\item Ažuriraju se promjene
 					\end{packed_enum}
 				\end{packed_item}
+			
+				\pagebreak
 				
 				\noindent \underbar{\textbf{UC18: Pregled aktivnih narudžbi}}
 				\begin{packed_item}
@@ -460,7 +494,7 @@
 					\item \textbf{Glavni sudionik: } Uprava
 					\item  \textbf{Cilj:} Pregledati aktivne narudžbe
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:}  Prijava u sustav od strane uprave, narudžba je zaprimljena i plaćena
+					\item  \textbf{Preduvjet:} Uprava je prijavljena u sustav, narudžba je zaprimljena i plaćena
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
@@ -475,7 +509,7 @@
 					\item \textbf{Glavni sudionik: } Uprava
 					\item  \textbf{Cilj:} Označiti narudžbu zaprimljenom
 					\item  \textbf{Sudionici:} Baza podataka, klijent
-					\item  \textbf{Preduvjet:}  Prijava u sustav od strane uprave, narudžba je zaprimljena i plaćena
+					\item  \textbf{Preduvjet:}  Uprava je prijavljena u sustav, narudžba je zaprimljena i plaćena
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
@@ -485,17 +519,17 @@
 					\end{packed_enum}
 				\end{packed_item}
 				
-				\noindent \underbar{\textbf{UC20: Dodavanje artikla u webshop}}
+				\noindent \underbar{\textbf{UC20: Dodavanje artikla u web shop}}
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik: } Uprava
-					\item  \textbf{Cilj:} Dodati artikl u webshop
+					\item  \textbf{Cilj:} Dodati artikl u web shop
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:}  Prijava u sustav od strane uprave
+					\item  \textbf{Preduvjet:}  Uprava je prijavljena u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
-						\item Uprava pregledava webshop
+						\item Uprava pregledava web shop
 						\item Uprava odabere opciju “Dodaj artikl”
 						\item Uprava ispunjava podatke vezane uz artikl 
 						\item Promjene se upisuju u bazu podataka
@@ -503,41 +537,45 @@
 					\end{packed_enum}
 				\end{packed_item}
 				
-				\noindent \underbar{\textbf{UC21: Uređivanje artikala u webshopu}}
+				\pagebreak
+				
+				\noindent \underbar{\textbf{UC21: Uređivanje artikala u web shopu}}
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik: } Uprava
 					\item  \textbf{Cilj:} Promijeniti sadržaj artikala
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:} Prijava u sustav od strane uprave
+					\item  \textbf{Preduvjet:} Uprava je prijavljena u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
-						\item Uprava pregledava webshop
+						\item Uprava pregledava web shop
 						\item Uprava odabire opciju “Promijeni podatke” odabranom artiklu 
-						\item Uprava ispunjavaja podatke vezane uz podatke
+						\item Uprava ispunjava podatke vezane uz podatke
+						\item Promjene se upisuju u bazu podataka
+						\item Slanje obavijesti korisnicima
+					\end{packed_enum}
+				\end{packed_item}
+			
+				
+				\noindent \underbar{\textbf{UC22: Dodavanje popusta na web shop}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik: } Uprava
+					\item  \textbf{Cilj:} Dodati popust u web shop
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Uprava je prijavljena u sustav
+					\item  \textbf{Opis osnovnog tijeka:}
+					
+					\item[] \begin{packed_enum}
+						\item Uprava pregledava web shop
+						\item Uprava odabire opciju “Dodaj popust”
+						\item Uprava ispunjava podatke vezane uz popust
 						\item Promjene se upisuju u bazu podataka
 						\item Slanje obavijesti korisnicima
 					\end{packed_enum}
 				\end{packed_item}
 				
-				\noindent \underbar{\textbf{UC22: Dodavanje popusta na webshop}}
-				\begin{packed_item}
-					
-					\item \textbf{Glavni sudionik: } Uprava
-					\item  \textbf{Cilj:} Dodati popust na webshop
-					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:} Prijava u sustav od strane uprave
-					\item  \textbf{Opis osnovnog tijeka:}
-					
-					\item[] \begin{packed_enum}
-						\item Uprava pregledava webshop
-						\item Uprava odabire opciju “Dodaj popust”
-						\item Uprava ispunjavaja podatke vezane uz popust
-						\item Promjene se upisuju u bazu podataka
-						\item Slanje obavijesti korisnicima
-					\end{packed_enum}
-				\end{packed_item}
 				
 				\noindent \underbar{\textbf{UC23: Dodavanje novog igrača}}
 				\begin{packed_item}
@@ -545,7 +583,7 @@
 					\item \textbf{Glavni sudionik: } Trener
 					\item  \textbf{Cilj:} Dodati novog igrača u tim
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:}  Prijava u sustav od strane trenera
+					\item  \textbf{Preduvjet:}  Trener je prijavljena u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
@@ -556,13 +594,16 @@
 					\end{packed_enum}
 				\end{packed_item}
 				
+				\pagebreak
+				
+				
 				\noindent \underbar{\textbf{UC24: Promjena podataka postojećem igraču}}
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik: } Trener
 					\item  \textbf{Cilj:} Promijeniti podatke postojećem igraču
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:}  Prijava u sustav od strane trenera
+					\item  \textbf{Preduvjet:} Trener je prijavljena u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
@@ -573,13 +614,14 @@
 					\end{packed_enum}
 				\end{packed_item}
 				
+				
 				\noindent \underbar{\textbf{UC25: Brisanje igrača}}
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik: } Trener
 					\item  \textbf{Cilj:} Izbrisati igrača iz tima
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:}  Prijava u sustav od strane trenera
+					\item  \textbf{Preduvjet:} Trener je prijavljena u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
@@ -595,7 +637,7 @@
 					\item \textbf{Glavni sudionik: } Trener
 					\item  \textbf{Cilj:} Dodati novi tekstualni sadržaj/sliku
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:}  Prijava u sustav od strane trenera
+					\item  \textbf{Preduvjet:} Trener je prijavljen u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
@@ -606,22 +648,25 @@
 					\end{packed_enum}
 				\end{packed_item}
 				
+				\pagebreak
+				
 				\noindent \underbar{\textbf{UC27: Uređivanje postojećeg sadržaja}}
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik: } Trener
 					\item  \textbf{Cilj:} Promijeniti već postojeći sadržaj
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:} Prijava u sustav od strane trenera
+					\item  \textbf{Preduvjet:} Trener je prijavljen u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
 						\item Trener pregledava sadržaj
 						\item Trener odabere opciju “Uredi”
-						\item Trener ispunjavaju podatke koje žele izmijeniti
-						\item  Promjene se upisuju u bazu podataka
+						\item Trener ispunjava podatke koje želi izmijeniti
+						\item Promjene se upisuju u bazu podataka
 					\end{packed_enum}
 				\end{packed_item}
+				
 				
 				\noindent \underbar{\textbf{UC28: Brisanje postojećeg sadržaja}}
 				\begin{packed_item}
@@ -629,7 +674,7 @@
 					\item \textbf{Glavni sudionik: } Trener
 					\item  \textbf{Cilj:} Obrisati stvoreni sadržaj
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:} Prijava u sustav od strane trenera
+					\item  \textbf{Preduvjet:} Trener je prijavljen u sustav
 					\item  \textbf{Opis osnovnog tijeka:}
 					
 					\item[] \begin{packed_enum}
@@ -654,6 +699,9 @@
 						\item Prikazuje se stranica na odabranom jeziku
 					\end{packed_enum}
 				\end{packed_item}
+				
+				\pagebreak
+				
 				
 				\noindent \underbar{\textbf{UC30: Pregled klijenata}}
 				\begin{packed_item}
@@ -696,7 +744,7 @@
 					
 					\item[] \begin{packed_enum}
 						\item Klijent pronalazi sekciju “Streaming”
-						\item Ako je u tijeku utakmica prikaže se prijenos, inače informacije o budućim prijenosu
+						\item Ako je u tijeku utakmica prikaže se prijenos, inače informacije o budućem prijenosu
 					\end{packed_enum}
 				\end{packed_item}
 				
