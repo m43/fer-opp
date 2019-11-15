@@ -1,10 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace RudesWebapp.Models
 {
-    public partial class RudesDatabaseContext : DbContext
+    public partial class RudesDatabaseContext : IdentityDbContext<User>
     {
         public RudesDatabaseContext()
         {
@@ -30,17 +32,11 @@ namespace RudesWebapp.Models
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<User> User { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(LocalDB)\\rudes;Database=RudesBaza;Integrated Security=True");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder); // TODO not sure if needed
+
             modelBuilder.Entity<Article>(entity =>
             {
                 entity.ToTable("article");
@@ -187,8 +183,8 @@ namespace RudesWebapp.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Adress)
-                    .HasColumnName("adress")
+                entity.Property(e => e.Address)
+                    .HasColumnName("address")
                     .HasMaxLength(255);
 
                 entity.Property(e => e.City)
@@ -206,8 +202,8 @@ namespace RudesWebapp.Models
                 entity.Property(e => e.PostalCode).HasColumnName("postal_code");
 
                 entity.Property(e => e.Username)
-                    .HasColumnName("username")
-                    .HasMaxLength(255);
+                    .HasColumnName("username");
+                    //.HasMaxLength(255);
 
                 entity.HasOne(d => d.IdTransactionNavigation)
                     .WithMany(p => p.Order)
@@ -351,8 +347,8 @@ namespace RudesWebapp.Models
                 entity.Property(e => e.Rating).HasColumnName("rating");
 
                 entity.Property(e => e.Username)
-                    .HasColumnName("username")
-                    .HasMaxLength(255);
+                    .HasColumnName("username");
+                    //.HasMaxLength(255);
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Review)
@@ -372,8 +368,8 @@ namespace RudesWebapp.Models
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Username)
-                    .HasColumnName("username")
-                    .HasMaxLength(255);
+                    .HasColumnName("username");
+                    //.HasMaxLength(255);
 
                 entity.HasOne(d => d.UsernameNavigation)
                     .WithMany(p => p.ShoppingCart)
@@ -436,47 +432,47 @@ namespace RudesWebapp.Models
                     .HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasKey(e => e.Username)
-                    .HasName("PK__user__F3DBC57307D3AF22");
-
-                entity.ToTable("user");
-
-                entity.HasIndex(e => e.Email)
-                    .HasName("UQ__user__AB6E61640B9CFCFF")
-                    .IsUnique();
-
-                entity.Property(e => e.Username)
-                    .HasColumnName("username")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.LastName)
-                    .HasColumnName("last_name")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.PasswordHash)
-                    .HasColumnName("password_hash")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.PhoneNumber)
-                    .HasColumnName("phone_number")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.RegistrationDate)
-                    .HasColumnName("registration_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.Role).HasColumnName("role");
-            });
+//            modelBuilder.Entity<User>(entity =>
+//            {
+//                entity.HasKey(e => e.Username)
+//                    .HasName("PK__user__F3DBC57307D3AF22");
+//
+//                entity.ToTable("user");
+//
+//                entity.HasIndex(e => e.Email)
+//                    .HasName("UQ__user__AB6E61640B9CFCFF")
+//                    .IsUnique();
+//
+//                entity.Property(e => e.Username)
+//                    .HasColumnName("username")
+//                    .HasMaxLength(255);
+//
+//                entity.Property(e => e.Email)
+//                    .HasColumnName("email")
+//                    .HasMaxLength(255);
+//
+//                entity.Property(e => e.LastName)
+//                    .HasColumnName("last_name")
+//                    .HasMaxLength(255);
+//
+//                entity.Property(e => e.Name)
+//                    .HasColumnName("name")
+//                    .HasMaxLength(255);
+//
+//                entity.Property(e => e.PasswordHash)
+//                    .HasColumnName("password_hash")
+//                    .HasMaxLength(255);
+//
+//                entity.Property(e => e.PhoneNumber)
+//                    .HasColumnName("phone_number")
+//                    .HasMaxLength(255);
+//
+//                entity.Property(e => e.RegistrationDate)
+//                    .HasColumnName("registration_date")
+//                    .HasColumnType("datetime");
+//
+//                entity.Property(e => e.Role).HasColumnName("role");
+//            });
 
             OnModelCreatingPartial(modelBuilder);
         }
