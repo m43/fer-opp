@@ -281,6 +281,15 @@ namespace RudesWebapp.Models
                 entity.Property(e => e.Position)
                     .HasColumnName("position")
                     .HasMaxLength(255);
+
+                entity.Property(e => e.ImageId).HasColumnName("image_ID");
+
+                entity.HasOne(d => d.Image)
+                    .WithMany(p => p.Player)
+                    .HasForeignKey(d => d.ImageId)
+                    .HasConstraintName("FK__player__image_ID__03122019M43");
+
+
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -355,6 +364,12 @@ namespace RudesWebapp.Models
                     .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__review__article___45F365D3");
+
+                entity.HasOne(d => d.UsernameNavigation)
+                    .WithMany(p => p.Review)
+                    .HasForeignKey(d => d.Username)
+                    .HasConstraintName("FK__review___usern__03122019M43");
+
             });
 
             modelBuilder.Entity<ShoppingCart>(entity =>
@@ -431,48 +446,6 @@ namespace RudesWebapp.Models
                     .HasColumnName("date")
                     .HasColumnType("datetime");
             });
-
-//            modelBuilder.Entity<User>(entity =>
-//            {
-//                entity.HasKey(e => e.Username)
-//                    .HasName("PK__user__F3DBC57307D3AF22");
-//
-//                entity.ToTable("user");
-//
-//                entity.HasIndex(e => e.Email)
-//                    .HasName("UQ__user__AB6E61640B9CFCFF")
-//                    .IsUnique();
-//
-//                entity.Property(e => e.Username)
-//                    .HasColumnName("username")
-//                    .HasMaxLength(255);
-//
-//                entity.Property(e => e.Email)
-//                    .HasColumnName("email")
-//                    .HasMaxLength(255);
-//
-//                entity.Property(e => e.LastName)
-//                    .HasColumnName("last_name")
-//                    .HasMaxLength(255);
-//
-//                entity.Property(e => e.Name)
-//                    .HasColumnName("name")
-//                    .HasMaxLength(255);
-//
-//                entity.Property(e => e.PasswordHash)
-//                    .HasColumnName("password_hash")
-//                    .HasMaxLength(255);
-//
-//                entity.Property(e => e.PhoneNumber)
-//                    .HasColumnName("phone_number")
-//                    .HasMaxLength(255);
-//
-//                entity.Property(e => e.RegistrationDate)
-//                    .HasColumnName("registration_date")
-//                    .HasColumnType("datetime");
-//
-//                entity.Property(e => e.Role).HasColumnName("role");
-//            });
 
             OnModelCreatingPartial(modelBuilder);
         }

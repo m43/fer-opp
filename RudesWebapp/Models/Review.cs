@@ -13,6 +13,7 @@ namespace RudesWebapp.Models
         public string Username { get; set; }
         public bool? Blocked { get; set; }
 
+        public virtual User UsernameNavigation { get; set; }
         public virtual Article Article { get; set; }
     }
 }

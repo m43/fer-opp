@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RudesWebapp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,10 @@ namespace RudesWebapp.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    RegistrationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,24 +82,6 @@ namespace RudesWebapp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "player",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    creation_date = table.Column<DateTime>(type: "datetime", nullable: true),
-                    last_modification_date = table.Column<DateTime>(type: "datetime", nullable: true),
-                    name = table.Column<string>(maxLength: 255, nullable: true),
-                    last_name = table.Column<string>(maxLength: 255, nullable: true),
-                    birth_date = table.Column<DateTime>(type: "date", nullable: true),
-                    position = table.Column<string>(maxLength: 255, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_player", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "transaction",
                 columns: table => new
                 {
@@ -109,24 +94,6 @@ namespace RudesWebapp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_transaction", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "user",
-                columns: table => new
-                {
-                    username = table.Column<string>(maxLength: 255, nullable: false),
-                    name = table.Column<string>(maxLength: 255, nullable: true),
-                    last_name = table.Column<string>(maxLength: 255, nullable: true),
-                    email = table.Column<string>(maxLength: 255, nullable: true),
-                    password_hash = table.Column<string>(maxLength: 255, nullable: true),
-                    role = table.Column<int>(nullable: true),
-                    phone_number = table.Column<string>(maxLength: 255, nullable: true),
-                    registration_date = table.Column<DateTime>(type: "datetime", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__user__F3DBC57307D3AF22", x => x.username);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,6 +203,26 @@ namespace RudesWebapp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "shopping_cart",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    username = table.Column<string>(nullable: true),
+                    date = table.Column<DateTime>(type: "datetime", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shopping_cart", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK__shopping___usern__440B1D61",
+                        column: x => x.username,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "article",
                 columns: table => new
                 {
@@ -254,6 +241,31 @@ namespace RudesWebapp.Migrations
                     table.PrimaryKey("PK_article", x => x.ID);
                     table.ForeignKey(
                         name: "FK__article__image_I__46E78A0C",
+                        column: x => x.image_ID,
+                        principalTable: "image",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "player",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    creation_date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    last_modification_date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    name = table.Column<string>(maxLength: 255, nullable: true),
+                    last_name = table.Column<string>(maxLength: 255, nullable: true),
+                    birth_date = table.Column<DateTime>(type: "date", nullable: true),
+                    position = table.Column<string>(maxLength: 255, nullable: true),
+                    image_ID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_player", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK__player__image_ID__03122019M43",
                         column: x => x.image_ID,
                         principalTable: "image",
                         principalColumn: "ID",
@@ -292,10 +304,10 @@ namespace RudesWebapp.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ID_transaction = table.Column<int>(nullable: true),
-                    username = table.Column<string>(maxLength: 255, nullable: true),
+                    username = table.Column<string>(nullable: true),
                     date = table.Column<DateTime>(type: "datetime", nullable: true),
                     fulfilled = table.Column<bool>(nullable: true),
-                    adress = table.Column<string>(maxLength: 255, nullable: true),
+                    address = table.Column<string>(maxLength: 255, nullable: true),
                     city = table.Column<string>(maxLength: 255, nullable: true),
                     postal_code = table.Column<int>(nullable: true)
                 },
@@ -311,28 +323,8 @@ namespace RudesWebapp.Migrations
                     table.ForeignKey(
                         name: "FK__order__username__3D5E1FD2",
                         column: x => x.username,
-                        principalTable: "user",
-                        principalColumn: "username",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "shopping_cart",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    username = table.Column<string>(maxLength: 255, nullable: true),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_shopping_cart", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK__shopping___usern__440B1D61",
-                        column: x => x.username,
-                        principalTable: "user",
-                        principalColumn: "username",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -388,7 +380,7 @@ namespace RudesWebapp.Migrations
                     date = table.Column<DateTime>(type: "datetime", nullable: true),
                     rating = table.Column<int>(nullable: true),
                     comment = table.Column<string>(maxLength: 255, nullable: true),
-                    username = table.Column<string>(maxLength: 255, nullable: true),
+                    username = table.Column<string>(nullable: true),
                     blocked = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
@@ -398,6 +390,40 @@ namespace RudesWebapp.Migrations
                         name: "FK__review__article___45F365D3",
                         column: x => x.article_ID,
                         principalTable: "article",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK__review___usern__03122019M43",
+                        column: x => x.username,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "shopping_cart_article",
+                columns: table => new
+                {
+                    shopping_cart_ID = table.Column<int>(nullable: false),
+                    article_ID = table.Column<int>(nullable: false),
+                    quantity = table.Column<int>(nullable: true),
+                    size = table.Column<string>(maxLength: 255, nullable: true),
+                    purchase_price = table.Column<decimal>(type: "decimal(18, 0)", nullable: true),
+                    purchase_discount = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__shopping__B7E583C151B3360B", x => new { x.shopping_cart_ID, x.article_ID });
+                    table.ForeignKey(
+                        name: "FK__shopping___artic__4222D4EF",
+                        column: x => x.article_ID,
+                        principalTable: "article",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK__shopping___shopp__4316F928",
+                        column: x => x.shopping_cart_ID,
+                        principalTable: "shopping_cart",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -426,34 +452,6 @@ namespace RudesWebapp.Migrations
                         name: "FK__order_art__order__412EB0B6",
                         column: x => x.order_ID,
                         principalTable: "order",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "shopping_cart_article",
-                columns: table => new
-                {
-                    shopping_cart_ID = table.Column<int>(nullable: false),
-                    article_ID = table.Column<int>(nullable: false),
-                    quantity = table.Column<int>(nullable: true),
-                    size = table.Column<string>(maxLength: 255, nullable: true),
-                    purchase_price = table.Column<decimal>(type: "decimal(18, 0)", nullable: true),
-                    purchase_discount = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__shopping__B7E583C151B3360B", x => new { x.shopping_cart_ID, x.article_ID });
-                    table.ForeignKey(
-                        name: "FK__shopping___artic__4222D4EF",
-                        column: x => x.article_ID,
-                        principalTable: "article",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK__shopping___shopp__4316F928",
-                        column: x => x.shopping_cart_ID,
-                        principalTable: "shopping_cart",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -523,6 +521,11 @@ namespace RudesWebapp.Migrations
                 column: "article_ID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_player_image_ID",
+                table: "player",
+                column: "image_ID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_post_image_ID",
                 table: "post",
                 column: "image_ID");
@@ -533,6 +536,11 @@ namespace RudesWebapp.Migrations
                 column: "article_ID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_review_username",
+                table: "review",
+                column: "username");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_shopping_cart_username",
                 table: "shopping_cart",
                 column: "username");
@@ -541,13 +549,6 @@ namespace RudesWebapp.Migrations
                 name: "IX_shopping_cart_article_article_ID",
                 table: "shopping_cart_article",
                 column: "article_ID");
-
-            migrationBuilder.CreateIndex(
-                name: "UQ__user__AB6E61640B9CFCFF",
-                table: "user",
-                column: "email",
-                unique: true,
-                filter: "[email] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -595,9 +596,6 @@ namespace RudesWebapp.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "order");
 
             migrationBuilder.DropTable(
@@ -613,7 +611,7 @@ namespace RudesWebapp.Migrations
                 name: "image");
 
             migrationBuilder.DropTable(
-                name: "user");
+                name: "AspNetUsers");
         }
     }
 }

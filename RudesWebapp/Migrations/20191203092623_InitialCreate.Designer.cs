@@ -10,8 +10,8 @@ using RudesWebapp.Models;
 namespace RudesWebapp.Migrations
 {
     [DbContext(typeof(RudesDatabaseContext))]
-    [Migration("20191108234430_Initial")]
-    partial class Initial
+    [Migration("20191203092623_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,71 +70,6 @@ namespace RudesWebapp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -396,8 +331,8 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Adress")
-                        .HasColumnName("adress")
+                    b.Property<string>("Address")
+                        .HasColumnName("address")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
@@ -424,8 +359,7 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Username")
                         .HasColumnName("username")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -487,6 +421,10 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("creation_date")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnName("image_ID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnName("last_modification_date")
                         .HasColumnType("datetime");
@@ -507,6 +445,8 @@ namespace RudesWebapp.Migrations
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("player");
                 });
@@ -587,13 +527,14 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Username")
                         .HasColumnName("username")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id", "ArticleId")
                         .HasName("PK__review__AED793010ECF51E0");
 
                     b.HasIndex("ArticleId");
+
+                    b.HasIndex("Username");
 
                     b.ToTable("review");
                 });
@@ -612,8 +553,7 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Username")
                         .HasColumnName("username")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -685,53 +625,76 @@ namespace RudesWebapp.Migrations
 
             modelBuilder.Entity("RudesWebapp.Models.User", b =>
                 {
-                    b.Property<string>("Username")
-                        .HasColumnName("username")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Email")
-                        .HasColumnName("email")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("LastName")
-                        .HasColumnName("last_name")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnName("password_hash")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnName("phone_number")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime?>("RegistrationDate")
-                        .HasColumnName("registration_date")
-                        .HasColumnType("datetime");
-
-                    b.Property<int?>("Role")
-                        .HasColumnName("role")
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.HasKey("Username")
-                        .HasName("PK__user__F3DBC57307D3AF22");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("Email")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UQ__user__AB6E61640B9CFCFF")
-                        .HasFilter("[email] IS NOT NULL");
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("user");
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -745,7 +708,7 @@ namespace RudesWebapp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("RudesWebapp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -754,7 +717,7 @@ namespace RudesWebapp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("RudesWebapp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -769,7 +732,7 @@ namespace RudesWebapp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("RudesWebapp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -778,7 +741,7 @@ namespace RudesWebapp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("RudesWebapp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -839,6 +802,14 @@ namespace RudesWebapp.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RudesWebapp.Models.Player", b =>
+                {
+                    b.HasOne("RudesWebapp.Models.Image", "Image")
+                        .WithMany("Player")
+                        .HasForeignKey("ImageId")
+                        .HasConstraintName("FK__player__image_ID__03122019M43");
+                });
+
             modelBuilder.Entity("RudesWebapp.Models.Post", b =>
                 {
                     b.HasOne("RudesWebapp.Models.Image", "Image")
@@ -854,6 +825,11 @@ namespace RudesWebapp.Migrations
                         .HasForeignKey("ArticleId")
                         .HasConstraintName("FK__review__article___45F365D3")
                         .IsRequired();
+
+                    b.HasOne("RudesWebapp.Models.User", "UsernameNavigation")
+                        .WithMany("Review")
+                        .HasForeignKey("Username")
+                        .HasConstraintName("FK__review___usern__03122019M43");
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.ShoppingCart", b =>

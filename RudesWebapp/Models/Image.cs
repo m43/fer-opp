@@ -9,6 +9,7 @@ namespace RudesWebapp.Models
         {
             Article = new HashSet<Article>();
             Post = new HashSet<Post>();
+            Player = new HashSet<Player>();
         }
 
         public int Id { get; set; }
@@ -17,5 +18,7 @@ namespace RudesWebapp.Models
 
         public virtual ICollection<Article> Article { get; set; }
         public virtual ICollection<Post> Post { get; set; }
+        public virtual ICollection<Player> Player { get; set; }
+
     }
 }

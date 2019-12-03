@@ -419,6 +419,10 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("creation_date")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnName("image_ID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnName("last_modification_date")
                         .HasColumnType("datetime");
@@ -439,6 +443,8 @@ namespace RudesWebapp.Migrations
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("player");
                 });
@@ -519,12 +525,14 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Username")
                         .HasColumnName("username")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id", "ArticleId")
                         .HasName("PK__review__AED793010ECF51E0");
 
                     b.HasIndex("ArticleId");
+
+                    b.HasIndex("Username");
 
                     b.ToTable("review");
                 });
@@ -792,6 +800,14 @@ namespace RudesWebapp.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RudesWebapp.Models.Player", b =>
+                {
+                    b.HasOne("RudesWebapp.Models.Image", "Image")
+                        .WithMany("Player")
+                        .HasForeignKey("ImageId")
+                        .HasConstraintName("FK__player__image_ID__03122019M43");
+                });
+
             modelBuilder.Entity("RudesWebapp.Models.Post", b =>
                 {
                     b.HasOne("RudesWebapp.Models.Image", "Image")
@@ -807,6 +823,11 @@ namespace RudesWebapp.Migrations
                         .HasForeignKey("ArticleId")
                         .HasConstraintName("FK__review__article___45F365D3")
                         .IsRequired();
+
+                    b.HasOne("RudesWebapp.Models.User", "UsernameNavigation")
+                        .WithMany("Review")
+                        .HasForeignKey("Username")
+                        .HasConstraintName("FK__review___usern__03122019M43");
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.ShoppingCart", b =>

@@ -12,5 +12,8 @@ namespace RudesWebapp.Models
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public string Position { get; set; }
+        public int? ImageId { get; set; }
+        public virtual Image Image { get; set; }
+
     }
 }
