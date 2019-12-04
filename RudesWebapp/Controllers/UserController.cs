@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
@@ -8,10 +11,11 @@ namespace RudesWebapp.Controllers
     public class UserController : Controller
     {
         private User user;
+        private RudesDatabaseContext _context;
 
-        public UserController()
+        public UserController(RudesDatabaseContext context)
         {
-           
+            _context = context;
         }
 
         public IActionResult ViewData()
