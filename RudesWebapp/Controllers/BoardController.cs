@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RudesWebapp.Data;
 using RudesWebapp.Models;
 
-//[Authorize(Roles = "BoardMember")]
 namespace RudesWebapp.Controllers
 {
+    [Authorize(Roles = "Admin, Board")]
     public class BoardController : Controller
     {
-        private User board_member;
         private RudesDatabaseContext _context;
 
         public BoardController(RudesDatabaseContext context)

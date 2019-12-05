@@ -1,21 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Models;
 
-//[Authorize(Roles = "Admin")]
 namespace RudesWebapp.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private User admin;
         private RudesDatabaseContext _context;
+        private RoleManager<IdentityRole> _roleManager;
+        private UserManager<User> _userManager;
 
-        public AdminController(RudesDatabaseContext context)
+        public AdminController(RudesDatabaseContext context, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -88,5 +95,34 @@ namespace RudesWebapp.Controllers
 
             return User;
         }
+
+        
+        [HttpPut]
+        public async Task AssignRole(User user, IdentityRole role)
+        {
+            // Check if the role exists
+            var roleCheck = await _roleManager.RoleExistsAsync(role.Name);
+            if (roleCheck == false)
+            {
+                return; // privremeno
+            }
+
+            // Check if the user exists
+            var userCheck = await _userManager.GetUserIdAsync(user);
+            if (userCheck == null)
+            {
+                return;  // privremeno
+            }
+
+            // Check if the user has already been assigned the specified role
+            var userRoleCheck = await _userManager.IsInRoleAsync(user, role.Name);
+            if (userRoleCheck == false)
+            {
+                return;       // privremeno, dok ne napravimo nove Exception-e za nase potrebe
+            }
+
+            await _userManager.AddToRoleAsync(user, role.Name);
+        }
+        
     }
 }

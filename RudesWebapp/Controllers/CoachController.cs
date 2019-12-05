@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Models;
 
-//[Authorize(Roles = "Coach")]
 namespace RudesWebapp.Controllers
 {
+    [Authorize(Roles = "Admin, Board, Coach")]
     public class CoachController : Controller
     {
-        private User coach;
         private RudesDatabaseContext _context;
 
         public CoachController(RudesDatabaseContext context)

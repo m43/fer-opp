@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
@@ -8,6 +9,7 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
+    [Authorize(Roles = "Admin, Board, Coach, User")]
     public class WebshopController : Controller
     {
         private RudesDatabaseContext _context;
@@ -38,7 +40,6 @@ namespace RudesWebapp.Controllers
         [HttpGet]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
-            Console.WriteLine("FRANO: ", id);
             var article = await _context.Article.FindAsync(1);
 
             if (article == null)
@@ -156,7 +157,7 @@ namespace RudesWebapp.Controllers
             return await _context.Discount.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<Discount>> GetDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);
