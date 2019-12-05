@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers

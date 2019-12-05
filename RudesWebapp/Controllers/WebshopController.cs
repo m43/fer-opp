@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
@@ -50,7 +51,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Article>> PostArticle(Article article)
+        public async Task<ActionResult<Article>> AddArticle(Article article)
         {
             _context.Article.Add(article);
             await _context.SaveChangesAsync();
@@ -59,7 +60,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Article>> PutArticle(int id, Article article)
+        public async Task<ActionResult<Article>> UpdateArticle(int id, Article article)
         {
             if (id != article.Id)
             {
@@ -89,7 +90,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<Article>> DeleteArticle(int id)
+        public async Task<ActionResult<Article>> RemoveArticle(int id)
         {
             var article = await _context.Article.FindAsync(id);
             if (article == null)
@@ -111,7 +112,7 @@ namespace RudesWebapp.Controllers
             return await _context.Image.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<Image>> GetImage(int id)
         {
             var image = await _context.Image.FindAsync(id);
@@ -125,42 +126,12 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Image>> PostImage(Image image)
+        public async Task<ActionResult<Image>> UploadImage(Image image)
         {
             _context.Image.Add(image);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetImage", new { id = image.Id }, image);
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<Image>> PutImage(int id, Image image)
-        {
-            if (id != image.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(image).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var image_from_database = await _context.Image.FindAsync(id);
-                if (image_from_database == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         [HttpDelete]
@@ -200,7 +171,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Discount>> PostDiscount(Discount discount)
+        public async Task<ActionResult<Discount>> AddDiscount(Discount discount)
         {
             _context.Discount.Add(discount);
             await _context.SaveChangesAsync();
@@ -209,7 +180,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Discount>> PutDiscount(int id, Discount discount)
+        public async Task<ActionResult<Discount>> UpdateDiscount(int id, Discount discount)
         {
             if (id != discount.Id)
             {
@@ -239,7 +210,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<Discount>> DeleteDiscount(int id)
+        public async Task<ActionResult<Discount>> RemoveDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);
             if (discount == null)
@@ -275,7 +246,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review review)
+        public async Task<ActionResult<Review>> AddReview(Review review)
         {
             _context.Review.Add(review);
             await _context.SaveChangesAsync();
@@ -284,7 +255,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Review>> PutReview(int id, Review review)
+        public async Task<ActionResult<Review>> UpdateReview(int id, Review review)
         {
             if (id != review.Id)
             {
@@ -343,17 +314,8 @@ namespace RudesWebapp.Controllers
             return shoppingCart;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ShoppingCart>> PostShoppingCart(ShoppingCart shoppingCart)
-        {
-            _context.ShoppingCart.Add(shoppingCart);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetShoppingCart", new { id = shoppingCart.Id }, shoppingCart);
-        }
-
         [HttpPut]
-        public async Task<ActionResult<ShoppingCart>> PutShoppingCart(int id, ShoppingCart shoppingCart)
+        public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(int id, ShoppingCart shoppingCart)
         {
             if (id != shoppingCart.Id)
             {
@@ -382,21 +344,6 @@ namespace RudesWebapp.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<ShoppingCart>> DeleteShoppingCart(int id)
-        {
-            var shoppingCart = await _context.ShoppingCart.FindAsync(id);
-            if (shoppingCart == null)
-            {
-                return NotFound();
-            }
-
-            _context.ShoppingCart.Remove(shoppingCart);
-            await _context.SaveChangesAsync();
-
-            return shoppingCart;
-        }
-
         // Order
 
         [HttpGet]
@@ -419,7 +366,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
@@ -428,7 +375,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Order>> PutOrder(int id, Order order)
+        public async Task<ActionResult<Order>> UpdateOrder(int id, Order order)
         {
             if (id != order.Id)
             {
@@ -494,7 +441,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Transaction>> PostTransaction(Transaction transaction)
+        public async Task<ActionResult<Transaction>> CreateTransaction(Transaction transaction)
         {
             _context.Transaction.Add(transaction);
             await _context.SaveChangesAsync();
@@ -503,7 +450,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Transaction>> PutTransaction(int id, Transaction transaction)
+        public async Task<ActionResult<Transaction>> UpdateTransaction(int id, Transaction transaction)
         {
             if (id != transaction.Id)
             {
