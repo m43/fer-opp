@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using RudesWebapp.Data;
 using RudesWebapp.Models;
 
@@ -58,6 +53,5 @@ namespace RudesWebapp.Controllers
         {
             return View();
         }
-
     }
 }

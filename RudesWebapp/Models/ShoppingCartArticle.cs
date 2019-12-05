@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace RudesWebapp.Models
+﻿namespace RudesWebapp.Models
 {
     public partial class ShoppingCartArticle
     {

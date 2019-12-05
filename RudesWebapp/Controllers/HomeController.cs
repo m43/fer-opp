@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +12,7 @@ namespace RudesWebapp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
         private RudesDatabaseContext _context;
         //private User user;
 
@@ -21,7 +20,7 @@ namespace RudesWebapp.Controllers
         {
             _logger = logger;
         }
-        
+
         public IActionResult Index()
         {
             return View();
@@ -45,7 +44,7 @@ namespace RudesWebapp.Controllers
         public IActionResult Register()
         {
             return View();
-        }        
+        }
 
         public IActionResult DisplayWebshop()
         {
@@ -55,7 +54,7 @@ namespace RudesWebapp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
         // Post
@@ -85,7 +84,7 @@ namespace RudesWebapp.Controllers
             _context.Post.Add(post);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPost", new { id = post.Id }, post);
+            return CreatedAtAction("GetPost", new {id = post.Id}, post);
         }
 
         [HttpPut]

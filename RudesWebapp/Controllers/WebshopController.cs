@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +40,7 @@ namespace RudesWebapp.Controllers
         {
             Console.WriteLine("FRANO: ", id);
             var article = await _context.Article.FindAsync(1);
-            
+
             if (article == null)
             {
                 return NotFound();
@@ -56,7 +55,7 @@ namespace RudesWebapp.Controllers
             _context.Article.Add(article);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetArticle", new { id = article.Id }, article);
+            return CreatedAtAction("GetArticle", new {id = article.Id}, article);
         }
 
         [HttpPut]
@@ -131,7 +130,7 @@ namespace RudesWebapp.Controllers
             _context.Image.Add(image);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetImage", new { id = image.Id }, image);
+            return CreatedAtAction("GetImage", new {id = image.Id}, image);
         }
 
         [HttpDelete]
@@ -176,7 +175,7 @@ namespace RudesWebapp.Controllers
             _context.Discount.Add(discount);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscount", new { id = discount.Id }, discount);
+            return CreatedAtAction("GetDiscount", new {id = discount.Id}, discount);
         }
 
         [HttpPut]
@@ -251,7 +250,7 @@ namespace RudesWebapp.Controllers
             _context.Review.Add(review);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReview", new { id = review.Id }, review);
+            return CreatedAtAction("GetReview", new {id = review.Id}, review);
         }
 
         [HttpPut]
@@ -371,7 +370,7 @@ namespace RudesWebapp.Controllers
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+            return CreatedAtAction("GetOrder", new {id = order.Id}, order);
         }
 
         [HttpPut]
@@ -446,7 +445,7 @@ namespace RudesWebapp.Controllers
             _context.Transaction.Add(transaction);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTransaction", new { id = transaction.Id }, transaction);
+            return CreatedAtAction("GetTransaction", new {id = transaction.Id}, transaction);
         }
 
         [HttpPut]
@@ -493,6 +492,5 @@ namespace RudesWebapp.Controllers
 
             return transaction;
         }
-
     }
 }

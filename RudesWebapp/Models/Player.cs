@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace RudesWebapp.Models
 {
@@ -14,6 +13,5 @@ namespace RudesWebapp.Models
         public string Position { get; set; }
         public int? ImageId { get; set; }
         public virtual Image Image { get; set; }
-
     }
 }

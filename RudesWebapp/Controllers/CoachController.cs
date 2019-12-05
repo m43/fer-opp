@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -69,7 +67,7 @@ namespace RudesWebapp.Controllers
             _context.Player.Add(player);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlayer", new { id = player.Id }, player);
+            return CreatedAtAction("GetPlayer", new {id = player.Id}, player);
         }
 
         [HttpPut]
@@ -116,6 +114,5 @@ namespace RudesWebapp.Controllers
 
             return player;
         }
-
     }
 }
