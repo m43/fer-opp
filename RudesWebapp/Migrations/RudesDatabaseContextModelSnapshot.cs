@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RudesWebapp.Models;
+using RudesWebapp.Data;
 
 namespace RudesWebapp.Migrations
 {
@@ -163,6 +163,7 @@ namespace RudesWebapp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreationDate")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("creation_date")
                         .HasColumnType("datetime");
 
@@ -176,6 +177,7 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModificationDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("last_modification_date")
                         .HasColumnType("datetime");
 
@@ -206,17 +208,17 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("article_ID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Quantity")
-                        .HasColumnName("quantity")
-                        .HasColumnType("int");
-
                     b.Property<string>("Size")
                         .HasColumnName("size")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.HasKey("ArticleId")
-                        .HasName("PK__article___CC37F2680A55149B");
+                    b.Property<int?>("Quantity")
+                        .HasColumnName("quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ArticleId", "Size")
+                        .HasName("PK__ArticleAvailability___CC37F2680A55149B");
 
                     b.ToTable("article_availability");
                 });
@@ -459,8 +461,7 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Content")
                         .HasColumnName("content")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnName("end_date")
@@ -486,6 +487,10 @@ namespace RudesWebapp.Migrations
                     b.Property<DateTime?>("StartDate")
                         .HasColumnName("start_date")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("Title")
+                        .HasColumnName("title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -757,8 +762,8 @@ namespace RudesWebapp.Migrations
             modelBuilder.Entity("RudesWebapp.Models.ArticleAvailability", b =>
                 {
                     b.HasOne("RudesWebapp.Models.Article", "Article")
-                        .WithOne("ArticleAvailability")
-                        .HasForeignKey("RudesWebapp.Models.ArticleAvailability", "ArticleId")
+                        .WithMany("ArticleAvailability")
+                        .HasForeignKey("ArticleId")
                         .HasConstraintName("FK__article_a__artic__403A8C7D")
                         .IsRequired();
                 });

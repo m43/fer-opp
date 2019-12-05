@@ -23,7 +23,7 @@ namespace RudesWebapp.Models
         public int? ImageId { get; set; }
 
         public virtual Image Image { get; set; }
-        public virtual ArticleAvailability ArticleAvailability { get; set; }
+        public virtual ICollection<ArticleAvailability> ArticleAvailability { get; set; }
         public virtual ICollection<Discount> Discount { get; set; }
         public virtual ICollection<OrderArticle> OrderArticle { get; set; }
         public virtual ICollection<Review> Review { get; set; }

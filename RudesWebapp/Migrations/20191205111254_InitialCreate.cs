@@ -278,7 +278,8 @@ namespace RudesWebapp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    content = table.Column<string>(maxLength: 255, nullable: true),
+                    title = table.Column<string>(nullable: true),
+                    content = table.Column<string>(type: "text", nullable: true),
                     image_ID = table.Column<int>(nullable: true),
                     post_date = table.Column<DateTime>(type: "datetime", nullable: true),
                     last_modification_date = table.Column<DateTime>(type: "datetime", nullable: true),
@@ -333,12 +334,12 @@ namespace RudesWebapp.Migrations
                 columns: table => new
                 {
                     article_ID = table.Column<int>(nullable: false),
-                    size = table.Column<string>(maxLength: 255, nullable: true),
+                    size = table.Column<string>(maxLength: 255, nullable: false),
                     quantity = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__article___CC37F2680A55149B", x => x.article_ID);
+                    table.PrimaryKey("PK__ArticleAvailability___CC37F2680A55149B", x => new { x.article_ID, x.size });
                     table.ForeignKey(
                         name: "FK__article_a__artic__403A8C7D",
                         column: x => x.article_ID,

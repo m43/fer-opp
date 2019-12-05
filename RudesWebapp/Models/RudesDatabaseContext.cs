@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
+using RudesWebapp.Models;
 
-namespace RudesWebapp.Models
+namespace RudesWebapp.Data
 {
     public partial class RudesDatabaseContext : IdentityDbContext<User>
     {
@@ -34,7 +32,6 @@ namespace RudesWebapp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder); // TODO not sure if needed
 
             modelBuilder.Entity<Article>(entity =>
@@ -45,7 +42,8 @@ namespace RudesWebapp.Models
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("creation_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Description)
                     .HasColumnName("description")
@@ -55,7 +53,8 @@ namespace RudesWebapp.Models
 
                 entity.Property(e => e.LastModificationDate)
                     .HasColumnName("last_modification_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
@@ -75,14 +74,13 @@ namespace RudesWebapp.Models
 
             modelBuilder.Entity<ArticleAvailability>(entity =>
             {
-                entity.HasKey(e => e.ArticleId)
-                    .HasName("PK__article___CC37F2680A55149B");
+                entity.HasKey(e => new {e.ArticleId, e.Size})
+                    .HasName("PK__ArticleAvailability___CC37F2680A55149B");
 
                 entity.ToTable("article_availability");
 
                 entity.Property(e => e.ArticleId)
-                    .HasColumnName("article_ID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("article_ID");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
@@ -91,15 +89,15 @@ namespace RudesWebapp.Models
                     .HasMaxLength(255);
 
                 entity.HasOne(d => d.Article)
-                    .WithOne(p => p.ArticleAvailability)
-                    .HasForeignKey<ArticleAvailability>(d => d.ArticleId)
+                    .WithMany(p => p.ArticleAvailability)
+                    .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__article_a__artic__403A8C7D");
             });
 
             modelBuilder.Entity<Discount>(entity =>
             {
-                entity.HasKey(e => new { e.Id, e.ArticleId })
+                entity.HasKey(e => new {e.Id, e.ArticleId})
                     .HasName("PK__discount__AED79301C419BEB6");
 
                 entity.ToTable("discount");
@@ -203,7 +201,7 @@ namespace RudesWebapp.Models
 
                 entity.Property(e => e.Username)
                     .HasColumnName("username");
-                    //.HasMaxLength(255);
+                //.HasMaxLength(255);
 
                 entity.HasOne(d => d.IdTransactionNavigation)
                     .WithMany(p => p.Order)
@@ -218,7 +216,7 @@ namespace RudesWebapp.Models
 
             modelBuilder.Entity<OrderArticle>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.ArticleId })
+                entity.HasKey(e => new {e.OrderId, e.ArticleId})
                     .HasName("PK__order_ar__DA851AC7823BC41D");
 
                 entity.ToTable("order_article");
@@ -288,8 +286,6 @@ namespace RudesWebapp.Models
                     .WithMany(p => p.Player)
                     .HasForeignKey(d => d.ImageId)
                     .HasConstraintName("FK__player__image_ID__03122019M43");
-
-
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -300,7 +296,10 @@ namespace RudesWebapp.Models
 
                 entity.Property(e => e.Content)
                     .HasColumnName("content")
-                    .HasMaxLength(255);
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Title)
+                    .HasColumnName("title");
 
                 entity.Property(e => e.EndDate)
                     .HasColumnName("end_date")
@@ -332,7 +331,7 @@ namespace RudesWebapp.Models
 
             modelBuilder.Entity<Review>(entity =>
             {
-                entity.HasKey(e => new { e.Id, e.ArticleId })
+                entity.HasKey(e => new {e.Id, e.ArticleId})
                     .HasName("PK__review__AED793010ECF51E0");
 
                 entity.ToTable("review");
@@ -357,7 +356,7 @@ namespace RudesWebapp.Models
 
                 entity.Property(e => e.Username)
                     .HasColumnName("username");
-                    //.HasMaxLength(255);
+                //.HasMaxLength(255);
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Review)
@@ -369,7 +368,6 @@ namespace RudesWebapp.Models
                     .WithMany(p => p.Review)
                     .HasForeignKey(d => d.Username)
                     .HasConstraintName("FK__review___usern__03122019M43");
-
             });
 
             modelBuilder.Entity<ShoppingCart>(entity =>
@@ -384,7 +382,7 @@ namespace RudesWebapp.Models
 
                 entity.Property(e => e.Username)
                     .HasColumnName("username");
-                    //.HasMaxLength(255);
+                //.HasMaxLength(255);
 
                 entity.HasOne(d => d.UsernameNavigation)
                     .WithMany(p => p.ShoppingCart)
@@ -394,7 +392,7 @@ namespace RudesWebapp.Models
 
             modelBuilder.Entity<ShoppingCartArticle>(entity =>
             {
-                entity.HasKey(e => new { e.ShoppingCartId, e.ArticleId })
+                entity.HasKey(e => new {e.ShoppingCartId, e.ArticleId})
                     .HasName("PK__shopping__B7E583C151B3360B");
 
                 entity.ToTable("shopping_cart_article");
