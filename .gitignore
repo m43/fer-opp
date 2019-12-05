@@ -6,7 +6,7 @@
 # User-specific files
 *.rsuser
 *.suo
-*.user
+# *.user
 *.userosscache
 *.sln.docstates
 
@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/RudesWebapp/.config/dotnet-tools.json
+/RudesWebapp/Properties/PublishProfiles/kkrudes - Web Deploy.pubxml.user

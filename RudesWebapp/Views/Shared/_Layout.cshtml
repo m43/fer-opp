@@ -64,26 +64,7 @@
                     </div>
                 </a>
 
-                <div v-if="!loggedIn" class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user" style="font-size: 20px; margin-right: 3px;"></i> Sign In
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @*<a class="dropdown-item" asp-controller="Home" asp-action="Login">Login</a>*@
-                        <a class="dropdown-item" @@click="switchLoginStatus()">Login</a>
-                        @*<a class="dropdown-item" asp-controller="Home" asp-action="Register">Register</a>*@
-                    </div>
-                </div>
-
-                <div v-else class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user" style="font-size: 20px; margin-right: 3px;"></i> {{dummyUsername}}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item">Edit Profile</a>
-                        <a class="dropdown-item" @@click="switchLoginStatus()">Logout</a>
-                    </div>
-                </div>
+                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
