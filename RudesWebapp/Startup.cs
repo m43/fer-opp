@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp
@@ -43,6 +44,7 @@ namespace RudesWebapp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                RudesDatabaseSeeder.Initialize(app);
             }
             else
             {
