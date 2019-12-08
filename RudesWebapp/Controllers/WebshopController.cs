@@ -9,7 +9,6 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-    [Authorize(Roles = "Admin, Board, Coach, User")]
     public class WebshopController : Controller
     {
         private RudesDatabaseContext _context;
@@ -32,15 +31,17 @@ namespace RudesWebapp.Controllers
         // Article
         // !! Povezati sa ArticleAvailability (ne vlastite metode, vec unutar ovih od Article-a)
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
         {
             return await _context.Article.ToListAsync();
         }
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
-            var article = await _context.Article.FindAsync(1);
+            var article = await _context.Article.FindAsync(id);
 
             if (article == null)
             {
@@ -51,6 +52,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Board")]
         public async Task<ActionResult<Article>> AddArticle(Article article)
         {
             _context.Article.Add(article);
@@ -60,6 +62,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin, Board")]
         public async Task<ActionResult<Article>> UpdateArticle(int id, Article article)
         {
             if (id != article.Id)
@@ -90,6 +93,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin, Board")]
         public async Task<ActionResult<Article>> RemoveArticle(int id)
         {
             var article = await _context.Article.FindAsync(id);
@@ -107,12 +111,14 @@ namespace RudesWebapp.Controllers
         // Image
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<IEnumerable<Image>>> GetImages()
         {
             return await _context.Image.ToListAsync();
         }
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Image>> GetImage(int id)
         {
             var image = await _context.Image.FindAsync(id);
@@ -126,6 +132,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<Image>> UploadImage(Image image)
         {
             _context.Image.Add(image);
@@ -135,6 +142,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<Image>> DeleteImage(int id)
         {
             var image = await _context.Image.FindAsync(id);
@@ -152,12 +160,14 @@ namespace RudesWebapp.Controllers
         // Discount
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<IEnumerable<Discount>>> GetDiscounts()
         {
             return await _context.Discount.ToListAsync();
         }
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Discount>> GetDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);
@@ -171,6 +181,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<Discount>> AddDiscount(Discount discount)
         {
             _context.Discount.Add(discount);
@@ -180,6 +191,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<Discount>> UpdateDiscount(int id, Discount discount)
         {
             if (id != discount.Id)
@@ -210,6 +222,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<Discount>> RemoveDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);
@@ -227,12 +240,14 @@ namespace RudesWebapp.Controllers
         // Review
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
         {
             return await _context.Review.ToListAsync();
         }
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Review>> GetReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
@@ -246,6 +261,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Review>> AddReview(Review review)
         {
             _context.Review.Add(review);
@@ -255,6 +271,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Review>> UpdateReview(int id, Review review)
         {
             if (id != review.Id)
@@ -285,6 +302,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Review>> DeleteReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
@@ -302,6 +320,7 @@ namespace RudesWebapp.Controllers
         // Shopping Cart
         //!! Povezati sa ShoppingCartArticle - unutar metoda Shopping Cart-a
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetShoppingCart(int id)
         {
             var shoppingCart = await _context.ShoppingCart.FindAsync(id);
@@ -315,6 +334,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(int id, ShoppingCart shoppingCart)
         {
             if (id != shoppingCart.Id)
@@ -347,12 +367,14 @@ namespace RudesWebapp.Controllers
         // Order
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             return await _context.Order.ToListAsync();
         }
 
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
@@ -366,6 +388,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
             _context.Order.Add(order);
@@ -375,6 +398,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Order>> UpdateOrder(int id, Order order)
         {
             if (id != order.Id)
@@ -405,6 +429,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
@@ -422,12 +447,14 @@ namespace RudesWebapp.Controllers
         // Transaction
 
         [HttpGet]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions()
         {
             return await _context.Transaction.ToListAsync();
         }
 
         [HttpGet]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
             var transaction = await _context.Transaction.FindAsync(id);
@@ -441,6 +468,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Transaction>> CreateTransaction(Transaction transaction)
         {
             _context.Transaction.Add(transaction);
@@ -450,6 +478,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Transaction>> UpdateTransaction(int id, Transaction transaction)
         {
             if (id != transaction.Id)
@@ -480,6 +509,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Board, Admin")]
         public async Task<ActionResult<Transaction>> DeleteTransaction(int id)
         {
             var transaction = await _context.Transaction.FindAsync(id);
@@ -493,5 +523,21 @@ namespace RudesWebapp.Controllers
 
             return transaction;
         }
+
+        
+        [HttpPost]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
+        public async Task BuyArticle(int article_id)
+        {
+            // Use article model CRUD methods defined in this controller
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
+        public async Task AddToShoppingCart(int article_id)
+        {
+            // Use shopping cart model CRUD methods defined in this controller
+        }
+
     }
 }
