@@ -7,7 +7,6 @@
     methods: {
         switchLoginStatus: function () {
             this.loggedIn = !this.loggedIn;
-        },
-        
+        }
     }
 });

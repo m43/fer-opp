@@ -84,7 +84,7 @@ body {
 
     .my-navbar-button:hover {
         background-color: lightgrey;
-        box-shadow: 5px 5px 3px grey;
+        box-shadow: 5px 5px grey;
     }
 
 nav a {
