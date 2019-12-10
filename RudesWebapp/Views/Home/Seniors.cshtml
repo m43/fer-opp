@@ -1,19 +1,24 @@
 ﻿<div class="container" id="teams123">
     <h1 style="text-align: center">Seniorski tim</h1>
-    <div class="row" >
-        <div v-for="player in seniorPlayers"
-             class="d-inline"
-             style="margin-right: 10px; margin-left: 5px; margin-bottom: 13px; 
-             box-shadow: rgb(100, 96, 96) 2px 2px">
-            <img src="~/images/rudes-logo.jpg" />
-            <p class="p1">{{ player.name }} {{ player.lastName }}</p>
-            <p class="p2">{{ player.position }}</p>
-        </div>
-        @*<player-component></player-component>*@
+    <div class="row">
+        <template v-for="player in seniorPlayers">
+            <player-component :player="player"></player-component>
+        </template>
     </div>
 </div>
 
 <script>
+    Vue.component("player-component", {
+        props: ["player"],
+        template: `
+            <div class="d-inline" style="margin-right: 10px; margin-left: 5px; margin-bottom: 13px; box-shadow: rgb(100, 96, 96) 2px 2px" >
+                <img src="/images/rudes-logo.jpg" />
+                <p class="p1">{{ player.name }} {{ player.lastName }}</p>
+                <p class="p2">{{ player.position }}</p>
+            </div>
+        `
+    });
+
     var teams = new Vue({
         el: "#teams123",
         data: {
@@ -35,14 +40,4 @@
             this.getPlayers();
         }
     });
-
-    //Vue.component("player-component", {
-    //    data: function () {
-    //        return {
-    //            players: teams.seniorPlayers
-    //        }
-    //    },
-    //    template: '<div v-for="player in players" class="d-inline" style="margin-right: 10px; margin-left: 5px; margin-bottom: 13px; box-shadow: rgb(100, 96, 96) 2px 2px"> <img src="~/images/rudes-logo.jpg" /> <p class="p1">{{ player.name }} {{ player.lastName }}</p> <p class="p2">{{ player.position }}</p> </div>'
-    //}
-    //);
 </script>
