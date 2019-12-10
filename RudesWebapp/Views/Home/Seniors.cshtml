@@ -1,4 +1,4 @@
-﻿<div class="container" id="teams123">
+﻿<div class="container" id="teams">
     <h1 style="text-align: center">Seniorski tim</h1>
     <div class="row">
         <template v-for="player in seniorPlayers">
@@ -7,37 +7,4 @@
     </div>
 </div>
 
-<script>
-    Vue.component("player-component", {
-        props: ["player"],
-        template: `
-            <div class="d-inline" style="margin-right: 10px; margin-left: 5px; margin-bottom: 13px; box-shadow: rgb(100, 96, 96) 2px 2px" >
-                <img src="/images/rudes-logo.jpg" />
-                <p class="p1">{{ player.name }} {{ player.lastName }}</p>
-                <p class="p2">{{ player.position }}</p>
-            </div>
-        `
-    });
-
-    var teams = new Vue({
-        el: "#teams123",
-        data: {
-            seniorPlayers: []
-        },
-        methods: {
-            getPlayers: function () {
-                axios.get("/Coach/GetPlayers")
-                    .then(response => {
-                        console.log(response);
-                        this.seniorPlayers = response.data;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            }
-        },
-        beforeMount: function () {
-            this.getPlayers();
-        }
-    });
-</script>
+<script src="~/js/teams.js"></script>

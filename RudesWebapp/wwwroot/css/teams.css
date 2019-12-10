@@ -1,17 +1,7 @@
-﻿.p1 {
+﻿.playerInfo {
     text-align: center;
     border: 2px solid black;
     margin-bottom: 1px;
-    margin-top: 0px;
-    padding: 0;
-    background-color: antiquewhite;
-
-}
-
-.p2 {
-    text-align: center;
-    border: 2px solid black;
-    margin-bottom: 0px;
     margin-top: 0px;
     padding: 0;
     background-color: antiquewhite;
