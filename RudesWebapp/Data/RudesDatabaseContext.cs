@@ -10,6 +10,11 @@ namespace RudesWebapp.Data
         {
         }
 
+        //public RudesDatabaseContext(DbContextOptions options) : base(options)
+        //{
+        //}
+
+
         public RudesDatabaseContext(DbContextOptions<RudesDatabaseContext> options)
             : base(options)
         {
