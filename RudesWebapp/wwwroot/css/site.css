@@ -63,7 +63,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    padding-top: 60px;
+    padding-top: 70px;
 }
 
 .footer {
@@ -75,17 +75,17 @@ body {
 }
 
 .my-navbar-button {
-    width: 150px;
+    width: 180px;
     text-align: center;
-    border: 2px solid black;
-    border-radius: 4px;
-    box-shadow: rgb(100, 96, 96) 2px 2px;
 }
 
     .my-navbar-button:hover {
         background-color: lightgrey;
-        box-shadow: 5px 5px grey;
     }
+
+nav li a {
+    font-size: 1.2em;
+}
 
 nav a {
     color: black;
