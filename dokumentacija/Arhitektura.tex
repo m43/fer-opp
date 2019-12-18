@@ -231,7 +231,7 @@
 	\textit{ID\_slike} & INT  & jedinstveni identifikator slike  \\ \hline 
 	 
 \end{longtabu}
-\textnormal{Tablica \textbf{Narudžba} opisuje narudžbe artikala aplikacije. Sadrži atribute: ID, ID transakcije, korisničko ime, datum, zaprimljenost, adresa, mjesto, poštanski broj. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Narudžbe i Transakcija preko ID narudžbe i vezom \textit{Many-to-One} s entitetom Korisnik preko korisničkog imena.}
+\textnormal{Tablica \textbf{Narudžba} opisuje narudžbe artikala aplikacije. Sadrži atribute: ID,korisničko ime, datum, zaprimljenost, adresa, mjesto, poštanski broj. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Narudžbe preko ID narudžbe i vezom \textit{Many-to-One} s entitetom Korisnik preko korisničkog imena.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -245,7 +245,6 @@
 	\endlastfoot
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator narudžbe	\\ \hline
-	\textit{ID\_transakcije} & INT  & jedinstveni identifikator transakcije \\ \hline 
 	\textit{korisnicko\_ime} & VARCHAR  & korisničko ime korisnika koji naručuje \\ \hline 
 	datum & TIMESTAMP  & datum formiranja narudžbe\\ \hline 
 	zaprimljenost & BOOLEAN  & oznaka zaprimljenosti narudžbe \\ \hline 
@@ -255,7 +254,7 @@
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Objava} opisuje sadržaje objavljene na stranici. Sadrži atribute: ID, sadržaj, ID slike, datum objave, datum izmjene, vrsta objave, datum pocetka i datum isteka. Entitet je povezan  vezom \textit{Many-to-One} s entitetom Slika preko ID slike.}
+\textnormal{Tablica \textbf{Objava} opisuje sadržaje objavljene na stranici. Sadrži atribute: ID, naslov, sadržaj, ID slike, datum objave, datum izmjene, vrsta objave, datum pocetka i datum isteka. Entitet je povezan  vezom \textit{Many-to-One} s entitetom Slika preko ID slike.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -270,6 +269,7 @@
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator objave	\\ \hline
 	 sadržaj & VARCHAR  & sadržaj objave \\ \hline 
+	 naslov & VARCHAR  & naslov objave \\ \hline
 	\textit{ID\_slike} & ID  & jedinstveni identifikator slike  \\ \hline 
 	datum\_objave & TIMESTAMP  & datum postavljanja objave \\ \hline 
 	datum\_izmjene & TIMESTAMP  & datum posljednje izmjene objave \\ \hline
@@ -312,8 +312,8 @@
 	\endlastfoot
 	
 	\textbf{ID\_artikla} & INT	&  jedinstveni identifikator artikla	\\ \hline
+	\textbf {veličina} & VARCHAR  & veličina artikla \\ \hline
 	količina & INT  & količina artikla  \\ \hline 
-	veličina & VARCHAR  & veličina artikla \\ \hline
 	
 \end{longtabu}
 
