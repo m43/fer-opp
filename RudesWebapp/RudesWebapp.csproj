@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\facebook-logo.png" />
     <None Include="wwwroot\images\rudes-logo.jpg" />
   </ItemGroup>
 
