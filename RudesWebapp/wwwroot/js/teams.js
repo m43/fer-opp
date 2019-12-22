@@ -27,5 +27,12 @@ var teams = new Vue({
     },
     beforeMount: function () {
         this.getPlayers();
+    },
+    computed: {
+        groupedPlayers() {
+            return _.chunk(this.seniorPlayers, 3)
+            // returns a nested array: 
+            // [[article, article, article], [article, article, article], ...]
+        }
     }
 });

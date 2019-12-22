@@ -1,3 +1,10 @@
-﻿<div class="container" id="about">
-
+﻿<div class="container" id="teams">
+    <h1 style="text-align: center">Kadetski tim</h1>
+    <div class="row">
+        <template v-for="player in seniorPlayers">
+            <player-component :player="player"></player-component>
+        </template>
+    </div>
 </div>
+
+<script src="~/js/teams.js"></script>

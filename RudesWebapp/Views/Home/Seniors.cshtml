@@ -1,9 +1,19 @@
-﻿<div class="container" id="teams">
-    <h1 style="text-align: center">Seniorski tim</h1>
-    <div class="row">
-        <template v-for="player in seniorPlayers">
-            <player-component :player="player"></player-component>
-        </template>
+﻿<div style="background-color: #EBEDEF;">
+        <h4 style="font-size: 25px;">Seniorski tim</h4>
+</div>
+
+<div>
+    <img src="~/images/rudes-logo.jpg" style="min-width:100%; margin-bottom: 10px;" />
+</div>
+
+<div class="container" id="teams">
+   <div v-for="players in groupedPlayers" class="row">
+        <div v-for="player in players" class="col-lg-4">
+            <div class="panel">
+                <h1>{{player.name}}</h1>
+                <p>{{player.lastName}}</p>
+            </div>
+        </div>
     </div>
 </div>
 
