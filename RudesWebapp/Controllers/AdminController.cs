@@ -18,7 +18,10 @@ namespace RudesWebapp.Controllers
         private RoleManager<IdentityRole> _roleManager;
         private UserManager<User> _userManager;
 
-        public AdminController(RudesDatabaseContext context, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public AdminController(
+            RudesDatabaseContext context, 
+            RoleManager<IdentityRole> roleManager, 
+            UserManager<User> userManager)
         {
             _context = context;
             _roleManager = roleManager;
@@ -82,7 +85,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<User>> DeleteUser(string id)
         {
             var User = await _context.User.FindAsync(id);
             if (User == null)
@@ -123,6 +126,17 @@ namespace RudesWebapp.Controllers
 
             await _userManager.AddToRoleAsync(user, role.Name);
         }
-        
+
+        private async Task<User> GetCurrentUserAsync()
+        {
+            return await _userManager.GetUserAsync(HttpContext.User);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<User>> GetCurrentUser()
+        {
+            return await GetCurrentUserAsync();
+        }
+
     }
 }

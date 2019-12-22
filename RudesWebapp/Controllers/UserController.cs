@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using RudesWebapp.Data;
 using RudesWebapp.Models;
+using System.Threading.Tasks;
 
 namespace RudesWebapp.Controllers
 {
     public class UserController : Controller
     {
-        private User user;
         private RudesDatabaseContext _context;
+        private UserManager<User> _userManager;
 
-        public UserController(RudesDatabaseContext context)
+        public UserController(RudesDatabaseContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult ViewData()
@@ -53,5 +57,6 @@ namespace RudesWebapp.Controllers
         {
             return View();
         }
+
     }
 }
