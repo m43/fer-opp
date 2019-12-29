@@ -31,7 +31,7 @@ namespace RudesWebapp.Controllers
             return View();
         }
 
-        public IActionResult Media()
+        public IActionResult Gallery()
         {
             return View();
         }
