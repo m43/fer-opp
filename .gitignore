@@ -340,3 +340,5 @@ ASALocalRun/
 healthchecksdb
 /RudesWebapp/.config/dotnet-tools.json
 /RudesWebapp/Properties/PublishProfiles/kkrudes - Web Deploy.pubxml.user
+
+.DS_Store

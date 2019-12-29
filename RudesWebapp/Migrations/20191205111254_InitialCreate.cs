@@ -7,7 +7,7 @@ namespace RudesWebapp.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-/* migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -550,7 +550,6 @@ namespace RudesWebapp.Migrations
                 name: "IX_shopping_cart_article_article_ID",
                 table: "shopping_cart_article",
                 column: "article_ID");
-                */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -614,7 +613,7 @@ namespace RudesWebapp.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-                
-        } 
+
+        }
     }
 }

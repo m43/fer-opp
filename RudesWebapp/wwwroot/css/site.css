@@ -26,10 +26,6 @@ a {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-    font-size: 14px;
-}
-
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -58,24 +54,33 @@ button.accept-policy {
 html {
     position: relative;
     min-height: 100%;
+    font-size: 14px;
+    margin: 0;
 }
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
     padding-top: 70px;
+    margin-bottom: 200px;
 }
 
-.footer {
+.my-footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    height: 200px;
+}
+
+.my-navbar-brand {
+    display: inline-block;
+    width: 9%;
+    height: auto;
+    margin-top: 0.5%;
+    margin-left: 0.5%;
+    z-index: 1500;
 }
 
 .my-navbar-button {
-    width: 180px;
     text-align: center;
 }
 
