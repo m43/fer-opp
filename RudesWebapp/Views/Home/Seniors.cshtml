@@ -1,18 +1,15 @@
 ﻿<div style="background-color: #EBEDEF;">
-        <h4 style="font-size: 25px;">Seniorski tim</h4>
+    <h4 style="font-size: 25px;">Seniori 2019/2020</h4>
 </div>
 
 <div>
-    <img src="~/images/rudes-logo.jpg" width="300" height="300" alt="Timska slika" style="margin-bottom: 10px;" />
+    <img src="~/images/timska-seniori.jpg" alt="Timska slika" style="margin-bottom: 10px; min-width: 100%;" />
 </div>
 
 <div class="container" id="teams">
-   <div v-for="players in groupedPlayers" class="row">
-        <div v-for="player in players" class="col-lg-4">
-            <div class="panel">
-                <h1>{{player.name}}</h1>
-                <p>{{player.lastName}}</p>
-            </div>
+    <div v-for="playerGroup in groupedPlayers" class="row">
+        <div v-for="player in playerGroup" class="col-4 text-center">
+            <player-component :player="player"></player-component>
         </div>
     </div>
 </div>
