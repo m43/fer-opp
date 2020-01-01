@@ -10,7 +10,7 @@ using RudesWebapp.Data;
 namespace RudesWebapp.Migrations
 {
     [DbContext(typeof(RudesDatabaseContext))]
-    [Migration("20191205111254_InitialCreate")]
+    [Migration("20191210124611_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -351,10 +351,6 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("fulfilled")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("IdTransaction")
-                        .HasColumnName("ID_transaction")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PostalCode")
                         .HasColumnName("postal_code")
                         .HasColumnType("int");
@@ -364,8 +360,6 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdTransaction");
 
                     b.HasIndex("Username");
 
@@ -623,7 +617,13 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("date")
                         .HasColumnType("datetime");
 
+                    b.Property<int>("orderId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("orderId")
+                        .IsUnique();
 
                     b.ToTable("transaction");
                 });
@@ -781,11 +781,6 @@ namespace RudesWebapp.Migrations
 
             modelBuilder.Entity("RudesWebapp.Models.Order", b =>
                 {
-                    b.HasOne("RudesWebapp.Models.Transaction", "IdTransactionNavigation")
-                        .WithMany("Order")
-                        .HasForeignKey("IdTransaction")
-                        .HasConstraintName("FK__order__ID_transa__3E52440B");
-
                     b.HasOne("RudesWebapp.Models.User", "UsernameNavigation")
                         .WithMany("Order")
                         .HasForeignKey("Username")
@@ -858,6 +853,14 @@ namespace RudesWebapp.Migrations
                         .HasForeignKey("ShoppingCartId")
                         .HasConstraintName("FK__shopping___shopp__4316F928")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RudesWebapp.Models.Transaction", b =>
+                {
+                    b.HasOne("RudesWebapp.Models.Order", "Order")
+                        .WithOne("TransactionNavigation")
+                        .HasForeignKey("RudesWebapp.Models.Transaction", "orderId")
+                        .HasConstraintName("FK__order__ID_transa__3E52440B");
                 });
 #pragma warning restore 612, 618
         }

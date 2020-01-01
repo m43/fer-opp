@@ -13,11 +13,12 @@ namespace RudesWebapp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private RudesDatabaseContext _context;
+        private readonly RudesDatabaseContext _context;
         //private User user;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(RudesDatabaseContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
@@ -104,7 +105,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Post>> AddPost(Post post)
+        public async Task<ActionResult<Post>> AddPost([FromBody] Post post)
         {
             _context.Post.Add(post);
             await _context.SaveChangesAsync();

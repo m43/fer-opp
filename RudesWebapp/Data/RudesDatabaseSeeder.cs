@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RudesWebapp.Models;
+
+// ReSharper disable IdentifierTypo
 
 namespace RudesWebapp.Data
 {
@@ -16,17 +18,24 @@ namespace RudesWebapp.Data
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<RudesDatabaseContext>();
-                context.Database.EnsureCreated();
-                context.Database.Migrate(); // TODO not sure if needed
+                Initialize(serviceScope);
+            }
+        }
 
-                var signInManager = serviceScope.ServiceProvider.GetService<SignInManager<User>>();
-                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+        public static void Initialize(IServiceScope serviceScope)
+        {
+            var context = serviceScope.ServiceProvider.GetService<RudesDatabaseContext>();
+//            context.Database.EnsureCreated(); // TODO not sure if needed
+//            context.Database.Migrate(); // TODO not sure if needed
 
+            // var signInManager = serviceScope.ServiceProvider.GetService<SignInManager<User>>();
+            var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
 
-                if (context.Article != null && context.Article.Any())
-                    return; // database already seeded
+            if (context.Article != null && context.Article.Any())
+                return; // database already seeded
 
+            using (var transaction = context.Database.BeginTransaction())
+            {
                 var images = GetImages();
                 context.Image.AddRange(images);
                 context.SaveChanges();
@@ -42,8 +51,9 @@ namespace RudesWebapp.Data
                 foreach (var aa in GetArticleAvailabilities(context))
                 {
                     context.ArticleAvailability.Add(aa);
-                    context.SaveChanges();
                 }
+
+                context.SaveChanges();
 
                 var posts = GetPosts(context);
                 context.Post.AddRange(posts);
@@ -57,7 +67,8 @@ namespace RudesWebapp.Data
                 context.Match.AddRange(matches);
                 context.SaveChanges();
 
-                CreateUser(context, userManager, signInManager);
+                CreateUsers(GetUsers(), userManager);
+                SetupUserRoles(serviceScope.ServiceProvider).Wait();
                 context.SaveChanges();
 
                 var shopingCarts = GetShoppingCarts(context);
@@ -80,12 +91,11 @@ namespace RudesWebapp.Data
                 context.OrderArticle.AddRange(orderArticles);
                 context.SaveChanges();
 
-                // TODO fix transactions..
-                // var transactions = GetTransactions(context);
-                // context.Transaction.AddRange(transactions);
-                // // context.SaveChanges();
-
+                var transactions = GetTransactions(context);
+                context.Transaction.AddRange(transactions);
                 context.SaveChanges();
+
+                transaction.Commit();
             }
         }
 
@@ -119,7 +129,7 @@ namespace RudesWebapp.Data
 
         public static List<Article> GetArticles(RudesDatabaseContext context)
         {
-            List<Article> articles = new List<Article>()
+            var articles = new List<Article>()
             {
                 new Article
                 {
@@ -160,7 +170,7 @@ namespace RudesWebapp.Data
 
         public static List<Discount> GetDiscounts(RudesDatabaseContext context)
         {
-            List<Discount> discounts = new List<Discount>()
+            var discounts = new List<Discount>()
             {
                 new Discount
                 {
@@ -179,7 +189,7 @@ namespace RudesWebapp.Data
 
         public static List<ArticleAvailability> GetArticleAvailabilities(RudesDatabaseContext context)
         {
-            List<ArticleAvailability> articleAvailabilities = new List<ArticleAvailability>
+            var articleAvailabilities = new List<ArticleAvailability>
             {
                 new ArticleAvailability
                 {
@@ -199,7 +209,7 @@ namespace RudesWebapp.Data
 
         public static List<Post> GetPosts(RudesDatabaseContext context)
         {
-            List<Post> posts = new List<Post>
+            var posts = new List<Post>
             {
                 new Post
                 {
@@ -247,8 +257,8 @@ namespace RudesWebapp.Data
 
         public static List<Player> GetPlayers(RudesDatabaseContext context)
         {
-            String dateFormat = "yyyy-MM-dd";
-            List<Player> players = new List<Player>
+            string dateFormat = "yyyy-MM-dd";
+            var players = new List<Player>
             {
                 new Player
                 {
@@ -316,7 +326,7 @@ namespace RudesWebapp.Data
 
         public static List<Match> GetMatches()
         {
-            List<Match> matches = new List<Match>
+            var matches = new List<Match>
             {
                 new Match
                 {
@@ -340,19 +350,66 @@ namespace RudesWebapp.Data
             return matches;
         }
 
-        public static void CreateUser(RudesDatabaseContext context, UserManager<User> userManager,
-            SignInManager<User> signInManager)
+        public static readonly string DUMMY_PASSWORD = "HiveMind.2019";
+
+        public static User DummyUserWithAllRoles = new User
         {
-            var user = new User
+            UserName = "mail@hivemind.org",
+            Email = "mail@hivemind.org",
+            Name = "Hive",
+            LastName = "Mind",
+            EmailConfirmed = true
+        };
+
+        public static User DummyUser = new User
+        {
+            UserName = "user@hivemind.org",
+            Email = "user@hivemind.org",
+            Name = "Hive",
+            LastName = "Mind",
+            EmailConfirmed = true
+        };
+
+        public static User DummyCoachUser = new User
+        {
+            UserName = "coach@hivemind.org",
+            Email = "coach@hivemind.org",
+            Name = "Hive",
+            LastName = "Mind",
+            EmailConfirmed = true
+        };
+
+        public static User DummyBoardUser = new User
+        {
+            UserName = "board@hivemind.org",
+            Email = "board@hivemind.org",
+            Name = "Hive",
+            LastName = "Mind",
+            EmailConfirmed = true
+        };
+
+        public static User DummyAdminUser = new User
+        {
+            UserName = "admin@hivemind.org",
+            Email = "admin@hivemind.org",
+            Name = "Hive",
+            LastName = "Mind",
+            EmailConfirmed = true
+        };
+
+
+        public static List<User> GetUsers()
+        {
+            return new List<User>
             {
-                UserName = "mail@hivemind.org",
-                Email = "mail@hivemind.org",
-                Name = "Hive",
-                LastName = "Mind",
-                EmailConfirmed = true
+                DummyUser, DummyCoachUser, DummyBoardUser, DummyAdminUser, DummyUserWithAllRoles
             };
-            var result = userManager.CreateAsync(user, "HiveMind.2019").Result;
-            if (!result.Succeeded)
+        }
+
+        public static void CreateUsers(IEnumerable<User> users, UserManager<User> userManager)
+        {
+            if (users.Select(user => userManager.CreateAsync(user, DUMMY_PASSWORD).Result)
+                .Any(result => !result.Succeeded))
             {
                 throw (new Exception("Could not create dummy user..."));
             }
@@ -390,7 +447,7 @@ namespace RudesWebapp.Data
 
         public static List<ShoppingCart> GetShoppingCarts(RudesDatabaseContext context)
         {
-            List<ShoppingCart> shoppingCarts = new List<ShoppingCart>
+            var shoppingCarts = new List<ShoppingCart>
             {
                 new ShoppingCart
                 {
@@ -403,7 +460,7 @@ namespace RudesWebapp.Data
 
         public static List<ShoppingCartArticle> GetShoppingCartArticles(RudesDatabaseContext context)
         {
-            List<ShoppingCartArticle> shoppingCartArticles = new List<ShoppingCartArticle>
+            var shoppingCartArticles = new List<ShoppingCartArticle>
             {
                 new ShoppingCartArticle
                 {
@@ -434,14 +491,19 @@ namespace RudesWebapp.Data
 
         public static List<Transaction> GetTransactions(RudesDatabaseContext context)
         {
-            // TODO fix transactions..
-            List<Transaction> transactions = new List<Transaction>
+            var transactions = new List<Transaction>
             {
-//                new Transaction
+                new Transaction
+                {
+                    Amount = 1234,
+                    Card = "2030302012344321",
+                    Order = context.Order.First()
+                }
+//                , new Transaction // should not work!
 //                {
 //                    Amount = 1234,
 //                    Card = "2030302012344321",
-//                    Order = ? // TODO need to make Transaction <--> Order to be a one to one ralationship..
+//                    Order = context.Order.First()
 //                }
             };
 
@@ -450,14 +512,13 @@ namespace RudesWebapp.Data
 
         public static List<Order> GetOrders(RudesDatabaseContext context)
         {
-            List<Order> orders = new List<Order>
+            var orders = new List<Order>
             {
                 new Order
                 {
                     UsernameNavigation = context.User.First(),
                     Address = "Kralja Zvonimira 32",
                     PostalCode = 20350
-                    // IdTransactionNavigation = context.Transaction // TODO ...
                 }
             };
 
@@ -489,6 +550,40 @@ namespace RudesWebapp.Data
             };
 
             return orderArticles;
+        }
+
+        private static async Task SetupUserRoles(IServiceProvider serviceProvider)
+        {
+            var userRoles = new Dictionary<string, string[]>()
+            {
+                {"Admin", new[] {DummyAdminUser.Email, DummyUserWithAllRoles.Email}},
+                {"Board", new[] {DummyBoardUser.Email, DummyUserWithAllRoles.Email}},
+                {"Coach", new[] {DummyCoachUser.Email, DummyUserWithAllRoles.Email}},
+                {"User", new[] {DummyUser.Email, DummyUserWithAllRoles.Email}}
+            };
+
+            foreach (var (roleName, usersInRole) in userRoles)
+            {
+                await SetupRole(roleName, usersInRole, serviceProvider);
+            }
+        }
+
+        private static async Task SetupRole(string roleName, string[] userIDs, IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            var roleCheck = await roleManager.RoleExistsAsync(roleName);
+            if (!roleCheck)
+            {
+                await roleManager.CreateAsync(new IdentityRole(roleName));
+            }
+
+            foreach (string userId in userIDs)
+            {
+                User user = await userManager.FindByEmailAsync(userId);
+                await userManager.AddToRoleAsync(user, roleName);
+            }
         }
     }
 }

@@ -11,7 +11,6 @@ namespace RudesWebapp.Models
         }
 
         public int Id { get; set; }
-        public int? IdTransaction { get; set; }
         public string Username { get; set; }
         public DateTime? Date { get; set; }
         public bool? Fulfilled { get; set; }
@@ -19,7 +18,7 @@ namespace RudesWebapp.Models
         public string City { get; set; }
         public int? PostalCode { get; set; }
 
-        public virtual Transaction IdTransactionNavigation { get; set; }
+        public virtual Transaction TransactionNavigation { get; set; }
         public virtual User UsernameNavigation { get; set; }
         public virtual ICollection<OrderArticle> OrderArticle { get; set; }
     }

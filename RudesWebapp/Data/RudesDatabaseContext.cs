@@ -195,18 +195,17 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Fulfilled).HasColumnName("fulfilled");
 
-                entity.Property(e => e.IdTransaction).HasColumnName("ID_transaction");
-
                 entity.Property(e => e.PostalCode).HasColumnName("postal_code");
 
                 entity.Property(e => e.Username)
                     .HasColumnName("username");
                 //.HasMaxLength(255);
 
-                entity.HasOne(d => d.IdTransactionNavigation)
-                    .WithMany(p => p.Order)
-                    .HasForeignKey(d => d.IdTransaction)
-                    .HasConstraintName("FK__order__ID_transa__3E52440B");
+                entity.HasOne(d => d.TransactionNavigation)
+                    .WithOne(p => p.Order)
+                    .HasForeignKey<Transaction>(t => t.orderId)
+                    .HasConstraintName("FK__order__ID_transa__3E52440B")
+                    .IsRequired(false);
 
                 entity.HasOne(d => d.UsernameNavigation)
                     .WithMany(p => p.Order)
