@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
@@ -12,10 +14,12 @@ namespace RudesWebapp.Controllers
     public class WebshopController : Controller
     {
         private RudesDatabaseContext _context;
+        private UserManager<User> _userManager;
 
-        public WebshopController(RudesDatabaseContext context)
+        public WebshopController(RudesDatabaseContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult WebshopStart()
@@ -335,9 +339,9 @@ namespace RudesWebapp.Controllers
 
         [HttpPut]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(int id, ShoppingCart shoppingCart)
+        public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(string username, ShoppingCart shoppingCart)
         {
-            if (id != shoppingCart.Id)
+            if (username != shoppingCart.Username)
             {
                 return BadRequest();
             }
@@ -350,7 +354,7 @@ namespace RudesWebapp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                var shopping_cart_from_database = await _context.ShoppingCart.FindAsync(id);
+                var shopping_cart_from_database = await _context.ShoppingCart.FindAsync(username);
                 if (shopping_cart_from_database == null)
                 {
                     return NotFound();
@@ -362,6 +366,31 @@ namespace RudesWebapp.Controllers
             }
 
             return NoContent();
+        }
+
+
+        // TODO !!!!!!!
+        [HttpGet]
+        public async Task<ActionResult<ShoppingCart>> GetCurrentShoppingCart()
+        {
+            var currentUser = await GetCurrentUserAsync();
+            var currentShoppingCart = currentUser.ShoppingCart.First();
+
+            if (currentShoppingCart == null)
+            {
+                return NotFound();
+            }
+
+            return await GetShoppingCart(currentShoppingCart.Id);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
+        public async Task AddToShoppingCart(int articleId)
+        {
+            // Use shopping cart model CRUD methods defined in this controller
+            var shoppingCart = await GetCurrentShoppingCart();
+
         }
 
         // Order
@@ -527,16 +556,14 @@ namespace RudesWebapp.Controllers
         
         [HttpPost]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task BuyArticle(int article_id)
+        public async Task BuyArticle(int articleId)
         {
             // Use article model CRUD methods defined in this controller
         }
 
-        [HttpPost]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task AddToShoppingCart(int article_id)
+        private async Task<User> GetCurrentUserAsync()
         {
-            // Use shopping cart model CRUD methods defined in this controller
+            return await _userManager.GetUserAsync(HttpContext.User);
         }
 
     }
