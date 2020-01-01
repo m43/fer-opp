@@ -1,10 +1,14 @@
 ﻿Vue.component("player-component", {
     props: ["player"],
     template: `
-            <div class="d-inline" style="margin-right: 10px; margin-left: 5px; margin-bottom: 13px;" >
-                <img src="/images/rudes-logo.jpg" />
-                <p class="playerInfo">{{ player.name }} {{ player.lastName }}</p>
-                <p class="playerInfo" style="margin-bottom: 0;">{{ player.position }}</p>
+            <div class="d-inline" style="margin-right: 0px; margin-left: 0px; margin-bottom: 13px; padding: 0;">
+                <img src="/images/rudes-logo.jpg" style="min-width: 70%; max-width: 70%;" />
+                <div class="tempDiv">
+                    <p class="playerInfo">{{ player.name }} {{ player.lastName }}</p>
+                </div>
+                <div class="tempDiv">
+                    <p class="playerInfo" style="margin-bottom: 10px;">{{ player.position }}</p>
+                </div>
             </div>
         `
 });

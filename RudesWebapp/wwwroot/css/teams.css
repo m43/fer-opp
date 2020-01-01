@@ -1,8 +1,22 @@
 ﻿.playerInfo {
     text-align: center;
-    border: 2px solid black;
     margin-bottom: 1px;
     margin-top: 0px;
     padding: 0;
+    margin-right: 0px;
+    margin-left: 0px;
     background-color: antiquewhite;
+    min-width: 70%;
+    max-width: 70%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.tempDiv {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
 }
