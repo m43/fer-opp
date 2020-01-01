@@ -2,7 +2,7 @@
     props: ["player"],
     template: `
             <div class="d-inline" style="margin-right: 0px; margin-left: 0px; margin-bottom: 13px; padding: 0;">
-                <img src="/images/rudes-logo.jpg" style="min-width: 70%; max-width: 70%;" />
+                <img src="/images/rudes-logo.jpg" style="min-width: 90%; max-width: 90%;" />
                 <div class="tempDiv">
                     <p class="playerInfo">{{ player.name }} {{ player.lastName }}</p>
                 </div>
@@ -34,7 +34,7 @@ var teams = new Vue({
     },
     computed: {
         groupedPlayers() {
-            return _.chunk(this.seniorPlayers, 3)
+            return _.chunk(this.seniorPlayers, 6)
             // returns a nested array: 
             // [[article, article, article], [article, article, article], ...]
         }
