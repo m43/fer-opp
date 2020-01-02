@@ -10,9 +10,9 @@ namespace RudesWebapp.Data
         {
         }
 
-        //public RudesDatabaseContext(DbContextOptions options) : base(options)
-        //{
-        //}
+        // public RudesDatabaseContext(DbContextOptions options) : base(options)
+        // {
+        // }
 
 
         public RudesDatabaseContext(DbContextOptions<RudesDatabaseContext> options)
@@ -32,7 +32,6 @@ namespace RudesWebapp.Data
         public virtual DbSet<Review> Review { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
         public virtual DbSet<ShoppingCartArticle> ShoppingCartArticle { get; set; }
-        public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,8 +50,7 @@ namespace RudesWebapp.Data
                     .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasMaxLength(255);
+                    .HasColumnName("description");
 
                 entity.Property(e => e.ImageId).HasColumnName("image_ID");
 
@@ -63,13 +61,15 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(120);
+                entity.HasAlternateKey(e => e.Name);
+                // An article has an unique name, not to confuse the costumers 
 
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Type)
                     .HasColumnName("type")
-                    .HasMaxLength(255);
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.Article)
@@ -91,7 +91,7 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Size)
                     .HasColumnName("size")
-                    .HasMaxLength(255);
+                    .HasMaxLength(30);
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.ArticleAvailability)
@@ -144,9 +144,20 @@ namespace RudesWebapp.Data
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Path)
-                    .HasColumnName("path")
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
                     .HasMaxLength(255);
+
+                entity.Property(e => e.OriginalName)
+                    .HasColumnName("original_name");
+
+                entity.Property(e => e.Caption)
+                    .HasColumnName("caption")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.AltText)
+                    .HasColumnName("alt_text")
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<Match>(entity =>
@@ -202,20 +213,13 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.PostalCode).HasColumnName("postal_code");
 
-                entity.Property(e => e.Username)
-                    .HasColumnName("username");
-                //.HasMaxLength(255);
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_ID");
 
-                entity.HasOne(d => d.TransactionNavigation)
-                    .WithOne(p => p.Order)
-                    .HasForeignKey<Transaction>(t => t.orderId)
-                    .HasConstraintName("FK__order__ID_transa__3E52440B")
-                    .IsRequired(false);
-
-                entity.HasOne(d => d.UsernameNavigation)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Order)
-                    .HasForeignKey(d => d.Username)
-                    .HasConstraintName("FK__order__username__3D5E1FD2");
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__order__user__3D5E1FD2");
             });
 
             modelBuilder.Entity<OrderArticle>(entity =>
@@ -239,13 +243,13 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Size)
                     .HasColumnName("size")
-                    .HasMaxLength(255);
+                    .HasMaxLength(30);
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.OrderArticle)
                     .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__order_art__artic__3F466844");
+                    .HasConstraintName("FK__order_a__article__3F466844");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderArticle)
@@ -282,7 +286,7 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Position)
                     .HasColumnName("position")
-                    .HasMaxLength(255);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ImageId).HasColumnName("image_ID");
 
@@ -304,6 +308,8 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Title)
                     .HasColumnName("title");
+                // Post title could've been unique, but we choose not to do so to permit
+                // two posts of a title like "Merry Christmas" or "Upisi u školu"
 
                 entity.Property(e => e.EndDate)
                     .HasColumnName("end_date")
@@ -321,7 +327,7 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.PostType)
                     .HasColumnName("post_type")
-                    .HasMaxLength(255);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.StartDate)
                     .HasColumnName("start_date")
@@ -350,7 +356,7 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Comment)
                     .HasColumnName("comment")
-                    .HasMaxLength(255);
+                    .HasMaxLength(5000);
 
                 entity.Property(e => e.Date)
                     .HasColumnName("date")
@@ -358,9 +364,8 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Rating).HasColumnName("rating");
 
-                entity.Property(e => e.Username)
-                    .HasColumnName("username");
-                //.HasMaxLength(255);
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_ID");
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Review)
@@ -368,9 +373,9 @@ namespace RudesWebapp.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__review__article___45F365D3");
 
-                entity.HasOne(d => d.UsernameNavigation)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Review)
-                    .HasForeignKey(d => d.Username)
+                    .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__review___usern__03122019M43");
             });
 
@@ -384,13 +389,12 @@ namespace RudesWebapp.Data
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Username)
-                    .HasColumnName("username");
-                //.HasMaxLength(255);
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_ID");
 
-                entity.HasOne(d => d.UsernameNavigation)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.ShoppingCart)
-                    .HasForeignKey(d => d.Username)
+                    .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__shopping___usern__440B1D61");
             });
 
@@ -405,17 +409,11 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.ArticleId).HasColumnName("article_ID");
 
-                entity.Property(e => e.PurchaseDiscount).HasColumnName("purchase_discount");
-
-                entity.Property(e => e.PurchasePrice)
-                    .HasColumnName("purchase_price")
-                    .HasColumnType("decimal(18, 0)");
-
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.Property(e => e.Size)
                     .HasColumnName("size")
-                    .HasMaxLength(255);
+                    .HasMaxLength(30);
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.ShoppingCartArticle)
@@ -428,25 +426,6 @@ namespace RudesWebapp.Data
                     .HasForeignKey(d => d.ShoppingCartId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__shopping___shopp__4316F928");
-            });
-
-            modelBuilder.Entity<Transaction>(entity =>
-            {
-                entity.ToTable("transaction");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Amount)
-                    .HasColumnName("amount")
-                    .HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.Card)
-                    .HasColumnName("card")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Date)
-                    .HasColumnName("date")
-                    .HasColumnType("datetime");
             });
 
             OnModelCreatingPartial(modelBuilder);

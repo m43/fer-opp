@@ -11,10 +11,10 @@ namespace RudesWebapp.Models
         }
 
         public int Id { get; set; }
-        public string Username { get; set; }
+        public string UserId { get; set; }
         public DateTime? Date { get; set; }
 
-        public virtual User UsernameNavigation { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<ShoppingCartArticle> ShoppingCartArticle { get; set; }
     }
 }
