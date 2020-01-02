@@ -55,8 +55,11 @@ namespace RudesWebapp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    path = table.Column<string>(maxLength: 255, nullable: true),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true)
+                    name = table.Column<string>(maxLength: 255, nullable: true),
+                    original_name = table.Column<string>(nullable: true),
+                    caption = table.Column<string>(maxLength: 100, nullable: true),
+                    alt_text = table.Column<string>(maxLength: 100, nullable: true),
+                    date = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,7 +72,7 @@ namespace RudesWebapp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    date = table.Column<DateTime>(type: "datetime", nullable: false),
                     home_team = table.Column<string>(maxLength: 255, nullable: true),
                     away_team = table.Column<string>(maxLength: 255, nullable: true),
                     city = table.Column<string>(maxLength: 255, nullable: true),
@@ -193,19 +196,20 @@ namespace RudesWebapp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    username = table.Column<string>(nullable: true),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    user_ID = table.Column<string>(nullable: true),
+                    date = table.Column<DateTime>(type: "datetime", nullable: false),
                     fulfilled = table.Column<bool>(nullable: true),
                     address = table.Column<string>(maxLength: 255, nullable: true),
                     city = table.Column<string>(maxLength: 255, nullable: true),
-                    postal_code = table.Column<int>(nullable: true)
+                    postal_code = table.Column<int>(nullable: true),
+                    transaction_ID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_order", x => x.ID);
                     table.ForeignKey(
-                        name: "FK__order__username__3D5E1FD2",
-                        column: x => x.username,
+                        name: "FK__order__user__3D5E1FD2",
+                        column: x => x.user_ID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -217,15 +221,16 @@ namespace RudesWebapp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    username = table.Column<string>(nullable: true),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true)
+                    user_ID = table.Column<string>(nullable: true),
+                    date_created = table.Column<DateTime>(type: "datetime", nullable: false),
+                    last_modification_date = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_shopping_cart", x => x.ID);
                     table.ForeignKey(
                         name: "FK__shopping___usern__440B1D61",
-                        column: x => x.username,
+                        column: x => x.user_ID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -237,17 +242,18 @@ namespace RudesWebapp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    creation_date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    creation_date = table.Column<DateTime>(type: "datetime", nullable: false),
                     last_modification_date = table.Column<DateTime>(type: "datetime", nullable: true),
-                    type = table.Column<string>(maxLength: 255, nullable: true),
+                    type = table.Column<string>(maxLength: 50, nullable: true),
                     price = table.Column<int>(nullable: true),
-                    name = table.Column<string>(maxLength: 255, nullable: true),
-                    description = table.Column<string>(maxLength: 255, nullable: true),
+                    name = table.Column<string>(maxLength: 120, nullable: false),
+                    description = table.Column<string>(nullable: true),
                     image_ID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_article", x => x.ID);
+                    table.UniqueConstraint("AK_article_name", x => x.name);
                     table.ForeignKey(
                         name: "FK__article__image_I__46E78A0C",
                         column: x => x.image_ID,
@@ -262,12 +268,12 @@ namespace RudesWebapp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    creation_date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    creation_date = table.Column<DateTime>(type: "datetime", nullable: false),
                     last_modification_date = table.Column<DateTime>(type: "datetime", nullable: true),
                     name = table.Column<string>(maxLength: 255, nullable: true),
                     last_name = table.Column<string>(maxLength: 255, nullable: true),
                     birth_date = table.Column<DateTime>(type: "date", nullable: true),
-                    position = table.Column<string>(maxLength: 255, nullable: true),
+                    position = table.Column<string>(maxLength: 50, nullable: true),
                     image_ID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -290,9 +296,9 @@ namespace RudesWebapp.Migrations
                     title = table.Column<string>(nullable: true),
                     content = table.Column<string>(type: "text", nullable: true),
                     image_ID = table.Column<int>(nullable: true),
-                    post_date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    creation_date = table.Column<DateTime>(type: "datetime", nullable: false),
                     last_modification_date = table.Column<DateTime>(type: "datetime", nullable: true),
-                    post_type = table.Column<string>(maxLength: 255, nullable: true),
+                    post_type = table.Column<string>(maxLength: 50, nullable: true),
                     start_date = table.Column<DateTime>(type: "datetime", nullable: true),
                     end_date = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -308,33 +314,11 @@ namespace RudesWebapp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "transaction",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true),
-                    amount = table.Column<decimal>(type: "decimal(18, 0)", nullable: true),
-                    card = table.Column<string>(maxLength: 255, nullable: true),
-                    orderId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_transaction", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK__order__ID_transa__3E52440B",
-                        column: x => x.orderId,
-                        principalTable: "order",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "article_availability",
                 columns: table => new
                 {
                     article_ID = table.Column<int>(nullable: false),
-                    size = table.Column<string>(maxLength: 255, nullable: false),
+                    size = table.Column<string>(maxLength: 30, nullable: false),
                     quantity = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -355,7 +339,7 @@ namespace RudesWebapp.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     article_ID = table.Column<int>(nullable: false),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    date = table.Column<DateTime>(type: "datetime", nullable: false),
                     start_date = table.Column<DateTime>(type: "datetime", nullable: true),
                     end_date = table.Column<DateTime>(type: "datetime", nullable: true),
                     percentage = table.Column<int>(nullable: true)
@@ -378,7 +362,7 @@ namespace RudesWebapp.Migrations
                     order_ID = table.Column<int>(nullable: false),
                     article_ID = table.Column<int>(nullable: false),
                     quantity = table.Column<int>(nullable: true),
-                    size = table.Column<string>(maxLength: 255, nullable: true),
+                    size = table.Column<string>(maxLength: 30, nullable: true),
                     purchase_price = table.Column<decimal>(type: "decimal(18, 0)", nullable: true),
                     purchase_discount = table.Column<int>(nullable: true)
                 },
@@ -386,7 +370,7 @@ namespace RudesWebapp.Migrations
                 {
                     table.PrimaryKey("PK__order_ar__DA851AC7823BC41D", x => new { x.order_ID, x.article_ID });
                     table.ForeignKey(
-                        name: "FK__order_art__artic__3F466844",
+                        name: "FK__order_a__article__3F466844",
                         column: x => x.article_ID,
                         principalTable: "article",
                         principalColumn: "ID",
@@ -406,10 +390,10 @@ namespace RudesWebapp.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     article_ID = table.Column<int>(nullable: false),
-                    date = table.Column<DateTime>(type: "datetime", nullable: true),
+                    creation_date = table.Column<DateTime>(type: "datetime", nullable: false),
                     rating = table.Column<int>(nullable: true),
-                    comment = table.Column<string>(maxLength: 255, nullable: true),
-                    username = table.Column<string>(nullable: true),
+                    comment = table.Column<string>(maxLength: 5000, nullable: true),
+                    user_ID = table.Column<string>(nullable: true),
                     blocked = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
@@ -423,7 +407,7 @@ namespace RudesWebapp.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK__review___usern__03122019M43",
-                        column: x => x.username,
+                        column: x => x.user_ID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -436,9 +420,7 @@ namespace RudesWebapp.Migrations
                     shopping_cart_ID = table.Column<int>(nullable: false),
                     article_ID = table.Column<int>(nullable: false),
                     quantity = table.Column<int>(nullable: true),
-                    size = table.Column<string>(maxLength: 255, nullable: true),
-                    purchase_price = table.Column<decimal>(type: "decimal(18, 0)", nullable: true),
-                    purchase_discount = table.Column<int>(nullable: true)
+                    size = table.Column<string>(maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -507,9 +489,9 @@ namespace RudesWebapp.Migrations
                 column: "article_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_order_username",
+                name: "IX_order_user_ID",
                 table: "order",
-                column: "username");
+                column: "user_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_order_article_article_ID",
@@ -532,25 +514,19 @@ namespace RudesWebapp.Migrations
                 column: "article_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_review_username",
+                name: "IX_review_user_ID",
                 table: "review",
-                column: "username");
+                column: "user_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_shopping_cart_username",
+                name: "IX_shopping_cart_user_ID",
                 table: "shopping_cart",
-                column: "username");
+                column: "user_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_shopping_cart_article_article_ID",
                 table: "shopping_cart_article",
                 column: "article_ID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_transaction_orderId",
-                table: "transaction",
-                column: "orderId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -595,19 +571,16 @@ namespace RudesWebapp.Migrations
                 name: "shopping_cart_article");
 
             migrationBuilder.DropTable(
-                name: "transaction");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "order");
 
             migrationBuilder.DropTable(
                 name: "article");
 
             migrationBuilder.DropTable(
                 name: "shopping_cart");
-
-            migrationBuilder.DropTable(
-                name: "order");
 
             migrationBuilder.DropTable(
                 name: "image");

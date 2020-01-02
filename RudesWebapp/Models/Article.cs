@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RudesWebapp.Models
 {
-    public partial class Article
+    public partial class Article : IDateCreatedAndUpdated
     {
         public Article()
         {
@@ -14,7 +14,7 @@ namespace RudesWebapp.Models
         }
 
         public int Id { get; set; }
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
         public DateTime? LastModificationDate { get; set; }
         public string Type { get; set; }
         public int? Price { get; set; }

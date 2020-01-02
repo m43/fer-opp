@@ -2,11 +2,11 @@
 
 namespace RudesWebapp.Models
 {
-    public partial class Review
+    public partial class Review : IDateCreated
     {
         public int Id { get; set; }
         public int ArticleId { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime CreationDate { get; set; }
         public int? Rating { get; set; }
         public string Comment { get; set; }
         public string UserId { get; set; }

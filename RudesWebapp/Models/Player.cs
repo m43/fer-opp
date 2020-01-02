@@ -2,10 +2,10 @@
 
 namespace RudesWebapp.Models
 {
-    public partial class Player
+    public partial class Player : IDateCreatedAndUpdated
     {
         public int Id { get; set; }
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
         public DateTime? LastModificationDate { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }

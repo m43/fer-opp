@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Models;
 
@@ -113,7 +117,7 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.ArticleId).HasColumnName("article_ID");
 
-                entity.Property(e => e.Date)
+                entity.Property(e => e.CreationDate)
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
@@ -140,7 +144,7 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Date)
+                entity.Property(e => e.CreationDate)
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
@@ -178,7 +182,7 @@ namespace RudesWebapp.Data
                     .HasColumnName("country")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Date)
+                entity.Property(e => e.CreationDate)
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
@@ -205,7 +209,7 @@ namespace RudesWebapp.Data
                     .HasColumnName("city")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Date)
+                entity.Property(e => e.CreationDate)
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
@@ -215,6 +219,9 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_ID");
+
+                entity.Property(e => e.TransactionId)
+                    .HasColumnName("transaction_ID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Order)
@@ -321,8 +328,8 @@ namespace RudesWebapp.Data
                     .HasColumnName("last_modification_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.PostDate)
-                    .HasColumnName("post_date")
+                entity.Property(e => e.CreationDate)
+                    .HasColumnName("creation_date")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.PostType)
@@ -358,8 +365,8 @@ namespace RudesWebapp.Data
                     .HasColumnName("comment")
                     .HasMaxLength(5000);
 
-                entity.Property(e => e.Date)
-                    .HasColumnName("date")
+                entity.Property(e => e.CreationDate)
+                    .HasColumnName("creation_date")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.Rating).HasColumnName("rating");
@@ -385,8 +392,12 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Date)
-                    .HasColumnName("date")
+                entity.Property(e => e.CreationDate)
+                    .HasColumnName("date_created")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.LastModificationDate)
+                    .HasColumnName("last_modification_date")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.UserId)
@@ -432,5 +443,45 @@ namespace RudesWebapp.Data
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public override int SaveChanges()
+        {
+            SetProperties();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            SetProperties();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            SetProperties();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SetProperties()
+        {
+            foreach (var entity in ChangeTracker.Entries().Where(p => p.State == EntityState.Added))
+            {
+                var created = entity.Entity as IDateCreated;
+                if (created != null)
+                {
+                    created.CreationDate = DateTime.Now;
+                }
+            }
+
+            foreach (var entity in ChangeTracker.Entries().Where(p => p.State == EntityState.Modified))
+            {
+                var updated = entity.Entity as IDateUpdated;
+                if (updated != null)
+                {
+                    updated.LastModificationDate = DateTime.Now;
+                }
+            }
+        }
     }
 }

@@ -90,6 +90,7 @@ namespace RudesWebapp.Data
                 var orderArticles = GetOrderArticles(context);
                 context.OrderArticle.AddRange(orderArticles);
                 context.SaveChanges();
+                context.SaveChangesAsync();
 
                 transaction.Commit();
             }
@@ -336,7 +337,7 @@ namespace RudesWebapp.Data
                 {
                     City = "Metković",
                     Country = "Hrvatska",
-                    Date = DateTime.Now.AddDays(137),
+                    CreationDate = DateTime.Now.AddDays(137),
                     HomeTeam = "KK Metković",
                     AwayTeam = "KK Rudeš",
                     SportsHall = "Sportska dvorana Metković"
@@ -345,7 +346,7 @@ namespace RudesWebapp.Data
                 {
                     City = "Zagreb",
                     Country = "Hrvatska",
-                    Date = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
+                    CreationDate = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
                     HomeTeam = "KK Sesvete",
                     AwayTeam = "KK Rudeš",
                     SportsHall = "SŠ Jelkovac"
