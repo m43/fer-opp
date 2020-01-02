@@ -13,11 +13,12 @@ namespace RudesWebapp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private RudesDatabaseContext _context;
-        //private User user;
+        private readonly RudesDatabaseContext _context;
+        //private User user;public HomeController(RudesDatabaseContext context, ILogger<HomeController> logger)
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(RudesDatabaseContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
