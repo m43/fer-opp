@@ -90,10 +90,7 @@ namespace RudesWebapp.Data
                 var orderArticles = GetOrderArticles(context);
                 context.OrderArticle.AddRange(orderArticles);
                 context.SaveChanges();
-
-                var transactions = GetTransactions(context);
-                context.Transaction.AddRange(transactions);
-                context.SaveChanges();
+                context.SaveChangesAsync();
 
                 transaction.Commit();
             }
@@ -105,23 +102,31 @@ namespace RudesWebapp.Data
             {
                 new Image
                 {
-                    Path =
-                        "https://www.maxim.com/.image/c_fit%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_620/MTM1MTQzNDQ0MDQ1NzAzODEx/placeholder-title.jpg"
+                    Name = "dummy1",
+                    OriginalName = "dummyimage.png",
+                    AltText = "Dummy image alt text",
+                    Caption = "Dummy image caption"
                 },
                 new Image
                 {
-                    Path =
-                        "https://www.maxim.com/.image/c_fit%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_620/MTM1MTQzNDQ0MDQ1NzAzODEx/placeholder-title.jpg"
+                    Name = "dummy2",
+                    OriginalName = "dummyimage.png",
+                    AltText = "Dummy image alt text",
+                    Caption = "Dummy image caption"
                 },
                 new Image
                 {
-                    Path =
-                        "https://www.maxim.com/.image/c_fit%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_620/MTM1MTQzNDQ0MDQ1NzAzODEx/placeholder-title.jpg"
+                    Name = "dummy3",
+                    OriginalName = "dummyimage.png",
+                    AltText = "Dummy image alt text",
+                    Caption = "Dummy image caption"
                 },
                 new Image
                 {
-                    Path =
-                        "https://www.maxim.com/.image/c_fit%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_620/MTM1MTQzNDQ0MDQ1NzAzODEx/placeholder-title.jpg"
+                    Name = "dummy4",
+                    OriginalName = "dummyimage.png",
+                    AltText = "Dummy image alt text",
+                    Caption = "Dummy image caption"
                 }
             };
             return images;
@@ -332,7 +337,7 @@ namespace RudesWebapp.Data
                 {
                     City = "Metković",
                     Country = "Hrvatska",
-                    Date = DateTime.Now.AddDays(137),
+                    CreationDate = DateTime.Now.AddDays(137),
                     HomeTeam = "KK Metković",
                     AwayTeam = "KK Rudeš",
                     SportsHall = "Sportska dvorana Metković"
@@ -341,7 +346,7 @@ namespace RudesWebapp.Data
                 {
                     City = "Zagreb",
                     Country = "Hrvatska",
-                    Date = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
+                    CreationDate = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
                     HomeTeam = "KK Sesvete",
                     AwayTeam = "KK Rudeš",
                     SportsHall = "SŠ Jelkovac"
@@ -352,7 +357,7 @@ namespace RudesWebapp.Data
 
         public static readonly string DUMMY_PASSWORD = "HiveMind.2019";
 
-        public static User DummyUserWithAllRoles = new User
+        public static readonly User DummyUserWithAllRoles = new User
         {
             UserName = "mail@hivemind.org",
             Email = "mail@hivemind.org",
@@ -361,7 +366,7 @@ namespace RudesWebapp.Data
             EmailConfirmed = true
         };
 
-        public static User DummyUser = new User
+        public static readonly User DummyUser = new User
         {
             UserName = "user@hivemind.org",
             Email = "user@hivemind.org",
@@ -370,7 +375,7 @@ namespace RudesWebapp.Data
             EmailConfirmed = true
         };
 
-        public static User DummyCoachUser = new User
+        public static readonly User DummyCoachUser = new User
         {
             UserName = "coach@hivemind.org",
             Email = "coach@hivemind.org",
@@ -379,7 +384,7 @@ namespace RudesWebapp.Data
             EmailConfirmed = true
         };
 
-        public static User DummyBoardUser = new User
+        public static readonly User DummyBoardUser = new User
         {
             UserName = "board@hivemind.org",
             Email = "board@hivemind.org",
@@ -388,7 +393,7 @@ namespace RudesWebapp.Data
             EmailConfirmed = true
         };
 
-        public static User DummyAdminUser = new User
+        public static readonly User DummyAdminUser = new User
         {
             UserName = "admin@hivemind.org",
             Email = "admin@hivemind.org",
@@ -424,21 +429,21 @@ namespace RudesWebapp.Data
                     Article = context.Article.First(),
                     Comment = "Vrlo odlično spektakularno!! <3",
                     Rating = 5,
-                    UsernameNavigation = context.User.First()
+                    User = context.User.First()
                 },
                 new Review
                 {
                     Article = context.Article.First(),
                     Comment = "Spektakularno!! Kupija san dvaput",
                     Rating = 5,
-                    UsernameNavigation = context.User.First()
+                    User = context.User.First()
                 },
                 new Review
                 {
                     Article = context.Article.Skip(1).First(),
                     Comment = "A nije nešto :/",
                     Rating = 3,
-                    UsernameNavigation = context.User.First()
+                    User = context.User.First()
                 }
             };
 
@@ -451,7 +456,7 @@ namespace RudesWebapp.Data
             {
                 new ShoppingCart
                 {
-                    UsernameNavigation = context.User.First()
+                    User = context.User.First()
                 }
             };
 
@@ -489,34 +494,13 @@ namespace RudesWebapp.Data
         }
 
 
-        public static List<Transaction> GetTransactions(RudesDatabaseContext context)
-        {
-            var transactions = new List<Transaction>
-            {
-                new Transaction
-                {
-                    Amount = 1234,
-                    Card = "2030302012344321",
-                    Order = context.Order.First()
-                }
-//                , new Transaction // should not work!
-//                {
-//                    Amount = 1234,
-//                    Card = "2030302012344321",
-//                    Order = context.Order.First()
-//                }
-            };
-
-            return transactions;
-        }
-
         public static List<Order> GetOrders(RudesDatabaseContext context)
         {
             var orders = new List<Order>
             {
                 new Order
                 {
-                    UsernameNavigation = context.User.First(),
+                    User = context.User.First(),
                     Address = "Kralja Zvonimira 32",
                     PostalCode = 20350
                 }
@@ -535,8 +519,6 @@ namespace RudesWebapp.Data
                     Article = context.Article.First(),
                     Size = "L",
                     Quantity = 1,
-                    PurchaseDiscount = 30,
-                    PurchasePrice = 120
                 },
                 new OrderArticle
                 {
@@ -544,8 +526,6 @@ namespace RudesWebapp.Data
                     Article = context.Article.Skip(1).First(),
                     Size = "M",
                     Quantity = 1,
-                    PurchaseDiscount = 15,
-                    PurchasePrice = 150
                 }
             };
 

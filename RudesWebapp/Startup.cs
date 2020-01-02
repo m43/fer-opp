@@ -26,11 +26,11 @@ namespace RudesWebapp
         {
             services.AddControllersWithViews();
 
-           services.AddDbContext<RudesDatabaseContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("RudesDatabase")));
+            services.AddDbContext<RudesDatabaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("RudesDatabase")));
 
             services.AddDefaultIdentity<User>(
-                   options => options.SignIn.RequireConfirmedAccount = true)
+                    options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RudesDatabaseContext>();
 
@@ -42,7 +42,7 @@ namespace RudesWebapp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
+                // RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
             }
             else
             {

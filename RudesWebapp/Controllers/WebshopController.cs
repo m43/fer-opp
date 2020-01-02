@@ -341,7 +341,7 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(string username, ShoppingCart shoppingCart)
         {
-            if (username != shoppingCart.Username)
+            if (username != shoppingCart.UserId)
             {
                 return BadRequest();
             }
@@ -473,87 +473,6 @@ namespace RudesWebapp.Controllers
             return order;
         }
 
-        // Transaction
-
-        [HttpGet]
-        [Authorize(Roles = "Board, Admin")]
-        public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions()
-        {
-            return await _context.Transaction.ToListAsync();
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Board, Admin")]
-        public async Task<ActionResult<Transaction>> GetTransaction(int id)
-        {
-            var transaction = await _context.Transaction.FindAsync(id);
-
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            return transaction;
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<Transaction>> CreateTransaction(Transaction transaction)
-        {
-            _context.Transaction.Add(transaction);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTransaction", new {id = transaction.Id}, transaction);
-        }
-
-        [HttpPut]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<Transaction>> UpdateTransaction(int id, Transaction transaction)
-        {
-            if (id != transaction.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(transaction).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var transaction_from_database = await _context.Transaction.FindAsync(id);
-                if (transaction_from_database == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        [HttpDelete]
-        [Authorize(Roles = "Board, Admin")]
-        public async Task<ActionResult<Transaction>> DeleteTransaction(int id)
-        {
-            var transaction = await _context.Transaction.FindAsync(id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            _context.Transaction.Remove(transaction);
-            await _context.SaveChangesAsync();
-
-            return transaction;
-        }
-
-        
         [HttpPost]
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task BuyArticle(int articleId)

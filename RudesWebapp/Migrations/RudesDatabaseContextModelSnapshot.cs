@@ -162,15 +162,14 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("creation_date")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
                         .HasColumnName("description")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ImageId")
                         .HasColumnName("image_ID")
@@ -182,9 +181,10 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnName("name")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(120)")
+                        .HasMaxLength(120);
 
                     b.Property<int?>("Price")
                         .HasColumnName("price")
@@ -192,10 +192,12 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Type")
                         .HasColumnName("type")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("Name");
 
                     b.HasIndex("ImageId");
 
@@ -210,8 +212,8 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Size")
                         .HasColumnName("size")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<int?>("Quantity")
                         .HasColumnName("quantity")
@@ -235,7 +237,7 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("article_ID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnName("date")
                         .HasColumnType("datetime");
 
@@ -267,14 +269,28 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<string>("AltText")
+                        .HasColumnName("alt_text")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Caption")
+                        .HasColumnName("caption")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnName("date")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Path")
-                        .HasColumnName("path")
+                    b.Property<string>("Name")
+                        .HasColumnName("name")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
+
+                    b.Property<string>("OriginalName")
+                        .HasColumnName("original_name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -304,7 +320,7 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnName("date")
                         .HasColumnType("datetime");
 
@@ -341,7 +357,7 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnName("date")
                         .HasColumnType("datetime");
 
@@ -353,13 +369,17 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("postal_code")
                         .HasColumnType("int");
 
-                    b.Property<string>("Username")
-                        .HasColumnName("username")
+                    b.Property<string>("TransactionId")
+                        .HasColumnName("transaction_ID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnName("user_ID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Username");
+                    b.HasIndex("UserId");
 
                     b.ToTable("order");
                 });
@@ -388,8 +408,8 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Size")
                         .HasColumnName("size")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("OrderId", "ArticleId")
                         .HasName("PK__order_ar__DA851AC7823BC41D");
@@ -411,7 +431,7 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("birth_date")
                         .HasColumnType("date");
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnName("creation_date")
                         .HasColumnType("datetime");
 
@@ -435,8 +455,8 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Position")
                         .HasColumnName("position")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -457,6 +477,10 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("content")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnName("creation_date")
+                        .HasColumnType("datetime");
+
                     b.Property<DateTime?>("EndDate")
                         .HasColumnName("end_date")
                         .HasColumnType("datetime");
@@ -469,14 +493,10 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("last_modification_date")
                         .HasColumnType("datetime");
 
-                    b.Property<DateTime?>("PostDate")
-                        .HasColumnName("post_date")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("PostType")
                         .HasColumnName("post_type")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnName("start_date")
@@ -511,19 +531,19 @@ namespace RudesWebapp.Migrations
 
                     b.Property<string>("Comment")
                         .HasColumnName("comment")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(5000);
 
-                    b.Property<DateTime?>("Date")
-                        .HasColumnName("date")
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnName("creation_date")
                         .HasColumnType("datetime");
 
                     b.Property<int?>("Rating")
                         .HasColumnName("rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("Username")
-                        .HasColumnName("username")
+                    b.Property<string>("UserId")
+                        .HasColumnName("user_ID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id", "ArticleId")
@@ -531,7 +551,7 @@ namespace RudesWebapp.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.HasIndex("Username");
+                    b.HasIndex("UserId");
 
                     b.ToTable("review");
                 });
@@ -544,17 +564,21 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("Date")
-                        .HasColumnName("date")
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnName("date_created")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Username")
-                        .HasColumnName("username")
+                    b.Property<DateTime?>("LastModificationDate")
+                        .HasColumnName("last_modification_date")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UserId")
+                        .HasColumnName("user_ID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Username");
+                    b.HasIndex("UserId");
 
                     b.ToTable("shopping_cart");
                 });
@@ -569,22 +593,14 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("article_ID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PurchaseDiscount")
-                        .HasColumnName("purchase_discount")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("PurchasePrice")
-                        .HasColumnName("purchase_price")
-                        .HasColumnType("decimal(18, 0)");
-
                     b.Property<int?>("Quantity")
                         .HasColumnName("quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("Size")
                         .HasColumnName("size")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("ShoppingCartId", "ArticleId")
                         .HasName("PK__shopping__B7E583C151B3360B");
@@ -592,38 +608,6 @@ namespace RudesWebapp.Migrations
                     b.HasIndex("ArticleId");
 
                     b.ToTable("shopping_cart_article");
-                });
-
-            modelBuilder.Entity("RudesWebapp.Models.Transaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnName("amount")
-                        .HasColumnType("decimal(18, 0)");
-
-                    b.Property<string>("Card")
-                        .HasColumnName("card")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime?>("Date")
-                        .HasColumnName("date")
-                        .HasColumnType("datetime");
-
-                    b.Property<int>("orderId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("orderId")
-                        .IsUnique();
-
-                    b.ToTable("transaction");
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.User", b =>
@@ -779,10 +763,10 @@ namespace RudesWebapp.Migrations
 
             modelBuilder.Entity("RudesWebapp.Models.Order", b =>
                 {
-                    b.HasOne("RudesWebapp.Models.User", "UsernameNavigation")
+                    b.HasOne("RudesWebapp.Models.User", "User")
                         .WithMany("Order")
-                        .HasForeignKey("Username")
-                        .HasConstraintName("FK__order__username__3D5E1FD2");
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK__order__user__3D5E1FD2");
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.OrderArticle", b =>
@@ -790,7 +774,7 @@ namespace RudesWebapp.Migrations
                     b.HasOne("RudesWebapp.Models.Article", "Article")
                         .WithMany("OrderArticle")
                         .HasForeignKey("ArticleId")
-                        .HasConstraintName("FK__order_art__artic__3F466844")
+                        .HasConstraintName("FK__order_a__article__3F466844")
                         .IsRequired();
 
                     b.HasOne("RudesWebapp.Models.Order", "Order")
@@ -824,17 +808,17 @@ namespace RudesWebapp.Migrations
                         .HasConstraintName("FK__review__article___45F365D3")
                         .IsRequired();
 
-                    b.HasOne("RudesWebapp.Models.User", "UsernameNavigation")
+                    b.HasOne("RudesWebapp.Models.User", "User")
                         .WithMany("Review")
-                        .HasForeignKey("Username")
+                        .HasForeignKey("UserId")
                         .HasConstraintName("FK__review___usern__03122019M43");
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("RudesWebapp.Models.User", "UsernameNavigation")
+                    b.HasOne("RudesWebapp.Models.User", "User")
                         .WithMany("ShoppingCart")
-                        .HasForeignKey("Username")
+                        .HasForeignKey("UserId")
                         .HasConstraintName("FK__shopping___usern__440B1D61");
                 });
 
@@ -851,14 +835,6 @@ namespace RudesWebapp.Migrations
                         .HasForeignKey("ShoppingCartId")
                         .HasConstraintName("FK__shopping___shopp__4316F928")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RudesWebapp.Models.Transaction", b =>
-                {
-                    b.HasOne("RudesWebapp.Models.Order", "Order")
-                        .WithOne("TransactionNavigation")
-                        .HasForeignKey("RudesWebapp.Models.Transaction", "orderId")
-                        .HasConstraintName("FK__order__ID_transa__3E52440B");
                 });
 #pragma warning restore 612, 618
         }
