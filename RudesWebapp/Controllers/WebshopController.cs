@@ -390,7 +390,7 @@ namespace RudesWebapp.Controllers
         {
             // Use shopping cart model CRUD methods defined in this controller
             var shoppingCart = await GetCurrentShoppingCart();
-
+            
         }
 
         // Order
