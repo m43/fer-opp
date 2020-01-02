@@ -1,5 +1,5 @@
 ﻿var media = new Vue({
-    el: '#media',
+    el: '#gallery',
     data: {
 
     }
