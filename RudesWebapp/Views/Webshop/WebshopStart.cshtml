@@ -1,67 +1,98 @@
 ﻿@{
     ViewData["Title"] = "Webshop";
 }
-<div id="outer">
-    <div class="specialdiv">
-        <button onclick="myFunction()">Filteri</button>
+    <div id="outer">
+        <div class="specialdiv">
+            <div>
+                <button id="buttonFilter" onclick="myFunction()">Filteri</button>
+            </div>
 
-        <div id="myDIV">
-            <div class="specialdiv4">
-                <input type="checkbox">
-                <input type="checkbox">
-                <input type="checkbox">
-                <input type="checkbox">
-                <input type="checkbox">
-                <input type="checkbox">
+            <div id="myDIV">
+                <div class="specialdiv4 colorFilter">
+                    <li>
+                        <input type="checkbox" id="cb1">
+                        <label for="cb1"><img class="checkboxImage" src="https://i.imgur.com/eILu8p4.jpg"></label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="cb2">
+                        <label for="cb2"><img class="checkboxImage" src="https://www.mjt.me.uk/assets/images/smallest-png/skobbler-maps.png"></label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="cb3">
+                        <label for="cb3"><img class="checkboxImage" src="https://oconnorpg.com/wp-content/uploads/2019/05/White-Square.jpg"></label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="cb4">
+                        <label for="cb4"><img class="checkboxImage" src="https://www.iconsdb.com/icons/preview/black/square-xxl.png"></label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="cb5">
+                        <label for="cb5"><img class="checkboxImage" src="https://f-scope.net/images/square-clipart-green-square.jpg"></label>
+                    </li>
+                    <input type="checkbox" id="cb6">
+                    <label for="cb6"><img class="checkboxImage" src="https://images-na.ssl-images-amazon.com/images/I/01fnVfMakPL._SY355_.png"></label>
+                    </li>
+                </div>
+                <div class="specialdiv4 typesOfArticles">
+                    <input type="checkbox">Hoodie<br>
+                    <input type="checkbox">T-shirt<br>
+                </div>
+                <div class="specialdiv4 priceOfArticles">
+                    <input type="checkbox">< 100 kn<br>
+                    <input type="checkbox">< 200 kn<br>
+                    <input type="checkbox">< 300 kn<br>
+                </div>
+                <div class="specialdiv4">
+                    <input type="radio">Sortiraj od najniže prema najvišoj cijeni<br>
+                    <input type="radio">Sortiraj od najviše prema najnižoj cijeni<br>
+                </div>
+                <div class="specialdiv4 applyFilters">
+                    <button>Primijeni</button>
+                </div>
             </div>
-            <div class="specialdiv4">
-                <input type="checkbox">
-                <input type="checkbox">
-            </div>
-            <div class="specialdiv4">
-                <input type="checkbox">
-                <input type="checkbox">
-                <input type="checkbox">
-            </div>
-            <div class="specialdiv4">
-                <input type="radio">
-                <input type="radio">
-            </div>
-            <div class="specialdiv4">
-                <button>da</button>
-            </div>
-        </div>
-        <script>
-            function myFunction() {
-                var x = document.getElementById("myDIV");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
+            <script>
+                function myFunction() {
+                    var x = document.getElementById("myDIV");
+                    if (x.style.display === "none") {
+                        x.style.display = "";
+                    } else {
+                        x.style.display = "none";
+                    }
                 }
-            }
-        </script>
+            </script>
+        </div>
+
+        <div class="eqi-container">
+
+            <div class="imageDiv">
+                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+            </div>
+
+            <div class="imageDiv">
+                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+
+            </div>
+
+            <div class="imageDiv">
+                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+            </div>
+
+            <div class="imageDiv">
+                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+                <figcaption>babab</figcaption>
+            </div>
+        </div>
     </div>
-
-    <div class="eqi-container">
-        <div>
-            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-
-        </div>
-
-        <div>
-            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-        </div>
-
-        <div>
-            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-        </div>
-
-        <div>
-            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-        </div>
-    </div>
-</div>
-
 
 <link rel="stylesheet" type="text/css" href="~/css/webshop.css">
