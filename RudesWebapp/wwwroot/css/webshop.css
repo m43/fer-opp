@@ -1,37 +1,53 @@
-﻿img.artikl {
+﻿#outer {
+    border-style: solid;
+    margin-left: 7%;
+    margin-right: 7%;
+    margin-top: 2%;
+}
+
+.specialdiv {
+    border-style: dotted;
+}
+
+#containter {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.eqi-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .eqi-container div {
+        width: 200px;
+        height: auto;
+        padding: 20px;
+    }
+
+
+
+
+.specialdiv2 {
+    width: 50px;
+    height: 50px;
+    /*display: inline-block;
+	border-style: solid;*/
+    /*padding: 20px;*/
+    /*width: auto;*/
+    /*width: 20%*/
+}
+
+.productImages {
+    height: 100%;
     width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    width: 213px;
 }
 
-img.artikl:hover {
-    opacity: 0.5;
-    filter: alpha(opacity=100); /* For IE8 and earlier */
-}
-
-div.artikl {
-    height: 300px;
-}
-
-.foo {
-    float: left;
-    width: 20px;
-    height: 20px;
-    margin: 5px;
-    border: 1px solid rgba(0, 0, 0, .2);
-}
-
-.blue {
-    background: #13b4ff;
-}
-
-.purple {
-    background: #ab3fdd;
-}
-
-.wine {
-    background: #ae163e;
+.specialdiv4 {
+    display: inline-block;
+    border-style: solid;
+    width: auto;
+    height: auto;
 }

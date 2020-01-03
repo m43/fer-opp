@@ -1,79 +1,67 @@
 ﻿@{
     ViewData["Title"] = "Webshop";
 }
+<div id="outer">
+    <div class="specialdiv">
+        <button onclick="myFunction()">Filteri</button>
 
-<div class="container" style="height: 900px; margin-top: 20px;">
-    <div class="row" style="height: 500px;">
-        <div class="column col-3 border border-dark" style="height: 900px;">
-            <p>FILTERI</p>
-            <p>
-                Filtriraj po cijeni
-                <div class="slidecontainer">
-                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                </div>
-            </p>
-            <p>
-                Filtriraj po tipu (majica, hoodica)
-                <div>
-                    <input type="checkbox" name="option1" value="Shirt"> Majica <br />
-                    <input type="checkbox" name="option2" value="Hoodie"> Hoodie <br />
-                </div>
-            </p>
-            <p>
-                Filtriraj po dostupnim velicinama
-                <input type="checkbox" name="size1" value="Shirt"> XS <br />
-                <input type="checkbox" name="size2" value="Hoodie"> S <br />
-                <input type="checkbox" name="size1" value="Shirt"> M <br />
-                <input type="checkbox" name="size2" value="Hoodie"> L <br />
-                <input type="checkbox" name="size2" value="Hoodie"> XL <br />
-            </p>
-            <p>
-                Filtriraj po boji
-                <div class="foo blue"></div>
-                <div class="foo purple"></div>
-                <div class="foo wine"></div> <br />
-            </p>
-
-            <p>
-                <button type="button">Filtriraj</button>
-            </p>
+        <div id="myDIV">
+            <div class="specialdiv4">
+                <input type="checkbox">
+                <input type="checkbox">
+                <input type="checkbox">
+                <input type="checkbox">
+                <input type="checkbox">
+                <input type="checkbox">
+            </div>
+            <div class="specialdiv4">
+                <input type="checkbox">
+                <input type="checkbox">
+            </div>
+            <div class="specialdiv4">
+                <input type="checkbox">
+                <input type="checkbox">
+                <input type="checkbox">
+            </div>
+            <div class="specialdiv4">
+                <input type="radio">
+                <input type="radio">
+            </div>
+            <div class="specialdiv4">
+                <button>da</button>
+            </div>
         </div>
-        <div class="column col-9" style="height: 900px;">
-            <div class='row'>
-                <div id="prvi" class='col-xs-12 col-md-4 border border-dark arikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl">
-                </div>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-                <div class='col-xs-12 col-md-4 border border-dark artikl'>
-                    <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" class="artikl" />
-                </div>
-            </div>
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myDIV");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+        </script>
+    </div>
+
+    <div class="eqi-container">
+        <div>
+            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
+
+        </div>
+
+        <div>
+            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
+        </div>
+
+        <div>
+            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
+        </div>
+
+        <div>
+            <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
         </div>
     </div>
 </div>
+
 
 <link rel="stylesheet" type="text/css" href="~/css/webshop.css">
