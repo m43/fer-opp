@@ -479,7 +479,7 @@ namespace RudesWebapp.Data
                 },
                 new Player
                 {
-                    Name = "FIlip",
+                    Name = "Filip",
                     LastName = "Galić",
                     Position = "Krilni centar",
                     PlayerType = PlayerType.Seniors,
@@ -551,7 +551,7 @@ namespace RudesWebapp.Data
                 },
                 new Player
                 {
-                    Name = "FIlip",
+                    Name = "Filip",
                     LastName = "Galić",
                     Position = "Krilni centar",
                     PlayerType = PlayerType.Juniors,
@@ -623,7 +623,7 @@ namespace RudesWebapp.Data
                 },
                 new Player
                 {
-                    Name = "FIlip",
+                    Name = "Filip",
                     LastName = "Galić",
                     Position = "Krilni centar",
                     PlayerType = PlayerType.Cadets,
@@ -695,7 +695,7 @@ namespace RudesWebapp.Data
                 },
                 new Player
                 {
-                    Name = "FIlip",
+                    Name = "Filip",
                     LastName = "Galić",
                     Position = "Krilni centar",
                     PlayerType = PlayerType.YoungCadets,
@@ -767,7 +767,7 @@ namespace RudesWebapp.Data
                 },
                 new Player
                 {
-                    Name = "FIlip",
+                    Name = "Filip",
                     LastName = "Galić",
                     Position = "Krilni centar",
                     PlayerType = PlayerType.SportSchools,
@@ -839,7 +839,7 @@ namespace RudesWebapp.Data
                 },
                 new Player
                 {
-                    Name = "FIlip",
+                    Name = "Filip",
                     LastName = "Galić",
                     Position = "Krilni centar",
                     PlayerType = PlayerType.MiniBasketball,
