@@ -10,22 +10,28 @@
 
     <div id="postsCarousel" class="carousel slide" data-ride="carousel" style="width: 80%; margin: 0 auto;">
         <ol class="carousel-indicators">
-            <li data-target="#postsCarousel" data-slide-to="index" class="active" v-for="(post, index) in posts"></li>
+            <template v-for="(post, index) in posts">
+                <li v-if="index == 0" data-target="#postsCarousel" data-slide-to="index" class="active"></li>
+                <li v-else data-target="#postsCarousel" data-slide-to="index"></li>
+            </template>
         </ol>
 
         <div class="carousel-inner" style="max-height: 400px;">
-            <div v-if="index == 0" class="carousel-item active" v-for="(post, index) in posts">
-                <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
-                <div class="carousel-caption d-none d-md-block">
-                    <post-component :post="post"></post-component>
+            <template v-for="(post, index) in posts">
+                <div v-if="index == 0" class="carousel-item active">
+                    <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
+                    <div class="carousel-caption d-none d-md-block">
+                        <post-component :post="post"></post-component>
+                    </div>
                 </div>
-            </div>
-            <div v-if="index > 0" class="carousel-item" v-for="(post, index) in posts">
-                <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
-                <div class="carousel-caption d-none d-md-block">
-                    <post-component :post="post"></post-component>
+
+                <div v-else class="carousel-item">
+                    <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
+                    <div class="carousel-caption d-none d-md-block">
+                        <post-component :post="post"></post-component>
+                    </div>
                 </div>
-            </div>
+            </template>
         </div>
 
         <a class="carousel-control-prev" href="#postsCarousel" role="button" data-slide="prev">
