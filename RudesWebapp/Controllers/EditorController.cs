@@ -17,5 +17,15 @@ namespace RudesWebapp.Controllers
         {
             return View();
         }
+
+        public IActionResult PostEditor()
+        {
+            return View();
+        }
+
+        public IActionResult ArticleEditor()
+        {
+            return View();
+        }
     }
 }
