@@ -5,11 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RudesWebapp.Models;
-
-// ReSharper disable IdentifierTypo
 
 namespace RudesWebapp.Data
 {
@@ -26,8 +23,8 @@ namespace RudesWebapp.Data
         public static void Initialize(IServiceScope serviceScope)
         {
             var context = serviceScope.ServiceProvider.GetService<RudesDatabaseContext>();
-          //context.Database.EnsureCreated(); // TODO not sure if needed
-          //context.Database.Migrate(); // TODO not sure if needed
+            //context.Database.EnsureCreated(); // TODO not sure if needed
+            //context.Database.Migrate(); // TODO not sure if needed
 
             // var signInManager = serviceScope.ServiceProvider.GetService<SignInManager<User>>();
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
@@ -283,21 +280,20 @@ namespace RudesWebapp.Data
                     Price = 120,
                     Type = "t-shirt"
                 },
-                 new Article
+                new Article
                 {
                     Name = "Hudica 11",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt"
                 },
-                 new Article
+                new Article
                 {
                     Name = "Hudica 12",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt"
                 }
-
             };
             return articles;
         }
@@ -395,7 +391,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(2).First(),
                     PostType = "Obavijest"
                 },
-                 new Post
+                new Post
                 {
                     Title = "Humanitarna akcija",
                     Content =
@@ -405,7 +401,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(2).First(),
                     PostType = "Obavijest"
                 },
-                 new Post
+                new Post
                 {
                     Title = "Finale",
                     Content =
@@ -415,7 +411,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(2).First(),
                     PostType = "Obavijest"
                 },
-                 new Post
+                new Post
                 {
                     Title = "Upisi",
                     Content =
@@ -425,7 +421,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(2).First(),
                     PostType = "Obavijest"
                 },
-                 new Post
+                new Post
                 {
                     Title = "Dodjela medalja",
                     Content =
@@ -435,7 +431,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(2).First(),
                     PostType = "Obavijest"
                 },
-                  new Post
+                new Post
                 {
                     Title = "Treninzi od 21.12.2019 do 7.1.2020.",
                     Content =
@@ -459,25 +455,25 @@ namespace RudesWebapp.Data
                     Name = "Jurica",
                     LastName = "Nakić",
                     Position = "Centar",
+                    PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 },
-
-
                 new Player
                 {
                     Name = "Marko",
                     LastName = "Jelić",
                     Position = "Centar",
+                    PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 },
-
                 new Player
                 {
                     Name = "Bruno",
                     LastName = "Grmača",
                     Position = "Nisko krilo",
+                    PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 },
@@ -486,6 +482,7 @@ namespace RudesWebapp.Data
                     Name = "FIlip",
                     LastName = "Galić",
                     Position = "Krilni centar",
+                    PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 },
@@ -494,6 +491,7 @@ namespace RudesWebapp.Data
                     Name = "Ivan",
                     LastName = "Ćelić",
                     Position = "Bek šuter",
+                    PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 },
@@ -502,6 +500,7 @@ namespace RudesWebapp.Data
                     Name = "Petar",
                     LastName = "Jeramaz",
                     Position = "Bek šuter",
+                    PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 },
@@ -510,14 +509,376 @@ namespace RudesWebapp.Data
                     Name = "Josip",
                     LastName = "Kapović",
                     Position = "Nisko krilo",
+                    PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 },
-                 new Player
+                new Player
                 {
                     Name = "Maksimilijan",
                     LastName = "Božić",
                     Position = "Centar",
+                    PlayerType = PlayerType.Seniors,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Jurica",
+                    LastName = "Nakić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Marko",
+                    LastName = "Jelić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Bruno",
+                    LastName = "Grmača",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "FIlip",
+                    LastName = "Galić",
+                    Position = "Krilni centar",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Ivan",
+                    LastName = "Ćelić",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Petar",
+                    LastName = "Jeramaz",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Josip",
+                    LastName = "Kapović",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Maksimilijan",
+                    LastName = "Božić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.Juniors,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Jurica",
+                    LastName = "Nakić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Marko",
+                    LastName = "Jelić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Bruno",
+                    LastName = "Grmača",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "FIlip",
+                    LastName = "Galić",
+                    Position = "Krilni centar",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Ivan",
+                    LastName = "Ćelić",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Petar",
+                    LastName = "Jeramaz",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Josip",
+                    LastName = "Kapović",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Maksimilijan",
+                    LastName = "Božić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.Cadets,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Jurica",
+                    LastName = "Nakić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Marko",
+                    LastName = "Jelić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Bruno",
+                    LastName = "Grmača",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "FIlip",
+                    LastName = "Galić",
+                    Position = "Krilni centar",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Ivan",
+                    LastName = "Ćelić",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Petar",
+                    LastName = "Jeramaz",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Josip",
+                    LastName = "Kapović",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Maksimilijan",
+                    LastName = "Božić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.YoungCadets,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Jurica",
+                    LastName = "Nakić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Marko",
+                    LastName = "Jelić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Bruno",
+                    LastName = "Grmača",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "FIlip",
+                    LastName = "Galić",
+                    Position = "Krilni centar",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Ivan",
+                    LastName = "Ćelić",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Petar",
+                    LastName = "Jeramaz",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Josip",
+                    LastName = "Kapović",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Maksimilijan",
+                    LastName = "Božić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.SportSchools,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Jurica",
+                    LastName = "Nakić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.MiniBasketball,
+                    BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Marko",
+                    LastName = "Jelić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.MiniBasketball,
+                    BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Bruno",
+                    LastName = "Grmača",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.MiniBasketball,
+                    BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "FIlip",
+                    LastName = "Galić",
+                    Position = "Krilni centar",
+                    PlayerType = PlayerType.MiniBasketball,
+                    BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Ivan",
+                    LastName = "Ćelić",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.MiniBasketball,
+                    BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Petar",
+                    LastName = "Jeramaz",
+                    Position = "Bek šuter",
+                    PlayerType = PlayerType.MiniBasketball,
+                    BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Josip",
+                    LastName = "Kapović",
+                    Position = "Nisko krilo",
+                    PlayerType = PlayerType.MiniBasketball,
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                new Player
+                {
+                    Name = "Maksimilijan",
+                    LastName = "Božić",
+                    Position = "Centar",
+                    PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 }
@@ -543,7 +904,8 @@ namespace RudesWebapp.Data
                 {
                     City = "Zagreb",
                     Country = "Hrvatska",
-                    CreationDate = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture),
+                    CreationDate = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm",
+                        CultureInfo.InvariantCulture),
                     HomeTeam = "KK Sesvete",
                     AwayTeam = "KK Rudeš",
                     SportsHall = "SŠ Jelkovac"
@@ -731,7 +1093,6 @@ namespace RudesWebapp.Data
                     Size = "S",
                     Quantity = 3,
                 }
-
             };
 
             return orderArticles;

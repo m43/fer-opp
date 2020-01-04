@@ -295,6 +295,9 @@ namespace RudesWebapp.Data
                     .HasColumnName("position")
                     .HasMaxLength(50);
 
+                entity.Property(e => e.PlayerType)
+                    .HasColumnName("player_type");
+
                 entity.Property(e => e.ImageId).HasColumnName("image_ID");
 
                 entity.HasOne(d => d.Image)

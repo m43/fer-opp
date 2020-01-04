@@ -24,7 +24,7 @@ namespace RudesWebapp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
 
             services.AddDbContext<RudesDatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RudesDatabase")));
