@@ -369,29 +369,84 @@ namespace RudesWebapp.Controllers
         }
 
 
-        // TODO !!!!!!!
         [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetCurrentShoppingCart()
         {
             var currentUser = await GetCurrentUserAsync();
-            var currentShoppingCart = currentUser.ShoppingCart.First();
-
+            return ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+            /*
+            var currentUserShoppingCart = await _context.ShoppingCart
+                .FirstOrDefaultAsync(cart => cart.UserId == currentUser.Id);
+            
+            var currentShoppingCart = await _context.ShoppingCart.FindAsync(currentUserShoppingCart.Id);
+            currentShoppingCart.User = null;
+            
             if (currentShoppingCart == null)
             {
                 return NotFound();
             }
 
-            return await GetShoppingCart(currentShoppingCart.Id);
+            return currentShoppingCart;
+            */
         }
 
         [HttpPost]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task AddToShoppingCart(int articleId)
+        public async Task<ActionResult<Article>> AddToShoppingCart(int articleId, int quantity, string size)
         {
-            // Use shopping cart model CRUD methods defined in this controller
-            var shoppingCart = await GetCurrentShoppingCart();
-            
+            var currentUser = await GetCurrentUserAsync();
+            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+
+            var selectedArticle = await _context.Article.FindAsync(articleId);
+
+            if (selectedArticle != null)
+            {
+                shoppingCart.AddArticle(_context, selectedArticle, quantity, size);
+            }
+
+            return selectedArticle;
         }
+
+        [HttpDelete]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
+        public async Task<ActionResult<Article>> RemoveFromShoppingCart(int articleId, int quantity, string size)
+        {
+            var currentUser = await GetCurrentUserAsync();
+            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+
+            var selectedArticle = await _context.Article.FindAsync(articleId);
+
+            if (selectedArticle != null)
+            {
+               shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
+            }
+
+            return null;
+            // return selectedArticle;
+        }
+
+        
+        [HttpPut]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
+        public async void ClearShoppingCart()
+        {
+            var currentUser = await GetCurrentUserAsync();
+            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+
+            shoppingCart.ClearShoppingCart(_context);
+        }
+        
+        [HttpGet]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
+        public async Task<ActionResult<decimal>> GetTotalPrice()
+        {
+            var currentUser = await GetCurrentUserAsync();
+            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+
+            return shoppingCart.GetShoppingCartTotal(_context);
+        }
+
 
         // Order
 
@@ -485,5 +540,12 @@ namespace RudesWebapp.Controllers
             return await _userManager.GetUserAsync(HttpContext.User);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<User>> GetCurrentUser()
+        {
+            return await GetCurrentUserAsync();
+        }
+
     }
 }
+ 
