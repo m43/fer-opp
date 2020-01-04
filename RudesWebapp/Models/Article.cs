@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace RudesWebapp.Models
 {
@@ -21,6 +23,14 @@ namespace RudesWebapp.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int? ImageId { get; set; }
+
+        public Int32 Argb
+        {
+            get { return Color.ToArgb(); }
+            set { Color = Color.FromArgb(value); }
+        }
+
+        [NotMapped] public Color Color { get; set; }
 
         public virtual Image Image { get; set; }
         public virtual ICollection<ArticleAvailability> ArticleAvailability { get; set; }

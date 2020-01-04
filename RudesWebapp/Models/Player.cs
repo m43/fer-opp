@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-    
+
 namespace RudesWebapp.Models
 {
     public partial class Player : IDateCreatedAndUpdated
@@ -14,7 +14,7 @@ namespace RudesWebapp.Models
         public DateTime? BirthDate { get; set; }
         public PlayerType PlayerType { get; set; }
 
-        public string Position { get; set; }
+        public PlayerPositionType Position { get; set; }
         public int? ImageId { get; set; }
         public virtual Image Image { get; set; }
     }
@@ -28,5 +28,15 @@ namespace RudesWebapp.Models
         YoungCadets,
         SportSchools,
         MiniBasketball
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum PlayerPositionType
+    {
+        PG, // PointGuard
+        SG, // ShootingGuard
+        SF, // SmallForward
+        PF, // PowerForward
+        C // Center
     }
 }

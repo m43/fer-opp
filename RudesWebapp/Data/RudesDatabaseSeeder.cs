@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -142,6 +143,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 250,
                     Type = "hoodie",
+                    Color = Color.Indigo
                 },
                 new Article
                 {
@@ -151,6 +153,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Indigo
                 },
                 new Article
                 {
@@ -158,35 +161,48 @@ namespace RudesWebapp.Data
                     Description =
                         "Rudes majica izrađena je od 100% pamuka s tiskanim motivom na prednjoj strani. Pravi izbor za sve navijače i simpatizere maksimirskog kluba.",
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Indigo
                 },
                 new Article
                 {
                     Name = "Majica 2",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Aquamarine
                 },
                 new Article
                 {
                     Name = "Majica 3",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Aquamarine
                 },
                 new Article
                 {
                     Name = "Stone long sleeve tshirt",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "hoodie"
+                    Type = "hoodie",
+                    Color = Color.Aquamarine
                 },
                 new Article
                 {
                     Name = "Majica 4",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -194,7 +210,8 @@ namespace RudesWebapp.Data
                     Description =
                         "Rudes hoodie izrađena je od 100% pamuka s tiskanim motivom na prednjoj strani. Pravi izbor za sve navijače i simpatizere maksimirskog kluba.",
                     Price = 120,
-                    Type = "hoodie"
+                    Type = "hoodie",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -204,6 +221,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -213,6 +231,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -222,6 +241,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -231,6 +251,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -240,6 +261,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -249,6 +271,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
@@ -258,41 +281,57 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
                     Name = "Majica 8",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
                     Name = "Majica 9",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
                     Name = "Hudica 9",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
                     Name = "Hudica 11",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Crimson
                 },
                 new Article
                 {
                     Name = "Hudica 12",
+                    Description =
+                        "Vivamus aliquam erat ac velit tristique pretium. Nulla consequat orci odio, quis lacinia orci ultricies a.",
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
-                    Type = "t-shirt"
+                    Type = "t-shirt",
+                    Color = Color.Gold
                 }
             };
             return articles;
@@ -305,12 +344,16 @@ namespace RudesWebapp.Data
                 new Discount
                 {
                     Article = context.Article.First(),
-                    Percentage = 30
+                    Percentage = 30,
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddDays(14)
                 },
                 new Discount
                 {
                     Article = context.Article.Skip(1).First(),
-                    Percentage = 15
+                    Percentage = 15,
+                    StartDate = DateTime.Now.AddDays(7),
+                    EndDate = DateTime.Now.AddDays(21)
                 }
             };
 
@@ -454,7 +497,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Jurica",
                     LastName = "Nakić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.SG,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -463,7 +506,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Marko",
                     LastName = "Jelić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -472,7 +515,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Bruno",
                     LastName = "Grmača",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -481,7 +524,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Filip",
                     LastName = "Galić",
-                    Position = "Krilni centar",
+                    Position = PlayerPositionType.PF,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -490,7 +533,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Ivan",
                     LastName = "Ćelić",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -499,7 +542,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Petar",
                     LastName = "Jeramaz",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -508,7 +551,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Josip",
                     LastName = "Kapović",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -517,7 +560,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Maksimilijan",
                     LastName = "Božić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Seniors,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -526,7 +569,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Jurica",
                     LastName = "Nakić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -535,7 +578,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Marko",
                     LastName = "Jelić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -544,7 +587,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Bruno",
                     LastName = "Grmača",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -553,7 +596,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Filip",
                     LastName = "Galić",
-                    Position = "Krilni centar",
+                    Position = PlayerPositionType.PF,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -562,7 +605,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Ivan",
                     LastName = "Ćelić",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -571,7 +614,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Petar",
                     LastName = "Jeramaz",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.PG,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -580,7 +623,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Josip",
                     LastName = "Kapović",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -589,7 +632,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Maksimilijan",
                     LastName = "Božić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Juniors,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -598,7 +641,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Jurica",
                     LastName = "Nakić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -607,7 +650,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Marko",
                     LastName = "Jelić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -616,7 +659,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Bruno",
                     LastName = "Grmača",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -625,7 +668,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Filip",
                     LastName = "Galić",
-                    Position = "Krilni centar",
+                    Position = PlayerPositionType.PF,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -634,7 +677,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Ivan",
                     LastName = "Ćelić",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -643,7 +686,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Petar",
                     LastName = "Jeramaz",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -652,7 +695,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Josip",
                     LastName = "Kapović",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -661,7 +704,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Maksimilijan",
                     LastName = "Božić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.Cadets,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -670,7 +713,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Jurica",
                     LastName = "Nakić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -679,7 +722,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Marko",
                     LastName = "Jelić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -688,7 +731,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Bruno",
                     LastName = "Grmača",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -697,7 +740,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Filip",
                     LastName = "Galić",
-                    Position = "Krilni centar",
+                    Position = PlayerPositionType.PF,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -706,7 +749,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Ivan",
                     LastName = "Ćelić",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -715,7 +758,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Petar",
                     LastName = "Jeramaz",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -724,7 +767,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Josip",
                     LastName = "Kapović",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -733,7 +776,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Maksimilijan",
                     LastName = "Božić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.YoungCadets,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -742,7 +785,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Jurica",
                     LastName = "Nakić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -751,7 +794,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Marko",
                     LastName = "Jelić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -760,7 +803,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Bruno",
                     LastName = "Grmača",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -769,7 +812,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Filip",
                     LastName = "Galić",
-                    Position = "Krilni centar",
+                    Position = PlayerPositionType.PF,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -778,7 +821,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Ivan",
                     LastName = "Ćelić",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -787,7 +830,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Petar",
                     LastName = "Jeramaz",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -796,7 +839,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Josip",
                     LastName = "Kapović",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -805,7 +848,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Maksimilijan",
                     LastName = "Božić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.SportSchools,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -814,7 +857,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Jurica",
                     LastName = "Nakić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-12-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -823,7 +866,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Marko",
                     LastName = "Jelić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-01-21", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -832,7 +875,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Bruno",
                     LastName = "Grmača",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-05-06", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -841,7 +884,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Filip",
                     LastName = "Galić",
-                    Position = "Krilni centar",
+                    Position = PlayerPositionType.PF,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-06-20", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -850,7 +893,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Ivan",
                     LastName = "Ćelić",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-08-13", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -859,7 +902,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Petar",
                     LastName = "Jeramaz",
-                    Position = "Bek šuter",
+                    Position = PlayerPositionType.SF,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-03-09", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -868,7 +911,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Josip",
                     LastName = "Kapović",
-                    Position = "Nisko krilo",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -877,7 +920,7 @@ namespace RudesWebapp.Data
                 {
                     Name = "Maksimilijan",
                     LastName = "Božić",
-                    Position = "Centar",
+                    Position = PlayerPositionType.C,
                     PlayerType = PlayerType.MiniBasketball,
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
@@ -1078,6 +1121,8 @@ namespace RudesWebapp.Data
                     Article = context.Article.First(),
                     Size = "L",
                     Quantity = 1,
+                    PurchaseDiscount = 0,
+                    PurchasePrice = context.Article.First().Price
                 },
                 new OrderArticle
                 {
@@ -1085,6 +1130,8 @@ namespace RudesWebapp.Data
                     Article = context.Article.Skip(1).First(),
                     Size = "M",
                     Quantity = 1,
+                    PurchaseDiscount = 0,
+                    PurchasePrice = context.Article.Skip(1).First().Price
                 },
                 new OrderArticle
                 {
@@ -1092,6 +1139,8 @@ namespace RudesWebapp.Data
                     Article = context.Article.Skip(2).First(),
                     Size = "S",
                     Quantity = 3,
+                    PurchaseDiscount = 0,
+                    PurchasePrice = context.Article.Skip(2).First().Price
                 }
             };
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RudesWebapp.Models
 {
@@ -10,7 +11,7 @@ namespace RudesWebapp.Models
         public int? Rating { get; set; }
         public string Comment { get; set; }
         public string UserId { get; set; }
-        public bool? Blocked { get; set; }
+        public bool Blocked { get; set; }
 
         public virtual User User { get; set; }
         public virtual Article Article { get; set; }

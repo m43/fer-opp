@@ -46,34 +46,42 @@ namespace RudesWebapp.Data
             {
                 entity.ToTable("article");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("creation_date")
-                    .HasColumnType("datetime")
-                    .ValueGeneratedOnAdd();
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.Description)
-                    .HasColumnName("description");
+                    .HasColumnName("description")
+                    .IsRequired();
 
-                entity.Property(e => e.ImageId).HasColumnName("image_ID");
+                entity.Property(e => e.ImageId)
+                    .HasColumnName("image_ID");
 
                 entity.Property(e => e.LastModificationDate)
                     .HasColumnName("last_modification_date")
-                    .HasColumnType("datetime")
-                    .ValueGeneratedOnAddOrUpdate();
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasMaxLength(120);
+                    .HasMaxLength(120)
+                    .IsRequired();
                 entity.HasAlternateKey(e => e.Name);
                 // An article has an unique name, not to confuse the costumers 
 
-                entity.Property(e => e.Price).HasColumnName("price");
+                entity.Property(e => e.Price)
+                    .HasColumnName("price")
+                    .IsRequired();
 
                 entity.Property(e => e.Type)
                     .HasColumnName("type")
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .IsRequired();
+
+                entity.Property(e => e.Argb)
+                    .HasColumnName("color");
 
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.Article)
@@ -91,7 +99,9 @@ namespace RudesWebapp.Data
                 entity.Property(e => e.ArticleId)
                     .HasColumnName("article_ID");
 
-                entity.Property(e => e.Quantity).HasColumnName("quantity");
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .HasDefaultValue(-1);
 
                 entity.Property(e => e.Size)
                     .HasColumnName("size")
@@ -115,7 +125,8 @@ namespace RudesWebapp.Data
                     .HasColumnName("ID")
                     .ValueGeneratedOnAdd();
 
-                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
+                entity.Property(e => e.ArticleId)
+                    .HasColumnName("article_ID");
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("date")
@@ -123,13 +134,17 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.EndDate)
                     .HasColumnName("end_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .IsRequired();
 
-                entity.Property(e => e.Percentage).HasColumnName("percentage");
+                entity.Property(e => e.Percentage)
+                    .HasColumnName("percentage")
+                    .IsRequired();
 
                 entity.Property(e => e.StartDate)
                     .HasColumnName("start_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .IsRequired();
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Discount)
@@ -142,7 +157,8 @@ namespace RudesWebapp.Data
             {
                 entity.ToTable("image");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("date")
@@ -150,37 +166,45 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .IsRequired();
 
                 entity.Property(e => e.OriginalName)
-                    .HasColumnName("original_name");
+                    .HasColumnName("original_name")
+                    .IsRequired();
 
                 entity.Property(e => e.Caption)
                     .HasColumnName("caption")
-                    .HasMaxLength(100);
+                    .HasMaxLength(100)
+                    .IsRequired();
 
                 entity.Property(e => e.AltText)
                     .HasColumnName("alt_text")
-                    .HasMaxLength(100);
+                    .HasMaxLength(100)
+                    .IsRequired();
             });
 
             modelBuilder.Entity<Match>(entity =>
             {
                 entity.ToTable("match");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.AwayTeam)
                     .HasColumnName("away_team")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .IsRequired();
 
                 entity.Property(e => e.City)
                     .HasColumnName("city")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .IsRequired();
 
                 entity.Property(e => e.Country)
                     .HasColumnName("country")
                     .HasMaxLength(255);
+                // .IsRequired(); TODO is it?
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("date")
@@ -188,11 +212,13 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.HomeTeam)
                     .HasColumnName("home_team")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .IsRequired();
 
                 entity.Property(e => e.SportsHall)
                     .HasColumnName("sports_hall")
                     .HasMaxLength(255);
+                // .IsRequired(); TODO is it?
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -200,6 +226,15 @@ namespace RudesWebapp.Data
                 entity.ToTable("order");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnName("date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Fulfilled)
+                    .HasColumnName("fulfilled")
+                    .HasDefaultValue(false)
+                    .IsRequired();
 
                 entity.Property(e => e.Address)
                     .HasColumnName("address")
@@ -209,16 +244,12 @@ namespace RudesWebapp.Data
                     .HasColumnName("city")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.CreationDate)
-                    .HasColumnName("date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.Fulfilled).HasColumnName("fulfilled");
-
-                entity.Property(e => e.PostalCode).HasColumnName("postal_code");
+                entity.Property(e => e.PostalCode)
+                    .HasColumnName("postal_code");
 
                 entity.Property(e => e.UserId)
-                    .HasColumnName("user_ID");
+                    .HasColumnName("user_ID")
+                    .IsRequired();
 
                 entity.Property(e => e.TransactionId)
                     .HasColumnName("transaction_ID");
@@ -236,17 +267,25 @@ namespace RudesWebapp.Data
 
                 entity.ToTable("order_article");
 
-                entity.Property(e => e.OrderId).HasColumnName("order_ID");
+                entity.Property(e => e.OrderId)
+                    .HasColumnName("order_ID")
+                    .IsRequired();
 
-                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
+                entity.Property(e => e.ArticleId)
+                    .HasColumnName("article_ID");
 
-                entity.Property(e => e.PurchaseDiscount).HasColumnName("purchase_discount");
+                entity.Property(e => e.PurchaseDiscount)
+                    .HasColumnName("purchase_discount")
+                    .IsRequired();
 
                 entity.Property(e => e.PurchasePrice)
                     .HasColumnName("purchase_price")
-                    .HasColumnType("decimal(18, 0)");
+                    .HasColumnType("decimal(18, 0)")
+                    .IsRequired();
 
-                entity.Property(e => e.Quantity).HasColumnName("quantity");
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .IsRequired();
 
                 entity.Property(e => e.Size)
                     .HasColumnName("size")
@@ -273,7 +312,8 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.BirthDate)
                     .HasColumnName("birth_date")
-                    .HasColumnType("date");
+                    .HasColumnType("date")
+                    .IsRequired();
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("creation_date")
@@ -285,20 +325,25 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.LastName)
                     .HasColumnName("last_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .IsRequired();
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .IsRequired();
 
                 entity.Property(e => e.Position)
                     .HasColumnName("position")
-                    .HasMaxLength(50);
+                    .HasMaxLength(30)
+                    .IsRequired();
 
                 entity.Property(e => e.PlayerType)
-                    .HasColumnName("player_type");
+                    .HasColumnName("player_type")
+                    .IsRequired();
 
-                entity.Property(e => e.ImageId).HasColumnName("image_ID");
+                entity.Property(e => e.ImageId)
+                    .HasColumnName("image_ID");
 
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.Player)
@@ -310,14 +355,17 @@ namespace RudesWebapp.Data
             {
                 entity.ToTable("post");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.Content)
                     .HasColumnName("content")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .IsRequired();
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title");
+                    .HasColumnName("title")
+                    .IsRequired();
                 // Post title could've been unique, but we choose not to do so to permit
                 // two posts of a title like "Merry Christmas" or "Upisi u školu"
 
@@ -325,7 +373,9 @@ namespace RudesWebapp.Data
                     .HasColumnName("end_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.ImageId).HasColumnName("image_ID");
+                entity.Property(e => e.ImageId)
+                    .HasColumnName("image_ID");
+                // .IsRequired(); TODO is it?
 
                 entity.Property(e => e.LastModificationDate)
                     .HasColumnName("last_modification_date")
@@ -338,6 +388,7 @@ namespace RudesWebapp.Data
                 entity.Property(e => e.PostType)
                     .HasColumnName("post_type")
                     .HasMaxLength(50);
+                // .IsRequired(); TODO is it?
 
                 entity.Property(e => e.StartDate)
                     .HasColumnName("start_date")
@@ -360,22 +411,30 @@ namespace RudesWebapp.Data
                     .HasColumnName("ID")
                     .ValueGeneratedOnAdd();
 
-                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
+                entity.Property(e => e.ArticleId)
+                    .HasColumnName("article_ID");
 
-                entity.Property(e => e.Blocked).HasColumnName("blocked");
+                entity.Property(e => e.Blocked)
+                    .HasColumnName("blocked")
+                    .HasDefaultValue(false)
+                    .IsRequired();
 
                 entity.Property(e => e.Comment)
                     .HasColumnName("comment")
-                    .HasMaxLength(5000);
+                    .HasMaxLength(5000)
+                    .IsRequired();
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("creation_date")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Rating).HasColumnName("rating");
+                entity.Property(e => e.Rating)
+                    .HasColumnName("rating")
+                    .IsRequired();
 
                 entity.Property(e => e.UserId)
-                    .HasColumnName("user_ID");
+                    .HasColumnName("user_ID")
+                    .IsRequired();
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Review)
@@ -393,7 +452,8 @@ namespace RudesWebapp.Data
             {
                 entity.ToTable("shopping_cart");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("date_created")
@@ -404,7 +464,8 @@ namespace RudesWebapp.Data
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.UserId)
-                    .HasColumnName("user_ID");
+                    .HasColumnName("user_ID")
+                    .IsRequired();
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.ShoppingCart)
@@ -419,11 +480,15 @@ namespace RudesWebapp.Data
 
                 entity.ToTable("shopping_cart_article");
 
-                entity.Property(e => e.ShoppingCartId).HasColumnName("shopping_cart_ID");
+                entity.Property(e => e.ShoppingCartId)
+                    .HasColumnName("shopping_cart_ID");
 
-                entity.Property(e => e.ArticleId).HasColumnName("article_ID");
+                entity.Property(e => e.ArticleId)
+                    .HasColumnName("article_ID");
 
-                entity.Property(e => e.Quantity).HasColumnName("quantity");
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .IsRequired();
 
                 entity.Property(e => e.Size)
                     .HasColumnName("size")
