@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RudesWebapp.Models;
 
@@ -25,8 +26,8 @@ namespace RudesWebapp.Data
         public static void Initialize(IServiceScope serviceScope)
         {
             var context = serviceScope.ServiceProvider.GetService<RudesDatabaseContext>();
-//            context.Database.EnsureCreated(); // TODO not sure if needed
-//            context.Database.Migrate(); // TODO not sure if needed
+          //context.Database.EnsureCreated(); // TODO not sure if needed
+          //context.Database.Migrate(); // TODO not sure if needed
 
             // var signInManager = serviceScope.ServiceProvider.GetService<SignInManager<User>>();
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
@@ -164,11 +165,139 @@ namespace RudesWebapp.Data
                 },
                 new Article
                 {
-                    Name = "Stone long sleeve muscle fit ribbed T-shirt",
-                    Image = context.Image.Skip(2).First(),
+                    Name = "Majica 2",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "t-shirt"
+                },
+                new Article
+                {
+                    Name = "Majica 3",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "t-shirt"
+                },
+                new Article
+                {
+                    Name = "Stone long sleeve tshirt",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "hoodie"
+                },
+                new Article
+                {
+                    Name = "Majica 4",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "t-shirt"
+                },
+                new Article
+                {
+                    Name = "Hudica ",
+                    Description =
+                        "Rudes hoodie izrađena je od 100% pamuka s tiskanim motivom na prednjoj strani. Pravi izbor za sve navijače i simpatizere maksimirskog kluba.",
+                    Price = 120,
+                    Type = "hoodie"
+                },
+                new Article
+                {
+                    Name = "Hudica 2",
+                    Description =
+                        "Rare anniversary T-shirt. Machine wash cold with like colors, dry low heat. 33 colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 200,
+                    Type = "t-shirt",
+                },
+                new Article
+                {
+                    Name = "Hudica 3",
+                    Description =
+                        "Rare anniversary hoodie. Machine wash cold with like colors, dry low heat. 11 colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+                    Image = context.Image.First(),
+                    Price = 200,
+                    Type = "t-shirt",
+                },
+                new Article
+                {
+                    Name = "Hudica 4",
+                    Description =
+                        "Rare anniversary hoodie. 11 wash cold with like colors, dry low heat. Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+                    Image = context.Image.First(),
+                    Price = 200,
+                    Type = "t-shirt",
+                },
+                new Article
+                {
+                    Name = "Majica 5",
+                    Description =
+                        "Rare anniversary hoodie. Machine wash cold 11 like colors, dry low heat. Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+                    Image = context.Image.First(),
+                    Price = 200,
+                    Type = "t-shirt",
+                },
+                new Article
+                {
+                    Name = "Anniversary majica ",
+                    Description =
+                        "Rare anniversary hoodie. Machine wash cold hehe like colors, dry low heat. Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+                    Image = context.Image.First(),
+                    Price = 200,
+                    Type = "t-shirt",
+                },
+                new Article
+                {
+                    Name = "Anniversary hudica",
+                    Description =
+                        "Rare anniversary hoodie. Machine hehe cold with like colors, dry low heat. Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 200,
+                    Type = "t-shirt",
+                },
+                new Article
+                {
+                    Name = "Majica 7",
+                    Description =
+                        "Rare anniversary hoodie. Machine wash bla with like colors, dry low heat. Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+                    Image = context.Image.First(),
+                    Price = 200,
+                    Type = "t-shirt",
+                },
+                new Article
+                {
+                    Name = "Majica 8",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "t-shirt"
+                },
+                new Article
+                {
+                    Name = "Majica 9",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "t-shirt"
+                },
+                new Article
+                {
+                    Name = "Hudica 9",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "t-shirt"
+                },
+                 new Article
+                {
+                    Name = "Hudica 11",
+                    Image = context.Image.Skip(1).First(),
+                    Price = 120,
+                    Type = "t-shirt"
+                },
+                 new Article
+                {
+                    Name = "Hudica 12",
+                    Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt"
                 }
+
             };
             return articles;
         }
@@ -255,6 +384,66 @@ namespace RudesWebapp.Data
                     EndDate = DateTime.MaxValue,
                     Image = context.Image.Skip(2).First(),
                     PostType = "Obavijest"
+                },
+                new Post
+                {
+                    Title = "Sretan Božić svima",
+                    Content =
+                        "KK Rudeš želi vam svima sretan Božić i Novu godinu!",
+                    StartDate = DateTime.Today,
+                    EndDate = DateTime.MaxValue,
+                    Image = context.Image.Skip(2).First(),
+                    PostType = "Obavijest"
+                },
+                 new Post
+                {
+                    Title = "Humanitarna akcija",
+                    Content =
+                        "KK Rudeš organizira dobrotvornu utakmicu na kojoj se prikupljaju donacije za nezbrinutu djecu. Ovime vas sve pozivamo da dođete i podržite humanitarnu akciju.",
+                    StartDate = DateTime.Today,
+                    EndDate = DateTime.MaxValue,
+                    Image = context.Image.Skip(2).First(),
+                    PostType = "Obavijest"
+                },
+                 new Post
+                {
+                    Title = "Finale",
+                    Content =
+                        "Ovogodišnje finale između KK Rudeš i KK Dubrava odigrat će se u subotu, 4.1.2020.",
+                    StartDate = DateTime.Today,
+                    EndDate = DateTime.MaxValue,
+                    Image = context.Image.Skip(2).First(),
+                    PostType = "Obavijest"
+                },
+                 new Post
+                {
+                    Title = "Upisi",
+                    Content =
+                        "Podsjećamo da se upisati u KK Rudeš možete svakim danom od 9 do 17 sati. ",
+                    StartDate = DateTime.Today,
+                    EndDate = DateTime.MaxValue,
+                    Image = context.Image.Skip(2).First(),
+                    PostType = "Obavijest"
+                },
+                 new Post
+                {
+                    Title = "Dodjela medalja",
+                    Content =
+                        "Dodjela medalja ovogodišnjim igračima godine održat će se 15.1.2020.",
+                    StartDate = DateTime.Today,
+                    EndDate = DateTime.MaxValue,
+                    Image = context.Image.Skip(2).First(),
+                    PostType = "Obavijest"
+                },
+                  new Post
+                {
+                    Title = "Treninzi od 21.12.2019 do 7.1.2020.",
+                    Content =
+                        "Treninzi u navedenom razdoblju održavat će se u dogovoru s trenerom ekipe, sve upite možete poslati na mail kluba. ",
+                    StartDate = DateTime.Today,
+                    EndDate = DateTime.MaxValue,
+                    Image = context.Image.Skip(2).First(),
+                    PostType = "Obavijest"
                 }
             };
             return posts;
@@ -321,6 +510,14 @@ namespace RudesWebapp.Data
                     Name = "Josip",
                     LastName = "Kapović",
                     Position = "Nisko krilo",
+                    BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
+                    Image = context.Image.First()
+                },
+                 new Player
+                {
+                    Name = "Maksimilijan",
+                    LastName = "Božić",
+                    Position = "Centar",
                     BirthDate = DateTime.ParseExact("1998-11-22", dateFormat, CultureInfo.InvariantCulture),
                     Image = context.Image.First()
                 }
@@ -526,7 +723,15 @@ namespace RudesWebapp.Data
                     Article = context.Article.Skip(1).First(),
                     Size = "M",
                     Quantity = 1,
+                },
+                new OrderArticle
+                {
+                    Order = context.Order.First(),
+                    Article = context.Article.Skip(2).First(),
+                    Size = "S",
+                    Quantity = 3,
                 }
+
             };
 
             return orderArticles;

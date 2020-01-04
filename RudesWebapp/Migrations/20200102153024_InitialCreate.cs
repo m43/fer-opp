@@ -5,8 +5,8 @@ namespace RudesWebapp.Migrations
 {
     public partial class InitialCreate : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+        protected override void Up(MigrationBuilder migrationBuilder) 
+        { 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -526,8 +526,8 @@ namespace RudesWebapp.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_shopping_cart_article_article_ID",
                 table: "shopping_cart_article",
-                column: "article_ID");
-        }
+                column: "article_ID"); 
+        } 
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
@@ -586,7 +586,7 @@ namespace RudesWebapp.Migrations
                 name: "image");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-        }
-    }
+                name: "AspNetUsers"); 
+        } 
+    } 
 }
