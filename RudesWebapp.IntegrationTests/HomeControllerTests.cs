@@ -25,7 +25,7 @@ namespace RudesWebapp.IntegrationTests
         [InlineData("/Home/Index")]
         [InlineData("/home/index")]
         [InlineData("/HOME/INDEX")]
-        [InlineData("/Home/Media")]
+        [InlineData("/Home/Gallery")]
         [InlineData("/Home/About")]
         [InlineData("/Home/Juniors")]
         [InlineData("/Home/Seniors")]
