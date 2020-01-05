@@ -2,7 +2,7 @@
 
 namespace RudesWebapp.Models
 {
-    public partial class Post : IDateCreatedAndUpdated
+    public class Post : IDateCreatedAndUpdated
     {
         public int Id { get; set; }
         public string Title { get; set; }

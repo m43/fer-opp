@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 
 namespace RudesWebapp.Models
 {
-    public partial class Player : IDateCreatedAndUpdated
+    public class Player : IDateCreatedAndUpdated
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }

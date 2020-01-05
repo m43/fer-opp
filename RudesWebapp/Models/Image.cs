@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RudesWebapp.Models
 {
-    public partial class Image : IDateCreated
+    public class Image : IDateCreated
     {
         public Image()
         {

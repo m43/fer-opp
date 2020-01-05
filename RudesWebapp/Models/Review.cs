@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RudesWebapp.Models
 {
-    public partial class Review : IDateCreated
+    public class Review : IDateCreated
     {
         public int Id { get; set; }
         public int ArticleId { get; set; }

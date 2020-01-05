@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace RudesWebapp.Models
 {
-    public partial class User : IdentityUser
+    public class User : IdentityUser
     {
         public User()
         {

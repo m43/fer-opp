@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RudesWebapp.Models
 {
-    public partial class Order : IDateCreated
+    public class Order : IDateCreated
     {
         public Order()
         {

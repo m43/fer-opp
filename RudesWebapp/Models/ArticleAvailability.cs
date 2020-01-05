@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RudesWebapp.Models
 {
-    public partial class ArticleAvailability
+    public class ArticleAvailability
     {
         public int ArticleId { get; set; }
         public string Size { get; set; }

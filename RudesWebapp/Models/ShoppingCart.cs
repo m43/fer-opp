@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RudesWebapp.Models
 {
-    public partial class ShoppingCart : IDateCreatedAndUpdated
+    public class ShoppingCart : IDateCreatedAndUpdated
     {
         public ShoppingCart()
         {

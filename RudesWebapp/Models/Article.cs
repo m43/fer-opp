@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace RudesWebapp.Models
 {
-    public partial class Article : IDateCreatedAndUpdated
+    public class Article : IDateCreatedAndUpdated
     {
         public Article()
         {

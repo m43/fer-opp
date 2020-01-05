@@ -2,7 +2,7 @@
 
 namespace RudesWebapp.Models
 {
-    public partial class Match : IDateCreated
+    public class Match : IDateCreated
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }

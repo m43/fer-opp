@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RudesWebapp.Models
 {
-    public partial class Discount : IDateCreated
+    public class Discount : IDateCreated
     {
         public int Id { get; set; }
         public int ArticleId { get; set; }

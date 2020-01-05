@@ -1,6 +1,6 @@
 ﻿namespace RudesWebapp.Models
 {
-    public partial class OrderArticle
+    public class OrderArticle
     {
         public int OrderId { get; set; }
         public int ArticleId { get; set; }
