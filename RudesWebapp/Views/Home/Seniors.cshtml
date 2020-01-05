@@ -1,3 +1,21 @@
-﻿<div class="container" id="about">
+﻿@{
+    ViewData["Title"] = "Seniori";
+}
 
+<div style="background-color: antiquewhite;">
+    <h4 style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">Seniori 2019./2020.</h4>
 </div>
+
+<div>
+    <img src="~/images/timska-seniori.jpg" alt="Timska slika" style="margin-bottom: 10px; min-width: 100%;" />
+</div>
+
+<div class="container" id="teams" style="padding: 0;">
+    <div v-for="playerGroup in groupedPlayers" class="row">
+        <div v-for="player in playerGroup" class="col-lg-3 text-center" style="padding: 0; margin-right: 0px; margin-left: 0px;">
+            <player-component :player="player"></player-component>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/teams.js"></script>

@@ -14,7 +14,6 @@ namespace RudesWebapp.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly RudesDatabaseContext _context;
-        //private User user;
 
         public HomeController(RudesDatabaseContext context, ILogger<HomeController> logger)
         {
@@ -32,7 +31,7 @@ namespace RudesWebapp.Controllers
             return View();
         }
 
-        public IActionResult Media()
+        public IActionResult Gallery()
         {
             return View();
         }

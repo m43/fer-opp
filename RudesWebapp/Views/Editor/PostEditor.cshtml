@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "PostEditor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+</head>
+
+<body>
+    <h1>Uređivanje objave</h1>
+
+    <form>
+        <div class="form-group">
+            <label for="postTitle">Naslov objave</label>
+            <input type="text" class="form-control" id="postTitle" aria-describedby="emailHelp" placeholder="Naslov objave koju uređujemo">
+        </div>
+
+        <div class="form-group">
+            <label for="postContent">Sadržaj objave</label>
+            <textarea class="form-control" id="postContent" rows="3" placeholder="Sadržaj objave koju uređujemo koju uređujemo"></textarea>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" />
+            </div>
+
+            <div>
+                <label for="postPicture">Odaberite novu sliku objave</label>
+                <input type="file" class="form-control-file" id="postPicture">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Primijeni</button>
+    </form>
+
+</body>

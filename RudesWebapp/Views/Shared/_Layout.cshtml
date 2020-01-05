@@ -3,68 +3,88 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>@ViewData["Title"] - RudesWebapp</title>
+    <title>@ViewData["Title"]</title>
 
     <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/teams.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/about.css" />
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"></script>
     <script src="https://kit.fontawesome.com/678999c602.js" crossorigin="anonymous"></script>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
+    <a class="my-navbar-brand fixed-top" asp-controller="Home" asp-action="Index">
+        <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" style="border-radius: 50%; width: 100%; height: 100%;" />
+    </a>
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
-            <div class="container" id="navbar">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/rudes-logo.jpg" width="30" height="30" alt="Rudeš Logo" />
-                </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top mr-auto" style="padding: 0;">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="my-navbar-button dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownTeamsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Timovi
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownTeamsButton">
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Seniors">Seniori</a>
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Juniors">Juniori</a>
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Cadets">Kadeti</a>
-                        <a class="dropdown-item" asp-controller="Home" asp-action="YoungCadets">Mlađi kadeti</a>
+            <div class="container-fluid justify-content-center">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown active btn my-navbar-button">
+                                    <a class="nav-link dropdown-toggle" href="#" id="teamsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Timovi
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="teamsDropdown">
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="Seniors">Seniori</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="Juniors">Juniori</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="Cadets">Kadeti</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="YoungCadets">Mlađi kadeti</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropdown active btn my-navbar-button">
+                                    <a class="nav-link dropdown-toggle" href="#" id="schoolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Škola košarke
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="schoolsDropdown">
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="MiniBasketball">Mini košarka</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="SportSchools">Sportske škole</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Gallery">
+                                        Galerija
+                                    </a>
+                                </li>
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Home" asp-action="About">
+                                        O klubu
+                                    </a>
+                                </li>
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Webshop" asp-action="WebshopStart">
+                                        <i class="fas fa-shopping-bag" style="font-size: 20px; margin-right: 3px;"></i>
+                                        Webshop
+                                    </a>
+                                </li>
+
+                                <partial name="_LoginPartial" />
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
-                <div class="my-navbar-button dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownBasketballSchoolButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Škola košarke
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownBasketballSchoolButton">
-                        <a class="dropdown-item" asp-controller="Home" asp-action="MiniBasketball">Mini košarka</a>
-                        <a class="dropdown-item" asp-controller="Home" asp-action="SportSchools">Sportske škole</a>
-                    </div>
-                </div>
-
-                <a asp-controller="Home" asp-action="Media">
-                    <div class="my-navbar-button btn">
-                        Media
-                    </div>
-                </a>
-
-                <a asp-controller="Home" asp-action="About">
-                    <div class="my-navbar-button btn">
-                        O klubu
-                    </div>
-                </a>
-
-                <a asp-controller="Webshop" asp-action="WebshopStart">
-                    <div>
-                        <i class="fas fa-shopping-bag" style="font-size: 20px; margin-right: 3px;"></i> Webshop
-                    </div>
-                </a>
-
-                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
@@ -75,46 +95,54 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="position: static;">
-        <div class="container">
-            <div>
-                <a>Kontakt</a>
-            </div>
-            <div>
-                <a>Česta pitanja</a>
-            </div>
-            <div>
-                <a>Opći uvjeti i odredbe</a>
-            </div>
-            <div>
-                <a>Plaćanje i dostava</a>
-            </div>
-            <div>
-                <a>Povrat i reklamacije</a>
-            </div>
-            <div>
-                <img src="~/images/facebook-logo.png" width="30" />
-                <img src="~/images/instagram-logo.jpg" width="20" />
-                <img src="~/images/american-express-logo.jpg" width="30" />
-                <img src="~/images/diners-club-logo.jpg" width="30" />
-                <img src="~/images/maestro-logo.jpg" width="30" />
-                <img src="~/images/master-card-logo.jpg" width="30" />
-                <img src="~/images/visa-logo.jpg" width="30" />
+    <footer class="border-top my-footer text-muted">
+        <div class="container-fluid">
+            <div class="row align-items-center text-center">
+                <div class="col">
+                    <h4>Košarkaški klub Rudeš</h4>
+                    <p>Dragutina Freudenriecha 19</p>
+                    <p>10000 Zagreb</p>
+                    <p>Kontakt broj: 091 2542 354 (Danko Miholić)</p>
+                </div>
+
+                <div class="col">
+                    <a href="https://www.instagram.com/kosarkaski_klub_rudes/"
+                       class="mr-3"
+                       target="_blank">
+                        <img src="~/images/instagram-logo.png" width="70" />
+                    </a>
+                    <a href="https://www.facebook.com/kkrudes.basketball/"
+                       class="mr-auto"
+                       target="_blank">
+                        <img src="~/images/facebook-logo.png" width="70" />
+                    </a>
+
+                    <div class="footer-copyright text-center pt-5">
+                        © 2020 Copyright:
+                        <a href="#">KK Rudeš</a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <h4 class="mb-3">Načini plaćanja</h4>
+                    Maestro <img src="~/images/maestro-logo.png" width="60" /><br />
+                    Visa <img src="~/images/visa-logo.png" width="60" /><br />
+                    Mastercard <img src="~/images/mastercard-logo.png" width="60" /><br />
+                </div>
             </div>
         </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/navbar.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

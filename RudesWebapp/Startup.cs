@@ -26,18 +26,19 @@ namespace RudesWebapp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddDbContext<RudesDatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RudesDatabase")));
-
             services.AddDefaultIdentity<User>(
                     options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RudesDatabaseContext>();
 
-            services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
             services.AddSingleton<IEmailSender, EmailSender>();
+
+            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)

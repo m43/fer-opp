@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Galerija";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Događaj
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">DANI KOŠARKE - City Centar West 17.11.2013.</a>
+          <a class="dropdown-item" href="#">MADRID - Estudiantes - Rudeš  05.12.2013.</a>
+          <a class="dropdown-item" href="#">MADRID - Real Madrid - Rudeš  06.12.2013.</a>
+          <a class="dropdown-item" href="#">MADRID - Fuenlabrada - Rudeš  06.12.2013.</a>
+        </div>
+      </div>
+</nav>
+
+<div class="container" id="gallery" style="margin: 0; padding: 0;">
+    <div v-for="i in 10" class="row" style="margin: 0px; padding: 0;">
+        <div v-for="j in 6" class="col-lg-2 text-center" style="margin: 0; padding: 0;">
+                <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" style="margin-bottom: 15px; padding: 0;">
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="~/css/gallery.css">
+<script src="~/js/gallery.js"></script>
