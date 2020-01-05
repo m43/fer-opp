@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,8 +47,9 @@ namespace RudesWebapp.Controllers
         }
 
         // GET: Player/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await PrepareDropDowns();
             return View();
         }
 
@@ -59,16 +59,19 @@ namespace RudesWebapp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,LastName,BirthDate,PlayerType,Position,ImageId")]
-            PlayerDTO playerDTO)
+            PlayerDTO playerDto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(_mapper.Map<Player>(playerDTO));
+                
+                
+                _context.Add((object) _mapper.Map<Player>(playerDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(playerDTO);
+            await PrepareDropDowns();
+            return View(playerDto);
         }
 
         // GET: Player/Edit/5
@@ -85,6 +88,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
+            await PrepareDropDowns();
             return View(_mapper.Map<PlayerDTO>(player));
         }
 
@@ -94,9 +98,9 @@ namespace RudesWebapp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,LastName,BirthDate,PlayerType,Position,ImageId")]
-            PlayerDTO playerDTO)
+            PlayerDTO playerDto)
         {
-            if (id != playerDTO.Id)
+            if (id != playerDto.Id)
             {
                 return NotFound();
             }
@@ -105,12 +109,14 @@ namespace RudesWebapp.Controllers
             {
                 try
                 {
-                    _context.Update(_mapper.Map<Player>(playerDTO));
+                    // NOTE: https://stackoverflow.com/questions/13314666/using-automapper-to-update-an-existing-entity-poco/25242322
+                    var player = await _context.Player.FindAsync(id);
+                    _mapper.Map(playerDto, player);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlayerExists(playerDTO.Id))
+                    if (!PlayerExists(playerDto.Id))
                     {
                         return NotFound();
                     }
@@ -123,7 +129,8 @@ namespace RudesWebapp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(playerDTO);
+            await PrepareDropDowns();
+            return View(playerDto);
         }
 
         // GET: Player/Delete/5
@@ -153,6 +160,13 @@ namespace RudesWebapp.Controllers
             _context.Player.Remove(player);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        
+        private async Task PrepareDropDowns()
+        {
+            var images =  await _context.Image.ToListAsync();
+
+            ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Name));
         }
 
         private bool PlayerExists(int id)
