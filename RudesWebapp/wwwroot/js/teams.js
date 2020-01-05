@@ -16,27 +16,44 @@
 var teams = new Vue({
     el: "#teams",
     data: {
-        seniorPlayers: []
+        players: [],
+        chunkSize: 4
     },
     methods: {
         getPlayers: function () {
-            axios.get("/Coach/GetPlayers")
+            axios.get("/Api/Player")
                 .then(response => {
-                    this.seniorPlayers = response.data;
+                    this.players = response.data;
                 })
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        groupPlayersByType: function (type) {
+            return _.chunk(this.players.filter(p => p.playerType == type), this.chunkSize);
         }
     },
     beforeMount: function () {
         this.getPlayers();
     },
     computed: {
-        groupedPlayers() {
-            return _.chunk(this.seniorPlayers, 4)
-            // returns a nested array: 
-            // [[article, article, article], [article, article, article], ...]
+        seniorPlayers() {
+            return this.groupPlayersByType("Seniors");
+        },
+        juniorPlayers() {
+            return this.groupPlayersByType("Juniors");
+        },
+        cadetPlayers() {
+            return this.groupPlayersByType("Cadets");
+        },
+        youngCadetPlayers() {
+            return this.groupPlayersByType("YoungCadets");
+        },
+        sportSchoolPlayers() {
+            return this.groupPlayersByType("SportSchools");
+        },
+        miniBasketballPlayers() {
+            return this.groupPlayersByType("MiniBasketball");
         }
     }
 });

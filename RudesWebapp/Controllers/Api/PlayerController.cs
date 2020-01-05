@@ -10,14 +10,14 @@ using RudesWebapp.Dtos;
 
 namespace RudesWebapp.Controllers.Api
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin, Board, Coach")]
     public class Player : ControllerBase
     {
+
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
-
         public Player(RudesDatabaseContext context, IMapper mapper)
         {
             _context = context;
@@ -36,12 +36,10 @@ namespace RudesWebapp.Controllers.Api
         public async Task<ActionResult<PlayerDTO>> GetPlayer(int id)
         {
             var player = await _context.Player.FindAsync(id);
-
             if (player == null)
             {
                 return NotFound();
             }
-
             var playerDto = _mapper.Map<PlayerDTO>(player);
             return playerDto;
         }
@@ -50,15 +48,14 @@ namespace RudesWebapp.Controllers.Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, Board, Coach")]
         public async Task<IActionResult> PutPlayer(int id, PlayerDTO playerDto)
         {
             if (id != playerDto.Id)
             {
                 return BadRequest();
             }
-
             _context.Entry(playerDto).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -74,7 +71,6 @@ namespace RudesWebapp.Controllers.Api
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -82,23 +78,22 @@ namespace RudesWebapp.Controllers.Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize(Roles = "Admin, Board, Coach")]
         public async Task<ActionResult<PlayerDTO>> PostPlayer(PlayerDTO playerDto)
         {
             if (ModelState.IsValid == false)
             {
                 return BadRequest(ModelState);
             }
-
             var player = _mapper.Map<Models.Player>(playerDto);
-
             _context.Player.Add(player);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPlayer", new {id = playerDto.Id}, playerDto);
+            return CreatedAtAction("GetPlayer", new { id = playerDto.Id }, playerDto);
         }
 
         // DELETE: api/Player/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, Board, Coach")]
         public async Task<ActionResult<PlayerDTO>> DeletePlayer(int id)
         {
             var player = await _context.Player.FindAsync(id);
@@ -106,10 +101,8 @@ namespace RudesWebapp.Controllers.Api
             {
                 return NotFound();
             }
-
             _context.Player.Remove(player);
             await _context.SaveChangesAsync();
-
             return _mapper.Map<PlayerDTO>(player);
         }
 
