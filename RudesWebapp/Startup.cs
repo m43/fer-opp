@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RudesWebapp.Data;
+using RudesWebapp.Dtos;
 using RudesWebapp.Models;
 
 namespace RudesWebapp
@@ -34,6 +36,7 @@ namespace RudesWebapp
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RudesDatabaseContext>();
 
+            services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
             services.AddSingleton<IEmailSender, EmailSender>();
         }
 
