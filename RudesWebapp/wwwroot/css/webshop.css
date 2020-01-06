@@ -16,7 +16,7 @@
 
 }
 
-button {
+.buttonStyle {
     background-color: #267fde;
     border: none;
     color: white;
@@ -105,8 +105,9 @@ button {
 .productImages {
     max-width: 100%;
     max-height: 100%;
-    border-style: solid;
-    border-color: #1a4482;
+    border: solid #1a4482 1px;
+    /*border-style: solid;
+    border-color: #1a4482;*/
 }
 
 .articleDescription {
