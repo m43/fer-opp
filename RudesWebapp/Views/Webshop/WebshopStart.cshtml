@@ -5,8 +5,7 @@
 <div id="webshop">
     <div class="outerFiltersDiv">
         <div>
-            <button id="buttonFilter" class="buttonStyle" onclick="myFunction()">Filteri</button>
-            <button id="testButton" class="buttonStyle" onclick="console.log(webshop.allArticles[0])">Test</button>
+            <button id="buttonFilter" class="buttonStyle" @@click="myFunction()">Filteri</button>
         </div>
 
         <div id="myDIV" class="container-fluid">
@@ -27,7 +26,7 @@
                         </div>
                         <div class="col-2 col-md-2 col-lg-4 check">
                             <input type="checkbox" id="cb4">
-                            <label for="cb4"><img class="checkboxImage" src="https://www.iconsdb.com/icons/preview/black/square-xxl.png"></label>
+                            <label for="cb4"><img class="checkboxImage" src="~/images/solid-black.png"></label>
                         </div>
                         <div class="col-2 col-md-2 col-lg-4 check">
                             <input type="checkbox" id="cb5">
@@ -66,45 +65,16 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid">
-
-        <div class="row outerArticlesDiv">
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="~/images/danica.jpeg">
-                <figcaption class="articleDescription">{{allArticles[0].name}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[0].description}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[0].price}}</figcaption>
-                <button class="buttonStyle">Dodaj u kosaricu</button>
-            </div>
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="~/images/ja.jpeg">
-                <figcaption class="articleDescription">{{allArticles[1].name}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[1].description}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[1].price}}</figcaption>
-                <button class="buttonStyle">Dodaj u kosaricu</button>
-            </div>
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="~/images/predsjednik.jpeg">
-                <figcaption class="articleDescription">{{allArticles[2].name}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[2].description}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[2].price}}</figcaption>
-                <button class="buttonStyle">Dodaj u kosaricu</button>
-            </div>
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="~/images/skoki.jpeg">
-                <figcaption class="articleDescription">{{allArticles[3].name}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[3].description}}</figcaption>
-                <figcaption class="articleDescription">{{allArticles[3].price}}</figcaption>
-                <button class="buttonStyle">Dodaj u kosaricu</button>
+        <div v-if="allArticles.length != 0" class="outerArticlesDiv">
+            <div v-for="articleGroup in groupedArticles" class="row">
+                <div v-for="article in articleGroup" class="col-lg-3 text-center">
+                    <article-component :article="article"></article-component>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-<link rel="stylesheet" type="text/css" href="~/css/webshop.css">
 <script src="~/js/webshop.js"></script>
