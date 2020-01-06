@@ -3,3 +3,15 @@
     text-align: center;
     padding: 5px;
 }
+
+.deleteButton {
+    font-size: 1.2em;
+    border-radius: 25%;
+    padding: 5px;
+}
+
+    .deleteButton:hover {
+        color: red;
+        background-color: lightgray;
+        transition: background-color 1s;
+    }

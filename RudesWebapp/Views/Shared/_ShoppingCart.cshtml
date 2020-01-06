@@ -10,9 +10,13 @@
             </div>
             <div class="modal-body">
                 <button @@click="addArticleToCart()">Dodaj artikl</button>
+                <div>
+                    Total price: {{ totalPrice }}kn
+                </div>
                 <p></p>
                 <table v-if="cartContent.length != 0">
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Type</th>
@@ -20,6 +24,7 @@
                     </tr>
 
                     <tr v-for="article in cartContent">
+                        <td><div class="deleteButton" @@click="removeArticleFromCart(article)"><i class="fas fa-times"></i></div></td>
                         <td>{{ article.name }}</td>
                         <td>{{ article.description }}</td>
                         <td>{{ article.type }}</td>
