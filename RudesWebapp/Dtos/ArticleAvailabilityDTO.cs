@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using RudesWebapp.Models;
 namespace RudesWebapp.Dtos
 {
-    public class ArticleAvailability
+    public class ArticleAvailabilityDTO
     {
         //unsure if quantity is required TODO
 
