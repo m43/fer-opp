@@ -76,8 +76,10 @@ namespace RudesWebapp.Controllers
             return View();
         }
 
-        public IActionResult Post()
+        public IActionResult Post(int id)
         {
+            Post post = _context.Post.Find(id);
+            ViewData["post"] = post;
             return View();
         }
 

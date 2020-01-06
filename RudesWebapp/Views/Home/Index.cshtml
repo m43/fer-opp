@@ -25,8 +25,7 @@
                             <div>
                                 <h5>{{ post.title }}</h5>
                                 <p>{{ post.content.substring(0, 400) }}... </p><br><br>
-                                <button @@click="setCurrentPost(posts[index])">button</button>
-                                <a asp-controller="Home" asp-action="Post" >Pročitaj više</a>
+                                <a :href="'/Home/Post?id=' + post.id" >Pročitaj više</a>
                             </div>
                         </div>
                     </div>
@@ -37,8 +36,7 @@
                             <div>
                                 <h5>{{ post.title }}</h5>
                                 <p>{{ post.content.substring(0, 400) }}... </p><br><br>
-                                <button @@click="setCurrentPost(posts[index])">button</button>
-                                <a asp-controller="Home" asp-action="Post">Pročitaj više</a>
+                                <a :href="'/Home/Post?id=' + post.id" >Pročitaj više</a>
                             </div>
                         </div>
                     </div>

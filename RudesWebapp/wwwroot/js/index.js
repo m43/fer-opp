@@ -11,8 +11,7 @@
 var index = new Vue({
     el: '#index',
     data: {
-        posts: [],
-        currentPost: {},
+        posts: []
     },
     methods: {
         getPosts: function () {
@@ -23,10 +22,6 @@ var index = new Vue({
                 .catch(error => {
                     console.log(error);
                 });
-        },
-        setCurrentPost: function (post) {
-            console.log("Hello!");
-            this.currentPost = post;
         }
     },
     beforeMount: function () {

@@ -1,11 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Post";
+    var post = (Post)ViewData["post"];
 }
 
 <div id="index">
-    <h1>{{ currentPost.title }}</h1>
+    <h1>@post.Title</h1>
 
-    {{ currentPost.content }}
+    @post.Content
 </div>
 
 <script src="~/js/index.js"></script>
