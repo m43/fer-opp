@@ -1,17 +1,18 @@
-﻿Vue.component("post-component", {
-    props: ["post"],
+﻿/*Vue.component("post-component", {
+    props: ["post"],    
     template: `
             <div>
                 <h5>{{ post.title }}</h5>
-                <p>{{ post.content.substring(0, 400) }}... <br><br> Pročitajte više.</p>
+                <p>{{ post.content.substring(0, 400) }}... </p><br><br> <a asp-controller="Home" asp-action="Post"> Pročitaj više </a>
             </div>
             `
-});
+});*/
 
 var index = new Vue({
     el: '#index',
     data: {
-        posts : []
+        posts: [],
+        currentPost: {},
     },
     methods: {
         getPosts: function () {
@@ -22,6 +23,9 @@ var index = new Vue({
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        setCurrentPost: function (post) {
+            this.currentPost = post;
         }
     },
     beforeMount: function () {

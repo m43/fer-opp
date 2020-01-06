@@ -22,14 +22,24 @@
                     <div v-if="index == 0" class="carousel-item active">
                         <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
                         <div class="carousel-caption d-none d-md-block">
-                            <post-component :post="post"></post-component>
+                            <div>
+                                <h5>{{ post.title }}</h5>
+                                <p>{{ post.content.substring(0, 400) }}... </p><br><br>
+                                <button v-on:click="entirePost.setPost(post)"> button </button>
+                                <a asp-controller="Home" asp-action="Post" > Pročitaj više </a>
+                            </div>
                         </div>
                     </div>
 
                     <div v-else class="carousel-item">
                         <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
                         <div class="carousel-caption d-none d-md-block">
-                            <post-component :post="post"></post-component>
+                            <div>
+                                <h5>{{ post.title }}</h5>
+                                <p>{{ post.content.substring(0, 400) }}... </p><br><br>
+                                <button v-on:click="entirePost.setPost(post)"> button </button>
+                                <a asp-controller="Home" asp-action="Post"> Pročitaj više </a>
+                            </div>
                         </div>
                     </div>
                 </template>

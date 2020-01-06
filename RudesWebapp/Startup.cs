@@ -46,7 +46,7 @@ namespace RudesWebapp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
+                //RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
             }
             else
             {
