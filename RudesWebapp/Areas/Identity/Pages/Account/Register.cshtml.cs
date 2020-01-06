@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Areas.Identity.Pages.Account
@@ -24,17 +25,20 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private RudesDatabaseContext _context;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RudesDatabaseContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty] public InputModel Input { get; set; }
@@ -90,7 +94,19 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)
             {
+                // Adding shopping cart for user
+                var shoppingCart = new ShoppingCart
+                {
+                    User = user
+                };
+                _context.ShoppingCart.Add(shoppingCart);
+                //user.ShoppingCart.Add(shoppingCart);
+                _context.User.Find(user.Id).ShoppingCart.Add(shoppingCart);
+                _context.SaveChanges();
+
+
                 _logger.LogInformation("User created a new account with password.");
+               
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -112,6 +128,8 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
+                
+
             }
 
             foreach (var error in result.Errors)
