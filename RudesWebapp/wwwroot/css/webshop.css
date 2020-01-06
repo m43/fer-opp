@@ -1,88 +1,73 @@
-﻿#outer {
-    border-style: solid;
+﻿
+/* OUTER STRUCTURE */
+
+#webshop {
+    /*border-style: solid;*/
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 5%;
     text-align: center;
 }
 
-.specialdiv {
-    border-style: dotted;
+/* BUTTONS */
+
+#buttonFilter {
+    margin: 2%;
+
 }
 
-#containter {
-    display: flex;
-    justify-content: space-between;
+button {
+    background-color: #267fde;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 1% 2% 1% 2%;
+    margin: 2%;
 }
+
+/* FILTERS */
 
 #myDIV {
     width: 100%;
 }
 
+.allFilters {
+    border: 1px solid #1a4482;
+    ;
+}
 
+.outerFiltersDiv {
+    /*background-color: #e3edfc;*/
+    width: 100%;
+    border-top: 1px solid #1a4482;
+    border-bottom: 1px solid #1a4482;
+    margin-bottom: 5%;
+}
+
+.filtersDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.colorFilter {
+    /*margin-top: 5%;
+	border-style: dotted;*/
+}
 
 .checkboxImage {
     border-style: solid;
 }
 
-.eqi-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-    .eqi-container div {
-        width: 100%;
-        /*height: auto;*/
-        padding: 20px;
-    }
-
-
-.imageDiv {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding-top: 3%;
-    padding-bottom: 3%;
-}
-
-.productImages {
-    width: 10px;
-    height: 10%;
-}
-
-#buttonFilter {
-    margin: 2%;
-}
-
-
-.specialdiv2 {
-    width: 50px;
-    height: 50px;
-    /*display: inline-block;
-	border-style: solid;*/
-    /*padding: 20px;*/
-    /*width: auto;*/
-    /*width: 20%*/
-}
-
-.productImages {
-    height: 100%;
-    width: 100%;
-}
-
 .typesOfArticles {
-    /*margin-top: 5%;
-	border-style: dotted;*/
     text-align: left;
 }
 
-.priceOfArticles {
-    /*margin-top: 5%;
-	border-style: dotted;*/
-}
 
-.colorFilter {
+.priceOfArticles {
     /*margin-top: 5%;
 	border-style: dotted;*/
 }
@@ -96,22 +81,45 @@
     margin: 2%;
 }
 
-.specialdiv4 {
-    /*display: inline;*/
-    /*border-style: solid*/
+
+/* ARTICLES */
+
+.outerArticlesDiv {
     /*width: 100%;
-	height: auto;*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	border-color: green;
+	border-style: dotted;	
+	margin-left: 0;*/
 }
 
-/* custom checkboxes*/
+.articleDiv {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding: 3%
+    /*border-style: solid;
+	border-color: #1a4482*/
+}
+
+.productImages {
+    max-width: 100%;
+    max-height: 100%;
+    border-style: solid;
+    border-color: #1a4482;
+}
+
+.articleDescription {
+    margin: 2%;
+}
+
+/* COLOR FILTERS */
+
 .specialdiv4 {
     list-style-type: none;
 }
 
-li {
+.check {
     display: inline-block;
     /*border-style: dotted;*/
 }
@@ -141,7 +149,7 @@ input[type="checkbox"][id^="cb6"] {
 }
 
 label {
-    border: 1px solid #fff;
+    /*border: 1px solid #fff;*/
     /*padding: 2px;*/
     /*display: inline;*/
     /*position: relative;*/
@@ -157,16 +165,16 @@ label {
 
     label::before {
         background-color: white;
-        color: white;
+        /*color: white;*/
         content: " ";
         display: inline;
         border-radius: 50%;
-        border: 1px solid grey;
+        /*border: 1px solid grey;*/
         position: absolute;
         /*top: -5px;
-  left: -5px;
-  width: 25px;
-  height: 25px;*/
+         left: -5px;
+        width: 25px;
+        height: 25px;*/
         text-align: center;
         line-height: 28px;
         transition-duration: 0.4s;
@@ -195,3 +203,28 @@ label {
     box-shadow: 0 0 7px #000;
     z-index: -1;
 }
+
+
+
+
+
+
+/* TESTING */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
