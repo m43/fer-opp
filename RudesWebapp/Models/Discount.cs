@@ -5,6 +5,7 @@ namespace RudesWebapp.Models
 {
     public class Discount : IDateCreated
     {
+
         public int Id { get; set; }
         public int ArticleId { get; set; }
         public DateTime CreationDate { get; set; }
