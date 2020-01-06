@@ -25,37 +25,45 @@
                     console.log(error);
                 });
         },
-        addArticleToCart: function () {
-            //axios.post("/Webshop/AddToShoppingCart", {
-            //    articleId: 3,
-            //    quantity: 5,
-            //    size: "XL"
-            //})
-            //    .then(response => {
-            //        cartContent.push(response.data);
-            //    })
-            //    .catch(error => {
-            //        console.log(error);
-            //    });
+        addArticleToCart: function (article) {
+            var thisVue = this;
 
-            this.cartContent.push(this.allArticles[this.currentIndex++]);
-            this.calculateTotalPrice();
+            axios.post("/Webshop/AddToShoppingCart", {
+                articleId: article.id,
+                quantity: article.quantity,
+                size: article.size
+            })
+                .then(response => {
+                    thisVue.cartContent.push(article);
+                    thisVue.calculateTotalPrice();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+            //this.cartContent.push(this.allArticles[this.currentIndex++]);
+            //this.calculateTotalPrice();
         },
         removeArticleFromCart: function (article) {
-            //axios.delete("/Webshop/RemoveFromShoppingCart", {
-            //    data: {
-            //        articleId: article.id,
-            //        quantity: article.quantity,
-            //        size: article.size
-            //    }
-            //})
-            //    .then(response => { })
-            //    .catch(error => {
-            //        console.log(error);
-            //    });
+            var thisVue = this;
 
-            this.cartContent.splice(this.cartContent.indexOf(article), 1);
-            this.calculateTotalPrice();
+            axios.delete("/Webshop/RemoveFromShoppingCart", {
+                data: {
+                    articleid: article.id,
+                    quantity: article.quantity,
+                    size: article.size
+                }
+            })
+                .then(response => {
+                    thisVue.cartContent.splice(thisVue.cartContent.indexOf(article), 1);
+                    thisVue.calculateTotalPrice();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+            //this.cartContent.splice(this.cartContent.indexOf(article), 1);
+            //this.calculateTotalPrice();
         },
         calculateTotalPrice: function () {
             var sum = 0;
