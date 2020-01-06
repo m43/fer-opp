@@ -77,7 +77,8 @@ body {
     height: auto;
     margin-top: 0.5%;
     margin-left: 0.5%;
-    z-index: 1500;
+    padding-right: 0 !important;
+    z-index: 1031;
 }
 
 .my-navbar-button {

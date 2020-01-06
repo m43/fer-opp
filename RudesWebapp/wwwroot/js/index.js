@@ -25,6 +25,7 @@ var index = new Vue({
                 });
         },
         setCurrentPost: function (post) {
+            console.log("Hello!");
             this.currentPost = post;
         }
     },

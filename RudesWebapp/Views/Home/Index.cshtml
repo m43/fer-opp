@@ -25,8 +25,8 @@
                             <div>
                                 <h5>{{ post.title }}</h5>
                                 <p>{{ post.content.substring(0, 400) }}... </p><br><br>
-                                <button v-on:click="entirePost.setPost(post)"> button </button>
-                                <a asp-controller="Home" asp-action="Post" > Pročitaj više </a>
+                                <button @@click="setCurrentPost(posts[index])">button</button>
+                                <a asp-controller="Home" asp-action="Post" >Pročitaj više</a>
                             </div>
                         </div>
                     </div>
@@ -37,8 +37,8 @@
                             <div>
                                 <h5>{{ post.title }}</h5>
                                 <p>{{ post.content.substring(0, 400) }}... </p><br><br>
-                                <button v-on:click="entirePost.setPost(post)"> button </button>
-                                <a asp-controller="Home" asp-action="Post"> Pročitaj više </a>
+                                <button @@click="setCurrentPost(posts[index])">button</button>
+                                <a asp-controller="Home" asp-action="Post">Pročitaj više</a>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Post";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="entirePost">
-    <h1>{{ entirePost.title }}</h1>
+<div id="index">
+    <h1>{{ currentPost.title }}</h1>
 
-    {{ entirePost.content }}
+    {{ currentPost.content }}
 </div>
 
-<script src="~/js/entirePost.js"></script>
+<script src="~/js/index.js"></script>
