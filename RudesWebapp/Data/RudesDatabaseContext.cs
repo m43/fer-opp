@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Models;
+using RudesWebapp.Dtos;
 
 namespace RudesWebapp.Data
 {
@@ -279,7 +280,7 @@ namespace RudesWebapp.Data
                 // TODO any way to add this check? Myb nullbuster?
 //                entity.HasIndex(i => new { i.OrderId, i.ArticleId })
 //                    .IsUnique();
-                
+
                 entity.Property(e => e.PurchaseDiscount)
                     .HasColumnName("purchase_discount")
                     .IsRequired();
@@ -302,7 +303,7 @@ namespace RudesWebapp.Data
                     .HasForeignKey(d => d.ArticleId)
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__order_a__article__3F466844");
-                
+
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderArticle)
                     .HasForeignKey(d => d.OrderId)

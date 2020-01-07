@@ -143,7 +143,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 250,
                     Type = "hoodie",
-                    Color = Color.Indigo
+                    ArticleColor = Color.Indigo
                 },
                 new Article
                 {
@@ -153,7 +153,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Indigo
+                    ArticleColor = Color.Indigo
                 },
                 new Article
                 {
@@ -162,7 +162,7 @@ namespace RudesWebapp.Data
                         "Rudes majica izrađena je od 100% pamuka s tiskanim motivom na prednjoj strani. Pravi izbor za sve navijače i simpatizere maksimirskog kluba.",
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Indigo
+                    ArticleColor = Color.Indigo
                 },
                 new Article
                 {
@@ -172,7 +172,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Aquamarine
+                    ArticleColor = Color.Aquamarine
                 },
                 new Article
                 {
@@ -182,7 +182,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Aquamarine
+                    ArticleColor = Color.Aquamarine
                 },
                 new Article
                 {
@@ -192,7 +192,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "hoodie",
-                    Color = Color.Aquamarine
+                    ArticleColor = Color.Aquamarine
                 },
                 new Article
                 {
@@ -202,7 +202,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -211,7 +211,7 @@ namespace RudesWebapp.Data
                         "Rudes hoodie izrađena je od 100% pamuka s tiskanim motivom na prednjoj strani. Pravi izbor za sve navijače i simpatizere maksimirskog kluba.",
                     Price = 120,
                     Type = "hoodie",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -221,7 +221,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -231,7 +231,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -241,7 +241,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -251,7 +251,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -261,7 +261,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -271,7 +271,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -281,7 +281,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.First(),
                     Price = 200,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -291,7 +291,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -301,7 +301,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -311,7 +311,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -321,7 +321,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Crimson
+                    ArticleColor = Color.Crimson
                 },
                 new Article
                 {
@@ -331,7 +331,7 @@ namespace RudesWebapp.Data
                     Image = context.Image.Skip(1).First(),
                     Price = 120,
                     Type = "t-shirt",
-                    Color = Color.Gold
+                    ArticleColor = Color.Gold
                 }
             };
             return articles;

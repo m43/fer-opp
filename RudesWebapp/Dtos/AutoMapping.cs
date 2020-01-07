@@ -7,6 +7,9 @@ namespace RudesWebapp.Dtos
     {
         public AutoMapping()
         {
+            CreateMap<Article, ArticleDTO>();
+            CreateMap<ArticleDTO, Article>();
+
             CreateMap<Player, PlayerDTO>();
             CreateMap<PlayerDTO, Player>();
 

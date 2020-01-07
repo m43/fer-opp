@@ -24,13 +24,13 @@ namespace RudesWebapp.Models
         public string Description { get; set; }
         public int? ImageId { get; set; }
 
-        public Int32 Argb
+        public int? Argb
         {
-            get { return Color.ToArgb(); }
-            set { Color = Color.FromArgb(value); }
+            get => ArticleColor?.ToArgb();
+            set => ArticleColor = value == null ? (Color?) null : Color.FromArgb(value.Value);
         }
 
-        [NotMapped] public Color Color { get; set; }
+        [NotMapped] public Color? ArticleColor { get; set; }
 
         public virtual Image Image { get; set; }
         public virtual ICollection<ArticleAvailability> ArticleAvailability { get; set; }
