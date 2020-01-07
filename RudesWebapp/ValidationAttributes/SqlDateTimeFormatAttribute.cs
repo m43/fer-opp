@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
 
-namespace RudesWebapp.Dtos
+namespace RudesWebapp.ValidationAttributes
 {
-    public class SqlDateTimeFormat : ValidationAttribute
+    public class SqlDateTimeFormatAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

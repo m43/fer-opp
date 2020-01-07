@@ -25,13 +25,14 @@ namespace RudesWebapp.Dtos
 
         [HexColor]
         [StringLength(7)]
+        [Display(Name = "Color (in hex format like #F1C40F")]
         public string? Color
         {
             get => ArticleColor != null ? ColorTranslator.ToHtml(ArticleColor.Value) : null;
             set => ArticleColor = value == null ? (Color?) null : ColorTranslator.FromHtml(value);
         }
 
-        [NotMapped] public Color? ArticleColor { get; set; }
+        [NotMapped] private Color? ArticleColor { get; set; }
 
         public int? ImageId { get; set; }
 

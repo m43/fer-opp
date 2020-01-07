@@ -12,25 +12,25 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-    [Authorize(Roles = "Coach, Board, Admin")]
-    public class PlayerController : Controller
+    [Authorize(Roles = "Board, Admin")]
+    public class ArticleController : Controller
     {
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
 
-        public PlayerController(RudesDatabaseContext context, IMapper mapper)
+        public ArticleController(RudesDatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        // GET: Player
+        // GET: Article
         public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<PlayerDTO>>(await _context.Player.ToListAsync()));
+            return View(_mapper.Map<IEnumerable<ArticleDTO>>(await _context.Article.ToListAsync()));
         }
 
-        // GET: Player/Details/5
+        // GET: Article/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,45 +38,44 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
+            var article = await _context.Article
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (player == null)
+            if (article == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<PlayerDTO>(player));
+            return View(_mapper.Map<ArticleDTO>(article));
         }
 
-        // GET: Player/Create
-        public async Task<IActionResult> Create()
+        // GET: Article/Create
+        public IActionResult Create()
         {
-            await PrepareDropDowns();
             return View();
         }
 
-        // POST: Player/Create
+        // POST: Article/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,LastName,BirthDate,PlayerType,Position,ImageId")]
-            PlayerDTO playerDto)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Type,Price,Color,ImageId")]
+            ArticleDTO articleDto)
         {
             if (ModelState.IsValid)
             {
                 // TODO is id for sure 0?
-                // playerDto.Id = 0;
-                _context.Add(_mapper.Map<Player>(playerDto));
+                // articleDto.Id = 0;
+                _context.Add((object) _mapper.Map<Article>(articleDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
             await PrepareDropDowns();
-            return View(playerDto);
+            return View(articleDto);
         }
 
-        // GET: Player/Edit/5
+        // GET: Article/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,25 +83,25 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player.FindAsync(id);
-            if (player == null)
+            var article = await _context.Article.FindAsync(id);
+            if (article == null)
             {
                 return NotFound();
             }
 
             await PrepareDropDowns();
-            return View(_mapper.Map<PlayerDTO>(player));
+            return View(_mapper.Map<ArticleDTO>(article));
         }
 
-        // POST: Player/Edit/5
+        // POST: Article/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,LastName,BirthDate,PlayerType,Position,ImageId")]
-            PlayerDTO playerDto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Type,Price,Color,ImageId")]
+            ArticleDTO articleDto)
         {
-            if (id != playerDto.Id)
+            if (id != articleDto.Id)
             {
                 return NotFound();
             }
@@ -111,14 +110,13 @@ namespace RudesWebapp.Controllers
             {
                 try
                 {
-                    // NOTE: https://stackoverflow.com/questions/13314666/using-automapper-to-update-an-existing-entity-poco/25242322
-                    var player = await _context.Player.FindAsync(id);
-                    _mapper.Map(playerDto, player);
+                    var article = await _context.Article.FindAsync(id);
+                    _mapper.Map(articleDto, article);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlayerExists(playerDto.Id))
+                    if (!ArticleExists(articleDto.Id))
                     {
                         return NotFound();
                     }
@@ -131,11 +129,10 @@ namespace RudesWebapp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            await PrepareDropDowns();
-            return View(playerDto);
+            return View(articleDto);
         }
 
-        // GET: Player/Delete/5
+        // GET: Article/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,36 +140,37 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
+            var article = await _context.Article
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (player == null)
+            if (article == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<PlayerDTO>(player));
+            return View(_mapper.Map<ArticleDTO>(article));
         }
 
-        // POST: Player/Delete/5
+        // POST: Article/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var player = await _context.Player.FindAsync(id);
-            _context.Player.Remove(player);
+            var article = await _context.Article.FindAsync(id);
+            _context.Article.Remove(article);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        
+
+
         private async Task PrepareDropDowns()
         {
-            var images =  await _context.Image.ToListAsync();
+            var images = await _context.Image.ToListAsync();
             ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Name));
         }
 
-        private bool PlayerExists(int id)
+        private bool ArticleExists(int id)
         {
-            return _context.Player.Any(e => e.Id == id);
+            return _context.Article.Any(e => e.Id == id);
         }
     }
 }

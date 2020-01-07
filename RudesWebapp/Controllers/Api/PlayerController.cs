@@ -7,18 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
+using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers.Api
 {
-
     [Route("api/[controller]")]
     [ApiController]
-    public class Player : ControllerBase
+    public class PlayerController : ControllerBase
     {
-
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
-        public Player(RudesDatabaseContext context, IMapper mapper)
+
+        public PlayerController(RudesDatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -40,6 +40,7 @@ namespace RudesWebapp.Controllers.Api
             {
                 return NotFound();
             }
+
             var playerDto = _mapper.Map<PlayerDTO>(player);
             return playerDto;
         }
@@ -48,13 +49,15 @@ namespace RudesWebapp.Controllers.Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = "Coach, Board, Admin")]
         public async Task<IActionResult> PutPlayer(int id, PlayerDTO playerDto)
         {
             if (id != playerDto.Id)
             {
                 return BadRequest();
             }
+
+            //  TODO ovo ispod ne valja
             _context.Entry(playerDto).State = EntityState.Modified;
             try
             {
@@ -71,6 +74,7 @@ namespace RudesWebapp.Controllers.Api
                     throw;
                 }
             }
+
             return NoContent();
         }
 
@@ -85,10 +89,12 @@ namespace RudesWebapp.Controllers.Api
             {
                 return BadRequest(ModelState);
             }
-            var player = _mapper.Map<Models.Player>(playerDto);
+
+            var player = _mapper.Map<Player>(playerDto);
             _context.Player.Add(player);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetPlayer", new { id = playerDto.Id }, playerDto);
+
+            return CreatedAtAction("GetPlayer", new {id = playerDto.Id}, playerDto);
         }
 
         // DELETE: api/Player/5
@@ -101,6 +107,7 @@ namespace RudesWebapp.Controllers.Api
             {
                 return NotFound();
             }
+
             _context.Player.Remove(player);
             await _context.SaveChangesAsync();
             return _mapper.Map<PlayerDTO>(player);

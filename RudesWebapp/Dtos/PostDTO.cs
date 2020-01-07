@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using RudesWebapp.Models;
+using RudesWebapp.ValidationAttributes;
+
 namespace RudesWebapp.Dtos
 {
     public class PostDTO
