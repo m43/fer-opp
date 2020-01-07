@@ -32,7 +32,7 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Image/2
         [HttpGet("{id}")]
-        public async Task<ActionResult<ImageDTO>> GetImageDTO(int id)
+        public async Task<ActionResult<ImageDTO>> GetImage(int id)
         {
             var image = await _context.Image.FindAsync(id);
             if (image == null)
@@ -45,13 +45,13 @@ namespace RudesWebapp.Controllers.Api
 
         [HttpPost]
         [Authorize(Roles = "Admin, Board, Coach")]
-        public async Task<IActionResult> SetImage(ImageDTO imageDTO)
+        public async Task<IActionResult> SetImage(ImageDTO imageDto)
         {
-            var image = _mapper.Map<Image>(imageDTO);
+            var image = _mapper.Map<Image>(imageDto);
             _context.Image.Add(image);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetImage", new { id = imageDTO.Id }, imageDTO);
+            return CreatedAtAction("GetImage", new { id = imageDto.Id }, imageDto);
         }
 
         [HttpDelete("{id}")]

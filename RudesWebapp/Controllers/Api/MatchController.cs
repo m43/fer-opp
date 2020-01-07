@@ -31,7 +31,7 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Match/2
         [HttpGet("{id}")]
-        public async Task<ActionResult<MatchDTO>> GetMatchDTO(int id)
+        public async Task<ActionResult<MatchDTO>> GetMatch(int id)
         {
             var match = await _context.Match.FindAsync(id);
             if (match == null)
@@ -43,13 +43,13 @@ namespace RudesWebapp.Controllers.Api
         }
         [HttpPost]
         [Authorize(Roles = "Admin, Board, Coach")]
-        public async Task<IActionResult> SetMatch(MatchDTO matchDTO)
+        public async Task<IActionResult> SetMatch(MatchDTO matchDto)
         {
-            var match = _mapper.Map<Match>(matchDTO);
+            var match = _mapper.Map<Match>(matchDto);
             _context.Match.Add(match);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMatch", new { id = matchDTO.Id }, matchDTO);
+            return CreatedAtAction("GetMatch", new { id = matchDto.Id }, matchDto);
         }
 
         [HttpDelete("{id}")]

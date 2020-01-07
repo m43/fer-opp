@@ -33,7 +33,7 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Review/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReviewDTO>> GetReviewDTO(int id)
+        public async Task<ActionResult<ReviewDTO>> GetReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
             if (review == null)
@@ -45,13 +45,13 @@ namespace RudesWebapp.Controllers.Api
         }
         [HttpPost]
         [Authorize(Roles = "User")] //provjeriti
-        public async Task<IActionResult> PostReview(ReviewDTO reviewDTO)
+        public async Task<IActionResult> PostReview(ReviewDTO reviewDto)
         {
-            var review = _mapper.Map<Review>(reviewDTO);
+            var review = _mapper.Map<Review>(reviewDto);
             _context.Review.Add(review);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReview", new { id = reviewDTO.Id }, reviewDTO);
+            return CreatedAtAction("GetReview", new { id = reviewDto.Id }, reviewDto);
         }
 
         [HttpDelete("{id}")]

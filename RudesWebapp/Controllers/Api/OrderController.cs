@@ -30,7 +30,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderDTO>> GetOrderDTO(int id)
+        public async Task<ActionResult<OrderDTO>> GetOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
             if (order == null)
@@ -43,13 +43,13 @@ namespace RudesWebapp.Controllers.Api
 
         [HttpPost]
         [Authorize(Roles = "Admin, Board, Coach, User")]
-        public async Task<IActionResult> PostOrder(OrderDTO orderDTO)
+        public async Task<IActionResult> PostOrder(OrderDTO orderDto)
         {
-            var order = _mapper.Map<Order>(orderDTO);
+            var order = _mapper.Map<Order>(orderDto);
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = orderDTO.Id }, orderDTO);
+            return CreatedAtAction("GetOrder", new { id = orderDto.Id }, orderDto);
         }
 
         [HttpDelete("{id}")]

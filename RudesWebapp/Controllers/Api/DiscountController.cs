@@ -32,7 +32,7 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Discount/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<DiscountDTO>> GetDiscountDTO(int id)
+        public async Task<ActionResult<DiscountDTO>> GetDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);
             if (discount == null)
@@ -44,13 +44,13 @@ namespace RudesWebapp.Controllers.Api
         }
         [HttpPost]
         [Authorize(Roles = "Admin, Board, Coach")]
-        public async Task<IActionResult> SetDiscount(DiscountDTO discountDTO)
+        public async Task<IActionResult> SetDiscount(DiscountDTO discountDto)
         {
-            var discount = _mapper.Map<Discount>(discountDTO);
+            var discount = _mapper.Map<Discount>(discountDto);
             _context.Discount.Add(discount);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscount", new { id = discountDTO.Id }, discountDTO);
+            return CreatedAtAction("GetDiscount", new { id = discountDto.Id }, discountDto);
         }
 
         [HttpDelete("{id}")]
