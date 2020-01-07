@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,25 +11,25 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-    [Authorize(Roles = "Board, Admin")]
-    public class ArticleController : Controller
+    public class PostController : Controller
     {
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
 
-        public ArticleController(RudesDatabaseContext context, IMapper mapper)
+        public PostController(RudesDatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        // GET: Article
+
+        // GET: Post
         public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<ArticleDTO>>(await _context.Article.ToListAsync()));
+            return View(_mapper.Map<IEnumerable<PostDTO>>(await _context.Post.ToListAsync()));
         }
 
-        // GET: Article/Details/5
+        // GET: Post/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,44 +37,44 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Article.FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
+            var post = await _context.Post.FirstOrDefaultAsync(m => m.Id == id);
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<ArticleDTO>(article));
+            return View(_mapper.Map<PostDTO>(post));
         }
 
-        // GET: Article/Create
+        // GET: Post/Create
         public async Task<IActionResult> Create()
         {
             await PrepareDropDowns();
             return View();
         }
 
-        // POST: Article/Create
+        // POST: Post/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Type,Price,Color,ImageId")]
-            ArticleDTO articleDto)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,PostType,StartDate,EndDate,ImageId")]
+            PostDTO postDto)
         {
             if (ModelState.IsValid)
             {
                 // TODO is id for sure 0?
-                // articleDto.Id = 0;
-                _context.Add((object) _mapper.Map<Article>(articleDto));
+
+                _context.Add((object) _mapper.Map<Post>(postDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
             await PrepareDropDowns();
-            return View(articleDto);
+            return View(postDto);
         }
 
-        // GET: Article/Edit/5
+        // GET: Post/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,25 +82,25 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Article.FindAsync(id);
-            if (article == null)
+            var post = await _context.Post.FindAsync(id);
+            if (post == null)
             {
                 return NotFound();
             }
 
             await PrepareDropDowns();
-            return View(_mapper.Map<ArticleDTO>(article));
+            return View(_mapper.Map<PostDTO>(post));
         }
 
-        // POST: Article/Edit/5
+        // POST: Post/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Type,Price,Color,ImageId")]
-            ArticleDTO articleDto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,PostType,StartDate,EndDate,ImageId")]
+            PostDTO postDto)
         {
-            if (id != articleDto.Id)
+            if (id != postDto.Id)
             {
                 return NotFound();
             }
@@ -110,13 +109,13 @@ namespace RudesWebapp.Controllers
             {
                 try
                 {
-                    var article = await _context.Article.FindAsync(id);
-                    _mapper.Map(articleDto, article);
+                    var post = await _context.Post.FindAsync(id);
+                    _mapper.Map(postDto, post);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArticleExists(articleDto.Id))
+                    if (!PostExists(postDto.Id))
                     {
                         return NotFound();
                     }
@@ -130,10 +129,10 @@ namespace RudesWebapp.Controllers
             }
 
             await PrepareDropDowns();
-            return View(articleDto);
+            return View(postDto);
         }
 
-        // GET: Article/Delete/5
+        // GET: Post/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,26 +140,25 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Article.FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
+            var post = await _context.Post.FirstOrDefaultAsync(m => m.Id == id);
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<ArticleDTO>(article));
+            return View(_mapper.Map<PostDTO>(post));
         }
 
-        // POST: Article/Delete/5
+        // POST: Post/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var article = await _context.Article.FindAsync(id);
-            _context.Article.Remove(article);
+            var post = await _context.Post.FindAsync(id);
+            _context.Post.Remove(post);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
 
         private async Task PrepareDropDowns()
         {
@@ -168,9 +166,9 @@ namespace RudesWebapp.Controllers
             ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Name));
         }
 
-        private bool ArticleExists(int id)
+        private bool PostExists(int id)
         {
-            return _context.Article.Any(e => e.Id == id);
+            return _context.Post.Any(e => e.Id == id);
         }
     }
 }

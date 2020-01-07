@@ -38,8 +38,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var player = await _context.Player.FirstOrDefaultAsync(m => m.Id == id);
             if (player == null)
             {
                 return NotFound();
@@ -143,8 +142,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var player = await _context.Player.FirstOrDefaultAsync(m => m.Id == id);
             if (player == null)
             {
                 return NotFound();

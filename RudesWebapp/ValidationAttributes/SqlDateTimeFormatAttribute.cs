@@ -8,6 +8,11 @@ namespace RudesWebapp.ValidationAttributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+            {
+                return ValidationResult.Success;
+            }
+            
             var date = (DateTime) value;
 
             if (date.Date < (DateTime) SqlDateTime.MinValue)
