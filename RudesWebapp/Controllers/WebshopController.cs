@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -26,11 +27,6 @@ namespace RudesWebapp.Controllers
         }
 
         public IActionResult WebshopStart()
-        {
-            return View();
-        }
-
-        public IActionResult ShowFilters()
         {
             return View();
         }
@@ -330,6 +326,9 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetShoppingCart(int id)
         {
+            // TODO action needs upate - returning shopping cart should not be done
+
+
             var shoppingCart = await _context.ShoppingCart.FindAsync(id);
 
             if (shoppingCart == null)
@@ -344,6 +343,8 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(string username, ShoppingCart shoppingCart)
         {
+            // TODO action needs upate - updating shopping cart should not be done like this
+
             if (username != shoppingCart.UserId)
             {
                 return BadRequest();
@@ -376,6 +377,10 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetCurrentShoppingCart()
         {
+            // TODO action needs upate - returning shopping cart should not be done.
+            //       only items are returned or SCart DTO that contains some extra shopping cart information
+            //       (like last edit or some other business logic)
+
             return await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
         }
 
@@ -383,53 +388,49 @@ namespace RudesWebapp.Controllers
         public async Task<IEnumerable<ShoppingCartArticleDTO>> GetCurrentShoppingCartArticles()
         {
             var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
-            
-            var articles = shoppingCart.ShoppingCartArticle;
-            var articlesDTO = new List<ShoppingCartArticleDTO>();
-            foreach (ShoppingCartArticle article in articles)
-            {
-                articlesDTO.Add(_mapper.Map<ShoppingCartArticleDTO>(article));
-            }
-            
-            return articlesDTO;
+            var articles = shoppingCart.ShoppingCartArticle.ToList();
+
+            return _mapper.Map<List<ShoppingCartArticleDTO>>(articles);
         }
 
         [HttpPost]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCartArticleDTO>> AddToShoppingCart(int articleId, int quantity, string size)
+        public async Task<ActionResult<ShoppingCartArticleDTO>> AddToShoppingCart(int articleId, int quantity,
+            string size)
         {
             // TODO remove quantity parameter from all function calls
+            // TODO Well, actually quantity is needed and frontend should use it (F.)
+            // TODO check if validation of received parameters works as expected
             var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
-            if (selectedArticle != null)
-            {
-                shoppingCart.AddArticle(_context, selectedArticle, size);
-                var resultArticle = await _context.ShoppingCartArticle
-                    .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id 
-                                              && cart.ArticleId == selectedArticle.Id);
-                return _mapper.Map<ShoppingCartArticleDTO>(resultArticle);
-            }
+            if (selectedArticle == null)
+                return NotFound();
 
-            return NotFound();
+            shoppingCart.AddArticle(_context, selectedArticle, size);
+            var result = await _context
+                .ShoppingCartArticle
+                .FirstOrDefaultAsync(
+                    cart => cart.ShoppingCartId == shoppingCart.Id && cart.ArticleId == selectedArticle.Id
+                );
+
+            return _mapper.Map<ShoppingCartArticleDTO>(result);
         }
 
         [HttpDelete]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCartArticleDTO>> RemoveFromShoppingCart(int articleId, int quantity, string size)
+        public async Task<ActionResult<ShoppingCartArticleDTO>> RemoveFromShoppingCart(int articleId, int quantity,
+            string size)
         {
             var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
-            if (selectedArticle != null)
-            {
-                var removedArticle = shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
-                return Ok(_mapper.Map<ShoppingCartArticleDTO>(removedArticle));
-            }
+            if (selectedArticle == null)
+                return NotFound();
 
-            return NotFound();
-            // return selectedArticle;
+            var removedItems = shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
+            return Ok(_mapper.Map<ShoppingCartArticleDTO>(removedItems));
         }
 
 
