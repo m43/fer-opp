@@ -5,8 +5,7 @@
 <div id="webshop">
     <div class="outerFiltersDiv">
         <div>
-            <button id="buttonFilter" onclick="myFunction()">Filteri</button>
-            <!-- <button id="testButton" onclick="console.log(webshop.allArticles)">Test</button> -->
+            <button id="buttonFilter" class="buttonStyle" @@click="myFunction()">Filteri</button>
         </div>
 
         <div id="myDIV" class="container-fluid">
@@ -27,7 +26,7 @@
                         </div>
                         <div class="col-2 col-md-2 col-lg-4 check">
                             <input type="checkbox" id="cb4">
-                            <label for="cb4"><img class="checkboxImage" src="https://www.iconsdb.com/icons/preview/black/square-xxl.png"></label>
+                            <label for="cb4"><img class="checkboxImage" src="~/images/solid-black.png"></label>
                         </div>
                         <div class="col-2 col-md-2 col-lg-4 check">
                             <input type="checkbox" id="cb5">
@@ -62,49 +61,20 @@
                 </div>
             </div>
             <div class="applyFilters">
-                <button>Primijeni</button>
+                <button class="buttonStyle">Primijeni</button>
             </div>
         </div>
     </div>
+
     <div class="container-fluid">
-
-        <div class="row outerArticlesDiv">
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-                <figcaption class="articleDescription">Naziv proizvoda</figcaption>
-                <figcaption class="articleDescription">Opis proizvoda</figcaption>
-                <figcaption class="articleDescription">Cijena proizvoda</figcaption>
-                <button>Dodaj u kosaricu</button>
-            </div>
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-                <figcaption class="articleDescription">Naziv proizvoda</figcaption>
-                <figcaption class="articleDescription">Opis proizvoda</figcaption>
-                <figcaption class="articleDescription">Cijena proizvoda</figcaption>
-                <button>Dodaj u kosaricu</button>
-            </div>
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-                <figcaption class="articleDescription">Naziv proizvoda</figcaption>
-                <figcaption class="articleDescription">Opis proizvoda</figcaption>
-                <figcaption class="articleDescription">Cijena proizvoda</figcaption>
-                <button>Dodaj u kosaricu</button>
-            </div>
-
-            <div class="articleDiv col-sm-12 col-md-6 col-lg-3">
-                <img class="productImages" src="http://jackiejacobson.com/wp-content/uploads/2011/06/Sunflower.jpg">
-                <figcaption class="articleDescription">Naziv proizvoda</figcaption>
-                <figcaption class="articleDescription">Opis proizvoda</figcaption>
-                <figcaption class="articleDescription">Cijena proizvoda</figcaption>
-                <button>Dodaj u kosaricu</button>
+        <div v-if="allArticles.length != 0" class="outerArticlesDiv">
+            <div v-for="articleGroup in groupedArticles" class="row">
+                <div v-for="article in articleGroup" class="col-lg-3 text-center">
+                    <article-component :article="article"></article-component>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-<link rel="stylesheet" type="text/css" href="~/css/webshop.css">
 <script src="~/js/webshop.js"></script>
