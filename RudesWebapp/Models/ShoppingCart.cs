@@ -1,8 +1,10 @@
-﻿using RudesWebapp.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using RudesWebapp.Data;
+using Z.EntityFramework.Plus;
 
 namespace RudesWebapp.Models
 {
@@ -20,26 +22,18 @@ namespace RudesWebapp.Models
         public virtual User User { get; set; }
         public virtual ICollection<ShoppingCartArticle> ShoppingCartArticle { get; set; }
 
-        public static ShoppingCart GetCurrentShoppingCart(RudesDatabaseContext context, User user)
+        // TODO consider refactoring of this help, business methods. Not sure what's the appropriate place to put them.. Myb to create a Services folder?
+
+        public static async Task<ShoppingCart> GetCurrentShoppingCart(RudesDatabaseContext context, string userId)
         {
-            var shoppingCart = context.ShoppingCart.
-                                FirstOrDefault(cart => cart.UserId == user.Id);
-
-            var currentShoppingCart = context.ShoppingCart.Find(shoppingCart.Id);
-            currentShoppingCart.User = null;
-
-            // TODO
-            if (currentShoppingCart == null)
-            {
-                return null;
-            }
-
-            return currentShoppingCart;
+            return await context.ShoppingCart.FirstAsync(cart => cart.UserId == userId);
         }
 
         public void AddArticle(RudesDatabaseContext context, Article article, int quantity, string size)
         {
-            ShoppingCartArticle shoppingCartArticle = context.ShoppingCartArticle
+            // TODO quantity is never used
+
+            var shoppingCartArticle = context.ShoppingCartArticle
                 .SingleOrDefault(s => s.ArticleId == article.Id && s.ShoppingCartId == Id);
 
             if (shoppingCartArticle == null)
@@ -62,8 +56,11 @@ namespace RudesWebapp.Models
             context.SaveChanges();
         }
 
-        public ShoppingCartArticle RemoveArticle(RudesDatabaseContext context, Article article, int quantity, string size)
+        public ShoppingCartArticle RemoveArticle(RudesDatabaseContext context, Article article, int quantity,
+            string size)
         {
+            // TODO localQuantity, quantity and size are never user
+
             ShoppingCartArticle shoppingCartArticle = context.ShoppingCartArticle
                 .SingleOrDefault(s => s.ArticleId == article.Id && s.ShoppingCartId == Id);
 
@@ -87,23 +84,20 @@ namespace RudesWebapp.Models
             return shoppingCartArticle;
         }
 
-        public void ClearShoppingCart(RudesDatabaseContext context)
+        public async Task ClearShoppingCart(RudesDatabaseContext context)
         {
-            var shoppingCartArticles = context.ShoppingCartArticle
-                .Where(cart => cart.ShoppingCartId == Id);
-
-            context.ShoppingCartArticle.RemoveRange(shoppingCartArticles);
-
-            context.SaveChanges();
+            await context.ShoppingCartArticle.Where(cart => cart.ShoppingCartId == Id).DeleteAsync();
         }
 
-        public decimal GetShoppingCartTotal(RudesDatabaseContext context)
+        public async Task<decimal> GetShoppingCartTotal(RudesDatabaseContext context)
         {
-            // TODO for the sake of simplicity, Discount was not included in the total sum
-            var total = context.ShoppingCartArticle.Where(c => c.ShoppingCartId == Id)
-                .Select(c => c.Article.Price * c.Quantity).Sum();
-            
-            return total;
+            return await context.ShoppingCartArticle
+                .Where(c => c.ShoppingCartId == Id)
+                .Select(c => c.Article.Price * c.Quantity * (100 - c.Article.Discount.Max(x => x.Percentage)) / 100)
+                .SumAsync();
+
+            // TODO is some kind of .Include(c=>c.Discount) needed?
+            // TODO how to handle multiple dicounts active?
         }
     }
 }

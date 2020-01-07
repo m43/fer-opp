@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
+using RudesWebapp.Helpers;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
@@ -354,8 +353,8 @@ namespace RudesWebapp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                var shopping_cart_from_database = await _context.ShoppingCart.FindAsync(username);
-                if (shopping_cart_from_database == null)
+                var shoppingCartFromDatabase = await _context.ShoppingCart.FindAsync(username);
+                if (shoppingCartFromDatabase == null)
                 {
                     return NotFound();
                 }
@@ -373,16 +372,14 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetCurrentShoppingCart()
         {
-            var currentUser = await GetCurrentUserAsync();
-            return ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+            return await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
         }
 
         [HttpPost]
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Article>> AddToShoppingCart(int articleId, int quantity, string size)
         {
-            var currentUser = await GetCurrentUserAsync();
-            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
@@ -398,39 +395,36 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Article>> RemoveFromShoppingCart(int articleId, int quantity, string size)
         {
-            var currentUser = await GetCurrentUserAsync();
-            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
             if (selectedArticle != null)
             {
-               shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
+                shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
             }
 
             return null;
             // return selectedArticle;
         }
 
-        
+
         [HttpPut]
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async void ClearShoppingCart()
         {
-            var currentUser = await GetCurrentUserAsync();
-            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
 
-            shoppingCart.ClearShoppingCart(_context);
+            await shoppingCart.ClearShoppingCart(_context);
         }
-        
+
         [HttpGet]
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<decimal>> GetTotalPrice()
         {
-            var currentUser = await GetCurrentUserAsync();
-            var shoppingCart = ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
+            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
 
-            return shoppingCart.GetShoppingCartTotal(_context);
+            return await shoppingCart.GetShoppingCartTotal(_context);
         }
 
 
@@ -521,17 +515,17 @@ namespace RudesWebapp.Controllers
             // Use article model CRUD methods defined in this controller
         }
 
-        private async Task<User> GetCurrentUserAsync()
+        private async Task<ActionResult<User>> GetCurrentUserAsync()
         {
-            return await _userManager.GetUserAsync(HttpContext.User);
+            var user = await _context.Users.FindAsync(User.GetUserId());
+            // TODO map to UserDTO and return. Its not smart to return the user..
+            return user;
         }
 
         [HttpGet]
-        public async Task<ActionResult<User>> GetCurrentUser()
+        public ActionResult<User> GetCurrentUser()
         {
-            return await GetCurrentUserAsync();
+            return GetCurrentUserAsync().Result;
         }
-
     }
 }
- 
