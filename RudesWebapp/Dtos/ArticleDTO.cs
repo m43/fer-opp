@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
-using Newtonsoft.Json;
+using RudesWebapp.ValidationAttributes;
 
 namespace RudesWebapp.Dtos
 {
@@ -24,10 +23,19 @@ namespace RudesWebapp.Dtos
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
 
-        // TODO how to color
-        // [JsonConverter(typeof(ColorConverter))]
-        public Color Color { get; set; }
+        [HexColor]
+        [StringLength(7)]
+        [Display(Name = "Color (in hex format like #F1C40F")]
+        public string? Color
+        {
+            get => ArticleColor != null ? ColorTranslator.ToHtml(ArticleColor.Value) : null;
+            set => ArticleColor = value == null ? (Color?) null : ColorTranslator.FromHtml(value);
+        }
+
+        [NotMapped] private Color? ArticleColor { get; set; }
 
         public int? ImageId { get; set; }
+
+        // TODO validate that image exists (if not null)
     }
 }

@@ -2,12 +2,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
 
-namespace RudesWebapp.Dtos
+namespace RudesWebapp.ValidationAttributes
 {
-    public class SqlDateTimeFormat : ValidationAttribute
+    public class SqlDateTimeFormatAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+            {
+                return ValidationResult.Success;
+            }
+            
             var date = (DateTime) value;
 
             if (date.Date < (DateTime) SqlDateTime.MinValue)
