@@ -73,6 +73,7 @@ namespace RudesWebapp.Data
 
                 entity.Property(e => e.Price)
                     .HasColumnName("price")
+                    .HasColumnType("decimal(18, 2)")
                     .IsRequired();
 
                 entity.Property(e => e.Type)
@@ -86,6 +87,7 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.Article)
                     .HasForeignKey(d => d.ImageId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__article__image_I__46E78A0C");
             });
 
@@ -110,7 +112,7 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.ArticleAvailability)
                     .HasForeignKey(d => d.ArticleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__article_a__artic__403A8C7D");
             });
 
@@ -149,7 +151,7 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Discount)
                     .HasForeignKey(d => d.ArticleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__discount__articl__44FF419A");
             });
 
@@ -262,8 +264,8 @@ namespace RudesWebapp.Data
 
             modelBuilder.Entity<OrderArticle>(entity =>
             {
-                entity.HasKey(e => new {e.OrderId, e.ArticleId})
-                    .HasName("PK__order_ar__DA851AC7823BC41D");
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID");
 
                 entity.ToTable("order_article");
 
@@ -274,13 +276,17 @@ namespace RudesWebapp.Data
                 entity.Property(e => e.ArticleId)
                     .HasColumnName("article_ID");
 
+                // TODO any way to add this check? Myb nullbuster?
+//                entity.HasIndex(i => new { i.OrderId, i.ArticleId })
+//                    .IsUnique();
+                
                 entity.Property(e => e.PurchaseDiscount)
                     .HasColumnName("purchase_discount")
                     .IsRequired();
 
                 entity.Property(e => e.PurchasePrice)
                     .HasColumnName("purchase_price")
-                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnType("decimal(18, 2)")
                     .IsRequired();
 
                 entity.Property(e => e.Quantity)
@@ -294,13 +300,13 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.OrderArticle)
                     .HasForeignKey(d => d.ArticleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__order_a__article__3F466844");
-
+                
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderArticle)
                     .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__order_art__order__412EB0B6");
             });
 
@@ -433,18 +439,18 @@ namespace RudesWebapp.Data
                     .IsRequired();
 
                 entity.Property(e => e.UserId)
-                    .HasColumnName("user_ID")
-                    .IsRequired();
+                    .HasColumnName("user_ID");
 
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.Review)
                     .HasForeignKey(d => d.ArticleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__review__article___45F365D3");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Review)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__review___usern__03122019M43");
             });
 
@@ -470,6 +476,7 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.ShoppingCart)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__shopping___usern__440B1D61");
             });
 
@@ -497,13 +504,13 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.Article)
                     .WithMany(p => p.ShoppingCartArticle)
                     .HasForeignKey(d => d.ArticleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__shopping___artic__4222D4EF");
 
                 entity.HasOne(d => d.ShoppingCart)
                     .WithMany(p => p.ShoppingCartArticle)
                     .HasForeignKey(d => d.ShoppingCartId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__shopping___shopp__4316F928");
             });
 

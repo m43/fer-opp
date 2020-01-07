@@ -11,7 +11,7 @@ namespace RudesWebapp.Models
         }
 
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         public DateTime CreationDate { get; set; }
         public bool Fulfilled { get; set; }
         public string Address { get; set; }

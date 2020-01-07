@@ -5,8 +5,12 @@ namespace RudesWebapp.Dtos
 {
     public class OrderArticleDTO
     {
+        public int Id { get; set; }
+        
+        [Required]
         public int OrderId { get; set; }
 
+        [Required]
         public int ArticleId { get; set; }
 
         [Display(Name = "Quantity", Prompt = "Enter the quantity")] 

@@ -74,7 +74,7 @@ namespace RudesWebapp.Models
                 if (shoppingCartArticle.Quantity > 1)
                 {
                     shoppingCartArticle.Quantity--;
-                    localQuantity = shoppingCartArticle.Quantity ?? default;
+                    localQuantity = shoppingCartArticle.Quantity;
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace RudesWebapp.Models
             var total = context.ShoppingCartArticle.Where(c => c.ShoppingCartId == Id)
                 .Select(c => c.Article.Price * c.Quantity).Sum();
             
-            return total ?? default;
+            return total;
         }
     }
 }
