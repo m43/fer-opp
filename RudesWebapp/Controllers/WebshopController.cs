@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
+using RudesWebapp.Dtos;
 using RudesWebapp.Helpers;
 using RudesWebapp.Models;
 
@@ -14,11 +16,13 @@ namespace RudesWebapp.Controllers
     {
         private RudesDatabaseContext _context;
         private UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public WebshopController(RudesDatabaseContext context, UserManager<User> userManager)
+        public WebshopController(RudesDatabaseContext context, UserManager<User> userManager, IMapper mapper)
         {
             _context = context;
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public IActionResult WebshopStart()
@@ -375,25 +379,44 @@ namespace RudesWebapp.Controllers
             return await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
         }
 
-        [HttpPost]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<Article>> AddToShoppingCart(int articleId, int quantity, string size)
+        [HttpGet]
+        public async Task<IEnumerable<ShoppingCartArticleDTO>> GetCurrentShoppingCartArticles()
         {
             var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
+            
+            var articles = shoppingCart.ShoppingCartArticle;
+            var articlesDTO = new List<ShoppingCartArticleDTO>();
+            foreach (ShoppingCartArticle article in articles)
+            {
+                articlesDTO.Add(_mapper.Map<ShoppingCartArticleDTO>(article));
+            }
+            
+            return articlesDTO;
+        }
 
+        [HttpPost]
+        [Authorize(Roles = "User, Coach, Board, Admin")]
+        public async Task<ActionResult<ShoppingCartArticleDTO>> AddToShoppingCart(int articleId, int quantity, string size)
+        {
+            // TODO remove quantity parameter from all function calls
+            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
             if (selectedArticle != null)
             {
-                shoppingCart.AddArticle(_context, selectedArticle, quantity, size);
+                shoppingCart.AddArticle(_context, selectedArticle, size);
+                var resultArticle = await _context.ShoppingCartArticle
+                    .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id 
+                                              && cart.ArticleId == selectedArticle.Id);
+                return _mapper.Map<ShoppingCartArticleDTO>(resultArticle);
             }
 
-            return selectedArticle;
+            return NotFound();
         }
 
         [HttpDelete]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<Article>> RemoveFromShoppingCart(int articleId, int quantity, string size)
+        public async Task<ActionResult<ShoppingCartArticleDTO>> RemoveFromShoppingCart(int articleId, int quantity, string size)
         {
             var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
 
@@ -401,10 +424,11 @@ namespace RudesWebapp.Controllers
 
             if (selectedArticle != null)
             {
-                shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
+                var removedArticle = shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
+                return Ok(_mapper.Map<ShoppingCartArticleDTO>(removedArticle));
             }
 
-            return null;
+            return NotFound();
             // return selectedArticle;
         }
 

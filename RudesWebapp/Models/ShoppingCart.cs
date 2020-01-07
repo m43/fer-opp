@@ -26,13 +26,14 @@ namespace RudesWebapp.Models
 
         public static async Task<ShoppingCart> GetCurrentShoppingCart(RudesDatabaseContext context, string userId)
         {
-            return await context.ShoppingCart.FirstAsync(cart => cart.UserId == userId);
+            var shoppingCart = await context.ShoppingCart
+                .Include(cart => cart.ShoppingCartArticle)
+                .FirstAsync(cart => cart.UserId == userId);
+            return shoppingCart;
         }
 
-        public void AddArticle(RudesDatabaseContext context, Article article, int quantity, string size)
+        public void AddArticle(RudesDatabaseContext context, Article article, string size)
         {
-            // TODO quantity is never used
-
             var shoppingCartArticle = context.ShoppingCartArticle
                 .SingleOrDefault(s => s.ArticleId == article.Id && s.ShoppingCartId == Id);
 
