@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
 
-namespace RudesWebapp.Models
+namespace RudesWebapp.Dtos
 {
     public class SqlDateTimeFormat : ValidationAttribute
     {

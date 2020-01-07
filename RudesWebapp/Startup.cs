@@ -29,7 +29,11 @@ namespace RudesWebapp
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddDbContext<RudesDatabaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("RudesDatabase")));
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("RudesDatabase"));
+                    options.EnableSensitiveDataLogging(); // TODO remove for production
+                }
+            );
             services.AddDefaultIdentity<User>(
                     options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()

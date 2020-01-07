@@ -375,20 +375,6 @@ namespace RudesWebapp.Controllers
         {
             var currentUser = await GetCurrentUserAsync();
             return ShoppingCart.GetCurrentShoppingCart(_context, currentUser);
-            /*
-            var currentUserShoppingCart = await _context.ShoppingCart
-                .FirstOrDefaultAsync(cart => cart.UserId == currentUser.Id);
-            
-            var currentShoppingCart = await _context.ShoppingCart.FindAsync(currentUserShoppingCart.Id);
-            currentShoppingCart.User = null;
-            
-            if (currentShoppingCart == null)
-            {
-                return NotFound();
-            }
-
-            return currentShoppingCart;
-            */
         }
 
         [HttpPost]

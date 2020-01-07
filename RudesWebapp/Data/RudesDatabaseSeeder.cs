@@ -1054,13 +1054,27 @@ namespace RudesWebapp.Data
 
         public static List<ShoppingCart> GetShoppingCarts(RudesDatabaseContext context)
         {
+            /*
             var shoppingCarts = new List<ShoppingCart>
             {
                 new ShoppingCart
                 {
                     User = context.User.First()
                 }
-            };
+            ;
+            */
+
+            var users = context.User.ToList();
+            var shoppingCarts = new List<ShoppingCart>();
+
+            foreach (User user in users)
+            {
+                shoppingCarts.Add(
+                    new ShoppingCart
+                    {
+                        User = user
+                    });
+            }
 
             return shoppingCarts;
         }

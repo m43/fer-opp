@@ -165,7 +165,6 @@ namespace RudesWebapp.Controllers
         private async Task PrepareDropDowns()
         {
             var images =  await _context.Image.ToListAsync();
-
             ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Name));
         }
 

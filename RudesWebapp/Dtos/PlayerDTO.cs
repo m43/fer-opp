@@ -8,7 +8,6 @@ namespace RudesWebapp.Dtos
     {
         public int Id { get; set; }
 
-
         // Use only [Required] to show the default validation message for required attributes
         [Required(ErrorMessage = "It's necessary to specify the player's name")]
         [Display(Name = "Player Name", Prompt = "Enter the name of the player")]

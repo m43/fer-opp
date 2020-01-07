@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using RudesWebapp.Data;
 using RudesWebapp.Models;
+using System.Linq;
 
 namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
 {
@@ -14,15 +16,18 @@ namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private RudesDatabaseContext _context;
 
         public DeletePersonalDataModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            RudesDatabaseContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         [BindProperty]
@@ -77,6 +82,14 @@ namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
             await _signInManager.SignOutAsync();
 
             _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
+
+            /*var shoppingCart = user.ShoppingCart.First();
+            foreach (ShoppingCartArticle article in shoppingCart.ShoppingCartArticle)
+            {
+                _context.ShoppingCartArticle.Remove(article);
+            }
+            _context.ShoppingCart.Remove(shoppingCart);
+            _context.SaveChanges(); */
 
             return Redirect("~/");
         }
