@@ -393,7 +393,14 @@
 				\label{fig:ClassDiagram1}
 			\end{figure}
 		
-			\textnormal{Model razredi na slici 4.3 preslikavaju strukturu baze podataka u aplikaciji. Implementirane metode direktno komuniciraju s bazom podataka te vraćaju tražene podatke. Razred Objava predstavlja objavu bilo koje vrste koja se prikazuje na stranici. Razred Igrač predstavlja igrače kluba kojima se mogu mijenjati podaci. Razred Slika predstavlja sve slike iz objava ili igrača. Razred Utakmica predstavlja utakmice koje klub igra. Nadalje, razredi Artikl, Popust, Artikl Dostupnost i Artikl Košarica predstavljaju artikle, odnosno popuste, dostupnost artikala i artikle stavljene u košaricu web shop-a kluba. Također, razredi Narudžba i Narudžba Artikl i Košarica također su vezani uz web shop. Narudžba predstavlja sve narudžbe korisnika, Narudžba Artikl sve artikle jedne narudžbe, dok razred Košarica predstavlja košaricu web shop-a. Razred Transakcija su sve transakcije koje se obavljaju u web shop-u između klijenata kluba i banke. Razred Recenzija predstavlja recenzije proizvoda u web shopu koje razred Korisnik može ostaviti. Razred Korisnik predstavlja korisnike sustava koji se mogu registrirati i prijaviti u sustav.}\\
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{dijagrami/Dijagram_DTO.png}
+			\centering
+			\caption{Dijagram razreda - dio Data Transfer Objects}
+			\label{fig:ClassDiagram1}
+		\end{figure}
+		
+			\textnormal{Model razredi na slici 4.4 preslikavaju strukturu baze podataka u aplikaciji. Implementirane metode direktno komuniciraju s bazom podataka te vraćaju tražene podatke. Razred Objava predstavlja objavu bilo koje vrste koja se prikazuje na stranici. Razred Igrač predstavlja igrače kluba kojima se mogu mijenjati podaci. Razred Slika predstavlja sve slike iz objava ili igrača. Razred Utakmica predstavlja utakmice koje klub igra. Nadalje, razredi Artikl, Popust, Artikl Dostupnost i Artikl Košarica predstavljaju artikle, odnosno popuste, dostupnost artikala i artikle stavljene u košaricu web shop-a kluba. Također, razredi Narudžba i Narudžba Artikl i Košarica također su vezani uz web shop. Narudžba predstavlja sve narudžbe korisnika, Narudžba Artikl sve artikle jedne narudžbe, dok razred Košarica predstavlja košaricu web shop-a. Razred Transakcija su sve transakcije koje se obavljaju u web shop-u između klijenata kluba i banke. Razred Recenzija predstavlja recenzije proizvoda u web shopu koje razred Korisnik može ostaviti. Razred Korisnik predstavlja korisnike sustava koji se mogu registrirati i prijaviti u sustav.}\\
 		
 		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{dijagrami/DijagramRazredaModels.png}
@@ -419,7 +426,7 @@
 			
 		% 	\textbf{\textit{dio 2. revizije}}\\
 			
-			\textnormal{Dijagram stanja prikazuje stanja objekta te prijelaze iz jednog stanja u drugo temeljene na događajima. Na slici 4.4 prikazan je dijagram stanja za registriranog korisnika. Nakon prijave, klijentu se prikazuje početna stranica na kojoj može pregledati webshop i osobne podatke. Za  webshop ima opciju pregledavanja proizvioda i košarice. Za svaki proizvod može vidjeti recenziju i ubaciti ga u košaricu ukoliko je proizvod dosrtupan. Pri pregledu košarice klijent može  uređivati i mijenjati količinu artikala u košarici. Pri dodavanju proizvoda u košaricu i pregleda košarice, korisnik može odabrati naručivanje te nakon potvrđenih podataka platit narudžbu te ostaviti recenziju. Može i pregledati svoje osobne podatke i izbrisati račun ili izmijeniti podatke.}
+			\textnormal{Dijagram stanja prikazuje stanja objekta te prijelaze iz jednog stanja u drugo temeljene na događajima. Na slici 4.5 prikazan je dijagram stanja za registriranog korisnika. Nakon prijave, klijentu se prikazuje početna stranica na kojoj može pregledati webshop i osobne podatke. Za  webshop ima opciju pregledavanja proizvioda i košarice. Za svaki proizvod može vidjeti recenziju i ubaciti ga u košaricu ukoliko je proizvod dosrtupan. Pri pregledu košarice klijent može  uređivati i mijenjati količinu artikala u košarici. Pri dodavanju proizvoda u košaricu i pregleda košarice, korisnik može odabrati naručivanje te nakon potvrđenih podataka platit narudžbu te ostaviti recenziju. Može i pregledati svoje osobne podatke i izbrisati račun ili izmijeniti podatke.}
 			
 			\begin{figure}[H]
 				\includegraphics[width=\linewidth]{dijagrami/Dijagram_stanja.png}
@@ -435,7 +442,7 @@
 			
 		% 	\textbf{\textit{dio 2. revizije}}\\
 			
-		 \textnormal{Dijagram aktivnosti primjenjuje se za opis modela toka upravljanja ili toka podataka. Ne upotrebljava se za modeliranje događajima poticanog ponašanja. U modeliranju toka upravljanja svaki novi korak poduzima se nakon završenog prethodnog, a naglasak je na jednostavnosti. Na Slici 4.5 prikazan je dijagram aktivnosti naručivanja proizvoda. Korisnik se prijavi u sustav, odabere proizvod i njegova svojstva. Kada je zadovoljan narudžbom, odabire plaćanje te narudžba postaje aktivna u sustavu.}
+		 \textnormal{Dijagram aktivnosti primjenjuje se za opis modela toka upravljanja ili toka podataka. Ne upotrebljava se za modeliranje događajima poticanog ponašanja. U modeliranju toka upravljanja svaki novi korak poduzima se nakon završenog prethodnog, a naglasak je na jednostavnosti. Na Slici 4.6 prikazan je dijagram aktivnosti naručivanja proizvoda. Korisnik se prijavi u sustav, odabere proizvod i njegova svojstva. Kada je zadovoljan narudžbom, odabire plaćanje te narudžba postaje aktivna u sustavu.}
 		
 		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{dijagrami/Dijagram_aktivnosti.png}
