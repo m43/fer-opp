@@ -69,7 +69,7 @@
     <div class="container-fluid">
         <div v-if="allArticles.length != 0" class="outerArticlesDiv">
             <div v-for="articleGroup in groupedArticles" class="row">
-                <div v-for="article in articleGroup" class="col-lg-3 text-center">
+                <div v-for="article in articleGroup" class="col-md-6 col-lg-3 text-center">
                     <article-component :article="article"></article-component>
                 </div>
             </div>

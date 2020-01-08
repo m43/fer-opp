@@ -359,6 +359,9 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetShoppingCart(int id)
         {
+            // TODO action needs upate - returning shopping cart should not be done
+
+
             var shoppingCart = await _context.ShoppingCart.FindAsync(id);
 
             if (shoppingCart == null)
@@ -373,6 +376,8 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(string username, ShoppingCart shoppingCart)
         {
+            // TODO action needs upate - updating shopping cart should not be done like this
+
             if (username != shoppingCart.UserId)
             {
                 return BadRequest();
@@ -398,14 +403,6 @@ namespace RudesWebapp.Controllers
             }
 
             return NoContent();
-        }
-
-
-        [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCart>> GetCurrentShoppingCart()
-        {
-            return await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
         }
 
         [HttpGet]
@@ -445,6 +442,8 @@ namespace RudesWebapp.Controllers
         public async Task<ActionResult<ItemDTO>> AddToShoppingCart(int articleId, int quantity, string size)
         {
             // TODO remove quantity parameter from all function calls
+            // TODO Well, actually quantity is needed and frontend should use it (F.)
+            // TODO check if validation of received parameters works as expected
             var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
@@ -455,7 +454,7 @@ namespace RudesWebapp.Controllers
                 var resultArticle = await _context.ShoppingCartArticle
                     .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id 
                                               && cart.ArticleId == selectedArticle.Id);
-                ItemDTO item = new ItemDTO
+                return Ok(new ItemDTO
                 {
                     ShoppingCartId = resultArticle.ShoppingCartId,
                     ArticleId = resultArticle.ArticleId,
@@ -468,8 +467,7 @@ namespace RudesWebapp.Controllers
                     ImageId = selectedArticle.ImageId,
                     Argb = selectedArticle.Argb,
                     ArticleColor = selectedArticle.ArticleColor
-                };
-                return item;
+                });
             }
 
             return NotFound();
@@ -482,7 +480,6 @@ namespace RudesWebapp.Controllers
             var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
-
             if (selectedArticle != null)
             {
                 ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
