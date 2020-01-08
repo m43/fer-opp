@@ -35,7 +35,6 @@
 			\item  Košarica
 			\item  Korisnik
 			\item  Narudžba
-			\item Transakcija
 			\item Artikl košarice
 			\item Artikl narudžbe
 			\item Artikl
@@ -56,7 +55,7 @@
 				
 				\bigbreak
 
-				\textnormal{Tablica \textbf{Korisnik} opisuje svakog korisnika, klijenta, trenera, upravu ili administratora aplikacije. Sadrži atribute: korisničko ime, ime, prezime, e-mail, hash lozinke, razinu ovlasti, broj mobitela i datum registracije. Povezana je vezom \textit{One-to-Many} s entitetima Narudžba, Košarica i Recenzija preko korisničkog imena.}
+				\textnormal{Tablica \textbf{Korisnik} opisuje svakog korisnika, klijenta, trenera, upravu ili administratora aplikacije. Sadrži atribute: korisničko ime, prezime i datum registracije. Povezana je vezom \textit{One-to-Many} s entitetima Narudžba i Recenzija, a \textit{One-to-One} s Košaricom preko korisničkog imena.}
 				
 				\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 					
@@ -70,20 +69,15 @@
 					\endlastfoot
 					
 					\textbf{korisnicko\_ime}  & VARCHAR	&  jedinstveni identifikator korisnika	\\ \hline
-					ime	& VARCHAR &   ime korisnika	\\ \hline 
 					prezime & VARCHAR & prezime korisnika \\ \hline
-					e-mail & VARCHAR & e-mail korisnika  \\ \hline 
-					lozinka\_hash & VARCHAR	&  	hash lozinke	\\ \hline 
-					razina\_ovlasti & INT & razina ovlasti korisnika \\ \hline
-					broj\_mob & VARCHAR & broj mobitela korisnika \\ \hline 
 					datum\_registracije	& TIMESTAMP & datum registracije korisnika   	\\ \hline 
 					
 					
 				\end{longtabu}
 			
-			\textnormal{Tablica \textbf{Košarica} opisuje košarice koje se koriste u web shop-u. Sadrži atribute: ID, korisničko ime te datum kreiranja košarice. Povezana je vezom \textit{One-to-Many} s entitetom Artikl Košarice preko ID-a i \textit{Many-to-One} s entitetom Korisnik preko korisničkog imena. }
+			\textnormal{Tablica \textbf{Košarica} opisuje košarice koje se koriste u web shop-u. Sadrži atribute: ID, korisničko ime te datum kreiranja i posljednje izmjene košarice. Povezana je vezom \textit{One-to-Many} s entitetom Artikl Košarice preko ID-a i \textit{One-to-One} s entitetom Korisnik preko korisničkog imena. }
 			
-			\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
+			\begin{longtabu} to \textwidth {|X[12, l]|X[6, l]|X[16, l]|}
 				
 				\hline \multicolumn{3}{|c|}{\textbf{Košarica}}	 \\[3pt] \hline
 				\endfirsthead
@@ -96,12 +90,13 @@
 				
 				\textbf{ID} & INT	&  jedinstveni identifikator košarice	\\ \hline
 				\textit{korisnicko\_ime} 	& VARCHAR &   ime korisnika koji koristi košaricu	\\ \hline 
-				datum& TIMESTAMP & datum kreiranja košarice	\\ \hline 
+				datum\_stvaranja& TIMESTAMP & datum kreiranja košarice	\\ \hline
+				datum\_posljednje\_izmjene& TIMESTAMP & datum posljednje izmjene košarice	\\ \hline 
 				
 			\end{longtabu}
 		
 		
-		\textnormal{Tablica \textbf{Artikl Košarice} opisuje artikle košarice koje se koriste u web shop-u. Sadrži atribute: ID košarice, ID artikla, količinu artikla, veličinu artikla, kupovnu cijenu i kupovni popust. Povezana je vezom \textit{Many-to-One} s entitetima Artikl i Košarica preko ID artikla, odnosno ID košarice.}
+		\textnormal{Tablica \textbf{Artikl Košarice} opisuje artikle košarice koje se koriste u web shop-u. Sadrži atribute: ID košarice, ID artikla, količinu artikla i veličinu artikla. Povezana je vezom \textit{Many-to-One} s entitetima Artikl i Košarica preko ID artikla, odnosno ID košarice.}
 		
 		\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 			
@@ -114,12 +109,10 @@
 			\hline 
 			\endlastfoot
 			
-			\textbf{ID\_košarice} & INT	&  jedinstveni identifikator košarice	\\ \hline
-			\textbf{ID\_artikla}	& int &  jedinstveni identifikator artikla	\\ \hline 
+			\textbf{\textit{ID\_košarice}} & INT	&  jedinstveni identifikator košarice	\\ \hline
+			\textbf{\textit{ID\_artikla}}	& INT &  jedinstveni identifikator artikla	\\ \hline 
 			kolicina & INT  & količina artikla \\ \hline 
 			velicina & VARCHAR  & veličina artikla \\ \hline 
-			kupovna\_cijena & DECIMAL  & kupovna cijena artikla \\ \hline 
-			kupovni\_popust & INT  & kupovni popust artikla  \\ \hline 
 			
 		\end{longtabu}
 		\textnormal{Tablica \textbf{Recenzija} opisuje recenzije ostavljene artiklu u web shop-u. Sadrži atribute: ID, ID artikla, datum, ocjena, komentar, korisničko ime i blokirano. Povezana je vezom \textit{Many-to-One} s entitima Artikl i Korisnik preko ID artikla, odnosno korisničkog imena. }
@@ -136,16 +129,16 @@
 		\endlastfoot
 		
 		\textbf{ID} & INT	&  jedinstveni identifikator recenzije	\\ \hline
-		\textit{ID\_artikla}	& INT &  jedinstveni identifikator artikla	\\ \hline 
-		datum & TIMESTAMP  & datum dodavanja recenzije \\ \hline 
+		\textit{\textbf{ID\_artikla}}	& INT &  jedinstveni identifikator artikla	\\ \hline 
+		datum\_stvaranja & TIMESTAMP  & datum dodavanja recenzije \\ \hline 
 		ocjena & INT  & ocjena artikla \\ \hline 
 		komentar & VARCHAR  & komentar recenzije \\ \hline 
-		korisnicko\_ime & INT  & korisničko ime korisnika koji ostavlja recenziju  \\ \hline 
+		\textit{korisnicko\_ime} & VARCHAR  & korisničko ime korisnika koji ostavlja recenziju  \\ \hline 
 		blokirano & BOOLEAN  & dozvoljena ili blokirana recenzija \\ \hline 
 		
 	\end{longtabu}
 
-	\textnormal{Tablica \textbf{Utakmica} opisuje utakmice kluba. Sadrži atribute: ID, datum, tim domacin, tim gost, mjesto, dvorana i drzava. }
+	\textnormal{Tablica \textbf{Utakmica} opisuje utakmice kluba. Sadrži atribute: ID, datum stvaranja, tim domacin, tim gost, mjesto, dvorana i drzava. }
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -159,7 +152,7 @@
 	\endlastfoot
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator utakmice	\\ \hline
-	datum & TIMESTAMP &  jedinstveni identifikator artikla	\\ \hline 
+	datum\_stvaranja & TIMESTAMP &  jedinstveni identifikator artikla	\\ \hline 
 	tim\_domacin & VARCHAR  & tim domaćin utakmice \\ \hline 
 	tim\_gost & VARCHAR  & tim gost utakmice  \\ \hline 
 	mjesto & VARCHAR  & mjesto održavanja utakmice \\ \hline 
@@ -168,7 +161,7 @@
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Popust} opisuje popuste na artikl dodane na web shop. Sadrži atribute: ID, ID artikla, datum, datum pocetka, datum kraja i postotak popusta. Entitet je povezan vezom \textit{Many-to-One} s entitetom Artikl preko ID artikla.}
+\textnormal{Tablica \textbf{Popust} opisuje popuste na artikl dodane na web shop. Sadrži atribute: ID, ID artikla, datum stvaranja, datum početka, datum kraja i postotak popusta. Entitet je povezan vezom \textit{Many-to-One} s entitetom Artikl preko ID artikla.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -182,15 +175,15 @@
 	\endlastfoot
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator popusta	\\ \hline
-	\textit{ID\_artikla} & INT &  jedinstveni identifikator artikla	\\ \hline 
+	\textit{\textbf{ID\_artikla}} & INT &  jedinstveni identifikator artikla	\\ \hline 
 	datum & TIMESTAMP  & datum stvaranja popusta \\ \hline 
 	datum\_pocetka & TIMESTAMP  & datum početka popusta  \\ \hline 
 	datum\_kraja & TIMESTAMP  & datum završetka popusta \\ \hline 
-	postotak & INT  & postotak popusta \\ \hline 
+	postotak & DECIMAL  & postotak popusta \\ \hline 
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Slika} opisuje slike dodane na web stranicu. Sadrži atribute: ID, path, datum. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl, Objava i Igrač preko ID slike.}
+\textnormal{Tablica \textbf{Slika} opisuje slike dodane na web stranicu. Sadrži atribute: ID, naziv puta, izvorno ime, naslov, zamjenski tekst i datum stvaranja. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl, Objava i Igrač preko ID slike.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -204,13 +197,16 @@
 	\endlastfoot
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator slike	\\ \hline
-     path & VARCHAR  &  put do slike	\\ \hline 
-	datum & TIMESTAMP  & datum dodavanja slike \\ \hline 
+    naziv\_puta & VARCHAR  &  put do slike	\\ \hline 
+	izvorno\_ime & VARCHAR  & izvorno ime slike \\ \hline
+	naslov & VARCHAR  & ime slike \\ \hline
+	zamjenski\_tekst & VARCHAR  & zamjenski tekst slike koje ne može biti prikazana \\ \hline
+	datum\_stvaranja & TIMESTAMP  & datum dodavanja slike \\ \hline
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Artikl} opisuje artikle dodane na web shop. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, tip, cijenu, naziv, opis, ID slike. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Dostupnost, Popust, Artikl Narudžbe, Recenzija te Artikl Košarice preko ID artikla i vezom \textit{Many-to-One} s entitetom Slika preko ID slike.}
+\textnormal{Tablica \textbf{Artikl} opisuje artikle dodane na web shop. Sadrži atribute: ID, datum stvaranja, datum posljednje izmjene, tip, cijenu, naziv, opis, ID slike. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Dostupnost, Popust, Artikl Narudžbe, Recenzija te Artikl Košarice preko ID artikla i vezom \textit{Many-to-One} s entitetom Slika preko ID slike.}
 
-\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
+\begin{longtabu} to \textwidth {|X[12, l]|X[6, l]|X[16, l]|}
 	
 	\hline \multicolumn{3}{|c|}{\textbf{Artikl}}	 \\[3pt] \hline
 	\endfirsthead
@@ -222,16 +218,16 @@
 	\endlastfoot
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator artikla	\\ \hline
-	datum\_dodavanja & TIMESTAMP  & datum dodavanja artikla \\ \hline 
-	datum\_izmjene & TIMESTAMP  & datum posljednje izmjene slike \\ \hline 
+	datum\_stvaranja & TIMESTAMP  & datum dodavanja artikla \\ \hline 
+	datum\_posljednje\_izmjene & TIMESTAMP  & datum posljednje izmjene slike \\ \hline 
 	tip & VARCHAR  & tip artikla \\ \hline 
-	cijena & INT  & cijena artikla \\ \hline 
+	cijena & DECIMAL  & cijena artikla \\ \hline 
 	naziv  & VARCHAR  & naziv artikla \\ \hline 
 	opis & VARCHAR  & opis artikla \\ \hline 
-	\textit{ID\_slike} & INT  & jedinstveni identifikator slike  \\ \hline 
+	\textit{ID\_slika} & INT  & jedinstveni identifikator slike  \\ \hline 
 	 
 \end{longtabu}
-\textnormal{Tablica \textbf{Narudžba} opisuje narudžbe artikala aplikacije. Sadrži atribute: ID,korisničko ime, datum, zaprimljenost, adresa, mjesto, poštanski broj. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Narudžbe preko ID narudžbe i vezom \textit{Many-to-One} s entitetom Korisnik preko korisničkog imena.}
+\textnormal{Tablica \textbf{Narudžba} opisuje narudžbe artikala aplikacije. Sadrži atribute: ID, korisničko ime, datum stvaranja, zaprimljenost, adresa, mjesto, poštanski broj. Entitet je povezan vezom \textit{One-to-Many} s entitetima Artikl Narudžbe preko ID narudžbe i vezom \textit{Many-to-One} s entitetom Korisnik preko korisničkog imena.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -246,7 +242,7 @@
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator narudžbe	\\ \hline
 	\textit{korisnicko\_ime} & VARCHAR  & korisničko ime korisnika koji naručuje \\ \hline 
-	datum & TIMESTAMP  & datum formiranja narudžbe\\ \hline 
+	datum\_stvaranja & TIMESTAMP  & datum formiranja narudžbe\\ \hline 
 	zaprimljenost & BOOLEAN  & oznaka zaprimljenosti narudžbe \\ \hline 
 	adresa  & VARCHAR  & adresa korisnika koji naručuje \\ \hline 
 	mjesto & VARCHAR  & mjesto korisnika koji naručuje\\ \hline 
@@ -256,7 +252,7 @@
 
 \textnormal{Tablica \textbf{Objava} opisuje sadržaje objavljene na stranici. Sadrži atribute: ID, naslov, sadržaj, ID slike, datum objave, datum izmjene, vrsta objave, datum pocetka i datum isteka. Entitet je povezan  vezom \textit{Many-to-One} s entitetom Slika preko ID slike.}
 
-\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
+\begin{longtabu} to \textwidth {|X[12, l]|X[6, l]|X[16, l]|}
 	
 	\hline \multicolumn{3}{|c|}{\textbf{Objava}}	 \\[3pt] \hline
 	\endfirsthead
@@ -268,33 +264,14 @@
 	\endlastfoot
 	
 	\textbf{ID} & INT	&  jedinstveni identifikator objave	\\ \hline
-	 sadržaj & VARCHAR  & sadržaj objave \\ \hline 
-	 naslov & VARCHAR  & naslov objave \\ \hline
-	\textit{ID\_slike} & ID  & jedinstveni identifikator slike  \\ \hline 
+	naslov & VARCHAR  & naslov objave \\ \hline
+	sadržaj & VARCHAR  & sadržaj objave \\ \hline
+	\textit{ID\_slika} & INT  & jedinstveni identifikator slike  \\ \hline 
 	datum\_objave & TIMESTAMP  & datum postavljanja objave \\ \hline 
-	datum\_izmjene & TIMESTAMP  & datum posljednje izmjene objave \\ \hline
+	datum\_posljednje\_izmjene & TIMESTAMP  & datum posljednje izmjene objave \\ \hline
 	vrsta\_objave & VARCHAR  & vrsta objave \\ \hline 
 	datum\_pocetka & TIMESTAMP  & datum početka objave \\ \hline
 	datum\_isteka & TIMESTAMP  & datum isteka objave \\ \hline
-	
-\end{longtabu}
-\textnormal{Tablica \textbf{Transakcija} opisuje sve obavljane transakcije. Sadrži atribute: ID, datum, iznos, kartica. Entitet je povezan  vezom \textit{One-to-Many} s entitetom Narudžba preko ID transakcije.}
-
-\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
-	
-	\hline \multicolumn{3}{|c|}{\textbf{Transakcija}}	 \\[3pt] \hline
-	\endfirsthead
-	
-	\hline \multicolumn{3}{|c|}{\textbf{Transakcija}}	 \\[3pt] \hline
-	\endhead
-	
-	\hline 
-	\endlastfoot
-	
-	\textbf{ID} & INT	&  jedinstveni identifikator transakcije	\\ \hline
-	datum & TIMESTAMP  & datum obavljanja transakcije  \\ \hline 
-	iznos & DECIMAL  & iznos transakcije \\ \hline
-	kartica & VARCHAR  & kartica transakcije  \\ \hline 
 	
 \end{longtabu}
 
@@ -312,12 +289,12 @@
 	\endlastfoot
 	
 	\textbf{ID\_artikla} & INT	&  jedinstveni identifikator artikla	\\ \hline
-	\textbf {veličina} & VARCHAR  & veličina artikla \\ \hline
+	veličina & VARCHAR  & veličina artikla \\ \hline
 	količina & INT  & količina artikla  \\ \hline 
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Artikl narudžbe} opisuje sve artikle narudžbe. Sadrži atribute: ID narudžbe, ID artikla, količina, veličina, kupovna cijena i kupovni popust. Entitet je povezan  vezom \textit{Many-to-One} s entitetima Narudžba preko ID narudžbe i Artikl preko ID artikla.}
+\textnormal{Tablica \textbf{Artikl narudžbe} opisuje sve artikle narudžbe. Sadrži atribute: ID, ID narudžbe, ID artikla, količina, veličina, kupovna cijena i kupovni popust. Entitet je povezan  vezom \textit{Many-to-One} s entitetima Narudžba preko ID narudžbe i Artikl preko ID artikla.}
 
 \begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
 	
@@ -330,18 +307,19 @@
 	\hline 
 	\endlastfoot
 	
+	\textbf{ID} & INT &  jedinstveni identifikator artikla narudžbe	\\ \hline
 	\textbf{ID\_narudzbe} & INT	&  jedinstveni identifikator narudžbe	\\ \hline
 	\textbf{ID\_artikla} & INT	&  jedinstveni identifikator artikla	\\ \hline
 	količina & INT  & količina artikla  \\ \hline 
 	veličina & VARCHAR  & veličina artikla \\ \hline
 	kupovna\_cijena & DECIMAL  & kupovna cijena  \\ \hline 
-	kupovni\_popust & INT  & kupovni popust \\ \hline
+	kupovni\_popust & DECIMAL  & kupovni popust \\ \hline
 	
 \end{longtabu}
 
-\textnormal{Tablica \textbf{Igrač} opisuje sve igrače. Sadrži atribute: ID, datum dodavanja, datum posljednje izmjene, ime, prezime, ID slike, datum rođenja i pozicija. Entitet je povezan vezom \textit{Many-to-One} s entitetom Slika.}
+\textnormal{Tablica \textbf{Igrač} opisuje sve igrače. Sadrži atribute: ID, datum stvaranja, datum posljednje izmjene, ime, prezime, ID slike, datum rođenja, tip igrača i njegova pozicija. Entitet je povezan vezom \textit{Many-to-One} s entitetom Slika.}
 
-\begin{longtabu} to \textwidth {|X[8, l]|X[6, l]|X[20, l]|}
+\begin{longtabu} to \textwidth {|X[12, l]|X[12, l]|X[10, l]|}
 	
 	\hline \multicolumn{3}{|c|}{\textbf{Igrač}}	 \\[3pt] \hline
 	\endfirsthead
@@ -352,14 +330,15 @@
 	\hline 
 	\endlastfoot
 	
-	\textbf{ID\_narudzbe} & INT	&  jedinstveni identifikator igrača	\\ \hline
-	datum\_dodavanja & TIMESTAMP  & datum dodavanja igrača \\ \hline 
-	datum\_izmjene & TIMESTAMP  & datum izmjene igrača \\ \hline 
+	\textbf{ID} & INT	&  jedinstveni identifikator igrača	\\ \hline
+	datum\_stvaranja & TIMESTAMP  & datum dodavanja igrača \\ \hline 
+	datum\_posljednje\_izmjene & TIMESTAMP  & datum izmjene igrača \\ \hline 
 	ime & VARCHAR  & ime igrača \\ \hline
 	prezime & VARCHAR  & prezime igrača \\ \hline
+	datum\_rodenja & DATE  & datum rođenja igrača \\ \hline
 	\textit{ID\_slike} & INT  & jedinstveni identifikator slike igrača \\ \hline
-	datum\_rodenja & DATE  & datum rođenja igrača \\ \hline 
-	pozicija & VARCHAR  & pozicija igrača \\ \hline
+	tip\_igraca & PLAYERTYPE  & tip igrača \\ \hline 
+	pozicija & PLAYERPOSITIONTYPE  & igraća pozicija igrača \\ \hline
 	
 	
 \end{longtabu}
