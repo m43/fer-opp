@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,35 @@ namespace RudesWebapp.Controllers
         public IActionResult ShowFilters()
         {
             return View();
+        }
+
+        // Item
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ItemDTO>>> GetItems()
+        {
+            var articles = await _context.Article.ToListAsync();
+            var shoppingCartArticles = await _context.ShoppingCartArticle.ToListAsync();
+
+            var result = _context.Article.Join(_context.ShoppingCartArticle,
+                    article => article.Id,
+                    shoppingCartArticle => shoppingCartArticle.ArticleId,
+                    (article, shoppingCartArticle) => new ItemDTO
+                    {
+                        ArticleId = article.Id,
+                        ShoppingCartId = shoppingCartArticle.ShoppingCartId,
+                        Quantity = shoppingCartArticle.Quantity,
+                        Size = shoppingCartArticle.Size,
+                        Type = article.Type,
+                        Price = article.Price,
+                        Name = article.Name,
+                        Description = article.Description,
+                        ImageId = article.ImageId,
+                        Argb = article.Argb,
+                        ArticleColor = article.ArticleColor
+                    }
+                ).ToList();
+
+            return result;
         }
 
         // Article
@@ -325,7 +355,6 @@ namespace RudesWebapp.Controllers
         }
 
         // Shopping Cart
-        //!! Povezati sa ShoppingCartArticle - unutar metoda Shopping Cart-a
         [HttpGet]
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetShoppingCart(int id)
@@ -376,39 +405,71 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ShoppingCart>> GetCurrentShoppingCart()
         {
-            return await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
+            return await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ShoppingCartArticleDTO>> GetCurrentShoppingCartArticles()
+        public async Task<IEnumerable<ItemDTO>> GetCurrentShoppingCartArticles()
         {
-            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
+            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
             
-            var articles = shoppingCart.ShoppingCartArticle;
-            var articlesDTO = new List<ShoppingCartArticleDTO>();
-            foreach (ShoppingCartArticle article in articles)
+            var shoppingCartArticles = shoppingCart.ShoppingCartArticle;
+            var items = new List<ItemDTO>();
+            
+            foreach (ShoppingCartArticle shoppingCartArticle in shoppingCartArticles)
             {
-                articlesDTO.Add(_mapper.Map<ShoppingCartArticleDTO>(article));
+                var article = await _context.Article
+                    .FirstOrDefaultAsync(a => a.Id == shoppingCartArticle.ArticleId);
+
+                items.Add(new ItemDTO
+                {
+                    ShoppingCartId = shoppingCartArticle.ShoppingCartId,
+                    ArticleId = shoppingCartArticle.ArticleId,
+                    Quantity = shoppingCartArticle.Quantity,
+                    Size = shoppingCartArticle.Size,
+                    Type = article.Type,
+                    Price = article.Price,
+                    Name = article.Name,
+                    Description = article.Description,
+                    ImageId = article.ImageId,
+                    Argb = article.Argb,
+                    ArticleColor = article.ArticleColor
+                });
             }
             
-            return articlesDTO;
+            return items;
         }
 
         [HttpPost]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCartArticleDTO>> AddToShoppingCart(int articleId, int quantity, string size)
+        public async Task<ActionResult<ItemDTO>> AddToShoppingCart(int articleId, int quantity, string size)
         {
             // TODO remove quantity parameter from all function calls
-            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
+            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
             if (selectedArticle != null)
             {
-                shoppingCart.AddArticle(_context, selectedArticle, size);
+                ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
+                helpers.AddArticle(_context, selectedArticle, size);
                 var resultArticle = await _context.ShoppingCartArticle
                     .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id 
                                               && cart.ArticleId == selectedArticle.Id);
-                return _mapper.Map<ShoppingCartArticleDTO>(resultArticle);
+                ItemDTO item = new ItemDTO
+                {
+                    ShoppingCartId = resultArticle.ShoppingCartId,
+                    ArticleId = resultArticle.ArticleId,
+                    Quantity = resultArticle.Quantity,
+                    Size = resultArticle.Size,
+                    Type = selectedArticle.Type,
+                    Price = selectedArticle.Price,
+                    Name = selectedArticle.Name,
+                    Description = selectedArticle.Description,
+                    ImageId = selectedArticle.ImageId,
+                    Argb = selectedArticle.Argb,
+                    ArticleColor = selectedArticle.ArticleColor
+                };
+                return item;
             }
 
             return NotFound();
@@ -416,20 +477,34 @@ namespace RudesWebapp.Controllers
 
         [HttpDelete]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCartArticleDTO>> RemoveFromShoppingCart(int articleId, int quantity, string size)
+        public async Task<ActionResult<ItemDTO>> RemoveFromShoppingCart(int articleId, int quantity, string size)
         {
-            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
+            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
             if (selectedArticle != null)
             {
-                var removedArticle = shoppingCart.RemoveArticle(_context, selectedArticle, quantity, size);
-                return Ok(_mapper.Map<ShoppingCartArticleDTO>(removedArticle));
+                ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
+                var removedArticle = helpers.RemoveArticle(_context, selectedArticle, quantity, size);
+                
+                return Ok(new ItemDTO
+                {
+                    ShoppingCartId = removedArticle.ShoppingCartId,
+                    ArticleId = removedArticle.ArticleId,
+                    Quantity = removedArticle.Quantity,
+                    Size = removedArticle.Size,
+                    Type = selectedArticle.Type,
+                    Price = selectedArticle.Price,
+                    Name = selectedArticle.Name,
+                    Description = selectedArticle.Description,
+                    ImageId = selectedArticle.ImageId,
+                    Argb = selectedArticle.Argb,
+                    ArticleColor = selectedArticle.ArticleColor
+                });
             }
 
             return NotFound();
-            // return selectedArticle;
         }
 
 
@@ -437,18 +512,18 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async void ClearShoppingCart()
         {
-            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
-
-            await shoppingCart.ClearShoppingCart(_context);
+            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
+            ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
+            await helpers.ClearShoppingCart(_context);
         }
 
         [HttpGet]
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<decimal>> GetTotalPrice()
         {
-            var shoppingCart = await ShoppingCart.GetCurrentShoppingCart(_context, User.GetUserId());
-
-            return await shoppingCart.GetShoppingCartTotal(_context);
+            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
+            ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
+            return await helpers.GetShoppingCartTotal(_context);
         }
 
 
