@@ -35,14 +35,28 @@ var webshop = new Vue({
         passToShoppingCart: function (article) {
             shoppingCartModal.addArticleToCart(article);
         },
-        myFunction: function () {
+        prikaziFiltere: function () {
             var x = document.getElementById("myDIV");
+            
             if (x.style.display === "none") {
+               // x.style.transitionDelay = "all 2s";
+                x.style.display = "";
+            } else {
+                x.style.display = "none";
+            }
+        },
+
+        zatvoriFiltere: function () {
+            var x = document.getElementById("myDIV");
+
+            if (x.style.display === "none") {
+                // x.style.transitionDelay = "all 2s";
                 x.style.display = "";
             } else {
                 x.style.display = "none";
             }
         }
+
     },
     computed: {
         groupedArticles: function () {
