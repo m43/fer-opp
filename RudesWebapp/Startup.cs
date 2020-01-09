@@ -1,10 +1,8 @@
 using System;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +31,7 @@ namespace RudesWebapp
                 }
             );
             services.AddDefaultIdentity<User>(
-                    options => options.SignIn.RequireConfirmedAccount = true)
+                    options => options.SignIn.RequireConfirmedAccount = false) // No IEmailSender implemented
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RudesDatabaseContext>();
             services.AddAuthentication()
@@ -49,8 +47,6 @@ namespace RudesWebapp
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
-
-            services.AddSingleton<IEmailSender, EmailSender>();
 
             services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
             services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
@@ -85,14 +81,6 @@ namespace RudesWebapp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-        }
-    }
-
-    public class EmailSender : IEmailSender
-    {
-        public Task SendEmailAsync(string email, string subject, string message)
-        {
-            return Task.CompletedTask;
         }
     }
 }
