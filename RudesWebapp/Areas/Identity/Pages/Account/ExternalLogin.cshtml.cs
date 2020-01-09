@@ -52,6 +52,16 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+            
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please Provide First Name")]
+            [StringLength(100)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "Please Provide Last Name")]
+            [StringLength(100)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
         public IActionResult OnGetAsync()
@@ -122,16 +132,22 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User { UserName = Input.Email, Email = Input.Email, Name = Input.FirstName, LastName = Input.LastName};
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
 
+                        // If account confirmation is required, we need to show the link if we don't have a real email sender
+                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                        }
+
+                        await _signInManager.SignInAsync(user, isPersistent: false);
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
