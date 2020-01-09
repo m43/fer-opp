@@ -2,70 +2,72 @@
     ViewData["Title"] = "Webshop";
 }
 
-<div id="webshop">
-    <div class="outerFiltersDiv">
-        <div>
-            <button id="buttonFilter" class="buttonStyle" @@click="myFunction()">Filteri</button>
-        </div>
+    <div id="webshop">
+        <div class="outerFiltersDiv">
+            <div>
+                <button id="buttonFilter" class="buttonStyle"    @@click="prikaziFiltere()">Filteri</button>
+            </div>
 
-        <div id="myDIV" class="container-fluid">
-            <div class="row allFilters">
-                <div class="filtersDiv col-md-6 col-lg-3">
-                    <div class="row colorFilter">
-                        <div class="col-2 col-md-2 col-lg-4 check">
-                            <input type="checkbox" id="cb1">
-                            <label for="cb1"><img class="checkboxImage" src="https://i.imgur.com/eILu8p4.jpg"></label>
+            <div id="myDIV" class="container-fluid">
+                <div class="row allFilters">
+                    <div class="filtersDiv col-md-6 col-lg-3">
+                        <div class="row colorFilter">
+                            <div class="col-2 col-md-2 col-lg-4 check">
+                                <input type="checkbox" id="cb1">
+                                <label for="cb1"><img class="checkboxImage" src="https://i.imgur.com/eILu8p4.jpg"></label>
+                            </div>
+                            <div class="col-2 col-md-2 col-lg-4 check">
+                                <input type="checkbox" id="cb2">
+                                <label for="cb2"><img class="checkboxImage" src="https://www.mjt.me.uk/assets/images/smallest-png/skobbler-maps.png"></label>
+                            </div>
+                            <div class="col-2 col-md-2 col-lg-4 check">
+                                <input type="checkbox" id="cb3">
+                                <label for="cb3"><img class="checkboxImage" src="https://oconnorpg.com/wp-content/uploads/2019/05/White-Square.jpg"></label>
+                            </div>
+                            <div class="col-2 col-md-2 col-lg-4 check">
+                                <input type="checkbox" id="cb4">
+                                <label for="cb4"><img class="checkboxImage" src="~/images/solid-black.png"></label>
+                            </div>
+                            <div class="col-2 col-md-2 col-lg-4 check">
+                                <input type="checkbox" id="cb5">
+                                <label for="cb5"><img class="checkboxImage" src="https://f-scope.net/images/square-clipart-green-square.jpg"></label>
+                            </div>
+                            <div class="col-2 col-md-2 col-lg-4 check">
+                                <input type="checkbox" id="cb6">
+                                <label for="cb6"><img class="checkboxImage" src="https://images-na.ssl-images-amazon.com/images/I/01fnVfMakPL._SY355_.png"></label>
+                            </div>
                         </div>
-                        <div class="col-2 col-md-2 col-lg-4 check">
-                            <input type="checkbox" id="cb2">
-                            <label for="cb2"><img class="checkboxImage" src="https://www.mjt.me.uk/assets/images/smallest-png/skobbler-maps.png"></label>
+                    </div>
+                    <div class="filtersDiv col-md-6 col-lg-3">
+                        <div class="row typesOfArticles">
+                            <div class="col-12">
+                                <input type="checkbox"> Hoodie<br>
+                                <span class="checkmark"></span>
+                                <input type="checkbox"> T-shirt<br>
+                                <span class="checkmark"></span>
+                            </div>
                         </div>
-                        <div class="col-2 col-md-2 col-lg-4 check">
-                            <input type="checkbox" id="cb3">
-                            <label for="cb3"><img class="checkboxImage" src="https://oconnorpg.com/wp-content/uploads/2019/05/White-Square.jpg"></label>
+                    </div>
+                    <div class="filtersDiv col-md-6 col-lg-3">
+                        <div class="priceOfArticles">
+                            <input type="radio" name="price" value="100">< 100 kn<br>
+                            <input type="radio" name="price" value="200">< 200 kn<br>
+                            <input type="radio" name="price" value="300">< 300 kn<br>
                         </div>
-                        <div class="col-2 col-md-2 col-lg-4 check">
-                            <input type="checkbox" id="cb4">
-                            <label for="cb4"><img class="checkboxImage" src="~/images/solid-black.png"></label>
-                        </div>
-                        <div class="col-2 col-md-2 col-lg-4 check">
-                            <input type="checkbox" id="cb5">
-                            <label for="cb5"><img class="checkboxImage" src="https://f-scope.net/images/square-clipart-green-square.jpg"></label>
-                        </div>
-                        <div class="col-2 col-md-2 col-lg-4 check">
-                            <input type="checkbox" id="cb6">
-                            <label for="cb6"><img class="checkboxImage" src="https://images-na.ssl-images-amazon.com/images/I/01fnVfMakPL._SY355_.png"></label>
+                    </div>
+                    <div class="filtersDiv col-md-6 col-lg-3">
+                        <div class="sorting">
+                            <input type="radio" name="sort" value="asc">Sortiraj od najniže prema najvišoj cijeni<br>
+                            <input type="radio" name="sort" value="desc">Sortiraj od najviše prema najnižoj cijeni<br>
                         </div>
                     </div>
                 </div>
-                <div class="filtersDiv col-md-6 col-lg-3">
-                    <div class="row typesOfArticles">
-                        <div class="col-12">
-                            <input type="checkbox"> Hoodie<br>
-                            <input type="checkbox"> T-shirt<br>
-                        </div>
-                    </div>
-                </div>
-                <div class="filtersDiv col-md-6 col-lg-3">
-                    <div class="priceOfArticles">
-                        <input type="radio" name="price" value="100">< 100 kn<br>
-                        <input type="radio" name="price" value="200">< 200 kn<br>
-                        <input type="radio" name="price" value="300">< 300 kn<br>
-                    </div>
-                </div>
-                <div class="filtersDiv col-md-6 col-lg-3">
-                    <div class="sorting">
-                        <input type="radio" name="sort" value="asc">Sortiraj od najniže prema najvišoj cijeni<br>
-                        <input type="radio" name="sort" value="desc">Sortiraj od najviše prema najnižoj cijeni<br>
-                    </div>
+                <div class="applyFilters">
+                    <button class="buttonStyle" @@click="zatvoriFiltere()">Primijeni</button>
                 </div>
             </div>
-            <div class="applyFilters">
-                <button class="buttonStyle">Primijeni</button>
-            </div>
         </div>
-    </div>
-
+        
     <div class="container-fluid">
         <div v-if="allArticles.length != 0" class="outerArticlesDiv">
             <div v-for="articleGroup in groupedArticles" class="row">
@@ -75,6 +77,7 @@
             </div>
         </div>
     </div>
-</div>
+        
+    </div>
 
 <script src="~/js/webshop.js"></script>
