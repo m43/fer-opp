@@ -26,8 +26,6 @@ namespace RudesWebapp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
             services.AddDbContext<RudesDatabaseContext>(options =>
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("RudesDatabase"));
@@ -38,10 +36,23 @@ namespace RudesWebapp
                     options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RudesDatabaseContext>();
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                })
+                .AddGoogle(options =>
+                {
+                    var googleAuthNSection = Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
 
             services.AddSingleton<IEmailSender, EmailSender>();
 
-            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
             services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
         }
 
@@ -50,6 +61,7 @@ namespace RudesWebapp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
                 // RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
             }
             else
@@ -68,10 +80,10 @@ namespace RudesWebapp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
