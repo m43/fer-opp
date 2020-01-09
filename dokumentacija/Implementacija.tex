@@ -42,7 +42,34 @@
 			
 			\textbf{\textit{dio 2. revizije}}\\
 			
-			 \textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
+			 \textnormal{Popularni pristup razvoju testiranja (TDD) je pisanje testa prije implementacije ciljanog koda.  	Testiranje aplikacija postalo je uobičajena praksa za današnje softvere, a xUnit je jedan od najpopularnijih okvira za testiranje jedinica dostupan za .NET. Pisan je u jeziku C\#. U našoj aplikaciji smo također koristili xUnit te smo testiranja pisali po obrascima uporabe. Uvijek smo ponavljali isti pristup, pisali smo neuspjeli test i zatim ažurirali ciljni kod koji treba proći.Napisali smo 24 xUnit testa kako bismo testirali većinu naših obrazaca uporabe (za one jako jednostavne nisu ni bili potrebni testovi), no zbog jednostavnosti opisat ćemo samo tri integracijska testa.}
+			 \bigbreak
+			 \textnormal {	Prvi, jedan od najvažnijih testova, jest test prijave u sustav (UC3). Test prijave u sustav provjerava prijavu u svim ulogama: admin, trener, član uprave i kijent. Sastoji se od nekoliko funkcija u kojima se provjerava u bazi ispravnost korisničkog imena i lozinke. Na primjer, korisnik se ne može prijaviti s netočnom formom e-mail adrese. }
+			 	\begin{packed_item}
+			 	
+			 	\item Prijava u sustav s e-mail adresom abc.com (pogrešna forma e-maila)
+			 	\item[] \begin{packed_enum}
+			 		\item očekivani ishod: aplikacija javi korisniku da e-mail nije dobro unesen e-mail i ne dozvoljava mu prijavu u sustav te nudi opciju da pokuša ponovno.
+			 		\item očekivani ishod xUnit testa: test bi dao HTML odgovor da je prijava neuspjela
+			 	\end{packed_enum}
+			 \end{packed_item}
+		 \textnormal {Ishod je bio kao što je i očekivano, odnosno test je prošao.}
+		 
+		 	\begin{packed_item}
+		 	
+		 	\item Prijava u sustav s netočnom lozinkom/e-mailom
+		 	\item[] \begin{packed_enum}
+		 		\item očekivani ishod: aplikacija javlja korisniku da mu je lozinka/mail pogrešan, odnosno da to nije važeći račun i onemogućava mu prijavu
+		 		\item očekivani ishod xUnit testa: test vraća HTML odgovor o neuspjeloj prijavi
+		 		
+		 	\end{packed_enum}
+		 \end{packed_item}
+		 \textnormal {Ishod se i u ovom slučaju podudarao s očekivanim, odnosno test je ponovno prošao.}
+		 \bigbreak
+		 \textnormal {Drugi test koji ćemo spomenuti jest dohvaćanje postojećih objava. Test je osmišljen tako da korisnik mora biti ulogiran kao admin ili trener da bi mogao pristupiti objavama te provjerava za svaku pojedinačnu dohvaćenu objavu postoji li u bazi podataka te ako ne postoji, odnosno ako se prikazala pogrešna lista, vraća očekivanu poruku. Test je prošao.}
+		 \bigbreak
+		 \textnormal{Treći test je također vezan za objave, a može biti i za bilo koji dio baze podataka (slika, artikl, košarica). U tom se testu provjerava ispravno dohvaćanje, brisanje te traženje objave. Korisnik mora imati određenu razinu autorizacije, inače ne može tome pristupiti. Nakon što korisnik dohvati objavu, ako je dobro dohvaćena, može ju izbrisati i izbriše ju te joj pokuša ponovno pristupiti. Test bi trebao vraćati “Not found” status, odnosno ako baza ispravno radi, objava je iz nje izbrisana i ne može ju se dohvatiti. U ova se dva testa provjeravala ispravnost baze podataka. I ovaj je test prošao.
+		 }
 	
 			
 			\subsection{Ispitivanje komponenti}
