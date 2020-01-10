@@ -11,6 +11,7 @@ using RudesWebapp.Dtos;
 using RudesWebapp.Services;
 using RudesWebapp.Models;
 using RudesWebapp.Helpers;
+using System;
 
 namespace RudesWebapp.Controllers
 {
@@ -34,33 +35,29 @@ namespace RudesWebapp.Controllers
 
         // Item
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItemDTO>>> GetItems()
+        public async Task<ActionResult<IEnumerable<ArticleInStoreDTO>>> GetArticlesInStore()
         {
-            var articles = await _context.Article.ToListAsync();
-            var shoppingCartArticles = await _context.ShoppingCartArticle.ToListAsync();
-            // TODO discount
-            
-            var result = _context.Article.Join(_context.ShoppingCartArticle,
-                    article => article.Id,
-                    shoppingCartArticle => shoppingCartArticle.ArticleId,
-                    (article, shoppingCartArticle) => new ItemDTO
-                    {
-                        ArticleId = article.Id,
-                        ShoppingCartId = shoppingCartArticle.ShoppingCartId,
-                        Quantity = shoppingCartArticle.Quantity,
-                        Size = shoppingCartArticle.Size,
-                        Type = article.Type,
-                        Price = article.Price,
-                        Name = article.Name,
-                        Description = article.Description,
-                        ImageId = article.ImageId,
-                        Argb = article.Argb,
-                        ArticleColor = article.ArticleColor,
-                        Percentage = 0 // TODO calculate the current discount...
-                    }
-                ).ToList();
+            try
+            {
+                return Ok(await ArticleInStoreService.CreateArticlesInStore(_context));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
 
-            return result;
+        [HttpGet]
+        public async Task<ActionResult<ArticleInStoreDTO>> GetArticleInStore(int id)
+        {
+            try
+            {
+                return Ok(await ArticleInStoreService.CreateArticleInStore(_context, id));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         // Article
