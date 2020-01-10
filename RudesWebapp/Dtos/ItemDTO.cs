@@ -22,11 +22,10 @@ namespace RudesWebapp.Dtos
 
         [Required(ErrorMessage = "It's necessary to specify the size.")]
         [Display(Name = "Size")]
-        [RegularExpression("S|M|L|XL|XXL")]
+        [RegularExpression("S|M|L|XL|XXL|U")] // TODO ex. a bottle does not have S/M/L.. size. Maybe U like universal?
         public string Size { get; set; }
 
-        [Required]
-        public string Type { get; set; }
+        [Required] public string Type { get; set; }
 
         [Required]
         [Range(0, 9999999999999999.99, ErrorMessage = "Only positive integers allowed")]
@@ -38,18 +37,20 @@ namespace RudesWebapp.Dtos
         [MinLength(3, ErrorMessage = "{0} must be greater or equal to {1} characters in length")]
         public string Name { get; set; }
 
-        [Required]
-        public string Description { get; set; }
-        
+        [Required] public string Description { get; set; }
+
         // TODO image validation
         public int? ImageId { get; set; }
-        
+
         // TODO not sure what to do about this
         public int? Argb
         {
             get => ArticleColor?.ToArgb();
-            set => ArticleColor = value == null ? (Color?)null : Color.FromArgb(value.Value);
+            set => ArticleColor = value == null ? (Color?) null : Color.FromArgb(value.Value);
         }
+
         [NotMapped] public Color? ArticleColor { get; set; }
+
+        [Required] [Range(0, 99)] public int Percentage { get; set; }
     }
 }

@@ -9,12 +9,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <button @@click="addArticleToCart(allArticles[3])">Dodaj artikl</button>
                 <div>
                     Total price: {{ totalPrice }}kn
                 </div>
                 <p></p>
-                <table v-if="cartContent.length != 0">
+                <table v-if="items.length != 0">
                     <tr>
                         <th></th>
                         <th>Name</th>
@@ -25,18 +24,18 @@
                         <th>Size</th>
                     </tr>
 
-                    <tr v-for="item in cartContent">
+                    <tr v-for="item in items">
                         <td>
-                            <div class="deleteButton" @@click="removeArticleFromCart(item.article)">
+                            <div class="deleteButton" @@click="removeArticleFromCart(item.articleId, item.size)">
                                 <i class="fas fa-times"></i>
                             </div>
                         </td>
-                        <td>{{ item.article.name }}</td>
-                        <td>{{ item.article.description }}</td>
-                        <td>{{ item.article.type }}</td>
-                        <td>{{ item.article.price }}</td>
-                        <td>{{ item.shoppingCartArticle.quantity }}</td>
-                        <td>{{ item.shoppingCartArticle.size }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.size }}</td>
                     </tr>
                 </table>
             </div>

@@ -31,18 +31,15 @@ namespace RudesWebapp.Controllers
             return View();
         }
 
-        public IActionResult ShowFilters()
-        {
-            return View();
-        }
-
+        // Item
         // Item
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ItemDTO>>> GetItems()
         {
             var articles = await _context.Article.ToListAsync();
             var shoppingCartArticles = await _context.ShoppingCartArticle.ToListAsync();
-
+            // TODO discount
+            
             var result = _context.Article.Join(_context.ShoppingCartArticle,
                     article => article.Id,
                     shoppingCartArticle => shoppingCartArticle.ArticleId,
@@ -58,7 +55,8 @@ namespace RudesWebapp.Controllers
                         Description = article.Description,
                         ImageId = article.ImageId,
                         Argb = article.Argb,
-                        ArticleColor = article.ArticleColor
+                        ArticleColor = article.ArticleColor,
+                        Percentage = 0 // TODO calculate the current discount...
                     }
                 ).ToList();
 
@@ -68,7 +66,6 @@ namespace RudesWebapp.Controllers
         // Article
         // !! Povezati sa ArticleAvailability (ne vlastite metode, vec unutar ovih od Article-a)
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
         {
             return await _context.Article.ToListAsync();
@@ -357,57 +354,11 @@ namespace RudesWebapp.Controllers
         // Shopping Cart
         [HttpGet]
         [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCart>> GetShoppingCart(int id)
-        {
-            // TODO action needs upate - returning shopping cart should not be done
-
-
-            var shoppingCart = await _context.ShoppingCart.FindAsync(id);
-
-            if (shoppingCart == null)
-            {
-                return NotFound();
-            }
-
-            return shoppingCart;
-        }
-
-        [HttpPut]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
-        public async Task<ActionResult<ShoppingCart>> UpdateShoppingCart(string username, ShoppingCart shoppingCart)
-        {
-            // TODO action needs upate - updating shopping cart should not be done like this
-
-            if (username != shoppingCart.UserId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(shoppingCart).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var shoppingCartFromDatabase = await _context.ShoppingCart.FindAsync(username);
-                if (shoppingCartFromDatabase == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        [HttpGet]
         public async Task<IEnumerable<ItemDTO>> GetCurrentShoppingCartArticles()
         {
+            
+            // TODO if not logged in, then use cookies!
+            
             var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
             
             var shoppingCartArticles = shoppingCart.ShoppingCartArticle;
@@ -441,6 +392,8 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ItemDTO>> AddToShoppingCart(int articleId, int quantity, string size)
         {
+            // TODO if not logged in, then use cookies!
+
             // TODO remove quantity parameter from all function calls
             // TODO Well, actually quantity is needed and frontend should use it (F.)
             // TODO check if validation of received parameters works as expected
@@ -477,6 +430,8 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<ItemDTO>> RemoveFromShoppingCart(int articleId, int quantity, string size)
         {
+            // TODO if not logged in, then use cookies!
+            
             var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
@@ -509,6 +464,8 @@ namespace RudesWebapp.Controllers
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async void ClearShoppingCart()
         {
+            // TODO if not logged in, then use cookies!
+            
             var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
             ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
             await helpers.ClearShoppingCart(_context);
