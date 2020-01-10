@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
-using RudesWebapp.Helpers;
+using RudesWebapp.Services;
 using RudesWebapp.Models;
+using RudesWebapp.Helpers;
 
 namespace RudesWebapp.Controllers
 {
@@ -31,7 +32,6 @@ namespace RudesWebapp.Controllers
             return View();
         }
 
-        // Item
         // Item
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ItemDTO>>> GetItems()
@@ -72,7 +72,6 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
             var article = await _context.Article.FindAsync(id);
@@ -359,7 +358,7 @@ namespace RudesWebapp.Controllers
             
             // TODO if not logged in, then use cookies!
             
-            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
+            var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
             
             var shoppingCartArticles = shoppingCart.ShoppingCartArticle;
             var items = new List<ItemDTO>();
@@ -397,30 +396,17 @@ namespace RudesWebapp.Controllers
             // TODO remove quantity parameter from all function calls
             // TODO Well, actually quantity is needed and frontend should use it (F.)
             // TODO check if validation of received parameters works as expected
-            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
+            var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
             if (selectedArticle != null)
             {
-                ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
-                helpers.AddArticle(_context, selectedArticle, size);
+                ShoppingCartService services = new ShoppingCartService(shoppingCart);
+                services.AddArticle(_context, selectedArticle, size);
                 var resultArticle = await _context.ShoppingCartArticle
                     .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id 
                                               && cart.ArticleId == selectedArticle.Id);
-                return Ok(new ItemDTO
-                {
-                    ShoppingCartId = resultArticle.ShoppingCartId,
-                    ArticleId = resultArticle.ArticleId,
-                    Quantity = resultArticle.Quantity,
-                    Size = resultArticle.Size,
-                    Type = selectedArticle.Type,
-                    Price = selectedArticle.Price,
-                    Name = selectedArticle.Name,
-                    Description = selectedArticle.Description,
-                    ImageId = selectedArticle.ImageId,
-                    Argb = selectedArticle.Argb,
-                    ArticleColor = selectedArticle.ArticleColor
-                });
+                return Ok(ItemService.CreateItem(_context, resultArticle, selectedArticle));
             }
 
             return NotFound();
@@ -432,28 +418,15 @@ namespace RudesWebapp.Controllers
         {
             // TODO if not logged in, then use cookies!
             
-            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
+            var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
             if (selectedArticle != null)
             {
-                ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
-                var removedArticle = helpers.RemoveArticle(_context, selectedArticle, quantity, size);
-                
-                return Ok(new ItemDTO
-                {
-                    ShoppingCartId = removedArticle.ShoppingCartId,
-                    ArticleId = removedArticle.ArticleId,
-                    Quantity = removedArticle.Quantity,
-                    Size = removedArticle.Size,
-                    Type = selectedArticle.Type,
-                    Price = selectedArticle.Price,
-                    Name = selectedArticle.Name,
-                    Description = selectedArticle.Description,
-                    ImageId = selectedArticle.ImageId,
-                    Argb = selectedArticle.Argb,
-                    ArticleColor = selectedArticle.ArticleColor
-                });
+                ShoppingCartService service = new ShoppingCartService(shoppingCart);
+                var removedArticle = service.RemoveArticle(_context, selectedArticle, quantity, size);
+
+                return Ok(ItemService.CreateItem(_context, removedArticle, selectedArticle));
             }
 
             return NotFound();
@@ -466,18 +439,18 @@ namespace RudesWebapp.Controllers
         {
             // TODO if not logged in, then use cookies!
             
-            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
-            ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
-            await helpers.ClearShoppingCart(_context);
+            var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
+            ShoppingCartService service = new ShoppingCartService(shoppingCart);
+            await service.ClearShoppingCart(_context);
         }
 
         [HttpGet]
         [Authorize(Roles = "User, Coach, Board, Admin")]
         public async Task<ActionResult<decimal>> GetTotalPrice()
         {
-            var shoppingCart = await ShoppingCartHelpers.GetCurrentShoppingCart(_context, User.GetUserId());
-            ShoppingCartHelpers helpers = new ShoppingCartHelpers(shoppingCart);
-            return await helpers.GetShoppingCartTotal(_context);
+            var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
+            ShoppingCartService service = new ShoppingCartService(shoppingCart);
+            return await service.GetShoppingCartTotal(_context);
         }
 
 
