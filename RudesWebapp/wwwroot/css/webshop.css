@@ -28,6 +28,16 @@
     margin: 2%;
 }
 
+.priceButton {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+
 /* FILTERS */
 
 #myDIV {
@@ -219,13 +229,55 @@ label {
 }
 
 
+/* MODAL */
+
+.modalOuterDiv{
+    height: 100%;
+}
+
+#modalPictureDiv {
+    height: auto;
+    width: auto;    
+}
+
+#modalPictureDiv img {
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    width: auto;
+    display: block;
+}
+
+.modalContentDiv {
+    height: auto;
+}
+
+#modalArticleName{
+    margin: 20%;
+}
+
+#modalArticleDescription {
+    margin: 20%;
+}
+
+#modalArticleReview {
+    margin: 20%;
+}
+
+#modalArticleSizes {
+    margin: 20%;
+}
+
+#modalArticleQuantity {
+    margin: 20%;
+}
+
 /* CUSTOM CHECKBOXES */
 
 
 
 
 /* TESTING */
-
 
 
 

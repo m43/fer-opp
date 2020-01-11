@@ -2,10 +2,13 @@
     props: ["article"],
     template: `
             <div class="articleDiv">
-                <img class="productImages" src="/images/rudes-logo.jpg">
-                <figcaption class="articleDescription">{{ article.name }}</figcaption>
-                <figcaption class="articleDescription">{{ article.description }}</figcaption>
-                <figcaption class="articleDescription">{{ article.price }}</figcaption>
+                <img class="productImages" src="/images/rudes-logo.jpg" >
+                <figcaption class="articleDescription">
+                     <button type="button" class="priceButton" data-toggle="modal" data-target=".bd-example-modal-lg">
+                         {{ article.name }}
+                     </button>
+                </figcaption>
+                <figcaption class="articleDescription">{{ article.price }} hrk </figcaption>
                 <button class="buttonStyle" @click="passArticle(article.id, 1, 'XL')">Dodaj u košaricu</button>
                 <hr />
             </div>
