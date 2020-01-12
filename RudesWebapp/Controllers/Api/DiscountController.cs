@@ -43,7 +43,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> SetDiscount(DiscountDTO discountDto)
         {
             var discount = _mapper.Map<Discount>(discountDto);
@@ -54,7 +54,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<DiscountDTO>> DeleteDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);

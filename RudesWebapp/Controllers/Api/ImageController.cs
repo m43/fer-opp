@@ -43,7 +43,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> SetImage(ImageDTO imageDto)
         {
             var image = _mapper.Map<Image>(imageDto);
@@ -54,7 +54,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<ImageDTO>> DeleteImage(int id)
         {
             var image = await _context.Image.FindAsync(id);

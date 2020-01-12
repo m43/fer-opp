@@ -43,7 +43,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> SetMatch(MatchDTO matchDto)
         {
             var match = _mapper.Map<Match>(matchDto);
@@ -54,7 +54,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<MatchDTO>> DeleteMatch(int id)
         {
             var match = await _context.Match.FindAsync(id);

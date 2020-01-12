@@ -42,7 +42,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach, User")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<IActionResult> PostOrder(OrderDTO orderDto)
         {
             var order = _mapper.Map<Order>(orderDto);
@@ -53,7 +53,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach, User")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<OrderDTO>> DeleteOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);

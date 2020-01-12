@@ -82,7 +82,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Board")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Article>> AddArticle(Article article)
         {
             _context.Article.Add(article);
@@ -92,7 +92,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Admin, Board")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Article>> UpdateArticle(int id, Article article)
         {
             if (id != article.Id)
@@ -123,7 +123,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Admin, Board")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Article>> RemoveArticle(int id)
         {
             var article = await _context.Article.FindAsync(id);
@@ -141,14 +141,14 @@ namespace RudesWebapp.Controllers
         // Image
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<IEnumerable<Image>>> GetImages()
         {
             return await _context.Image.ToListAsync();
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Image>> GetImage(int id)
         {
             var image = await _context.Image.FindAsync(id);
@@ -162,7 +162,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Board, Admin")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Image>> UploadImage(Image image)
         {
             _context.Image.Add(image);
@@ -172,7 +172,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Board, Admin")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Image>> DeleteImage(int id)
         {
             var image = await _context.Image.FindAsync(id);
@@ -190,14 +190,14 @@ namespace RudesWebapp.Controllers
         // Discount
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<IEnumerable<Discount>>> GetDiscounts()
         {
             return await _context.Discount.ToListAsync();
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Discount>> GetDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);
@@ -211,7 +211,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Board, Admin")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Discount>> AddDiscount(Discount discount)
         {
             _context.Discount.Add(discount);
@@ -221,7 +221,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Board, Admin")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Discount>> UpdateDiscount(int id, Discount discount)
         {
             if (id != discount.Id)
@@ -237,8 +237,8 @@ namespace RudesWebapp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                var discount_from_database = _context.Discount.FindAsync(id);
-                if (discount_from_database == null)
+                var discountFromDatabase = _context.Discount.FindAsync(id);
+                if (discountFromDatabase == null) // TODO expression is always false!
                 {
                     return NotFound();
                 }
@@ -252,7 +252,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Board, Admin")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<Discount>> RemoveDiscount(int id)
         {
             var discount = await _context.Discount.FindAsync(id);
@@ -270,14 +270,14 @@ namespace RudesWebapp.Controllers
         // Review
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
         {
             return await _context.Review.ToListAsync();
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Review>> GetReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
@@ -291,7 +291,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Review>> AddReview(Review review)
         {
             _context.Review.Add(review);
@@ -301,7 +301,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Review>> UpdateReview(int id, Review review)
         {
             if (id != review.Id)
@@ -317,22 +317,20 @@ namespace RudesWebapp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                var review_from_database = await _context.Review.FindAsync(id);
-                if (review_from_database == null)
+                var reviewFromDatabase = await _context.Review.FindAsync(id);
+                if (reviewFromDatabase == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                
+                throw;
             }
 
             return NoContent();
         }
 
         [HttpDelete]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Review>> DeleteReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
@@ -349,17 +347,16 @@ namespace RudesWebapp.Controllers
 
         // Shopping Cart
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<IEnumerable<ItemDTO>> GetCurrentShoppingCartArticles()
         {
-            
             // TODO if not logged in, then use cookies!
-            
+
             var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
-            
+
             var shoppingCartArticles = shoppingCart.ShoppingCartArticle;
             var items = new List<ItemDTO>();
-            
+
             foreach (ShoppingCartArticle shoppingCartArticle in shoppingCartArticles)
             {
                 var article = await _context.Article
@@ -380,12 +377,12 @@ namespace RudesWebapp.Controllers
                     ArticleColor = article.ArticleColor
                 });
             }
-            
+
             return items;
         }
 
         [HttpPost]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<ItemDTO>> AddToShoppingCart(int articleId, int quantity, string size)
         {
             // TODO if not logged in, then use cookies!
@@ -401,8 +398,8 @@ namespace RudesWebapp.Controllers
                 ShoppingCartService services = new ShoppingCartService(shoppingCart);
                 services.AddArticle(_context, selectedArticle, size);
                 var resultArticle = await _context.ShoppingCartArticle
-                    .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id 
-                                              && cart.ArticleId == selectedArticle.Id);
+                    .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id
+                                                 && cart.ArticleId == selectedArticle.Id);
                 return Ok(ItemService.CreateItem(_context, resultArticle, selectedArticle));
             }
 
@@ -410,11 +407,11 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<ItemDTO>> RemoveFromShoppingCart(int articleId, int quantity, string size)
         {
             // TODO if not logged in, then use cookies!
-            
+
             var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
@@ -431,18 +428,18 @@ namespace RudesWebapp.Controllers
 
 
         [HttpPut]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async void ClearShoppingCart()
         {
             // TODO if not logged in, then use cookies!
-            
+
             var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
             ShoppingCartService service = new ShoppingCartService(shoppingCart);
             await service.ClearShoppingCart(_context);
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<decimal>> GetTotalPrice()
         {
             var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
@@ -454,14 +451,14 @@ namespace RudesWebapp.Controllers
         // Order
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             return await _context.Order.ToListAsync();
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
@@ -475,7 +472,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
             _context.Order.Add(order);
@@ -485,7 +482,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Order>> UpdateOrder(int id, Order order)
         {
             if (id != order.Id)
@@ -516,7 +513,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
@@ -532,7 +529,7 @@ namespace RudesWebapp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User, Coach, Board, Admin")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task BuyArticle(int articleId)
         {
             // Use article model CRUD methods defined in this controller

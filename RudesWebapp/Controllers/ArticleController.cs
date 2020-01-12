@@ -12,7 +12,7 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-    [Authorize(Roles = "Board, Admin")]
+    [Authorize(Roles = Roles.BoardOrAbove)]
     public class ArticleController : Controller
     {
         private readonly RudesDatabaseContext _context;

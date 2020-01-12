@@ -44,7 +44,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = "User")] //provjeriti
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> PostReview(AddReviewDTO addReviewDto)
         {
             var review = _mapper.Map<Review>(addReviewDto);
@@ -55,7 +55,7 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.AdminOnly)]
         public async Task<ActionResult<AddReviewDTO>> DeleteReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
