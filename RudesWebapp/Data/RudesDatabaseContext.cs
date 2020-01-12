@@ -235,6 +235,10 @@ namespace RudesWebapp.Data
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.LastModificationDate)
+                    .HasColumnName("last_modification_date")
+                    .HasColumnType("datetime");
+
                 entity.Property(e => e.Fulfilled)
                     .HasColumnName("fulfilled")
                     .HasDefaultValue(false)
@@ -252,8 +256,10 @@ namespace RudesWebapp.Data
                     .HasColumnName("postal_code");
 
                 entity.Property(e => e.UserId)
-                    .HasColumnName("user_ID")
-                    .IsRequired();
+                    .HasColumnName("user_ID");
+
+                entity.Property(e => e.UserWhoModifiedLastEmail)
+                    .HasColumnName("user_who_made_last_modifications_email");
 
                 entity.Property(e => e.TransactionId)
                     .HasColumnName("transaction_ID");
@@ -261,6 +267,7 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__order__user__3D5E1FD2");
             });
 
