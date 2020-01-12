@@ -59,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.Blocked)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 @if (item.Blocked)
                 {
                     <a asp-action="Unblock" asp-route-id="@item.Id">Unblock</a>
@@ -68,7 +68,7 @@
                 {
                     <a asp-action="Block" asp-route-id="@item.Id">Block</a>
                 }
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                | <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
     }

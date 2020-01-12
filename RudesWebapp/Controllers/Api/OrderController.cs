@@ -24,13 +24,13 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<EditOrderDTO>>> GetOrders()
         {
-            return _mapper.Map<List<OrderDTO>>(await _context.Order.ToListAsync());
+            return _mapper.Map<List<EditOrderDTO>>(await _context.Order.ToListAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderDTO>> GetOrder(int id)
+        public async Task<ActionResult<EditOrderDTO>> GetOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
             if (order == null)
@@ -38,23 +38,23 @@ namespace RudesWebapp.Controllers.Api
                 return NotFound();
             }
 
-            return _mapper.Map<OrderDTO>(order);
+            return _mapper.Map<EditOrderDTO>(order);
         }
 
         [HttpPost]
         [Authorize(Roles = Roles.UserOrAbove)]
-        public async Task<IActionResult> PostOrder(OrderDTO orderDto)
+        public async Task<IActionResult> PostOrder(EditOrderDTO editOrderDto)
         {
-            var order = _mapper.Map<Order>(orderDto);
+            var order = _mapper.Map<Order>(editOrderDto);
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new {id = orderDto.Id}, orderDto);
+            return CreatedAtAction("GetOrder", new {id = editOrderDto.Id}, editOrderDto);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = Roles.BoardOrAbove)]
-        public async Task<ActionResult<OrderDTO>> DeleteOrder(int id)
+        public async Task<ActionResult<EditOrderDTO>> DeleteOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
             if (order == null)
@@ -65,7 +65,7 @@ namespace RudesWebapp.Controllers.Api
             _context.Order.Remove(order);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<OrderDTO>(order);
+            return _mapper.Map<EditOrderDTO>(order);
         }
     }
 }
