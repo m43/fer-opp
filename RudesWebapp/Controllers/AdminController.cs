@@ -9,7 +9,6 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
@@ -19,18 +18,13 @@ namespace RudesWebapp.Controllers
         private UserManager<User> _userManager;
 
         public AdminController(
-            RudesDatabaseContext context, 
-            RoleManager<IdentityRole> roleManager, 
+            RudesDatabaseContext context,
+            RoleManager<IdentityRole> roleManager,
             UserManager<User> userManager)
         {
             _context = context;
             _roleManager = roleManager;
             _userManager = userManager;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
 
         // User
@@ -99,7 +93,7 @@ namespace RudesWebapp.Controllers
             return User;
         }
 
-        
+
         [HttpPut]
         public async Task AssignRole(User user, IdentityRole role)
         {
@@ -107,21 +101,21 @@ namespace RudesWebapp.Controllers
             var roleCheck = await _roleManager.RoleExistsAsync(role.Name);
             if (roleCheck == false)
             {
-                return; // privremeno
+                return; // TODO privremeno
             }
 
             // Check if the user exists
             var userCheck = await _userManager.GetUserIdAsync(user);
             if (userCheck == null)
             {
-                return;  // privremeno
+                return; // TODO privremeno
             }
 
             // Check if the user has already been assigned the specified role
             var userRoleCheck = await _userManager.IsInRoleAsync(user, role.Name);
             if (userRoleCheck == false)
             {
-                return;       // privremeno, dok ne napravimo nove Exception-e za nase potrebe
+                return; // TODO privremeno, dok ne napravimo nove Exception-e za nase potrebe
             }
 
             await _userManager.AddToRoleAsync(user, role.Name);
@@ -137,6 +131,5 @@ namespace RudesWebapp.Controllers
         {
             return await GetCurrentUserAsync();
         }
-
     }
 }

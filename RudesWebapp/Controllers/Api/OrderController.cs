@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -49,7 +49,7 @@ namespace RudesWebapp.Controllers.Api
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = orderDto.Id }, orderDto);
+            return CreatedAtAction("GetOrder", new {id = orderDto.Id}, orderDto);
         }
 
         [HttpDelete("{id}")]

@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using RudesWebapp.Data;
 using RudesWebapp.Models;
 
@@ -11,14 +10,11 @@ namespace RudesWebapp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
         private readonly RudesDatabaseContext _context;
 
-        public HomeController(RudesDatabaseContext context, ILogger<HomeController> logger)
+        public HomeController(RudesDatabaseContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public IActionResult Index()
@@ -32,16 +28,6 @@ namespace RudesWebapp.Controllers
         }
 
         public IActionResult Gallery()
-        {
-            return View();
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public IActionResult Register()
         {
             return View();
         }
@@ -89,8 +75,7 @@ namespace RudesWebapp.Controllers
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
-        // Post
-
+        // Post TODO should use /controllers/api/post controller!
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
         {
@@ -106,60 +91,6 @@ namespace RudesWebapp.Controllers
             {
                 return NotFound();
             }
-
-            return post;
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Post>> AddPost([FromBody] Post post)
-        {
-            _context.Post.Add(post);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPost", new {id = post.Id}, post);
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<Post>> UpdatePost(int id, Post post)
-        {
-            if (id != post.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(post).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                var post_from_database = await _context.Post.FindAsync(id);
-                if (post_from_database == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        [HttpDelete]
-        public async Task<ActionResult<Post>> RemovePost(int id)
-        {
-            var post = await _context.Post.FindAsync(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            _context.Post.Remove(post);
-            await _context.SaveChangesAsync();
 
             return post;
         }

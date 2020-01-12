@@ -66,6 +66,7 @@ namespace RudesWebapp.Controllers.Api
                 {
                     return NotFound();
                 }
+
                 _mapper.Map(articleDto, article);
                 await _context.SaveChangesAsync();
             }

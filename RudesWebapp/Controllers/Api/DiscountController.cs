@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers.Api
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class DiscountController : ControllerBase
@@ -42,6 +41,7 @@ namespace RudesWebapp.Controllers.Api
 
             return _mapper.Map<DiscountDTO>(discount);
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin, Board, Coach")]
         public async Task<IActionResult> SetDiscount(DiscountDTO discountDto)
@@ -50,7 +50,7 @@ namespace RudesWebapp.Controllers.Api
             _context.Discount.Add(discount);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscount", new { id = discountDto.Id }, discountDto);
+            return CreatedAtAction("GetDiscount", new {id = discountDto.Id}, discountDto);
         }
 
         [HttpDelete("{id}")]
