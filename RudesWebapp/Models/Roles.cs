@@ -26,5 +26,10 @@
         public const string Coach = "Coach";
         public const string Board = "Board";
         public const string Admin = "Admin";
+
+        public static bool IsValidUserRoleName(string roleName)
+        {
+            return roleName.Equals(User) || roleName.Equals(Coach) || roleName.Equals(Board) || roleName.Equals(Admin);
+        }
     }
 }
