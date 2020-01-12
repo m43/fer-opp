@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Models;
+using RudesWebapp.Dtos;
 
 namespace RudesWebapp.Data
 {
@@ -208,9 +209,10 @@ namespace RudesWebapp.Data
                     .HasMaxLength(255);
                 // .IsRequired(); TODO is it?
 
-                entity.Property(e => e.CreationDate)
+                entity.Property(e => e.Time)
                     .HasColumnName("date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .IsRequired();
 
                 entity.Property(e => e.HomeTeam)
                     .HasColumnName("home_team")
@@ -354,6 +356,7 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.Player)
                     .HasForeignKey(d => d.ImageId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__player__image_ID__03122019M43");
             });
 
@@ -403,22 +406,20 @@ namespace RudesWebapp.Data
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.Post)
                     .HasForeignKey(d => d.ImageId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__post__image_ID__47DBAE45");
             });
 
             modelBuilder.Entity<Review>(entity =>
             {
-                entity.HasKey(e => new {e.Id, e.ArticleId})
-                    .HasName("PK__review__AED793010ECF51E0");
-
                 entity.ToTable("review");
 
                 entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedOnAdd();
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.ArticleId)
-                    .HasColumnName("article_ID");
+                    .HasColumnName("article_ID")
+                    .IsRequired();
 
                 entity.Property(e => e.Blocked)
                     .HasColumnName("blocked")

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RudesWebapp.Data;
 
 namespace RudesWebapp.Migrations
 {
     [DbContext(typeof(RudesDatabaseContext))]
-    partial class RudesDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200111213733_MatchAndReviewFixed")]
+    partial class MatchAndReviewFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -834,8 +836,7 @@ namespace RudesWebapp.Migrations
                     b.HasOne("RudesWebapp.Models.Image", "Image")
                         .WithMany("Player")
                         .HasForeignKey("ImageId")
-                        .HasConstraintName("FK__player__image_ID__03122019M43")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasConstraintName("FK__player__image_ID__03122019M43");
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.Post", b =>
@@ -843,8 +844,7 @@ namespace RudesWebapp.Migrations
                     b.HasOne("RudesWebapp.Models.Image", "Image")
                         .WithMany("Post")
                         .HasForeignKey("ImageId")
-                        .HasConstraintName("FK__post__image_ID__47DBAE45")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasConstraintName("FK__post__image_ID__47DBAE45");
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.Review", b =>
