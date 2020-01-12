@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 
 namespace RudesWebapp.Helpers
@@ -11,6 +12,11 @@ namespace RudesWebapp.Helpers
             var claimsIdentity = (ClaimsIdentity) principal.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             return claim.Value;
+        }
+
+        public static bool IsInRoles(this IPrincipal principal, string roles)
+        {
+            return roles.Split(", ").Any(principal.IsInRole);
         }
     }
 }

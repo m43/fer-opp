@@ -49,7 +49,7 @@ namespace RudesWebapp.Controllers.Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        [Authorize(Roles = "Coach, Board, Admin")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> PutPlayer(int id, PlayerDTO playerDto)
         {
             if (id != playerDto.Id)
@@ -82,7 +82,7 @@ namespace RudesWebapp.Controllers.Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<PlayerDTO>> PostPlayer(PlayerDTO playerDto)
         {
             if (ModelState.IsValid == false)
@@ -99,7 +99,7 @@ namespace RudesWebapp.Controllers.Api
 
         // DELETE: api/Player/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<PlayerDTO>> DeletePlayer(int id)
         {
             var player = await _context.Player.FindAsync(id);

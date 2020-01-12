@@ -334,10 +334,6 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnName("date")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("HomeTeam")
                         .IsRequired()
                         .HasColumnName("home_team")
@@ -348,6 +344,10 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("sports_hall")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnName("date")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -585,8 +585,7 @@ namespace RudesWebapp.Migrations
                         .HasColumnName("user_ID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id", "ArticleId")
-                        .HasName("PK__review__AED793010ECF51E0");
+                    b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
 
@@ -835,7 +834,8 @@ namespace RudesWebapp.Migrations
                     b.HasOne("RudesWebapp.Models.Image", "Image")
                         .WithMany("Player")
                         .HasForeignKey("ImageId")
-                        .HasConstraintName("FK__player__image_ID__03122019M43");
+                        .HasConstraintName("FK__player__image_ID__03122019M43")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.Post", b =>
@@ -843,7 +843,8 @@ namespace RudesWebapp.Migrations
                     b.HasOne("RudesWebapp.Models.Image", "Image")
                         .WithMany("Post")
                         .HasForeignKey("ImageId")
-                        .HasConstraintName("FK__post__image_ID__47DBAE45");
+                        .HasConstraintName("FK__post__image_ID__47DBAE45")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.Review", b =>

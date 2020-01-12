@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -26,14 +25,14 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Review
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReviewDTO>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<AddReviewDTO>>> GetReviews()
         {
-            return _mapper.Map<List<ReviewDTO>>(await _context.Review.ToListAsync());
+            return _mapper.Map<List<AddReviewDTO>>(await _context.Review.ToListAsync());
         }
 
         // GET: api/Review/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReviewDTO>> GetReview(int id)
+        public async Task<ActionResult<AddReviewDTO>> GetReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
             if (review == null)
@@ -41,22 +40,23 @@ namespace RudesWebapp.Controllers.Api
                 return NotFound();
             }
 
-            return _mapper.Map<ReviewDTO>(review);
+            return _mapper.Map<AddReviewDTO>(review);
         }
+
         [HttpPost]
-        [Authorize(Roles = "User")] //provjeriti
-        public async Task<IActionResult> PostReview(ReviewDTO reviewDto)
+        [Authorize(Roles = Roles.CoachOrAbove)]
+        public async Task<IActionResult> PostReview(AddReviewDTO addReviewDto)
         {
-            var review = _mapper.Map<Review>(reviewDto);
+            var review = _mapper.Map<Review>(addReviewDto);
             _context.Review.Add(review);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReview", new { id = reviewDto.Id }, reviewDto);
+            return CreatedAtAction("GetReview", new {id = addReviewDto.Id}, addReviewDto);
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<ReviewDTO>> DeleteReview(int id)
+        [Authorize(Roles = Roles.AdminOnly)]
+        public async Task<ActionResult<AddReviewDTO>> DeleteReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
             if (review == null)
@@ -67,10 +67,7 @@ namespace RudesWebapp.Controllers.Api
             _context.Review.Remove(review);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<ReviewDTO>(review);
+            return _mapper.Map<AddReviewDTO>(review);
         }
-
-        
-
     }
 }

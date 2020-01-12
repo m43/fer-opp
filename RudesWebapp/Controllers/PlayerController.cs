@@ -12,7 +12,7 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-    [Authorize(Roles = "Coach, Board, Admin")]
+    [Authorize(Roles = Roles.CoachOrAbove)]
     public class PlayerController : Controller
     {
         private readonly RudesDatabaseContext _context;
@@ -66,7 +66,7 @@ namespace RudesWebapp.Controllers
             {
                 // TODO is id for sure 0?
                 // playerDto.Id = 0;
-                _context.Add(_mapper.Map<Player>(playerDto));
+                _context.Add((object) _mapper.Map<Player>(playerDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -161,10 +161,10 @@ namespace RudesWebapp.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        
+
         private async Task PrepareDropDowns()
         {
-            var images =  await _context.Image.ToListAsync();
+            var images = await _context.Image.ToListAsync();
             ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Name));
         }
 

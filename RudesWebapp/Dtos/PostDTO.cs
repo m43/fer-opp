@@ -30,7 +30,7 @@ namespace RudesWebapp.Dtos
         public DateTime? EndDate { get; set; }
 
         [Display(Name = "Post image")] public int? ImageId { get; set; }
-        
+
         // TODO additional validation - images, delta(Start, End)
     }
 }

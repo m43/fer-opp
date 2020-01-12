@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -42,18 +42,18 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach, User")]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<IActionResult> PostOrder(OrderDTO orderDto)
         {
             var order = _mapper.Map<Order>(orderDto);
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = orderDto.Id }, orderDto);
+            return CreatedAtAction("GetOrder", new {id = orderDto.Id}, orderDto);
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach, User")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<OrderDTO>> DeleteOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);

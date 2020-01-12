@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using RudesWebapp.Helpers
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -20,9 +21,25 @@
                 <!-- asp-area="Identity" asp-page="/Account/Manage/Index" -->
 
                 <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" asp-controller="Player" asp-action="">Uredi igrače</a>
-                    <a class="dropdown-item" asp-controller="Post" asp-action="">Uredi postove</a>
-                    <a class="dropdown-item" asp-controller="Article" asp-action="">Uredi artikle</a>
+                    @if (User.IsInRoles(Roles.CoachOrAbove))
+                    {
+                        <a class="dropdown-item" asp-controller="Post" asp-action="">Uredi postove</a>
+                        <a class="dropdown-item" asp-controller="Image" asp-action="">Uredi slike</a>
+                        <a class="dropdown-item" asp-controller="Player" asp-action="">Uredi igrače</a>
+                        <a class="dropdown-item" asp-controller="Match" asp-action="">Uredi utakmice</a>
+                    }
+                    @if (User.IsInRoles(Roles.BoardOrAbove))
+                    {
+                        <a class="dropdown-item" asp-controller="Article" asp-action="">Uredi artikle</a>
+                        <a class="dropdown-item" asp-controller="Discount" asp-action="">Uredi popuste</a>
+                        <a class="dropdown-item" asp-controller="Order" asp-action="">Uredi narudzbe</a>
+                    }
+                    @if (User.IsInRoles(Roles.BoardOrAbove))
+                    {
+                        <a class="dropdown-item" asp-controller="Review" asp-action="">Upravljaj recenzijama</a>
+                        <a class="dropdown-item" asp-controller="User" asp-action="">Uredi korisnike sustava</a>
+                    }
+                    <a class="dropdown-item" asp-controller="AddReview" asp-action="">Dodaj recenziju</a>
                     <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Uredi postavke računa</a>
                 </div>
             </li>

@@ -73,7 +73,7 @@ namespace RudesWebapp.IntegrationTests
             var formContent = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("Input.Email", user.Email),
-                new KeyValuePair<string, string>("Input.Password", RudesDatabaseSeeder.DUMMY_PASSWORD),
+                new KeyValuePair<string, string>("Input.Password", RudesDatabaseSeeder.DummyPassword),
                 new KeyValuePair<string, string>("Input.RememberMe", "false"),
                 new KeyValuePair<string, string>("__RequestVerificationToken", requestVerificationToken)
             });

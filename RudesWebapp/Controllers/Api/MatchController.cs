@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -41,19 +41,20 @@ namespace RudesWebapp.Controllers.Api
 
             return _mapper.Map<MatchDTO>(match);
         }
+
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> SetMatch(MatchDTO matchDto)
         {
             var match = _mapper.Map<Match>(matchDto);
             _context.Match.Add(match);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMatch", new { id = matchDto.Id }, matchDto);
+            return CreatedAtAction("GetMatch", new {id = matchDto.Id}, matchDto);
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<MatchDTO>> DeleteMatch(int id)
         {
             var match = await _context.Match.FindAsync(id);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -11,14 +12,13 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Data
 {
-    public class RudesDatabaseSeeder
+    [SuppressMessage("ReSharper", "StringLiteralTypo")]
+    public static class RudesDatabaseSeeder
     {
         public static void Initialize(IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                Initialize(serviceScope);
-            }
+            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            Initialize(serviceScope);
         }
 
         public static void Initialize(IServiceScope serviceScope)
@@ -70,8 +70,8 @@ namespace RudesWebapp.Data
                 SetupUserRoles(serviceScope.ServiceProvider).Wait();
                 context.SaveChanges();
 
-                var shopingCarts = GetShoppingCarts(context);
-                context.ShoppingCart.AddRange(shopingCarts);
+                var shoppingCarts = GetShoppingCarts(context);
+                context.ShoppingCart.AddRange(shoppingCarts);
                 context.SaveChanges();
 
                 var shoppingCartArticles = GetShoppingCartArticles(context);
@@ -95,7 +95,7 @@ namespace RudesWebapp.Data
             }
         }
 
-        public static List<Image> GetImages()
+        private static IEnumerable<Image> GetImages()
         {
             var images = new List<Image>()
             {
@@ -131,7 +131,7 @@ namespace RudesWebapp.Data
             return images;
         }
 
-        public static List<Article> GetArticles(RudesDatabaseContext context)
+        private static List<Article> GetArticles(RudesDatabaseContext context)
         {
             var articles = new List<Article>()
             {
@@ -337,7 +337,7 @@ namespace RudesWebapp.Data
             return articles;
         }
 
-        public static List<Discount> GetDiscounts(RudesDatabaseContext context)
+        private static IEnumerable<Discount> GetDiscounts(RudesDatabaseContext context)
         {
             var discounts = new List<Discount>()
             {
@@ -360,7 +360,7 @@ namespace RudesWebapp.Data
             return discounts;
         }
 
-        public static List<ArticleAvailability> GetArticleAvailabilities(RudesDatabaseContext context)
+        private static IEnumerable<ArticleAvailability> GetArticleAvailabilities(RudesDatabaseContext context)
         {
             var articleAvailabilities = new List<ArticleAvailability>
             {
@@ -380,7 +380,7 @@ namespace RudesWebapp.Data
             return articleAvailabilities;
         }
 
-        public static List<Post> GetPosts(RudesDatabaseContext context)
+        private static IEnumerable<Post> GetPosts(RudesDatabaseContext context)
         {
             var posts = new List<Post>
             {
@@ -488,7 +488,7 @@ namespace RudesWebapp.Data
             return posts;
         }
 
-        public static List<Player> GetPlayers(RudesDatabaseContext context)
+        private static IEnumerable<Player> GetPlayers(RudesDatabaseContext context)
         {
             string dateFormat = "yyyy-MM-dd";
             var players = new List<Player>
@@ -930,7 +930,7 @@ namespace RudesWebapp.Data
             return players;
         }
 
-        public static List<Match> GetMatches()
+        private static IEnumerable<Match> GetMatches()
         {
             var matches = new List<Match>
             {
@@ -938,7 +938,7 @@ namespace RudesWebapp.Data
                 {
                     City = "Metković",
                     Country = "Hrvatska",
-                    CreationDate = DateTime.Now.AddDays(137),
+                    Time = DateTime.Now.AddDays(137),
                     HomeTeam = "KK Metković",
                     AwayTeam = "KK Rudeš",
                     SportsHall = "Sportska dvorana Metković"
@@ -947,7 +947,7 @@ namespace RudesWebapp.Data
                 {
                     City = "Zagreb",
                     Country = "Hrvatska",
-                    CreationDate = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm",
+                    Time = DateTime.ParseExact("03.12.2019 20:15", "dd.MM.yyyy HH:mm",
                         CultureInfo.InvariantCulture),
                     HomeTeam = "KK Sesvete",
                     AwayTeam = "KK Rudeš",
@@ -957,7 +957,7 @@ namespace RudesWebapp.Data
             return matches;
         }
 
-        public static readonly string DUMMY_PASSWORD = "HiveMind.2019";
+        public static readonly string DummyPassword = "HiveMind.2019";
 
         public static readonly User DummyUserWithAllRoles = new User
         {
@@ -1005,7 +1005,7 @@ namespace RudesWebapp.Data
         };
 
 
-        public static List<User> GetUsers()
+        private static List<User> GetUsers()
         {
             return new List<User>
             {
@@ -1013,18 +1013,18 @@ namespace RudesWebapp.Data
             };
         }
 
-        public static void CreateUsers(IEnumerable<User> users, UserManager<User> userManager)
+        private static void CreateUsers(IEnumerable<User> users, UserManager<User> userManager)
         {
-            if (users.Select(user => userManager.CreateAsync(user, DUMMY_PASSWORD).Result)
+            if (users.Select(user => userManager.CreateAsync(user, DummyPassword).Result)
                 .Any(result => !result.Succeeded))
             {
                 throw (new Exception("Could not create dummy user..."));
             }
         }
 
-        public static List<Review> GetReviews(RudesDatabaseContext context)
+        private static IEnumerable<Review> GetReviews(RudesDatabaseContext context)
         {
-            List<Review> reviews = new List<Review>
+            var reviews = new List<Review>
             {
                 new Review
                 {
@@ -1052,7 +1052,7 @@ namespace RudesWebapp.Data
             return reviews;
         }
 
-        public static List<ShoppingCart> GetShoppingCarts(RudesDatabaseContext context)
+        private static IEnumerable<ShoppingCart> GetShoppingCarts(RudesDatabaseContext context)
         {
             /*
             var shoppingCarts = new List<ShoppingCart>
@@ -1079,7 +1079,7 @@ namespace RudesWebapp.Data
             return shoppingCarts;
         }
 
-        public static List<ShoppingCartArticle> GetShoppingCartArticles(RudesDatabaseContext context)
+        private static IEnumerable<ShoppingCartArticle> GetShoppingCartArticles(RudesDatabaseContext context)
         {
             var shoppingCartArticles = new List<ShoppingCartArticle>
             {
@@ -1110,13 +1110,19 @@ namespace RudesWebapp.Data
         }
 
 
-        public static List<Order> GetOrders(RudesDatabaseContext context)
+        private static IEnumerable<Order> GetOrders(RudesDatabaseContext context)
         {
             var orders = new List<Order>
             {
                 new Order
                 {
-                    User = context.User.First(),
+                    User = context.User.Skip(1).First(),
+                    Address = "Kralja Zvonimira 32",
+                    PostalCode = 20350
+                },
+                new Order
+                {
+                    User = context.User.Skip(1).First(),
                     Address = "Kralja Zvonimira 32",
                     PostalCode = 20350
                 }
@@ -1125,7 +1131,7 @@ namespace RudesWebapp.Data
             return orders;
         }
 
-        public static List<OrderArticle> GetOrderArticles(RudesDatabaseContext context)
+        private static IEnumerable<OrderArticle> GetOrderArticles(RudesDatabaseContext context)
         {
             var orderArticles = new List<OrderArticle>
             {
@@ -1150,6 +1156,33 @@ namespace RudesWebapp.Data
                 new OrderArticle
                 {
                     Order = context.Order.First(),
+                    Article = context.Article.Skip(1).First(),
+                    Size = "S",
+                    Quantity = 3,
+                    PurchaseDiscount = 0,
+                    PurchasePrice = context.Article.Skip(1).First().Price
+                },
+                new OrderArticle
+                {
+                    Order = context.Order.Skip(1).First(),
+                    Article = context.Article.First(),
+                    Size = "L",
+                    Quantity = 1,
+                    PurchaseDiscount = 0,
+                    PurchasePrice = context.Article.First().Price
+                },
+                new OrderArticle
+                {
+                    Order = context.Order.Skip(1).First(),
+                    Article = context.Article.Skip(1).First(),
+                    Size = "M",
+                    Quantity = 1,
+                    PurchaseDiscount = 0,
+                    PurchasePrice = context.Article.Skip(1).First().Price
+                },
+                new OrderArticle
+                {
+                    Order = context.Order.Skip(1).First(),
                     Article = context.Article.Skip(2).First(),
                     Size = "S",
                     Quantity = 3,
@@ -1165,10 +1198,10 @@ namespace RudesWebapp.Data
         {
             var userRoles = new Dictionary<string, string[]>()
             {
-                {"Admin", new[] {DummyAdminUser.Email, DummyUserWithAllRoles.Email}},
-                {"Board", new[] {DummyBoardUser.Email, DummyUserWithAllRoles.Email}},
-                {"Coach", new[] {DummyCoachUser.Email, DummyUserWithAllRoles.Email}},
-                {"User", new[] {DummyUser.Email, DummyUserWithAllRoles.Email}}
+                {Roles.Admin, new[] {DummyAdminUser.Email, DummyUserWithAllRoles.Email}},
+                {Roles.Board, new[] {DummyBoardUser.Email, DummyUserWithAllRoles.Email}},
+                {Roles.Coach, new[] {DummyCoachUser.Email, DummyUserWithAllRoles.Email}},
+                {Roles.User, new[] {DummyUser.Email, DummyUserWithAllRoles.Email}}
             };
 
             foreach (var (roleName, usersInRole) in userRoles)

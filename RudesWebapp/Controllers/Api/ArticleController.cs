@@ -49,7 +49,7 @@ namespace RudesWebapp.Controllers.Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        [Authorize(Roles = "Board, Admin")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         [ValidateModel]
         public async Task<IActionResult> PutArticle(int id, ArticleDTO articleDto)
         {
@@ -66,6 +66,7 @@ namespace RudesWebapp.Controllers.Api
                 {
                     return NotFound();
                 }
+
                 _mapper.Map(articleDto, article);
                 await _context.SaveChangesAsync();
             }
@@ -89,7 +90,7 @@ namespace RudesWebapp.Controllers.Api
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         [ValidateModel]
-        [Authorize(Roles = "Board, Admin")]
+        [Authorize(Roles = Roles.BoardOrAbove)]
         public async Task<ActionResult<ArticleDTO>> PostArticle(ArticleDTO articleDto)
         {
             // TODO is check for id == 0 necessary?

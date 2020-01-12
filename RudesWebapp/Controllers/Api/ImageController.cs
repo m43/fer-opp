@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers.Api
 {
-    
     [Route("api/[controller]")]
     [ApiController]
-    public class ImageController: ControllerBase
+    public class ImageController : ControllerBase
     {
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
@@ -44,18 +43,18 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> SetImage(ImageDTO imageDto)
         {
             var image = _mapper.Map<Image>(imageDto);
             _context.Image.Add(image);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetImage", new { id = imageDto.Id }, imageDto);
+            return CreatedAtAction("GetImage", new {id = imageDto.Id}, imageDto);
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Board, Coach")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<ImageDTO>> DeleteImage(int id)
         {
             var image = await _context.Image.FindAsync(id);

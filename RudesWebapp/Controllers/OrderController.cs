@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers
 {
-    [Authorize(Roles = "Admin, Board, Coach, User")] //user?
+    [Authorize(Roles = Roles.BoardOrAbove)]
     public class OrderController : Controller
     {
         private readonly RudesDatabaseContext _context;
@@ -48,25 +47,24 @@ namespace RudesWebapp.Controllers
         // GET: Order/Create
         public IActionResult Create()
         {
-
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,FulFilled,Address,City,PostalCode")]
-            OrderDTO orderDTO)
+            OrderDTO orderDto)
         {
             if (ModelState.IsValid)
             {
-
-                _context.Add(_mapper.Map<OrderDTO>(orderDTO));
+                _context.Add((object) _mapper.Map<Order>(orderDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(orderDTO);
+            return View(orderDto);
         }
+
         // GET: Order/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,12 +82,13 @@ namespace RudesWebapp.Controllers
 
             return View(_mapper.Map<OrderDTO>(order));
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Fulfilled,Address,City,PostalCode")]
-            OrderDTO orderDTO)
+            OrderDTO orderDto)
         {
-            if (id != orderDTO.Id)
+            if (id != orderDto.Id)
             {
                 return NotFound();
             }
@@ -100,12 +99,12 @@ namespace RudesWebapp.Controllers
                 {
                     // NOTE: https://stackoverflow.com/questions/13314666/using-automapper-to-update-an-existing-entity-poco/25242322
                     var order = await _context.Order.FindAsync(id);
-                    _mapper.Map(orderDTO, order);
+                    _mapper.Map(orderDto, order);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(orderDTO.Id))
+                    if (!OrderExists(orderDto.Id))
                     {
                         return NotFound();
                     }
@@ -119,8 +118,9 @@ namespace RudesWebapp.Controllers
             }
 
 
-            return View(orderDTO);
+            return View(orderDto);
         }
+
         // GET: Order/Delete/4
         public async Task<IActionResult> Delete(int? id)
         {
@@ -137,6 +137,7 @@ namespace RudesWebapp.Controllers
 
             return View(_mapper.Map<OrderDTO>(order));
         }
+
         // POST: Order/Delete/3
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

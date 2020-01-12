@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,10 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers
 
 {
-    [Authorize(Roles = "Coach, Board, Admin")]
+    [Authorize(Roles = Roles.BoardOrAbove)]
     public class DiscountController : Controller
     {
         private readonly RudesDatabaseContext _context;
@@ -30,15 +30,21 @@ namespace RudesWebapp.Controllers
         {
             return View(_mapper.Map<IEnumerable<DiscountDTO>>(await _context.Discount.ToListAsync()));
         }
+
         // GET: Discount/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int articleId)
         {
+            if (articleId == 0)
+            {
+                return NotFound();
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var discount = await _context.Discount.FirstOrDefaultAsync(m => m.Id == id);
+            var discount = await _context.Discount.FirstOrDefaultAsync(m => m.Id == id && m.ArticleId == articleId);
             if (discount == null)
             {
                 return NotFound();
@@ -56,28 +62,33 @@ namespace RudesWebapp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ArticleId,StartDate,EndDate,Percentage")]
-            DiscountDTO discountDTO)
+            DiscountDTO discountDto)
         {
             if (ModelState.IsValid)
             {
-
-                _context.Add(_mapper.Map<Discount>(discountDTO));
+                _context.Add((object) _mapper.Map<Discount>(discountDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
             await PrepareDropDowns();
-            return View(discountDTO);
+            return View(discountDto);
         }
+
         // GET: Player/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int articleId)
         {
+            if (articleId == 0)
+            {
+                return BadRequest();
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var discount = await _context.Discount.FindAsync(id);
+            var discount = await _context.Discount.FindAsync(id, articleId);
             if (discount == null)
             {
                 return NotFound();
@@ -86,12 +97,18 @@ namespace RudesWebapp.Controllers
             await PrepareDropDowns();
             return View(_mapper.Map<DiscountDTO>(discount));
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ArticleId,StartDate,EndDate,Percentage")]
-            DiscountDTO discountDTO)
+        public async Task<IActionResult> Edit(int id, int articleId, [Bind("Id,ArticleId,StartDate,EndDate,Percentage")]
+            DiscountDTO discountDto)
         {
-            if (id != discountDTO.Id)
+            if (articleId == 0)
+            {
+                return NotFound();
+            }
+
+            if (id != discountDto.Id)
             {
                 return NotFound();
             }
@@ -101,13 +118,13 @@ namespace RudesWebapp.Controllers
                 try
                 {
                     // NOTE: https://stackoverflow.com/questions/13314666/using-automapper-to-update-an-existing-entity-poco/25242322
-                    var discount = await _context.Discount.FindAsync(id);
-                    _mapper.Map(discountDTO, discount);
+                    var discount = await _context.Discount.FindAsync(id, articleId);
+                    _mapper.Map(discountDto, discount);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DiscountExists(discountDTO.Id))
+                    if (!DiscountExists(discountDto.Id))
                     {
                         return NotFound();
                     }
@@ -121,17 +138,23 @@ namespace RudesWebapp.Controllers
             }
 
             await PrepareDropDowns();
-            return View(discountDTO);
+            return View(discountDto);
         }
+
         // GET: Review/Delete/4
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, int articleId)
         {
+            if (articleId == 0)
+            {
+                return BadRequest();
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var discount = await _context.Discount.FirstOrDefaultAsync(m => m.Id == id);
+            var discount = await _context.Discount.FirstOrDefaultAsync(m => m.Id == id && m.ArticleId == articleId);
             if (discount == null)
             {
                 return NotFound();
@@ -139,12 +162,13 @@ namespace RudesWebapp.Controllers
 
             return View(_mapper.Map<DiscountDTO>(discount));
         }
+
         // POST: Review/Delete/3
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int articleId)
         {
-            var discount = await _context.Discount.FindAsync(id);
+            var discount = await _context.Discount.FindAsync(id, articleId);
             _context.Discount.Remove(discount);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -155,11 +179,10 @@ namespace RudesWebapp.Controllers
             var articles = await _context.Article.ToListAsync();
             ViewBag.Articles = new SelectList(articles, nameof(Article.Id), nameof(Article.Name));
         }
+
         private bool DiscountExists(int id)
         {
             return _context.Discount.Any(e => e.Id == id);
         }
-
-
     }
 }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
 
-namespace RudesWebapp.Controllers_Api
+namespace RudesWebapp.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -33,7 +34,7 @@ namespace RudesWebapp.Controllers_Api
 
         // GET: api/Post/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostDTO>> GetPostDTO(int id)
+        public async Task<ActionResult<PostDTO>> GetPostDto(int id)
         {
             var post = await _context.Post.FindAsync(id);
             if (post == null)
@@ -48,6 +49,7 @@ namespace RudesWebapp.Controllers_Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<IActionResult> PutPost(int id, PostDTO postDto)
         {
             // TODO
@@ -83,6 +85,7 @@ namespace RudesWebapp.Controllers_Api
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<PostDTO>> PostPost(PostDTO postDto)
         {
             // TODO is check for id == 0 necessary?
@@ -96,6 +99,7 @@ namespace RudesWebapp.Controllers_Api
 
         // DELETE: api/Post/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.CoachOrAbove)]
         public async Task<ActionResult<PostDTO>> DeletePost(int id)
         {
             var post = await _context.Post.FindAsync(id);

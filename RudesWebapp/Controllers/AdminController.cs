@@ -9,28 +9,19 @@ using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
-
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.AdminOnly)]
     public class AdminController : Controller
     {
-        private User admin;
-        private RudesDatabaseContext _context;
-        private RoleManager<IdentityRole> _roleManager;
-        private UserManager<User> _userManager;
+        private readonly RudesDatabaseContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<User> _userManager;
 
-        public AdminController(
-            RudesDatabaseContext context, 
-            RoleManager<IdentityRole> roleManager, 
+        public AdminController(RudesDatabaseContext context, RoleManager<IdentityRole> roleManager,
             UserManager<User> userManager)
         {
             _context = context;
             _roleManager = roleManager;
             _userManager = userManager;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
 
         // User
@@ -70,8 +61,8 @@ namespace RudesWebapp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                var user_from_database = await _context.User.FindAsync(id);
-                if (user_from_database == null)
+                var userFromDatabase = await _context.User.FindAsync(id);
+                if (userFromDatabase == null)
                 {
                     return NotFound();
                 }
@@ -87,19 +78,19 @@ namespace RudesWebapp.Controllers
         [HttpDelete]
         public async Task<ActionResult<User>> DeleteUser(string id)
         {
-            var User = await _context.User.FindAsync(id);
-            if (User == null)
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(User);
+            _context.User.Remove(user);
             await _context.SaveChangesAsync();
 
-            return User;
+            return user;
         }
 
-        
+
         [HttpPut]
         public async Task AssignRole(User user, IdentityRole role)
         {
@@ -107,21 +98,21 @@ namespace RudesWebapp.Controllers
             var roleCheck = await _roleManager.RoleExistsAsync(role.Name);
             if (roleCheck == false)
             {
-                return; // privremeno
+                return; // TODO privremeno
             }
 
             // Check if the user exists
             var userCheck = await _userManager.GetUserIdAsync(user);
             if (userCheck == null)
             {
-                return;  // privremeno
+                return; // TODO privremeno
             }
 
             // Check if the user has already been assigned the specified role
             var userRoleCheck = await _userManager.IsInRoleAsync(user, role.Name);
             if (userRoleCheck == false)
             {
-                return;       // privremeno, dok ne napravimo nove Exception-e za nase potrebe
+                return; // TODO privremeno, dok ne napravimo nove Exception-e za nase potrebe
             }
 
             await _userManager.AddToRoleAsync(user, role.Name);
@@ -137,6 +128,5 @@ namespace RudesWebapp.Controllers
         {
             return await GetCurrentUserAsync();
         }
-
     }
 }
