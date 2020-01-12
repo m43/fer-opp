@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+
 namespace RudesWebapp.Controllers
 {
-    [Authorize(Roles = "Admin, Board, Coach")]
+    [Authorize(Roles = Roles.CoachOrAbove)]
     public class MatchController : Controller
     {
         private readonly RudesDatabaseContext _context;
@@ -23,12 +22,12 @@ namespace RudesWebapp.Controllers
             _context = context;
             _mapper = mapper;
         }
-      
+
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<MatchDTO>>(await _context.Match.ToListAsync()));
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,24 +48,24 @@ namespace RudesWebapp.Controllers
         public IActionResult Create()
         {
             return View();
-        } 
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,HomeTeam,AwayTeam,City,SportsHall,Country")]
-            MatchDTO matchDTO)
+        public async Task<IActionResult> Create([Bind("Id,HomeTeam,AwayTeam,Time,City,SportsHall,Country")]
+            MatchDTO matchDto)
         {
             if (ModelState.IsValid)
             {
-
-                _context.Add(_mapper.Map<MatchDTO>(matchDTO));
+                _context.Add((object) _mapper.Map<Match>(matchDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            
-            return View(matchDTO);
+
+            return View(matchDto);
         }
+
         // GET: Player/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,15 +80,16 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            
+
             return View(_mapper.Map<MatchDTO>(match));
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,HomeTeam,AwayTeam,City,SportsHall,Country")]
-            MatchDTO matchDTO)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,HomeTeam,AwayTeam,Time,City,SportsHall,Country")]
+            MatchDTO matchDto)
         {
-            if (id != matchDTO.Id)
+            if (id != matchDto.Id)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace RudesWebapp.Controllers
                 {
                     // NOTE: https://stackoverflow.com/questions/13314666/using-automapper-to-update-an-existing-entity-poco/25242322
                     var match = await _context.Match.FindAsync(id);
-                    _mapper.Map(matchDTO, match);
+                    _mapper.Map(matchDto, match);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MatchExists(matchDTO.Id))
+                    if (!MatchExists(matchDto.Id))
                     {
                         return NotFound();
                     }
@@ -118,8 +118,9 @@ namespace RudesWebapp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(matchDTO);
+            return View(matchDto);
         }
+
         // GET: Match/Delete/4
         public async Task<IActionResult> Delete(int? id)
         {
@@ -136,6 +137,7 @@ namespace RudesWebapp.Controllers
 
             return View(_mapper.Map<MatchDTO>(match));
         }
+
         // POST: Match/Delete/3
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -151,6 +153,5 @@ namespace RudesWebapp.Controllers
         {
             return _context.Match.Any(e => e.Id == id);
         }
-
     }
 }
