@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using RudesWebapp.Models;
+using RudesWebapp.ValidationAttributes;
+
 namespace RudesWebapp.Dtos
 {
     public class MatchDTO
@@ -16,16 +17,20 @@ namespace RudesWebapp.Dtos
         [Display(Name = "Away team", Prompt = "Enter the name of the away team")]
         public string AwayTeam { get; set; }
 
-        //[Required(ErrorMessage = "It's necessary to specify the city")]
+        [Required(ErrorMessage = "It's necessary to specify the city")]
         [Display(Name = "City", Prompt = "Enter the city where the match is played")]
         public string City { get; set; }
 
-        //[Required(ErrorMessage = "It's necessary to specify the hall")]
         [Display(Name = "Sport's hall", Prompt = "Enter the sport's hall where the match is played")]
         public string SportsHall { get; set; }
 
-        //[Required(ErrorMessage = "It's necessary to specify the country")]
         [Display(Name = "Country", Prompt = "Enter the name of the country where the game is played")]
         public string Country { get; set; }
+
+        [Required(ErrorMessage = "It's necessary to specify the time of the match")]
+        [Display(Name = "Time of match")]
+        [DataType(DataType.DateTime)]
+        [SqlDateTimeFormat]
+        public DateTime? Time { get; set; }
     }
 }

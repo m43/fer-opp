@@ -22,8 +22,8 @@ namespace RudesWebapp.Dtos
             CreateMap<Image, ImageDTO>();
             CreateMap<ImageDTO, Image>();
 
-            CreateMap<Review, ReviewDTO>();
-            CreateMap<ReviewDTO, Review>();
+            CreateMap<Review, AddReviewDTO>();
+            CreateMap<AddReviewDTO, Review>();
 
             CreateMap<Order, OrderDTO>();
             CreateMap<OrderDTO, Order>();

@@ -1,6 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using RudesWebapp.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace RudesWebapp.Dtos
 {
     public class ArticleAvailabilityDTO

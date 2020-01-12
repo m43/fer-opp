@@ -1,9 +1,5 @@
-﻿using RudesWebapp.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using RudesWebapp.ValidationAttributes;
 
 namespace RudesWebapp.Dtos
@@ -11,7 +7,7 @@ namespace RudesWebapp.Dtos
     public class DiscountDTO
     {
         public int Id { get; set; }
-        public int ArticleId { get; set; }
+        [Required] public int ArticleId { get; set; }
 
         [Required(ErrorMessage = "It's necessary to specify the start date.")]
         [Display(Name = "Discount start date")]

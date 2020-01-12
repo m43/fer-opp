@@ -1,6 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using RudesWebapp.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace RudesWebapp.Dtos
 {
     public class OrderDTO
@@ -8,7 +7,7 @@ namespace RudesWebapp.Dtos
         public int Id { get; set; }
 
         // Use only [Required] to show the default validation message for required attributes
-     
+
         public string UserId { get; set; }
 
         public bool Fulfilled { get; set; }

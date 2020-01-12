@@ -32,8 +32,7 @@ namespace RudesWebapp.Dtos
 
         // [Required(ErrorMessage = "It's necessary to specify the image")]
         [Display(Name = "Player image")] public int? ImageId { get; set; }
-        
-        // TODO validate that image exists (if not null)
 
+        // TODO validate that image exists (if not null)
     }
 }
