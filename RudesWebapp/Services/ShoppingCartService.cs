@@ -7,13 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Z.EntityFramework.Plus;
 
-namespace RudesWebapp.Helpers
+namespace RudesWebapp.Services
 {
-    public class ShoppingCartHelpers
+    public class ShoppingCartService
     {
         private ShoppingCart _shoppingCart;
-        public ShoppingCartHelpers() {}
-        public ShoppingCartHelpers(ShoppingCart shoppingCart)
+        public ShoppingCartService() { }
+        public ShoppingCartService(ShoppingCart shoppingCart)
         {
             _shoppingCart = shoppingCart;
         }
