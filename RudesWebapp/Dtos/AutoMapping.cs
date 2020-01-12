@@ -39,6 +39,9 @@ namespace RudesWebapp.Dtos
 
             CreateMap<ArticleAvailability, ArticleAvailabilityDTO>();
             CreateMap<ArticleAvailabilityDTO, ArticleAvailability>();
+            
+            CreateMap<Match, UserDTO>();
+            CreateMap<UserDTO, Match>();
         }
     }
 }
