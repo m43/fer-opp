@@ -164,6 +164,110 @@
       ],
       "value": ""
     }]
+  }, {
+    "id": "117b4190-8c8e-4025-9dfa-41d1caf48553",
+    "name": "Login",
+    "commands": [{
+      "id": "e1837750-8106-4f03-a48a-8470452c01e0",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b36ac27c-842a-4322-9444-c5049d95cfaf",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x768",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "955cd1b4-8173-4de6-93a6-d91b19bca5ab",
+      "comment": "",
+      "command": "click",
+      "target": "id=login",
+      "targets": [
+        ["id=login", "id"],
+        ["linkText=Login", "linkText"],
+        ["css=#login", "css:finder"],
+        ["xpath=//a[contains(text(),'Login')]", "xpath:link"],
+        ["xpath=//a[@id='login']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/ul/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/Identity/Account/Login')]", "xpath:href"],
+        ["xpath=//ul/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c6ccfe8c-d808-487c-8d05-ac3b603c3994",
+      "comment": "",
+      "command": "click",
+      "target": "id=Input_Email",
+      "targets": [
+        ["id=Input_Email", "id"],
+        ["name=Input.Email", "name"],
+        ["css=#Input_Email", "css:finder"],
+        ["xpath=//input[@id='Input_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "82ff8fd7-4e62-4f9d-829c-17f0f6113bdc",
+      "comment": "",
+      "command": "type",
+      "target": "id=Input_Email",
+      "targets": [
+        ["id=Input_Email", "id"],
+        ["name=Input.Email", "name"],
+        ["css=#Input_Email", "css:finder"],
+        ["xpath=//input[@id='Input_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "mail@hivemind.org"
+    }, {
+      "id": "4f648ff0-cb7d-4b88-85ad-bbe509a2823a",
+      "comment": "",
+      "command": "type",
+      "target": "id=Input_Password",
+      "targets": [
+        ["id=Input_Password", "id"],
+        ["name=Input.Password", "name"],
+        ["css=#Input_Password", "css:finder"],
+        ["xpath=//input[@id='Input_Password']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "HiveMind.2019"
+    }, {
+      "id": "93c53efb-8a00-4652-969f-7b81dbb368ae",
+      "comment": "",
+      "command": "click",
+      "target": "id=Input_RememberMe",
+      "targets": [
+        ["id=Input_RememberMe", "id"],
+        ["name=Input.RememberMe", "name"],
+        ["css=#Input_RememberMe", "css:finder"],
+        ["xpath=//input[@id='Input_RememberMe']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[4]/div/label/input", "xpath:idRelative"],
+        ["xpath=//label/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5d3ecf10-54ad-4ba0-9f59-f54781cb1fc7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group > .btn",
+      "targets": [
+        ["css=.form-group > .btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Log in')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "f97daa5e-54ee-4e9d-a727-8ed0854f46e0",
