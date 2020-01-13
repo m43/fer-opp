@@ -1,0 +1,78 @@
+﻿@model Order
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.User.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.User.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.User.LastName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.User.LastName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.User.Email)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.User.Email)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.CreationDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.CreationDate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.LastModificationDate)
+    </dt>
+    <dd class="col-sm-10">
+        @if (Model.LastModificationDate != null)
+        {
+            @Html.DisplayFor(model => model.LastModificationDate)
+        }
+        else
+        {
+            @Html.Raw("Not modified")
+        }
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.UserWhoModifiedLastEmail)
+    </dt>
+    <dd class="col-sm-10">
+        @if (Model.UserWhoModifiedLastEmail != null)
+        {
+            @Html.DisplayFor(model => model.UserWhoModifiedLastEmail)
+        }
+        else
+        {
+            @Html.Raw("Not modified")
+        }
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Fulfilled)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Fulfilled)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Address)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Address)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.City)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.City)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.PostalCode)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.PostalCode)
+    </dd>
+</dl>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RudesWebapp.Data;
 
 namespace RudesWebapp.Migrations
 {
     [DbContext(typeof(RudesDatabaseContext))]
-    partial class RudesDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200112210535_OrderUpdate")]
+    partial class OrderUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -624,8 +626,7 @@ namespace RudesWebapp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("shopping_cart");
                 });
@@ -873,8 +874,8 @@ namespace RudesWebapp.Migrations
             modelBuilder.Entity("RudesWebapp.Models.ShoppingCart", b =>
                 {
                     b.HasOne("RudesWebapp.Models.User", "User")
-                        .WithOne("ShoppingCart")
-                        .HasForeignKey("RudesWebapp.Models.ShoppingCart", "UserId")
+                        .WithMany("ShoppingCart")
+                        .HasForeignKey("UserId")
                         .HasConstraintName("FK__shopping___usern__440B1D61")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

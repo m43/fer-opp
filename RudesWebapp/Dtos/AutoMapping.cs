@@ -25,8 +25,8 @@ namespace RudesWebapp.Dtos
             CreateMap<Review, AddReviewDTO>();
             CreateMap<AddReviewDTO, Review>();
 
-            CreateMap<Order, OrderDTO>();
-            CreateMap<OrderDTO, Order>();
+            CreateMap<Order, EditOrderDTO>();
+            CreateMap<EditOrderDTO, Order>();
 
             CreateMap<OrderArticle, OrderArticleDTO>();
             CreateMap<OrderArticleDTO, OrderArticle>();
@@ -39,6 +39,9 @@ namespace RudesWebapp.Dtos
 
             CreateMap<ArticleAvailability, ArticleAvailabilityDTO>();
             CreateMap<ArticleAvailabilityDTO, ArticleAvailability>();
+            
+            CreateMap<Match, UserDTO>();
+            CreateMap<UserDTO, Match>();
         }
     }
 }

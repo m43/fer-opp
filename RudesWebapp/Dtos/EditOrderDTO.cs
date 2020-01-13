@@ -2,13 +2,9 @@
 
 namespace RudesWebapp.Dtos
 {
-    public class OrderDTO
+    public class EditOrderDTO
     {
-        public int Id { get; set; }
-
-        // Use only [Required] to show the default validation message for required attributes
-
-        public string UserId { get; set; }
+        [Required] public int Id { get; set; }
 
         public bool Fulfilled { get; set; }
 
