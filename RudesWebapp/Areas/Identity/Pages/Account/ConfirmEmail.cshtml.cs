@@ -53,7 +53,7 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
                 };
                 _context.ShoppingCart.Add(shoppingCart);
                 //user.ShoppingCart.Add(shoppingCart);
-                _context.User.Find(user.Id).ShoppingCart.Add(shoppingCart);
+                _context.User.Find(user.Id).ShoppingCart = shoppingCart;
                 _context.SaveChanges();
             }
 

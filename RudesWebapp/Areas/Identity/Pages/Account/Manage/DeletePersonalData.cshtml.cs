@@ -73,7 +73,8 @@ namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var shoppingCart = (await _context.User.Include(u => u.ShoppingCart).Where(u => u.Id == user.Id).FirstOrDefaultAsync()).ShoppingCart.First();
+            var shoppingCart = (await _context.User.Include(u => u.ShoppingCart).Where(u => u.Id == user.Id)
+                .FirstOrDefaultAsync()).ShoppingCart;
             foreach (ShoppingCartArticle article in shoppingCart.ShoppingCartArticle)
             {
                 _context.ShoppingCartArticle.Remove(article);

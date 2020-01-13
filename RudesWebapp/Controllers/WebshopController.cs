@@ -39,7 +39,7 @@ namespace RudesWebapp.Controllers
         {
             try
             {
-                return Ok(await ArticleInStoreService.CreateArticlesInStore(_context));
+                return Ok(ArticleInStoreService.CreateArticlesInStore(_context));
             }
             catch (Exception)
             {
