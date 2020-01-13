@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using RudesWebapp.Data;
 using RudesWebapp.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
 {
@@ -72,6 +73,14 @@ namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            var shoppingCart = (await _context.User.Include(u => u.ShoppingCart).Where(u => u.Id == user.Id).FirstOrDefaultAsync()).ShoppingCart.First();
+            foreach (ShoppingCartArticle article in shoppingCart.ShoppingCartArticle)
+            {
+                _context.ShoppingCartArticle.Remove(article);
+            }
+            _context.ShoppingCart.Remove(shoppingCart);
+            _context.SaveChanges();
+
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
             if (!result.Succeeded)
@@ -82,14 +91,6 @@ namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
             await _signInManager.SignOutAsync();
 
             _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
-
-            /*var shoppingCart = user.ShoppingCart.First();
-            foreach (ShoppingCartArticle article in shoppingCart.ShoppingCartArticle)
-            {
-                _context.ShoppingCartArticle.Remove(article);
-            }
-            _context.ShoppingCart.Remove(shoppingCart);
-            _context.SaveChanges(); */
 
             return Redirect("~/");
         }

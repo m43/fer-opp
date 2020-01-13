@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Areas.Identity.Pages.Account
@@ -16,10 +17,12 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<User> _userManager;
+        private RudesDatabaseContext _context;
 
-        public ConfirmEmailModel(UserManager<User> userManager)
+        public ConfirmEmailModel(UserManager<User> userManager, RudesDatabaseContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         [TempData]
@@ -41,6 +44,19 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+
+            if (result.Succeeded)
+            {
+                var shoppingCart = new ShoppingCart
+                {
+                    User = user
+                };
+                _context.ShoppingCart.Add(shoppingCart);
+                //user.ShoppingCart.Add(shoppingCart);
+                _context.User.Find(user.Id).ShoppingCart.Add(shoppingCart);
+                _context.SaveChanges();
+            }
+
             return Page();
         }
     }

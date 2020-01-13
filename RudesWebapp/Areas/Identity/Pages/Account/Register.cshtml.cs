@@ -94,15 +94,14 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)
             {
-                /* Adding shopping cart for user
+                // Adding shopping cart for user
                 var shoppingCart = new ShoppingCart
                 {
                     User = user
                 };
                 _context.ShoppingCart.Add(shoppingCart);
-                //user.ShoppingCart.Add(shoppingCart);
                 _context.User.Find(user.Id).ShoppingCart.Add(shoppingCart);
-                _context.SaveChanges(); */
+                _context.SaveChanges(); 
 
 
                 _logger.LogInformation("User created a new account with password.");
