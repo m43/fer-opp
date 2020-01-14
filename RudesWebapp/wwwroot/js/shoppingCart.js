@@ -1,16 +1,13 @@
 ﻿var shoppingCartModal = new Vue({
     el: "#shoppingCartModal",
-    data: function () {
-        return {
-            allArticles: [],
-            totalPrice: 0,
-            currentIndex: 0,
-            items: []
-        }
+    data: {
+        allArticles: [],
+        items: [],
+        totalPrice: 0
     },
     methods: {
         updateCurrentCart: function () {
-            axios.get("/Webshop/GetItems")
+            axios.get("/Webshop/GetCurrentShoppingCartArticles")
                 .then(response => {
                     this.items = response.data;
                     this.calculateTotalPrice();
@@ -28,7 +25,7 @@
                     console.log(error);
                 });
         },
-        removeArticleFromCart: function (articleId, size, quantity = 1) {
+        removeArticleFromCart: function (articleId, quantity, size) {
             axios({
                 method: 'delete',
                 url: '/Webshop/RemoveFromShoppingCart',

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using RudesWebapp.Helpers
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -132,7 +138,10 @@
         </div>
     </footer>
 
-    <partial name="_ShoppingCart" />
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <partial name="_ShoppingCart" />
+    }
 
     <script src="~/lib/jquery/jquery-3.4.1.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>

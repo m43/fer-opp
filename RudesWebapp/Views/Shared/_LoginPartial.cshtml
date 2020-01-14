@@ -4,70 +4,68 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-    <ul class="navbar-nav">
-        @if (SignInManager.IsSignedIn(User))
-        {
-            <li class="nav-item active btn my-navbar-button">
-                <a class="nav-link" href="#" role="button" data-toggle="modal" data-target="#shoppingCartModal">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-            </li>
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item active btn my-navbar-button">
+        <a class="nav-link" href="#" role="button" data-toggle="modal" data-target="#shoppingCartModal">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
+    </li>
 
-            <li class="nav-item dropdown active btn my-navbar-button">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage">
-                    @UserManager.GetUserName(User)
-                </a>
+    <li class="nav-item dropdown active btn my-navbar-button">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage">
+            @UserManager.GetUserName(User)
+        </a>
 
-                <!-- asp-area="Identity" asp-page="/Account/Manage/Index" -->
+        <!-- asp-area="Identity" asp-page="/Account/Manage/Index" -->
 
-                <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    @if (User.IsInRoles(Roles.CoachOrAbove))
-                    {
-                        <a class="dropdown-item" asp-controller="Post" asp-action="">Uredi postove</a>
-                        <a class="dropdown-item" asp-controller="Image" asp-action="">Uredi slike</a>
-                        <a class="dropdown-item" asp-controller="Player" asp-action="">Uredi igrače</a>
-                        <a class="dropdown-item" asp-controller="Match" asp-action="">Uredi utakmice</a>
-                    }
-                    @if (User.IsInRoles(Roles.BoardOrAbove))
-                    {
-                        <a class="dropdown-item" asp-controller="Article" asp-action="">Uredi artikle</a>
-                        <a class="dropdown-item" asp-controller="Discount" asp-action="">Uredi popuste</a>
-                        <a class="dropdown-item" asp-controller="Order" asp-action="">Uredi narudzbe</a>
-                    }
-                    @if (User.IsInRoles(Roles.BoardOrAbove))
-                    {
-                        <a class="dropdown-item" asp-controller="Review" asp-action="">Upravljaj recenzijama</a>
-                        <a class="dropdown-item" asp-controller="User" asp-action="">Uredi korisnike sustava</a>
-                    }
-                    <a class="dropdown-item" asp-controller="AddReview" asp-action="">Dodaj recenziju</a>
-                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Uredi postavke računa</a>
-                </div>
-            </li>
+        <div class="dropdown-menu" aria-labelledby="userDropdown">
+            @if (User.IsInRoles(Roles.CoachOrAbove))
+            {
+                <a class="dropdown-item" asp-controller="Post" asp-action="">Uredi postove</a>
+                <a class="dropdown-item" asp-controller="Image" asp-action="">Uredi slike</a>
+                <a class="dropdown-item" asp-controller="Player" asp-action="">Uredi igrače</a>
+                <a class="dropdown-item" asp-controller="Match" asp-action="">Uredi utakmice</a>
+            }
+            @if (User.IsInRoles(Roles.BoardOrAbove))
+            {
+                <a class="dropdown-item" asp-controller="Article" asp-action="">Uredi artikle</a>
+                <a class="dropdown-item" asp-controller="Discount" asp-action="">Uredi popuste</a>
+                <a class="dropdown-item" asp-controller="Order" asp-action="">Uredi narudzbe</a>
+            }
+            @if (User.IsInRoles(Roles.BoardOrAbove))
+            {
+                <a class="dropdown-item" asp-controller="Review" asp-action="">Upravljaj recenzijama</a>
+                <a class="dropdown-item" asp-controller="User" asp-action="">Uredi korisnike sustava</a>
+            }
+            <a class="dropdown-item" asp-controller="AddReview" asp-action="">Dodaj recenziju</a>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Uredi postavke računa</a>
+        </div>
+    </li>
 
-            <li class="nav-item btn my-navbar-button">
-                <form id="logoutForm" class="form-inline justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <a href="#" id="logout" role="button" onclick="document.getElementById('logoutForm').submit()" class="nav-link text-dark">
-                        Logout
-                    </a>
+    <li class="nav-item btn my-navbar-button">
+        <form id="logoutForm" class="form-inline justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <a href="#" id="logout" role="button" onclick="document.getElementById('logoutForm').submit()" class="nav-link text-dark">
+                Logout
+            </a>
 
-                    <noscript>
-                        <input type="submit" value="Logout" />
-                    </noscript>
-                </form>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item btn my-navbar-button">
-                <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">
-                    Register
-                </a>
-            </li>
+            <noscript>
+                <input type="submit" value="Logout" />
+            </noscript>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item btn my-navbar-button">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">
+            Register
+        </a>
+    </li>
 
-            <li class="nav-item btn my-navbar-button">
-                <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">
-                    Login
-                </a>
-            </li>
-        }
-    </ul>
+    <li class="nav-item btn my-navbar-button">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">
+            Login
+        </a>
+    </li>
+}

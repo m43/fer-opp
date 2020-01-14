@@ -35,13 +35,12 @@ var webshop = new Vue({
             axios.get("/Webshop/GetArticles")
                 .then(response => {
                     this.allArticles = response.data;
-                    console.log(this.allArticles);
                 })
                 .catch(error => {
                     console.log(error);
                 });
         },
-        addItemToCart: function (articleId, size, quantity = 1) {
+        addItemToCart: function (articleId, quantity, size) {
             axios({
                 method: 'post',
                 url: '/Webshop/AddToShoppingCart',
