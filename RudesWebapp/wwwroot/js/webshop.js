@@ -17,17 +17,20 @@
                     </div>
                 </figcaption>
                 <figcaption>
-                    <button type="button" class="priceButton" data-toggle="modal" data-target="#articleDetailsModal">
+                    <button type="button" class="priceButton" @click="updateSelectedArticle(article)" data-toggle="modal" data-target="#articleDetailsModal">
                         Više detalja
                      </button>
                 </figcaption>
-                <button class="buttonStyle" @click="passArticle(article.id, 1, 'XL')">Dodaj u košaricu</button>
+                <button class="buttonStyle" @click="passArticle(article)">Dodaj u košaricu</button>
                 <hr />
             </div>
         `,
     methods: {
-        passArticle: function (articleId, quantity, size) {
-            webshop.addItemToCart(articleId, quantity, size);
+        passArticle: function (article) {
+            webshop.addItemToCart(article.id, 1, "XL");
+        },
+        updateSelectedArticle: function (article) {
+            articleDetailsModal.selectedArticle = article;
         }
     }
 });

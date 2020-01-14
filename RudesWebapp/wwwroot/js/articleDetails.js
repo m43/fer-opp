@@ -1,7 +1,7 @@
 ﻿var articleDetailsModal = new Vue({
     el: "#articleDetailsModal",
     data: {
-        selectedArticle: ""
+        selectedArticle: {}
     },
     methods: {
 
