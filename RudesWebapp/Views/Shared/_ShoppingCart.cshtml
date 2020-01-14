@@ -26,7 +26,7 @@
 
                     <tr v-for="item in items">
                         <td>
-                            <div class="deleteButton" @@click="removeArticleFromCart(item.articleId, item.size)">
+                            <div class="deleteButton" @@click="removeArticleFromCart(item.articleId, 1, item.size)">
                                 <i class="fas fa-times"></i>
                             </div>
                         </td>
@@ -40,6 +40,7 @@
                 </table>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" @@click="clearShoppingCart()">Isprazni košaricu</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
                 <button type="button" class="btn btn-primary">Spremi</button>
             </div>

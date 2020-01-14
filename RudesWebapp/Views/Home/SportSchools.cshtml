@@ -2,30 +2,30 @@
     ViewData["Title"] = "Sportske škole";
 }
 
-<h1>SportSchools</h1>
-
-<div style="margin-bottom: 20px; text-align: justify;">
-Much evil soon high in hope do view. Out may few northward believing attempted. Yet timed being songs marry one defer men our. Although finished blessing do of.
-Consider speaking me prospect whatever if. Ten nearer rather hunted six parish indeed number. Allowance repulsive sex may contained can set suspected abilities
-cordially. Do part am he high rest that. So fruit to ready it being views match. Certainly elsewhere my do allowance at. The address farther six hearted hundred
-towards husband. Are securing off occasion remember daughter replying. Held that feel his see own yet. Strangers ye to he sometimes propriety in. She right plate
-seven has. Bed who perceive judgment did marianne. Ask especially collecting terminated may son expression. Extremely eagerness principle estimable own was man.
-Men received far his dashwood subjects new. My sufficient surrounded an companions dispatched in on. Connection too unaffected expression led son possession. New
-smiling friends and her another. Leaf she does none love high yet. Snug love will up bore as be. Pursuit man son musical general pointed. It surprise informed mr
-advanced do outweigh. Carried nothing on am warrant towards. Polite in of in oh needed itself silent course. Assistance travelling so especially do prosperous
-appearance mr no celebrated. Wanted easily in my called formed suffer. Songs hoped sense as taken ye mirth at. Believe fat how six drawing pursuit minutes far.
-Same do seen head am part it dear open to. Whatever may scarcely judgment had. 
+<div style="background-color: antiquewhite;">
+    <h4 style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">SportSchools</h4>
 </div>
 
 <div>
-    <img src="~/images/timska-seniori.jpg" alt="Rudeš Logo" style="display: block; margin: 0 auto; max-width: 100%; min-width: 100%;"/>
+    <img src="~/images/sportske-skole.png" alt="Timska slika" style="margin-bottom: 10px;min-width: 92%;display: block;margin: 0 auto;max-width: 100%;"/>
 </div>
 
-<div style="margin-top: 20px; text-align: justify;">
+<div style="margin-top: 20px; text-align: justify; margin-left: 43px; margin-right: 43px;">
     STOJE S LIJEVA: trener Robert Kovačev, Luka Bilić-Prcić, Petar Jokanović, Matteo Sudar, Mihovil Šunjić, Ivan Maksim Duvnjak, Marko Alešković,
     Luka Petanović, trener Edin Hadžić
 </div>
 
-<div style="margin-top: 20px; text-align: justify;">
+<div style="margin-top: 20px; text-align: justify; margin-left: 43px; margin-right: 43px; margin-bottom: 30px;">
     SJEDE S LIJEVA: Franko Gluhović, Vito Kraljević, Sven Raić, Roko Ivanković, Ante Bubalo, Roko Matek, Ivan Martić
 </div>
+
+<div class="container" id="teams" style="padding: 0;">
+    <div v-for="playerGroup in sportSchoolPlayers" class="row">
+        <div v-for="player in playerGroup" class="col-lg-3 text-center" style="padding: 0; margin-right: 0px; margin-left: 0px;">
+            <player-component :player="player"></player-component>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/teams.js"></script>
+
