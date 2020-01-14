@@ -1,7 +1,6 @@
 ﻿var shoppingCartModal = new Vue({
     el: "#shoppingCartModal",
     data: {
-        allArticles: [],
         items: [],
         totalPrice: 0
     },
@@ -11,15 +10,6 @@
                 .then(response => {
                     this.items = response.data;
                     this.calculateTotalPrice();
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-        getArticles: function () {
-            axios.get("/Webshop/GetArticles")
-                .then(response => {
-                    this.allArticles = response.data;
                 })
                 .catch(error => {
                     console.log(error);

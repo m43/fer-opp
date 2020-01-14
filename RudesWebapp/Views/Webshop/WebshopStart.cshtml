@@ -78,57 +78,7 @@
         </div>
     </div>
 
-</div>
-
-
-<!-- Modal -->
-<div id ="articleDetailsModal"class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <!--TO DO: add title-->
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body container-fluid">
-                
-                <div class="modalOuterDiv row">
-                    <div id="modalPictureDiv" class="col-6">
-                        <img class="productImages" src="/images/rudes-logo.jpg">
-                    </div>
-                    <div class="modalContentDiv col-6">
-                        <div id="modalArticleName col-12">
-                            naslov
-                        </div>
-                        <div id="modalArticleDescription col-12">
-                            opis
-                        </div>
-                        <div id="modalArticleReview col-12">
-                            recenzije
-                        </div>
-                        <div id="modalArticleSizes col-12">
-                            checkbox s velicinama <br>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XS</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">S</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">M</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">L</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XL</label>
-                        </div>
-                        <div id="modalArticleQuantity col-12">
-                            broj artikala
-                            <input type="number" step="1" min="1" max="" size="2" pattern="" inputmode="">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Odbaci</button>
-                <button class="buttonStyle">Dodaj u košaricu</button>
-            </div>
-        </div>
-    </div>
+    <partial name="_ArticleDetails" />
 </div>
 
 <script src="~/js/webshop.js"></script>

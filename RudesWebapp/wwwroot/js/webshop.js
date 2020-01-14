@@ -25,17 +25,18 @@
                 <hr />
             </div>
         `,
-    // TODO one should be able to choose the size and quantity somehow
-    // TODO size is currently hardcoded as XL in the template. articleDto should contain something like
-    //      availableSizes = [["M",1],["S",10],["XL",3]]
-    //        or
-    //      availableSizes = {"M":1, "S":10, "XL":3}
     methods: {
         passArticle: function (articleId, quantity, size) {
             webshop.addItemToCart(articleId, quantity, size);
         }
     }
 });
+
+// TODO one should be able to choose the size and quantity somehow
+// TODO size is currently hardcoded as XL in the template. articleDto should contain something like
+//      availableSizes = [["M",1],["S",10],["XL",3]]
+//        or
+//      availableSizes = {"M":1, "S":10, "XL":3}
 
 var webshop = new Vue({
     el: "#webshop",
@@ -44,7 +45,7 @@ var webshop = new Vue({
     },
     methods: {
         getArticles: function () {
-            axios.get("/Webshop/GetArticles")
+            axios.get("/Webshop/GetArticlesInStore")
                 .then(response => {
                     this.allArticles = response.data;
                 })
