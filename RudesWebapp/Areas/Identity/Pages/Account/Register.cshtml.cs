@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -13,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Areas.Identity.Pages.Account
@@ -22,23 +20,23 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RudesDatabaseContext _context;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            RudesDatabaseContext context)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
-            _context = context;
         }
 
         [BindProperty] public InputModel Input { get; set; }
@@ -83,7 +81,7 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null, string role = Roles.User)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -94,9 +92,9 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(_context.User.Find(user.Id), role);
                 _logger.LogInformation("User created a new account with password.");
-               
+
+                await _userManager.AddToRoleAsync(user, Roles.User);
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -118,8 +116,6 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
-                
-
             }
 
             foreach (var error in result.Errors)

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace RudesWebapp.Models
 {
@@ -26,7 +29,7 @@ namespace RudesWebapp.Models
 
         // list of all roles
 
-        public static readonly List<string> AllRoles = new List<string>(new string[] { User, Coach, Board, Admin });
+        public static readonly List<string> AllRoles = new List<string>(new string[] {User, Coach, Board, Admin});
 
         public const string User = "User";
         public const string Coach = "Coach";
@@ -36,6 +39,16 @@ namespace RudesWebapp.Models
         public static bool IsValidUserRoleName(string roleName)
         {
             return roleName.Equals(User) || roleName.Equals(Coach) || roleName.Equals(Board) || roleName.Equals(Admin);
+        }
+
+        public static async Task<bool> CheckRoleExists(RoleManager<IdentityRole> roleManager, string role)
+        {
+            if (role == null)
+            {
+                throw new ArgumentException("Given role cannot be null.");
+            }
+
+            return await roleManager.RoleExistsAsync(role);
         }
     }
 }

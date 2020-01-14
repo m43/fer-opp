@@ -1,18 +1,21 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using RudesWebapp.Areas.Identity.Pages.Account;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
+using RudesWebapp.Filters;
+using RudesWebapp.Helpers;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
@@ -21,21 +24,23 @@ namespace RudesWebapp.Controllers
     public class ManageUsersController : Controller
     {
         private readonly RudesDatabaseContext _context;
-        private readonly IMapper _mapper;
-        private readonly UserManager<User> _manager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
 
-        public ManageUsersController(RudesDatabaseContext context, IMapper mapper, UserManager<User> manager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager,
-    ILogger<RegisterModel> logger,
-    IEmailSender emailSender)
+        public ManageUsersController(
+            RudesDatabaseContext context,
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager,
+            SignInManager<User> signInManager,
+            ILogger<RegisterModel> logger,
+            IEmailSender emailSender)
         {
             _context = context;
-            _mapper = mapper;
-            _manager = manager;
+            _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -45,7 +50,6 @@ namespace RudesWebapp.Controllers
         // GET: ManageUsers
         public async Task<IActionResult> Index()
         {
-
             var userList = await _context.User.ToListAsync();
             var result = new List<UserDTO>();
             foreach (var user in userList)
@@ -54,6 +58,7 @@ namespace RudesWebapp.Controllers
                 {
                     continue;
                 }
+
                 result.Add(new UserDTO
                 {
                     Id = user.Id,
@@ -62,12 +67,13 @@ namespace RudesWebapp.Controllers
                     LastName = user.LastName,
                     Password = user.PasswordHash,
                     ConfirmPassword = user.PasswordHash,
-                    Role = (await _manager.GetRolesAsync(user)).First()
+                    Role = (await _userManager.GetRolesAsync(user)).First()
                 });
             }
-           
+
             return View(result);
         }
+
         // GET: ManageUsers/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -81,7 +87,8 @@ namespace RudesWebapp.Controllers
             {
                 return NotFound();
             }
-            var userDTO = new UserDTO
+
+            var userDto = new UserDTO
             {
                 Id = user.Id,
                 Email = user.Email,
@@ -89,11 +96,10 @@ namespace RudesWebapp.Controllers
                 FirstName = user.Name,
                 Password = user.PasswordHash,
                 ConfirmPassword = user.PasswordHash,
-                Role = (await _manager.GetRolesAsync(user)).First()
-
+                Role = (await _userManager.GetRolesAsync(user)).First()
             };
 
-            return View(userDTO);
+            return View(userDto);
         }
 
         // GET: ManageUsers/Create
@@ -106,28 +112,55 @@ namespace RudesWebapp.Controllers
         // POST: Article/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /*[HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateModel]
         public async Task<IActionResult> Create([Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")]
-            UserDTO userDTO)
+            UserDTO userDto)
         {
-
-            var x = new RegisterModel(_manager, _signInManager, _logger, _emailSender, _context);
-            x.Input = new RegisterModel.InputModel()
+            if (!await Roles.CheckRoleExists(_roleManager, userDto.Role))
             {
-                Email = userDTO.Email,
-                Password = userDTO.Password,
-                ConfirmPassword = userDTO.ConfirmPassword,
-                Name = userDTO.FirstName,
-                LastName = userDTO.LastName
-            };
-            return await x.OnPostAsync();
+                ModelState.AddModelError(nameof(UserDTO.Role), "Given role does not exist.");
+                PrepareDropDowns();
+                return View(userDto);
+            }
+            
+            var user = new User
+                {UserName = userDto.Email, Email = userDto.Email, Name = userDto.FirstName, LastName = userDto.LastName};
+            
+            var result = await _userManager.CreateAsync(user, userDto.Password);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User created a new account with password.");
+                
+                await _userManager.AddToRoleAsync(user, userDto.Role);
 
-        }  */
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Page(
+                    "/Account/ConfirmEmail",
+                    pageHandler: null,
+                    values: new {area = "Identity", userId = user.Id, code = code},
+                    protocol: Request.Scheme);
+
+                await _emailSender.SendEmailAsync(userDto.Email, "Confirm your email",
+                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                return RedirectToAction(nameof(Details), new { id = user.Id });
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            
+            PrepareDropDowns();
+            return View(userDto);
+        }
 
         // GET: Article/Edit/5
         public async Task<IActionResult> Edit(string id)
-        { 
+        {
             if (id == null)
             {
                 return NotFound();
@@ -138,7 +171,8 @@ namespace RudesWebapp.Controllers
             {
                 return NotFound();
             }
-            var userDTO = new UserDTO
+
+            var userDto = new UserDTO
             {
                 Id = user.Id,
                 FirstName = user.Name,
@@ -146,23 +180,24 @@ namespace RudesWebapp.Controllers
                 Password = user.PasswordHash,
                 ConfirmPassword = user.PasswordHash,
                 Email = user.Email,
-                Role = (await _manager.GetRolesAsync(user)).First()
-
+                Role = (await _userManager.GetRolesAsync(user)).First()
             };
 
             PrepareDropDowns();
-            return View(userDTO); 
-        } 
+            return View(userDto);
+        }
 
         // POST: Article/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")] UserDTO userDTO)
+        public async Task<IActionResult> Edit(string id,
+            [Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")]
+            UserDTO userDto)
         {
-            if (id != userDTO.Id)
+            if (id != userDto.Id)
             {
                 return NotFound();
             }
@@ -172,24 +207,16 @@ namespace RudesWebapp.Controllers
                 try
                 {
                     var user = await _context.User.FindAsync(id);
-                    _mapper.Map(userDTO, user);
-                    var roleName = userDTO.Role;
-                    var roleCheck = await _roleManager.RoleExistsAsync(roleName);
-                    if (!roleCheck)
+                    if (!await user.SetRole(_userManager, _roleManager, userDto.Role))
                     {
                         return BadRequest();
                     }
-                    var roles = await _manager.GetRolesAsync(user);
-                    foreach (var role in roles)
-                    {
-                        await _manager.RemoveFromRoleAsync(user, role);
-                    }
-                    await _manager.AddToRoleAsync(user, roleName);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(userDTO.Id))
+                    if (!UserExists(userDto.Id))
                     {
                         return NotFound();
                     }
@@ -203,7 +230,7 @@ namespace RudesWebapp.Controllers
             }
 
             PrepareDropDowns();
-            return View(userDTO);
+            return View(userDto);
         }
 
         // GET: Article/Delete/5
@@ -215,22 +242,23 @@ namespace RudesWebapp.Controllers
             }
 
             var user = await _context.User.FirstOrDefaultAsync(m => m.Id == id);
-            var userDTO = new UserDTO
-            {
-                Id = user.Id,
-                FirstName = user.Name,
-                LastName = user.LastName,
-                Password =  null,
-                ConfirmPassword = null,
-                Email = user.Email,
-                Role = (await _manager.GetRolesAsync(user)).First()
-            };
             if (user == null)
             {
                 return NotFound();
             }
 
-            return View(userDTO);
+            var userDto = new UserDTO
+            {
+                Id = user.Id,
+                FirstName = user.Name,
+                LastName = user.LastName,
+                Password = null,
+                ConfirmPassword = null,
+                Email = user.Email,
+                Role = (await _userManager.GetRolesAsync(user)).First()
+            };
+
+            return View(userDto);
         }
 
         // POST: ManageUsers/Delete/abc
@@ -247,8 +275,7 @@ namespace RudesWebapp.Controllers
 
         private void PrepareDropDowns()
         {
-
-            ViewBag.Images = new SelectList(Roles.AllRoles);
+            ViewBag.Roles = new SelectList(Roles.AllRoles);
         }
 
         private bool UserExists(string id)
@@ -257,5 +284,3 @@ namespace RudesWebapp.Controllers
         }
     }
 }
-
-
