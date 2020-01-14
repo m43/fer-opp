@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using RudesWebapp.Models;
-using RudesWebapp.Dtos;
+using RudesWebapp.Triggers;
 
 namespace RudesWebapp.Data
 {
@@ -19,10 +21,12 @@ namespace RudesWebapp.Data
         // {
         // }
 
+        private readonly IServiceProvider _serviceProvider;
 
-        public RudesDatabaseContext(DbContextOptions<RudesDatabaseContext> options)
+        public RudesDatabaseContext(DbContextOptions<RudesDatabaseContext> options, IServiceProvider serviceProvider)
             : base(options)
         {
+            _serviceProvider = serviceProvider;
         }
 
         public virtual DbSet<Article> Article { get; set; }
@@ -167,10 +171,14 @@ namespace RudesWebapp.Data
                     .HasColumnName("date")
                     .HasColumnType("datetime");
 
+
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasMaxLength(255)
                     .IsRequired();
+
+                // Image.Name corresponds to path, therefore it must be unique
+                // entity.HasAlternateKey(e => e.Name);
 
                 entity.Property(e => e.OriginalName)
                     .HasColumnName("original_name")
@@ -481,9 +489,9 @@ namespace RudesWebapp.Data
                     .HasColumnName("user_ID")
                     .IsRequired();
 
-                entity.HasOne(d => d.User)
-                    .WithOne(p => p.ShoppingCart)
-                    //.HasForeignKey<User>(d => d.Id)
+                entity.HasOne(sc => sc.User)
+                    .WithOne(u => u.ShoppingCart)
+                    .HasForeignKey<ShoppingCart>(sc => sc.UserId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__shopping___usern__440B1D61");
             });
@@ -540,10 +548,26 @@ namespace RudesWebapp.Data
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             SetProperties();
-            return base.SaveChangesAsync(cancellationToken);
+            var triggers = _serviceProvider?.GetServices<ITrigger>()?.ToArray() ??
+                           Enumerable.Empty<ITrigger>().ToArray();
+
+            foreach (var userTrigger in triggers)
+            {
+                userTrigger.RegisterChangedEntities(ChangeTracker);
+            }
+
+            int saveResult = await base.SaveChangesAsync(cancellationToken);
+
+            foreach (ITrigger userTrigger in triggers)
+            {
+                await userTrigger.TriggerAsync();
+            }
+
+            return saveResult;
+            // return base.SaveChangesAsync(cancellationToken);
         }
 
         private void SetProperties()

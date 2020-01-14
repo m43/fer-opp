@@ -10,8 +10,8 @@ using RudesWebapp.Data;
 namespace RudesWebapp.Migrations
 {
     [DbContext(typeof(RudesDatabaseContext))]
-    [Migration("20200113143410_FixedShoppingCartAndUser")]
-    partial class FixedShoppingCartAndUser
+    [Migration("20200114160652_FixedShoppingCart")]
+    partial class FixedShoppingCart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -384,6 +384,10 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<DateTime?>("LastModificationDate")
+                        .HasColumnName("last_modification_date")
+                        .HasColumnType("datetime");
+
                     b.Property<int?>("PostalCode")
                         .HasColumnName("postal_code")
                         .HasColumnType("int");
@@ -393,9 +397,12 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnName("user_ID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserWhoModifiedLastEmail")
+                        .HasColumnName("user_who_made_last_modifications_email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -812,8 +819,7 @@ namespace RudesWebapp.Migrations
                         .WithMany("Order")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK__order__user__3D5E1FD2")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.OrderArticle", b =>

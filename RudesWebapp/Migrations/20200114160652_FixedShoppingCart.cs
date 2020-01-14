@@ -2,7 +2,7 @@
 
 namespace RudesWebapp.Migrations
 {
-    public partial class FixedShoppingCartAndUser : Migration
+    public partial class FixedShoppingCart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

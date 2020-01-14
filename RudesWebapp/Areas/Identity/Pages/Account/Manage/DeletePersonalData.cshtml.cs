@@ -73,14 +73,15 @@ namespace RudesWebapp.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var shoppingCart = (await _context.User.Include(u => u.ShoppingCart).Where(u => u.Id == user.Id)
-                .FirstOrDefaultAsync()).ShoppingCart;
-            foreach (ShoppingCartArticle article in shoppingCart.ShoppingCartArticle)
-            {
-                _context.ShoppingCartArticle.Remove(article);
-            }
-            _context.ShoppingCart.Remove(shoppingCart);
-            _context.SaveChanges();
+            // *** Should be done automatically by the database (OnDelete --> cascade) ***
+            // var shoppingCart = (await _context.User.Include(u => u.ShoppingCart).Where(u => u.Id == user.Id)
+            //     .FirstOrDefaultAsync()).ShoppingCart;
+            // foreach (ShoppingCartArticle article in shoppingCart.ShoppingCartArticle)
+            // {
+            //     _context.ShoppingCartArticle.Remove(article);
+            // }
+            // _context.ShoppingCart.Remove(shoppingCart);
+            // _context.SaveChanges();
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);

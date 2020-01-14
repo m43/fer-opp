@@ -1224,6 +1224,11 @@ namespace RudesWebapp.Data
             foreach (string userId in userIDs)
             {
                 User user = await userManager.FindByEmailAsync(userId);
+                var roles = await userManager.GetRolesAsync(user);
+                foreach(var role in roles)
+                {
+                    await userManager.RemoveFromRoleAsync(user, role);
+                }
                 await userManager.AddToRoleAsync(user, roleName);
             }
         }
