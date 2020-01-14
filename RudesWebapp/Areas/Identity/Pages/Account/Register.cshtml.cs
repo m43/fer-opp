@@ -23,10 +23,9 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private RudesDatabaseContext _context;
+        private readonly RudesDatabaseContext _context;
 
         public RegisterModel(
             UserManager<User> userManager,
@@ -97,16 +96,6 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)
             {
-
-                // Adding a shopping cart for the new user
-                var shoppingCart = new ShoppingCart
-                {
-                    User = user
-                };
-                _context.ShoppingCart.Add(shoppingCart);
-                _context.User.Find(user.Id).ShoppingCart = shoppingCart;
-                _context.SaveChanges();
-
 
                 _logger.LogInformation("User created a new account with password.");
                

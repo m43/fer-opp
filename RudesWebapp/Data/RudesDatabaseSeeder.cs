@@ -70,10 +70,6 @@ namespace RudesWebapp.Data
                 SetupUserRoles(serviceScope.ServiceProvider).Wait();
                 context.SaveChanges();
 
-                var shoppingCarts = GetShoppingCarts(context);
-                context.ShoppingCart.AddRange(shoppingCarts);
-                context.SaveChanges();
-
                 var shoppingCartArticles = GetShoppingCartArticles(context);
                 context.ShoppingCartArticle.AddRange(shoppingCartArticles);
                 context.SaveChanges();
@@ -1050,33 +1046,6 @@ namespace RudesWebapp.Data
             };
 
             return reviews;
-        }
-
-        private static IEnumerable<ShoppingCart> GetShoppingCarts(RudesDatabaseContext context)
-        {
-            /*
-            var shoppingCarts = new List<ShoppingCart>
-            {
-                new ShoppingCart
-                {
-                    User = context.User.First()
-                }
-            ;
-            */
-
-            var users = context.User.ToList();
-            var shoppingCarts = new List<ShoppingCart>();
-
-            foreach (User user in users)
-            {
-                shoppingCarts.Add(
-                    new ShoppingCart
-                    {
-                        User = user
-                    });
-            }
-
-            return shoppingCarts;
         }
 
         private static IEnumerable<ShoppingCartArticle> GetShoppingCartArticles(RudesDatabaseContext context)

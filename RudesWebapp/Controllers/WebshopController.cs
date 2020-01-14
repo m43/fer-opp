@@ -395,11 +395,29 @@ namespace RudesWebapp.Controllers
 
             if (selectedArticle != null)
             {
+                /*
+                var availability = await _context.ArticleAvailability.FindAsync(articleId, size);
+                if (availability != null)
+                {
+                    if (quantity > availability.Quantity)
+                    {
+                        return NotFound();
+                    }
+                }
+                */
+
                 ShoppingCartService services = new ShoppingCartService(shoppingCart);
                 services.AddArticle(_context, selectedArticle, size);
+                
                 var resultArticle = await _context.ShoppingCartArticle
                     .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id
                                                  && cart.ArticleId == selectedArticle.Id);
+
+                /*
+                availability.Quantity -= quantity;
+                await _context.SaveChangesAsync();
+                */
+
                 return Ok(ItemService.CreateItem(_context, resultArticle, selectedArticle));
             }
 
@@ -427,15 +445,17 @@ namespace RudesWebapp.Controllers
         }
 
 
-        [HttpPut]
+        [HttpGet]
         [Authorize(Roles = Roles.UserOrAbove)]
-        public async void ClearShoppingCart()
+        public async Task<ActionResult<int>> ClearShoppingCart()
         {
             // TODO if not logged in, then use cookies!
 
             var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
             ShoppingCartService service = new ShoppingCartService(shoppingCart);
             await service.ClearShoppingCart(_context);
+
+            return 0;
         }
 
         [HttpGet]
