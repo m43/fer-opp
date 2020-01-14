@@ -42,7 +42,7 @@ namespace RudesWebapp.Services
             return CreateArticleInStore(article);
         }
 
-        public async static Task<IEnumerable<ArticleInStoreDTO>> CreateArticlesInStore(RudesDatabaseContext context)
+        public static IEnumerable<ArticleInStoreDTO> CreateArticlesInStore(RudesDatabaseContext context)
         {
             return context.Article.Include(a => a.ArticleAvailability).Select(CreateArticleInStore);
         }

@@ -9,7 +9,6 @@ namespace RudesWebapp.Models
         public User()
         {
             Order = new HashSet<Order>();
-            ShoppingCart = new HashSet<ShoppingCart>();
             RegistrationDate = DateTime.Now;
             Review = new HashSet<Review>();
         }
@@ -19,7 +18,7 @@ namespace RudesWebapp.Models
         public DateTime RegistrationDate { get; set; }
 
         public virtual ICollection<Order> Order { get; set; }
-        public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
+        public virtual ShoppingCart ShoppingCart { get; set; }
         public virtual ICollection<Review> Review { get; set; }
     }
 }

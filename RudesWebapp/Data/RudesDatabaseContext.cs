@@ -482,8 +482,8 @@ namespace RudesWebapp.Data
                     .IsRequired();
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.ShoppingCart)
-                    .HasForeignKey(d => d.UserId)
+                    .WithOne(p => p.ShoppingCart)
+                    //.HasForeignKey<User>(d => d.Id)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__shopping___usern__440B1D61");
             });

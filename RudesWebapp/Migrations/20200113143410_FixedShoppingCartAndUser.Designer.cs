@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RudesWebapp.Data;
 
 namespace RudesWebapp.Migrations
 {
     [DbContext(typeof(RudesDatabaseContext))]
-    partial class RudesDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200113143410_FixedShoppingCartAndUser")]
+    partial class FixedShoppingCartAndUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -382,10 +384,6 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastModificationDate")
-                        .HasColumnName("last_modification_date")
-                        .HasColumnType("datetime");
-
                     b.Property<int?>("PostalCode")
                         .HasColumnName("postal_code")
                         .HasColumnType("int");
@@ -395,12 +393,9 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnName("user_ID")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserWhoModifiedLastEmail")
-                        .HasColumnName("user_who_made_last_modifications_email")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -817,7 +812,8 @@ namespace RudesWebapp.Migrations
                         .WithMany("Order")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK__order__user__3D5E1FD2")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RudesWebapp.Models.OrderArticle", b =>
