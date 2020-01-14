@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
@@ -21,14 +24,22 @@ namespace RudesWebapp.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _manager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly ILogger<RegisterModel> _logger;
+        private readonly IEmailSender _emailSender;
 
 
-        public ManageUsersController(RudesDatabaseContext context, IMapper mapper, UserManager<User> manager, RoleManager<IdentityRole> roleManager)
+        public ManageUsersController(RudesDatabaseContext context, IMapper mapper, UserManager<User> manager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager,
+    ILogger<RegisterModel> logger,
+    IEmailSender emailSender)
         {
             _context = context;
             _mapper = mapper;
             _manager = manager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
+            _logger = logger;
+            _emailSender = emailSender;
         }
 
         // GET: ManageUsers
@@ -95,34 +106,24 @@ namespace RudesWebapp.Controllers
         // POST: Article/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /* [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")]
             UserDTO userDTO)
-        { 
+        {
 
-            if (!ModelState.IsValid) return Page();
-            var user = new User
-            { UserName = userDTO.FirstName + userDTO.LastName, Email = userDTO.Email, Name = userDTO.FirstName, LastName = userDTO.LastName };
-            var result = await _manager.CreateAsync(user, userDTO.Password);
-            if (result.Succeeded)
+            var x = new RegisterModel(_manager, _signInManager, _logger, _emailSender, _context);
+            x.Input = new RegisterModel.InputModel()
             {
+                Email = userDTO.Email,
+                Password = userDTO.Password,
+                ConfirmPassword = userDTO.ConfirmPassword,
+                Name = userDTO.FirstName,
+                LastName = userDTO.LastName
+            };
+            return await x.OnPostAsync();
 
-                // Adding a shopping cart for the new user
-                var shoppingCart = new ShoppingCart
-                {
-                    User = user
-                };
-                _context.ShoppingCart.Add(shoppingCart);
-                _context.User.Find(user.Id).ShoppingCart = shoppingCart;
-                _context.SaveChanges();
-                //_logger.LogInformation("User created a new account with password.");
-                return RedirectToAction(nameof(Index));
-            }
-
-            await PrepareDropDowns();
-            return View(userDTO);
-        } */
+        }  */
 
         // GET: Article/Edit/5
         public async Task<IActionResult> Edit(string id)

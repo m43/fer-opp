@@ -83,7 +83,7 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null, string role = Roles.User)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -94,7 +94,7 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)
             {
-
+                await _userManager.AddToRoleAsync(_context.User.Find(user.Id), role);
                 _logger.LogInformation("User created a new account with password.");
                
 
