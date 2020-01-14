@@ -47,15 +47,15 @@ namespace RudesWebapp.Controllers
                     Email = user.Email,
                     FirstName = user.Name,
                     LastName = user.LastName,
-                    Password = null,
-                    ConfirmPassword = null,
+                    Password = user.PasswordHash,
+                    ConfirmPassword = user.PasswordHash,
                     Role = (await _manager.GetRolesAsync(user)).First()
                 });
             }
            
             return View(result);
         }
-        // GET: Article/Details/5
+        // GET: ManageUsers/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -68,14 +68,25 @@ namespace RudesWebapp.Controllers
             {
                 return NotFound();
             }
+            var userDTO = new UserDTO
+            {
+                Id = user.Id,
+                Email = user.Email,
+                LastName = user.LastName,
+                FirstName = user.Name,
+                Password = user.PasswordHash,
+                ConfirmPassword = user.PasswordHash,
+                Role = (await _manager.GetRolesAsync(user)).First()
 
-            return View();
+            };
+
+            return View(userDTO);
         }
 
-        // GET: Article/Create
+        // GET: ManageUsers/Create
         public IActionResult Create()
         {
-            
+            PrepareDropDowns();
             return View();
         }
 
@@ -88,6 +99,7 @@ namespace RudesWebapp.Controllers
             UserDTO userDTO)
         { 
 
+            if (!ModelState.IsValid) return Page();
             var user = new User
             { UserName = userDTO.FirstName + userDTO.LastName, Email = userDTO.Email, Name = userDTO.FirstName, LastName = userDTO.LastName };
             var result = await _manager.CreateAsync(user, userDTO.Password);
@@ -106,6 +118,7 @@ namespace RudesWebapp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            await PrepareDropDowns();
             return View(userDTO);
         } */
 
@@ -127,8 +140,8 @@ namespace RudesWebapp.Controllers
                 Id = user.Id,
                 FirstName = user.Name,
                 LastName = user.LastName,
-                Password = null,
-                ConfirmPassword = null,
+                Password = user.PasswordHash,
+                ConfirmPassword = user.PasswordHash,
                 Email = user.Email,
                 Role = (await _manager.GetRolesAsync(user)).First()
 
@@ -155,7 +168,7 @@ namespace RudesWebapp.Controllers
             {
                 try
                 {
-                    var user = await _context.Article.FindAsync(id);
+                    var user = await _context.User.FindAsync(id);
                     _mapper.Map(userDTO, user);
                     await _context.SaveChangesAsync();
                 }
