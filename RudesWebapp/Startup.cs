@@ -59,6 +59,7 @@ namespace RudesWebapp
                 });
 
             services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
+            
             services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
 
             services.AddImageSharpCore(
@@ -109,11 +110,10 @@ namespace RudesWebapp
                 .AddProvider<PhysicalFileSystemProvider>()
                 .AddProcessor<ResizeWebProcessor>()
                 .AddProcessor<FormatWebProcessor>();
+
+            services.TryAddEnumerable(new[] {ServiceDescriptor.Transient<ITrigger, CreateShoppingCartTrigger>()});
             
-            services.TryAddEnumerable(new []
-            {
-                ServiceDescriptor.Transient<ITrigger, CreateShoppingCartTrigger>(), 
-            });
+            services.AddScoped<ImageService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
@@ -122,7 +122,7 @@ namespace RudesWebapp
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
+                // RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
             }
             else
             {
