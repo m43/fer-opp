@@ -46,6 +46,16 @@
             );
 
             this.totalPrice = total;
+        },
+        clearShoppingCart: function () {
+
+            axios.get("/Webshop/ClearShoppingCart")
+                .then(response => {
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     },
     beforeMount: function () {

@@ -4,11 +4,23 @@
             <div class="articleDiv">
                 <img class="productImages" src="/images/rudes-logo.jpg" >
                 <figcaption class="articleDescription">
-                     <button type="button" class="priceButton" data-toggle="modal" data-target=".bd-example-modal-lg">
-                         {{ article.name }}
-                     </button>
+                    {{ article.name }}
                 </figcaption>
                 <figcaption class="articleDescription">{{ article.price }} hrk </figcaption>
+                <figcaption>
+                    <div>
+                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XS</label>
+                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">S</label>
+                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">M</label>
+                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">L</label>
+                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XL</label>
+                    </div>
+                </figcaption>
+                <figcaption>
+                    <button type="button" class="priceButton" data-toggle="modal" data-target="#articleDetailsModal">
+                        Više detalja
+                     </button>
+                </figcaption>
                 <button class="buttonStyle" @click="passArticle(article.id, 1, 'XL')">Dodaj u košaricu</button>
                 <hr />
             </div>
