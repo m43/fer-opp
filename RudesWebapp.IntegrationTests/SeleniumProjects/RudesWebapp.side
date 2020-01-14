@@ -268,6 +268,637 @@
       ],
       "value": ""
     }]
+  }, {
+    "id": "581de4dc-6bd4-4893-83f8-57ecb446dcd9",
+    "name": "Non-implemented functionalities",
+    "commands": [{
+      "id": "bea08590-0e89-4956-ada2-0c00e93c12f0",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "97c6a89a-ede3-453b-a5d2-2dc5bb361acb",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x812",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ecd2da5-5906-4085-bc80-ddd8e2e04cf4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col:nth-child(1) > h4",
+      "targets": [
+        ["css=.col:nth-child(1) > h4", "css:finder"],
+        ["xpath=//h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'Košarkaški klub Rudeš')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "64c0d963-bfe8-45ce-a8c1-16fe89f8afa8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col > p:nth-child(2)",
+      "targets": [
+        ["css=.col > p:nth-child(2)", "css:finder"],
+        ["xpath=//footer/div/div/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Dragutina Freudenriecha 19')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "224cb71c-4d07-4bd9-a041-2736368b93d7",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(3)",
+      "targets": [
+        ["css=p:nth-child(3)", "css:finder"],
+        ["xpath=//p[2]", "xpath:position"],
+        ["xpath=//p[contains(.,'10000 Zagreb')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4965c4bb-4cb6-4c55-a428-d32b299be225",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col:nth-child(1)",
+      "targets": [
+        ["css=.col:nth-child(1)", "css:finder"],
+        ["xpath=//footer/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca739f11-7608-446f-92cf-825d46561ce0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col:nth-child(1)",
+      "targets": [
+        ["css=.col:nth-child(1)", "css:finder"],
+        ["xpath=//footer/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6c487cee-e1ad-47f1-b549-46864350ae40",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "css=.col:nth-child(1)",
+      "targets": [
+        ["css=.col:nth-child(1)", "css:finder"],
+        ["xpath=//footer/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "39dcd602-2ca0-4480-84df-0a341fc2908d",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(4)",
+      "targets": [
+        ["css=p:nth-child(4)", "css:finder"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Kontakt broj: 091 2542 354 (Danko Miholić)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "11ff1148-8665-41d1-b0bc-088e946c3479",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(4)",
+      "targets": [
+        ["css=p:nth-child(4)", "css:finder"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Kontakt broj: 091 2542 354 (Danko Miholić)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4817faf6-523e-42dd-a6ed-e2359733d42e",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(4)",
+      "targets": [
+        ["css=p:nth-child(4)", "css:finder"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Kontakt broj: 091 2542 354 (Danko Miholić)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4e813980-a5ac-49fd-81c0-2ab8d454f3fc",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "css=p:nth-child(4)",
+      "targets": [
+        ["css=p:nth-child(4)", "css:finder"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Kontakt broj: 091 2542 354 (Danko Miholić)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5923bc5d-dfd7-43fd-bf3c-b174fd9a2435",
+      "comment": "",
+      "command": "click",
+      "target": "css=.footer-copyright",
+      "targets": [
+        ["css=.footer-copyright", "css:finder"],
+        ["xpath=//footer/div/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "caf9af9d-dfdb-41f3-86b3-548ad4b2af44",
+      "comment": "",
+      "command": "click",
+      "target": "css=.footer-copyright",
+      "targets": [
+        ["css=.footer-copyright", "css:finder"],
+        ["xpath=//footer/div/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7347e3fb-7a13-4c22-8bc9-e449e15f3c5a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col:nth-child(3)",
+      "targets": [
+        ["css=.col:nth-child(3)", "css:finder"],
+        ["xpath=//footer/div/div/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1e56d895-12f8-4de8-9c5f-3bdecde40bfd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col:nth-child(3)",
+      "targets": [
+        ["css=.col:nth-child(3)", "css:finder"],
+        ["xpath=//footer/div/div/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "404f72d2-1b0b-4659-8df7-9227c8b79b1b",
+      "comment": "",
+      "command": "click",
+      "target": "css=img:nth-child(4)",
+      "targets": [
+        ["css=img:nth-child(4)", "css:finder"],
+        ["xpath=//img[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3541312b-9e91-47bd-ac03-66a1d2fe5adb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col:nth-child(3)",
+      "targets": [
+        ["css=.col:nth-child(3)", "css:finder"],
+        ["xpath=//footer/div/div/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9a5d0935-83c1-4eb6-afc1-c21e76280e45",
+      "comment": "",
+      "command": "click",
+      "target": "css=b",
+      "targets": [
+        ["css=b", "css:finder"],
+        ["xpath=//div[@id='index']/h1/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'KK Rudeš')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3af8454a-cf7b-44a7-8222-22df0b4e5b9f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#index > p",
+      "targets": [
+        ["css=#index > p", "css:finder"],
+        ["xpath=//div[@id='index']/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Dobrodošli na službenu stranicu košarkaškog kluba Rudeš.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "83f2e2fc-5ae5-4f5e-a3cd-8d0db031e857",
+      "comment": "",
+      "command": "click",
+      "target": "css=#index > p",
+      "targets": [
+        ["css=#index > p", "css:finder"],
+        ["xpath=//div[@id='index']/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Dobrodošli na službenu stranicu košarkaškog kluba Rudeš.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "361a0468-c1f8-4ed1-af8a-3a1bc28056c1",
+      "comment": "",
+      "command": "click",
+      "target": "css=#index > p",
+      "targets": [
+        ["css=#index > p", "css:finder"],
+        ["xpath=//div[@id='index']/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Dobrodošli na službenu stranicu košarkaškog kluba Rudeš.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "215e152e-0493-433e-8168-01a195b58c70",
+      "comment": "",
+      "command": "click",
+      "target": "css=#index > p",
+      "targets": [
+        ["css=#index > p", "css:finder"],
+        ["xpath=//div[@id='index']/p", "xpath:idRelative"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Dobrodošli na službenu stranicu košarkaškog kluba Rudeš.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c69b42ff-abbe-4136-86b2-a79b90f3efc7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.carousel-control-next-icon",
+      "targets": [
+        ["css=.carousel-control-next-icon", "css:finder"],
+        ["xpath=//div[@id='postsCarousel']/a[2]/span", "xpath:idRelative"],
+        ["xpath=//a[2]/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c271cc32-c5ba-447c-98da-8e062a56e71d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-md-12 > img",
+      "targets": [
+        ["css=.col-md-12 > img", "css:finder"],
+        ["xpath=(//img[@alt='Rudeš Logo'])[2]", "xpath:img"],
+        ["xpath=//div[@id='index']/div/div[3]/div/div[2]/div/div[2]/img", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "146bd151-c83b-42f7-88ab-162ec2206890",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-md-12 > img",
+      "targets": [
+        ["css=.col-md-12 > img", "css:finder"],
+        ["xpath=(//img[@alt='Rudeš Logo'])[2]", "xpath:img"],
+        ["xpath=//div[@id='index']/div/div[3]/div/div[2]/div/div[2]/img", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b1b3e40-4e2a-4054-87fa-3cd00e2bc83a",
+      "comment": "",
+      "command": "click",
+      "target": "css=b",
+      "targets": [
+        ["css=b", "css:finder"],
+        ["xpath=//div[@id='index']/h1/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'KK Rudeš')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "003838b2-3365-4e73-837f-2ca1d1abeb29",
+    "name": "Webshop",
+    "commands": [{
+      "id": "8300dbec-fac4-4e3b-b5bc-12654369dd37",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68d25318-39cc-4617-92aa-46f7d96efab5",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x812",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7c845b17-ee9d-4dea-96f3-6a58c9c509ef",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Webshop",
+      "targets": [
+        ["linkText=Webshop", "linkText"],
+        ["css=.nav-item:nth-child(5) > .nav-link", "css:finder"],
+        ["xpath=//div[@id='navbar']/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/Webshop/WebshopStart')]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,' Webshop')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3bd43eae-d268-4f1d-a956-5367cf97bccb",
+      "comment": "",
+      "command": "click",
+      "target": "id=login",
+      "targets": [
+        ["id=login", "id"],
+        ["linkText=Login", "linkText"],
+        ["css=#login", "css:finder"],
+        ["xpath=//a[contains(text(),'Login')]", "xpath:link"],
+        ["xpath=//a[@id='login']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/ul/li[7]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/Identity/Account/Login')]", "xpath:href"],
+        ["xpath=//li[7]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3a203e66-3917-43d0-b716-418306c1adc8",
+      "comment": "",
+      "command": "click",
+      "target": "id=Input_Email",
+      "targets": [
+        ["id=Input_Email", "id"],
+        ["name=Input.Email", "name"],
+        ["css=#Input_Email", "css:finder"],
+        ["xpath=//input[@id='Input_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e52812bc-8f06-4524-8fea-b7c59b8b3fea",
+      "comment": "",
+      "command": "type",
+      "target": "id=Input_Email",
+      "targets": [
+        ["id=Input_Email", "id"],
+        ["name=Input.Email", "name"],
+        ["css=#Input_Email", "css:finder"],
+        ["xpath=//input[@id='Input_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "admin@hivemind.org"
+    }, {
+      "id": "bc18117c-ccdc-408a-b221-a16c4a2a39be",
+      "comment": "",
+      "command": "click",
+      "target": "id=Input_Password",
+      "targets": [
+        ["id=Input_Password", "id"],
+        ["name=Input.Password", "name"],
+        ["css=#Input_Password", "css:finder"],
+        ["xpath=//input[@id='Input_Password']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "40eaf39b-f3a2-45f5-8a24-27d2a0bf069a",
+      "comment": "",
+      "command": "type",
+      "target": "id=Input_Password",
+      "targets": [
+        ["id=Input_Password", "id"],
+        ["name=Input.Password", "name"],
+        ["css=#Input_Password", "css:finder"],
+        ["xpath=//input[@id='Input_Password']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "HiveMind.2019"
+    }, {
+      "id": "ca9e6f01-a9e5-4176-ab6b-88f56b80db46",
+      "comment": "",
+      "command": "click",
+      "target": "id=Input_RememberMe",
+      "targets": [
+        ["id=Input_RememberMe", "id"],
+        ["name=Input.RememberMe", "name"],
+        ["css=#Input_RememberMe", "css:finder"],
+        ["xpath=//input[@id='Input_RememberMe']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[4]/div/label/input", "xpath:idRelative"],
+        ["xpath=//label/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8b85c5a8-2807-429e-9f5c-db1507291493",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group > .btn",
+      "targets": [
+        ["css=.form-group > .btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='account']/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Log in')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2f37756e-2da9-4a7b-a54a-6872626f9257",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa-shopping-cart",
+      "targets": [
+        ["css=.fa-shopping-cart", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "a009c642-e66f-4802-b432-5d0a59fd1d24",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(4) .deleteButton",
+      "targets": [
+        ["css=tr:nth-child(4) .deleteButton", "css:finder"],
+        ["xpath=//div[@id='shoppingCartModal']/div/div/div[2]/table/tbody/tr[4]/td/div", "xpath:idRelative"],
+        ["xpath=//tr[4]/td/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d66ae333-1466-4c51-970d-94bf5acc4e78",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-secondary:nth-child(2)",
+      "targets": [
+        ["css=.btn-secondary:nth-child(2)", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='shoppingCartModal']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Zatvori')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a612cfb9-9723-4335-85f6-07d0b7e004f8",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Webshop",
+      "targets": [
+        ["linkText=Webshop", "linkText"],
+        ["css=.nav-item:nth-child(5) > .nav-link", "css:finder"],
+        ["xpath=//div[@id='navbar']/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/Webshop/WebshopStart')]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,' Webshop')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb127917-7931-47b6-8949-8701032bdafe",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(1) > .col-md-6:nth-child(2) .buttonStyle",
+      "targets": [
+        ["css=.row:nth-child(1) > .col-md-6:nth-child(2) .buttonStyle", "css:finder"],
+        ["xpath=//div[@id='webshop']/div[2]/div/div/div[2]/div/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div[2]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "53b6e3db-3a00-45e1-84d6-216527649da5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(1) > .col-md-6:nth-child(3) .buttonStyle",
+      "targets": [
+        ["css=.row:nth-child(1) > .col-md-6:nth-child(3) .buttonStyle", "css:finder"],
+        ["xpath=//div[@id='webshop']/div[2]/div/div/div[3]/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe4529d5-d6f7-4272-8481-03f70fc302a6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.nav-item:nth-child(6) > .nav-link",
+      "targets": [
+        ["css=.nav-item:nth-child(6) > .nav-link", "css:finder"],
+        ["xpath=//div[@id='navbar']/ul/li[6]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a8d7d916-902c-4da2-aa11-b70579bc95ce",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.nav-item:nth-child(6) > .nav-link",
+      "targets": [
+        ["css=.nav-item:nth-child(6) > .nav-link", "css:finder"],
+        ["xpath=//div[@id='navbar']/ul/li[6]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f30732c-1c9c-4de9-a3a2-b9091284e436",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.nav-item:nth-child(6) > .nav-link",
+      "targets": [
+        ["css=.nav-item:nth-child(6) > .nav-link", "css:finder"],
+        ["xpath=//div[@id='navbar']/ul/li[6]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0ab4fabf-ab9a-44d2-bf3e-8416f8300abf",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(2) path",
+      "targets": [
+        ["css=tr:nth-child(2) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "a59ec970-af87-463b-9090-7323a178a8ba",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(2) path",
+      "targets": [
+        ["css=tr:nth-child(2) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0f354547-bdc8-4469-b41c-c9b06d38bf93",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "css=tr:nth-child(2) path",
+      "targets": [
+        ["css=tr:nth-child(2) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "adc10a0f-509f-43d6-9ca7-92529829872f",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(2) path",
+      "targets": [
+        ["css=tr:nth-child(2) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "3db3ce27-1d5d-4409-bb18-f326a75a16ab",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(2) path",
+      "targets": [
+        ["css=tr:nth-child(2) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "d66e5c36-8758-4005-b024-3b6b73a17897",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(2) path",
+      "targets": [
+        ["css=tr:nth-child(2) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "e884787a-6409-4d16-acee-a577a4496d73",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-secondary:nth-child(2)",
+      "targets": [
+        ["css=.btn-secondary:nth-child(2)", "css:finder"],
+        ["xpath=(//button[@type='button'])[26]", "xpath:attributes"],
+        ["xpath=//div[@id='shoppingCartModal']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//body/div[2]/div/div/div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Zatvori')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c8aa5249-212d-4b95-86a3-17e090b8d31c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(1) > .col-md-6:nth-child(4) .buttonStyle",
+      "targets": [
+        ["css=.row:nth-child(1) > .col-md-6:nth-child(4) .buttonStyle", "css:finder"],
+        ["xpath=//div[@id='webshop']/div[2]/div/div/div[4]/div/button", "xpath:idRelative"],
+        ["xpath=//div[4]/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e4a0ef8f-4882-470c-9f4a-801eeb290aec",
+      "comment": "",
+      "command": "click",
+      "target": "css=.nav-item:nth-child(6) > .nav-link",
+      "targets": [
+        ["css=.nav-item:nth-child(6) > .nav-link", "css:finder"],
+        ["xpath=//div[@id='navbar']/ul/li[6]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[3]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "72f8300a-c32a-4718-907e-60d0a73b7cd9",
+      "comment": "",
+      "command": "click",
+      "target": "id=shoppingCartModal",
+      "targets": [
+        ["id=shoppingCartModal", "id"],
+        ["css=#shoppingCartModal", "css:finder"],
+        ["xpath=//div[@id='shoppingCartModal']", "xpath:attributes"],
+        ["xpath=//body/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "f97daa5e-54ee-4e9d-a727-8ed0854f46e0",
