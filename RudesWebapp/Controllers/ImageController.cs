@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +24,7 @@ namespace RudesWebapp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<ImageDTO>>(await _context.Image.ToListAsync()));
+            return View(await _context.Image.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -41,7 +40,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            return View(_mapper.Map<ImageDTO>(image));
+            return View(image);
         }
 
         // GET: Image/Create

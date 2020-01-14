@@ -1,4 +1,4 @@
-@model RudesWebapp.Dtos.ImageDTO
+@model Image
 
 @{
     ViewData["Title"] = "Details";
@@ -14,7 +14,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.Raw(Model.GetPath())
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.OriginalName)
@@ -30,6 +30,12 @@
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.AltText)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AltText)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AltText)
