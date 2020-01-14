@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
 using RudesWebapp.Services;
+using RudesWebapp.Triggers;
 using SixLabors.ImageSharp.Web.Caching;
 using SixLabors.ImageSharp.Web.Commands;
 using SixLabors.ImageSharp.Web.DependencyInjection;
@@ -107,6 +109,11 @@ namespace RudesWebapp
                 .AddProvider<PhysicalFileSystemProvider>()
                 .AddProcessor<ResizeWebProcessor>()
                 .AddProcessor<FormatWebProcessor>();
+            
+            services.TryAddEnumerable(new []
+            {
+                ServiceDescriptor.Transient<ITrigger, CreateShoppingCartTrigger>(), 
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
