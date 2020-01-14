@@ -48,10 +48,9 @@
             this.totalPrice = total;
         },
         clearShoppingCart: function () {
-
             axios.get("/Webshop/ClearShoppingCart")
                 .then(response => {
-
+                    this.updateCurrentCart();
                 })
                 .catch(error => {
                     console.log(error);

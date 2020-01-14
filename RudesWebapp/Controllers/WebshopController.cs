@@ -427,15 +427,17 @@ namespace RudesWebapp.Controllers
         }
 
 
-        [HttpPut]
+        [HttpGet]
         [Authorize(Roles = Roles.UserOrAbove)]
-        public async void ClearShoppingCart()
+        public async Task<ActionResult<int>> ClearShoppingCart()
         {
             // TODO if not logged in, then use cookies!
 
             var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
             ShoppingCartService service = new ShoppingCartService(shoppingCart);
             await service.ClearShoppingCart(_context);
+
+            return 0;
         }
 
         [HttpGet]
