@@ -42,10 +42,63 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" @@click="clearShoppingCart()">Isprazni košaricu</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                <button type="button" class="btn btn-primary">Spremi</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#paymentModal" data-dismiss="modal">Plaćanje</button>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalTitle">Plaćanje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p></p>
+                <table v-if="items.length != 0">
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Size</th>
+                    </tr>
+
+                    <tr v-for="item in items">
+
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.size }}</td>
+                    </tr>
+                </table>
+                <div>
+                    Total price: {{ totalPrice }}kn
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Plati</button>
+                <button type="button" class="btn btn-default" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
 
 <script src="~/js/shoppingCart.js"></script>
