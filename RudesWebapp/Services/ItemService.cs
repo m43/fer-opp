@@ -12,12 +12,17 @@ namespace RudesWebapp.Services
     {
         public static ItemDTO CreateItem(RudesDatabaseContext context, ShoppingCartArticle shoppingCartArticle, Article article)
         {
-            
-            var discountPercentage = context.Discount
+            var discountPercentage = 0;
+
+            var discounts = context.Discount
                 .Where(discount => discount.ArticleId == shoppingCartArticle.ArticleId)
                 .Select(discount => discount.Percentage)
-                .DefaultIfEmpty()
-                .Max();
+                .ToList();
+
+            if (discounts.Count() != 0)
+            {
+                discountPercentage = discounts.Max();
+            }
 
             // TODO remove Argb and ShoppingCartId
             ItemDTO item = new ItemDTO
