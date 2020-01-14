@@ -30,14 +30,12 @@ namespace RudesWebapp.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             RudesDatabaseContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
             _context = context;
