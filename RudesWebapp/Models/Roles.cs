@@ -1,4 +1,6 @@
-﻿namespace RudesWebapp.Models
+﻿using System.Collections.Generic;
+
+namespace RudesWebapp.Models
 {
     public class Roles
     {
@@ -21,6 +23,10 @@
          * Above a User are coach, board and admin. Users are at the bottom of the hierarchy
          */
         public const string UserOrAbove = User + ", " + CoachOrAbove;
+
+        // list of all roles
+
+        public static readonly List<string> AllRoles = new List<string>(new string[] { User, Coach, Board, Admin });
 
         public const string User = "User";
         public const string Coach = "Coach";

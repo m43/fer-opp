@@ -20,13 +20,15 @@ namespace RudesWebapp.Controllers
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _manager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
 
-        public ManageUsersController(RudesDatabaseContext context, IMapper mapper, UserManager<User> manager)
+        public ManageUsersController(RudesDatabaseContext context, IMapper mapper, UserManager<User> manager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _mapper = mapper;
             _manager = manager;
+            _roleManager = roleManager;
         }
 
         // GET: ManageUsers
@@ -95,7 +97,7 @@ namespace RudesWebapp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         /* [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Email,Password,ConfirmPassword,FirstName,LastName,Role")]
+        public async Task<IActionResult> Create([Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")]
             UserDTO userDTO)
         { 
 
@@ -157,7 +159,7 @@ namespace RudesWebapp.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Role")] UserDTO userDTO)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")] UserDTO userDTO)
         {
             if (id != userDTO.Id)
             {
@@ -170,6 +172,18 @@ namespace RudesWebapp.Controllers
                 {
                     var user = await _context.User.FindAsync(id);
                     _mapper.Map(userDTO, user);
+                    var roleName = userDTO.Role;
+                    var roleCheck = await _roleManager.RoleExistsAsync(roleName);
+                    if (!roleCheck)
+                    {
+                        return BadRequest();
+                    }
+                    var roles = await _manager.GetRolesAsync(user);
+                    foreach (var role in roles)
+                    {
+                        await _manager.RemoveFromRoleAsync(user, role);
+                    }
+                    await _manager.AddToRoleAsync(user, roleName);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -232,11 +246,8 @@ namespace RudesWebapp.Controllers
 
         private void PrepareDropDowns()
         {
-            var roles = new List<string>();
-            string[] possibleRoles = { "Admin", "Board",
-                        "Coach", "User" };
-            roles.AddRange(possibleRoles);
-            ViewBag.Images = new SelectList(roles);
+
+            ViewBag.Images = new SelectList(Roles.AllRoles);
         }
 
         private bool UserExists(string id)
