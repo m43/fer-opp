@@ -6,7 +6,7 @@
                 <figcaption class="articleDescription">
                     {{ article.name }}
                 </figcaption>
-                <figcaption class="articleDescription">{{ article.price }} hrk </figcaption>
+                <figcaption class="articleDescription">{{ article.price }} kn </figcaption>
                 <figcaption>
                     <div>
                         <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XS</label>

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="shoppingCartModalTitle">Detalji artikla</h5>
+                <h5 class="modal-title" id="shoppingCartModalTitle">Detalji artikla {{ selectedArticle.name }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,28 +12,31 @@
             <div class="modal-body container-fluid">
                 <div class="modalOuterDiv row">
                     <div id="modalPictureDiv" class="col-6">
-                        <img class="productImages" src="/images/rudes-logo.jpg">
+                        <img id="modalPicture" class="productImages" src="/images/rudes-logo.jpg">
                     </div>
                     <div class="modalContentDiv col-6">
-                        <div id="modalArticleName col-12">
-                            naslov
+                        <div id="modalArticleName" class="col-12">
+                            {{ selectedArticle.name }}
                         </div>
-                        <div id="modalArticleDescription col-12">
-                            opis
+                        <div id="modalArticleDescription" class="col-12">
+                           {{ selectedArticle.description }}
                         </div>
-                        <div id="modalArticleReview col-12">
-                            recenzije
+                        <div id="modalArticleReview" class="col-12">
+                            {{ selectedArticle.review }}
                         </div>
-                        <div id="modalArticleSizes col-12">
-                            checkbox s velicinama <br>
+                        <div id="modalArticleSizes" class="col-12">
+                            Odaberite veličinu
+                            <br />
                             <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XS</label>
                             <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">S</label>
                             <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">M</label>
                             <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">L</label>
                             <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XL</label>
+                            <br />
                         </div>
-                        <div id="modalArticleQuantity col-12">
-                            broj artikala
+                        <div id="modalArticleQuantity" class="col-12">
+                            Unesite broj artikala
+                            <br />
                             <input type="number" step="1" min="1" max="" size="2" pattern="" inputmode="">
                         </div>
                     </div>
@@ -42,10 +45,11 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Odbaci</button>
-                <button class="buttonStyle">Dodaj u košaricu</button>
+                <button class="btn btn-primary">Dodaj u košaricu</button>
             </div>
         </div>
     </div>
 </div>
 
 <script src="~/js/articleDetails.js"></script>
+<link rel="stylesheet" type="text/css" href="~/css/articleDetails.css">

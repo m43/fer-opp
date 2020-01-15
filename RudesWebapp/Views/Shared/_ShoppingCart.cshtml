@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div>
-                    Total price: {{ totalPrice }}kn
+                    Ukupna cijena: {{ totalPrice }} kn
                 </div>
                 <p></p>
                 <table v-if="items.length != 0">
@@ -41,8 +41,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" @@click="clearShoppingCart()">Isprazni košaricu</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#paymentModal" data-dismiss="modal">Plaćanje</button>
+                <!-- do we still need Zatvori button if we have x on the top right?  -->
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal" data-dismiss="modal">Plaćanje</button>
             </div>
         </div>
     </div>
@@ -86,12 +87,12 @@
                     </tr>
                 </table>
                 <div>
-                    Total price: {{ totalPrice }}kn
+                    Ukupna cijena: {{ totalPrice }} kn
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Plati</button>
-                <button type="button" class="btn btn-default" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
+                <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
             </div>
         </div>
     </div>
