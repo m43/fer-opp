@@ -32,9 +32,9 @@ a {
     }
 }
 
-.border-top {
-    border-top: 1px solid #e5e5e5;
-}
+.my-border-top {
+    border-top: 1px solid #06244A !important;
+} 
 
 .border-bottom {
     border-bottom: 1px solid #e5e5e5;
@@ -101,3 +101,4 @@ nav a {
         color: black;
         text-decoration: none;
     }
+
