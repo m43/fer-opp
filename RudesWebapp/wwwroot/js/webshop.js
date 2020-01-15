@@ -107,8 +107,8 @@ var webshop = new Vue({
                     let article = this.allArticles[i];
                     let filterPass = true;
 
-                    if (article.type == "hoodie" && !this.hoodieFilter) filterPass = false;
-                    if (article.type == "t-shirt" && !this.tshirtFilter) filterPass = false;
+                    if (article.type == "hoodie" && this.tshirtFilter) filterPass = false;
+                    if (article.type == "t-shirt" && this.hoodieFilter) filterPass = false;
 
                     if (this.maxPrice != 0 && article.price >= this.maxPrice) filterPass = false;
 
