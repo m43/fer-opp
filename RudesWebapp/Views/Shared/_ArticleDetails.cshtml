@@ -17,6 +17,7 @@
                     <div class="modalContentDiv col-6">
                         <div id="modalArticleName" class="col-12">
                             {{ selectedArticle.name }}
+                            <br />
                         </div>
                         <div id="modalArticleDescription" class="col-12">
                            {{ selectedArticle.description }}
@@ -27,12 +28,16 @@
                         <div id="modalArticleSizes" class="col-12">
                             Odaberite veličinu
                             <br />
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XS</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">S</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">M</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">L</label>
-                            <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XL</label>
-                            <br />
+                            <div v-if="probneDostupneVelicine.length != 0">
+                                <div style="display: inline" v-for="velicina in probneDostupneVelicine">
+                                    <template v-if="velicina > 0">
+                                        <label class="checkbox-inline" style="margin: 0.5%; display: inline"><input type="radio" name="price" value="XS" :disabled='isNotDisabled'>XS</label>
+                                    </template>
+                                    <template v-if="velicina <= 0">
+                                        <label class="checkbox-inline" style="margin: 0.5%; display: inline"><input type="radio" name="price" value="XS" :disabled='isDisabled'>XS</label>
+                                    </template>
+                                </div>
+                            </div>
                         </div>
                         <div id="modalArticleQuantity" class="col-12">
                             Unesite broj artikala
