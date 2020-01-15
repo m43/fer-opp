@@ -180,7 +180,7 @@ namespace RudesWebapp.Data
                 // Image.Name corresponds to path, therefore it must be unique
                 // entity.HasAlternateKey(e => e.Name);
 
-                entity.Property(e => e.OriginalName)
+                entity.Property(e => e.Title)
                     .HasColumnName("original_name")
                     .IsRequired();
 

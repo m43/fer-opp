@@ -85,7 +85,6 @@ namespace RudesWebapp.Data
                 var orderArticles = GetOrderArticles(context);
                 context.OrderArticle.AddRange(orderArticles);
                 context.SaveChanges();
-                context.SaveChangesAsync();
 
                 transaction.Commit();
             }
@@ -98,28 +97,28 @@ namespace RudesWebapp.Data
                 new Image
                 {
                     Name = "dummy1.png",
-                    OriginalName = "dummyimage.png",
+                    Title = "dummyimage.png",
                     AltText = "Dummy image alt text",
                     Caption = "Dummy image caption"
                 },
                 new Image
                 {
                     Name = "dummy2.png",
-                    OriginalName = "dummyimage.png",
+                    Title = "dummyimage.png",
                     AltText = "Dummy image alt text",
                     Caption = "Dummy image caption"
                 },
                 new Image
                 {
                     Name = "dummy3.png",
-                    OriginalName = "dummyimage.png",
+                    Title = "dummyimage.png",
                     AltText = "Dummy image alt text",
                     Caption = "Dummy image caption"
                 },
                 new Image
                 {
                     Name = "dummy4.png",
-                    OriginalName = "dummyimage.png",
+                    Title = "dummyimage.png",
                     AltText = "Dummy image alt text",
                     Caption = "Dummy image caption"
                 }

@@ -26,17 +26,20 @@
                 <a class="dropdown-item" asp-controller="Image" asp-action="">Uredi slike</a>
                 <a class="dropdown-item" asp-controller="Player" asp-action="">Uredi igrače</a>
                 <a class="dropdown-item" asp-controller="Match" asp-action="">Uredi utakmice</a>
+                <hr/>
             }
             @if (User.IsInRoles(Roles.BoardOrAbove))
             {
                 <a class="dropdown-item" asp-controller="Article" asp-action="">Uredi artikle</a>
                 <a class="dropdown-item" asp-controller="Discount" asp-action="">Uredi popuste</a>
                 <a class="dropdown-item" asp-controller="Order" asp-action="">Uredi narudzbe</a>
+                <hr/>
             }
             @if (User.IsInRoles(Roles.BoardOrAbove))
             {
                 <a class="dropdown-item" asp-controller="Review" asp-action="">Upravljaj recenzijama</a>
-                <a class="dropdown-item" asp-controller="User" asp-action="">Uredi korisnike sustava</a>
+                <a class="dropdown-item" asp-controller="ManageUsers" asp-action="">Uredi korisnike sustava</a>
+                <hr/>
             }
             <a class="dropdown-item" asp-controller="AddReview" asp-action="">Dodaj recenziju</a>
             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Uredi postavke računa</a>

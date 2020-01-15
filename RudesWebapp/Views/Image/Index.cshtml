@@ -16,7 +16,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OriginalName)
+            @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Caption)
@@ -38,7 +38,7 @@
                 @Html.Raw(item.GetPath())
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OriginalName)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Caption)

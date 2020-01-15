@@ -1,30 +1,28 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+using RudesWebapp.Services;
 
 namespace RudesWebapp.Controllers
 {
     [Authorize(Roles = Roles.CoachOrAbove)]
     public class ImageController : Controller
     {
-        private readonly RudesDatabaseContext _context;
+        private readonly ImageService _imageService;
         private readonly IMapper _mapper;
 
-        public ImageController(RudesDatabaseContext context, IMapper mapper)
+        public ImageController(ImageService imageService, IMapper mapper)
         {
-            _context = context;
+            _imageService = imageService;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Image.ToListAsync());
+            return View(await _imageService.GetImages());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +32,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var image = await _context.Image.FirstOrDefaultAsync(m => m.Id == id);
+            var image = await _imageService.GetFirstImageOrDefault(id);
             if (image == null)
             {
                 return NotFound();
@@ -51,17 +49,22 @@ namespace RudesWebapp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,OriginalName,Caption,AltText")]
+        public async Task<IActionResult> Create([Bind("Id,Title,Caption,AltText,Picture")]
             ImageDTO imageDto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add((object) _mapper.Map<Image>(imageDto));
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(imageDto);
             }
 
-            return View(imageDto);
+            if (imageDto.Picture == null)
+            {
+                ModelState.AddModelError(nameof(imageDto.Picture), "Its necessary to provide an picture");
+                return View(imageDto);
+            }
+
+            var image = await _imageService.SaveImage(imageDto);
+            return RedirectToAction(nameof(Details), new {id = image.Id});
         }
 
         // GET: Image/Edit/5
@@ -72,19 +75,18 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var image = await _context.Image.FindAsync(id);
+            var image = await _imageService.GetImage(id);
             if (image == null)
             {
                 return NotFound();
             }
-
 
             return View(_mapper.Map<ImageDTO>(image));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,OriginalName,Caption,AltText")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Caption,AltText,Picture")]
             ImageDTO imageDto)
         {
             if (id != imageDto.Id)
@@ -94,28 +96,14 @@ namespace RudesWebapp.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                var image = await _imageService.Update(id, imageDto);
+                if (image == null)
                 {
-                    // NOTE: https://stackoverflow.com/questions/13314666/using-automapper-to-update-an-existing-entity-poco/25242322
-                    var image = await _context.Image.FindAsync(id);
-                    _mapper.Map(imageDto, image);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ImageExists(imageDto.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
 
                 return RedirectToAction(nameof(Index));
             }
-
 
             return View(imageDto);
         }
@@ -128,13 +116,13 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var image = await _context.Image.FirstOrDefaultAsync(m => m.Id == id);
+            var image = await _imageService.GetFirstImageOrDefault(id);
             if (image == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<ImageDTO>(image));
+            return View(image);
         }
 
         // POST: Image/Delete/3
@@ -142,15 +130,8 @@ namespace RudesWebapp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var image = await _context.Image.FindAsync(id);
-            _context.Image.Remove(image);
-            await _context.SaveChangesAsync();
+            await _imageService.DeleteImage(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ImageExists(int id)
-        {
-            return _context.Image.Any(e => e.Id == id);
         }
     }
 }

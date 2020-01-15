@@ -22,22 +22,21 @@ namespace RudesWebapp.Helpers
         {
             return roles.Split(", ").Any(principal.IsInRole);
         }
-
-        public static async Task SetRole(this IPrincipal principal, UserManager<User> userManager, string role)
+        
+        public static async Task<bool> SetRole(this User user, UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager, string role)
         {
-            if (role == null)
-            {
-                throw new ArgumentException("Given role cannot be null.");
-            }
-
-            User user = null; // TODO
+            if (!await Roles.CheckRoleExists(roleManager, role))
+                return false;
+            
             var roles = await userManager.GetRolesAsync(user);
-            foreach (var currentRoles in roles)
+            foreach (var currentRole in roles)
             {
-                await userManager.RemoveFromRoleAsync(user, currentRoles);
+                await userManager.RemoveFromRoleAsync(user, currentRole);
             }
 
             await userManager.AddToRoleAsync(user, role);
+            return true;
         }
     }
 }

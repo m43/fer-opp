@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -27,7 +26,7 @@ namespace RudesWebapp.Controllers
         // GET: Player
         public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<PlayerDTO>>(await _context.Player.ToListAsync()));
+            return View(await _context.Player.Include(p => p.Image).ToListAsync());
         }
 
         // GET: Player/Details/5
@@ -38,13 +37,13 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player.FirstOrDefaultAsync(m => m.Id == id);
+            var player = await _context.Player.Include(p => p.Image).FirstOrDefaultAsync(m => m.Id == id);
             if (player == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<PlayerDTO>(player));
+            return View(player);
         }
 
         // GET: Player/Create
@@ -142,13 +141,13 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player.FirstOrDefaultAsync(m => m.Id == id);
+            var player = await _context.Player.Include(p => p.Image).FirstOrDefaultAsync(m => m.Id == id);
             if (player == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<PlayerDTO>(player));
+            return View(player);
         }
 
         // POST: Player/Delete/5

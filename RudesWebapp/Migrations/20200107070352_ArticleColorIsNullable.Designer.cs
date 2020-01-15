@@ -301,7 +301,7 @@ namespace RudesWebapp.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("OriginalName")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnName("original_name")
                         .HasColumnType("nvarchar(max)");
