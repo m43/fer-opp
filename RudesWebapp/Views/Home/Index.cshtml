@@ -2,74 +2,72 @@
     ViewData["Title"] = "KK Rudeš";
 }
 
-<div class="text-center" id="index">
-    <h1 class="display-4">
-        <b>KK Rudeš</b>
-    </h1>
-    <p>Dobrodošli na službenu stranicu košarkaškog kluba Rudeš.</p>
+    <div class="text-center" id="index">
+        <h1 class="display-4">
+            <b>KK Rudeš</b>
+        </h1>
 
-    <div class="container">
-        <div id="postsCarousel" class="row carousel slide" data-ride="carousel" style="width: 100%; margin: 0 auto;">
-            <ol class="carousel-indicators">
-                <template v-for="(post, index) in posts">
-                    <li v-if="index == 0" data-target="#postsCarousel" data-slide-to="index" class="active"></li>
-                    <li v-else data-target="#postsCarousel" data-slide-to="index"></li>
-                </template>
-            </ol>
+        <div class="container">
+            <div id="postsCarousel" class="row carousel slide" data-ride="carousel" style="width: 100%; margin: 0 auto;">
+                <ol class="carousel-indicators">
+                    <template v-for="(post, index) in posts">
+                        <li v-if="index == 0" data-target="#postsCarousel" data-slide-to="index" class="active"></li>
+                        <li v-else data-target="#postsCarousel" data-slide-to="index"></li>
+                    </template>
+                </ol>
 
-            <div class="carousel-inner" style="max-height: 400px;">
-                <template v-for="(post, index) in posts">
-                    <div v-if="index == 0" class="carousel-item active">
-                        <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
-                        <div class="carousel-caption d-none d-md-block">
-                            <div>
-                                <h5>{{ post.title }}</h5>
-                                <p>{{ post.content.substring(0, 400) }}... </p><br><br>
-                                <a :href="'/Home/Post?id=' + post.id" >Pročitaj više</a>
+                <div class="carousel-inner" style="max-height: 400px;">
+                    <template v-for="(post, index) in posts">
+                        <div v-if="index == 0" class="carousel-item active">
+                            <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div>
+                                    <h5>{{ post.title }}</h5>
+                                    <p>{{ post.content.substring(0, 400) }}... </p><br><br>
+                                    <a :href="'/Home/Post?id=' + post.id">Pročitaj više</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div v-else class="carousel-item">
-                        <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
-                        <div class="carousel-caption d-none d-md-block">
-                            <div>
-                                <h5>{{ post.title }}</h5>
-                                <p>{{ post.content.substring(0, 400) }}... </p><br><br>
-                                <a :href="'/Home/Post?id=' + post.id" >Pročitaj više</a>
+                        <div v-else class="carousel-item">
+                            <img src="~/images/solid-black.png" class="d-block carousel-image" alt="First Post">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div>
+                                    <h5>{{ post.title }}</h5>
+                                    <p>{{ post.content.substring(0, 400) }}... </p><br><br>
+                                    <a :href="'/Home/Post?id=' + post.id">Pročitaj više</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </template>
+                    </template>
+                </div>
+
+                <a class="carousel-control-prev" href="#postsCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#postsCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
 
-            <a class="carousel-control-prev" href="#postsCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#postsCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-
-        <div class="row" style="height: 20px"></div>
+            <div class="row" style="height: 20px"></div>
 
         <div class="container-fluid">
             <div class="row" style="height: 100%;">
                 <div style="height: auto; width: auto" class="col-md-7 col-12">
                     <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/CxZwYJsTE_w" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/live_stream?channel=UCGfzLPeRf-9WaIfkCEUzzRA"
+                                frameborder="0"
+                                allowfullscreen>
+                        </iframe>
                     </div>
-                    
-                    <!--<img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" style="height: 100%" />-->
                 </div>
                 <div class="col-md" style="height: auto; ">
                     <div class="row" style="height: 100%;">
                         <div style=" height: 50%" class="col-md-12">
                             <iframe src="https://www.youtube.com/embed/XcX-zCZfxNY" style="width: 100%; height: 95%;" allowfullscreen></iframe>
-                            
-                            <!--<img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" style="height: 100%" />-->
                         </div>
                         
                         <div style="height: 50%;" class="col-md-12">
@@ -77,12 +75,10 @@
                         </div>
                     </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
-
-</div>
 
 <script src="~/js/index.js"></script>
