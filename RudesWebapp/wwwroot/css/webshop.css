@@ -86,6 +86,15 @@
 
 .checkboxImage {
     border-style: solid;
+    margin: 3px;
+}
+
+.checkboxImageChecked {
+    border-style: solid;
+    transform: scale(0.9);
+    box-shadow: 0 0 7px #000;
+    z-index: -1;
+    margin: 3px;
 }
 
 .typesOfArticles {
@@ -228,7 +237,6 @@ label {
     z-index: -1;
 }
 
-
 /* MODAL */
 
 .modalOuterDiv{
@@ -271,27 +279,3 @@ label {
 #modalArticleQuantity {
     margin: 20%;
 }
-
-/* CUSTOM CHECKBOXES */
-
-
-
-
-/* TESTING */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

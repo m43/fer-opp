@@ -44,13 +44,19 @@
 var webshop = new Vue({
     el: "#webshop",
     data: {
-        allArticles: []
+        allArticles: [],
+        filteredArticles: [],
+        hoodieFilter: false,
+        tshirtFilter: false,
+        maxPrice: 0,
+        sortOrder: ""
     },
     methods: {
         getArticles: function () {
             axios.get("/Webshop/GetArticlesInStore")
                 .then(response => {
                     this.allArticles = response.data;
+                    this.filteredArticles = this.allArticles;
                 })
                 .catch(error => {
                     console.log(error);
@@ -90,11 +96,42 @@ var webshop = new Vue({
             } else {
                 x.style.display = "none";
             }
+        },
+        groupArticles: function (array, subArraySize) {
+            return _.chunk(array, subArraySize);
+        },
+        filterArticles: function () {
+            if (this.isFilteringActive) {
+                let filteredArray = [];
+                for (var i = 0; i < this.allArticles.length; ++i) {
+                    let article = this.allArticles[i];
+                    let filterPass = true;
+
+                    if (article.type == "hoodie" && !this.hoodieFilter) filterPass = false;
+                    if (article.type == "t-shirt" && !this.tshirtFilter) filterPass = false;
+
+                    if (this.maxPrice != 0 && article.price >= this.maxPrice) filterPass = false;
+
+                    if (filterPass) {
+                        filteredArray.push(article);
+                    }
+                }
+
+                if (this.sortOrder == "asc") filteredArray.sort((a1, a2) => a1.price - a2.price);
+                else if (this.sortOrder == "desc") filteredArray.sort((a1, a2) => a2.price - a1.price);
+
+                this.filteredArticles = filteredArray;
+            } else {
+                this.filteredArticles = this.allArticles;
+            }
         }
     },
     computed: {
-        groupedArticles: function () {
-            return _.chunk(this.allArticles, 4);
+        groupedFilteredArticles: function () {
+            return this.groupArticles(this.filteredArticles, 4);
+        },
+        isFilteringActive: function () {
+            return !(!this.hoodieFilter && !this.tshirtFilter && this.maxPrice == 0 && this.sortOrder == "");
         }
     },
     beforeMount: function () {
