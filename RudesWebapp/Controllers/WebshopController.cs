@@ -61,7 +61,6 @@ namespace RudesWebapp.Controllers
         }
 
         // Article
-        // !! Povezati sa ArticleAvailability (ne vlastite metode, vec unutar ovih od Article-a)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
         {
@@ -395,7 +394,7 @@ namespace RudesWebapp.Controllers
 
             if (selectedArticle != null)
             {
-                /*
+
                 var availability = await _context.ArticleAvailability.FindAsync(articleId, size);
                 if (availability != null)
                 {
@@ -404,7 +403,10 @@ namespace RudesWebapp.Controllers
                         return NotFound();
                     }
                 }
-                */
+                else
+                {
+                    return NotFound();
+                }
 
                 ShoppingCartService services = new ShoppingCartService(shoppingCart);
                 services.AddArticle(_context, selectedArticle, size);
@@ -413,10 +415,8 @@ namespace RudesWebapp.Controllers
                     .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id
                                                  && cart.ArticleId == selectedArticle.Id);
 
-                /*
                 availability.Quantity -= quantity;
                 await _context.SaveChangesAsync();
-                */
 
                 return Ok(ItemService.CreateItem(_context, resultArticle, selectedArticle));
             }
@@ -435,8 +435,17 @@ namespace RudesWebapp.Controllers
             var selectedArticle = await _context.Article.FindAsync(articleId);
             if (selectedArticle != null)
             {
+                var availability = await _context.ArticleAvailability.FindAsync(articleId, size);
+                if (availability == null)
+                {
+                    return NotFound();
+                }
+
                 ShoppingCartService service = new ShoppingCartService(shoppingCart);
                 var removedArticle = service.RemoveArticle(_context, selectedArticle, quantity, size);
+
+                availability.Quantity += quantity;
+                await _context.SaveChangesAsync();
 
                 return Ok(ItemService.CreateItem(_context, removedArticle, selectedArticle));
             }
