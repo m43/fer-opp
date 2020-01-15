@@ -66,7 +66,7 @@ var finalPaymentModal = new Vue({
         totalPrice: 0,
         address: "",
         city: "",
-        zip: "",
+        postalCode: 0,
     },
     methods: {
         updateCurrentCart: function () {
@@ -110,11 +110,29 @@ var finalPaymentModal = new Vue({
                 console.log(error);
             });
         },
-
-
-
-
-
+        payment: function (address, city, postalCode, items) {
+            console.log(address);
+            console.log(city);
+            console.log(postalCode);
+            console.log(items);
+            axios({
+                method: 'post',
+                url: '/Api/Order',
+                data: {
+                    address: address,
+                    city: city,
+                    postalCode: postalCode,
+                    items: items
+                },
+                headers: {
+                    'content-type':'application/json;charset=utf-8'
+                }
+            }).then(() => {  
+                console.log("bravo");
+            }).catch(error => {
+                console.log("GLUPSI");
+            });
+        }
     },
     beforeMount: function () {
         this.getArticles();

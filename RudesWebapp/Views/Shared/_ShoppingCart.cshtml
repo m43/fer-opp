@@ -50,11 +50,6 @@
 </div>
 
 
-
-
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="finalPaymentModal" tabindex="-1" role="dialog" aria-labelledby="finalPaymentModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -76,8 +71,8 @@
                     <input type="text" class="form-control" id="inputCity" placeholder="Upišite grad" v-model="city">
                 </div>
                 <div class="form-group">
-                    <label for="inputZip">Poštanski broj</label>
-                    <input type="text" class="form-control" id="inputZip" placeholder="Upišite poštanski broj" v-model="zip">
+                    <label for="inputPostalCode">Poštanski broj</label>
+                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Upišite poštanski broj" v-model="postalCode">
                 </div>
                 <div>
                     {{ totalPrice }}
@@ -85,7 +80,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Plati</button>
+                {{ address }}
+                {{ city }}
+                {{ postalCode }}
+                <button type="button" class="btn btn-primary" @@click="payment(address, city, postalCode, items)">Plati</button>
                 <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
             </div>
         </div>

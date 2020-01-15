@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+using RudesWebapp.Services;
 
 namespace RudesWebapp.Controllers.Api
 {
@@ -43,13 +45,52 @@ namespace RudesWebapp.Controllers.Api
 
         [HttpPost]
         [Authorize(Roles = Roles.UserOrAbove)]
-        public async Task<IActionResult> PostOrder(EditOrderDTO editOrderDto)
+        public async Task<IActionResult> PostOrder([FromBody] OrderDTO orderDTO)
         {
-            var order = _mapper.Map<Order>(editOrderDto);
+            var orderArticles = new List<OrderArticle>();
+            var items = new List<ItemDTO>();
+            
+            foreach (var article in items)
+            {
+                
+                var availability = await _context.ArticleAvailability.FindAsync(article.ArticleId, article.Size);
+                if (availability != null)
+                {
+                    if (article.Quantity > availability.Quantity)
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+                availability.Quantity -= article.Quantity;
+                await _context.SaveChangesAsync();
+                
+                orderArticles.Add(_mapper.Map<OrderArticle>(new OrderArticleDTO
+                {
+                    ArticleId = article.ArticleId,
+                    Quantity = article.Quantity,
+                    Size = article.Size,
+                    PurchaseDiscount = article.Percentage,
+                    PurchasePrice = article.Price
+                }));
+            }
+            var order = new Order
+            {
+                Fulfilled = false,
+                Address = orderDTO.Address,
+                City = orderDTO.City,
+                PostalCode = orderDTO.PostalCode,
+                OrderArticle = orderArticles
+            };
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new {id = editOrderDto.Id}, editOrderDto);
+        
+            return Ok(order);
+            
+            // return CreatedAtAction("GetOrder", new {id = editOrderDto.Id}, editOrderDto);
         }
 
         [HttpDelete("{id}")]
