@@ -26,33 +26,37 @@
                             {{ selectedArticle.review }}
                         </div>
                         <div id="modalArticleSizes" class="col-12">
-                            Odaberite veličinu
-                            <br />
-                            <div v-if="probneDostupneVelicine.length != 0">
-                                <div style="display: inline" v-for="velicina in probneDostupneVelicine">
-                                    <template v-if="velicina > 0">
-                                        <label class="checkbox-inline" style="margin: 0.5%; display: inline"><input type="radio" name="price" value="XS" :disabled='isNotDisabled'>XS</label>
-                                    </template>
-                                    <template v-if="velicina <= 0">
-                                        <label class="checkbox-inline" style="margin: 0.5%; display: inline"><input type="radio" name="price" value="XS" :disabled='isDisabled'>XS</label>
-                                    </template>
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Odaberite veličine
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div v-if="probneDostupneVelicine.length != 0">
+                                        <div style="display: inline" v-for="velicina in probneDostupneVelicine">
+                                            <template v-if="velicina > 0">
+                                                    
+                                                <a class="dropdown-item" href="#">velicina</a>
+                                            </template>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="modalArticleQuantity" class="col-12">
-                            Unesite broj artikala
-                            <br />
-                            <input type="number" step="1" min="1" max="" size="2" pattern="" inputmode="">
+                            <div id="modalArticleQuantity" class="col-12" style="padding-left: 0; margin-left:0;">
+                                Unesite broj artikala
+                                <br />
+                                <input type="number" step="1" min="1" max="" size="2" pattern="" inputmode="">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Odbaci</button>
                 <button class="btn btn-primary">Dodaj u košaricu</button>
             </div>
-        </div>
+            </div>
+         </div>
     </div>
 </div>
 

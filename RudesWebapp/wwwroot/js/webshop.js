@@ -66,7 +66,7 @@ var webshop = new Vue({
                 }
             }).then(() => {
                 shoppingCartModal.updateCurrentCart();
-                paymentModal.updateCurrentCart();
+                finalPaymentModal.updateCurrentCart();
             }).catch(error => {
                 console.log(error);
             });

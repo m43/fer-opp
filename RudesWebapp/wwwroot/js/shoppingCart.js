@@ -11,7 +11,7 @@
                 .then(response => {
                     this.items = response.data;
                     this.calculateTotalPrice();
-                    paymentModal.updateCurrentCart();
+                    finalPaymentModal.updateCurrentCart();
                 })
                 .catch(error => {
                     console.log(error);
@@ -27,7 +27,7 @@
                 }
             }).then(() => {
                 this.updateCurrentCart();
-                paymentModal.updateCurrentCart();
+                finalPaymentModal.updateCurrentCart();
             }).catch(error => {
                 console.log(error);
             });
@@ -44,7 +44,7 @@
             axios.get("/Webshop/ClearShoppingCart")
                 .then(response => {
                     this.updateCurrentCart();
-                    paymentModal.updateCurrentCart();
+                    finalPaymentModal.updateCurrentCart();
                 })
                 .catch(error => {
                     console.log(error);
@@ -58,13 +58,15 @@
     }
 });
 
-
-var paymentModal = new Vue({
-    el: "#paymentModal",
+var finalPaymentModal = new Vue({
+    el: "#finalPaymentModal",
     data: {
         allArticles: [],
         items: [],
-        totalPrice: 0
+        totalPrice: 0,
+        address: "",
+        city: "",
+        zip: "",
     },
     methods: {
         updateCurrentCart: function () {
@@ -107,7 +109,12 @@ var paymentModal = new Vue({
             }).catch(error => {
                 console.log(error);
             });
-        }
+        },
+
+
+
+
+
     },
     beforeMount: function () {
         this.getArticles();
