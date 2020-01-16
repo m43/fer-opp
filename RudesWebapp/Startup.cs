@@ -123,6 +123,7 @@ namespace RudesWebapp
             services.AddScoped<ImageService>();
             services.AddScoped<ItemService>();
             services.AddScoped<ShoppingCartService>();
+            services.AddScoped<UserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)

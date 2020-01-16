@@ -25,6 +25,15 @@ namespace RudesWebapp.Controllers
             return View(await _imageService.GetImages());
         }
 
+
+        [Authorize(Roles = Roles.CoachOrAbove)]
+        public async Task<IActionResult> Scan()
+        {
+            await _imageService.ScanImages();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,7 +59,7 @@ namespace RudesWebapp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Caption,AltText,Picture")]
-            ImageDTO imageDto)
+            AddImageDTO imageDto)
         {
             if (!ModelState.IsValid)
             {
@@ -81,13 +90,13 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            return View(_mapper.Map<ImageDTO>(image));
+            return View(_mapper.Map<AddImageDTO>(image));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Caption,AltText,Picture")]
-            ImageDTO imageDto)
+            AddImageDTO imageDto)
         {
             if (id != imageDto.Id)
             {

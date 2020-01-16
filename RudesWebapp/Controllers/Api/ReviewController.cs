@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +28,7 @@ namespace RudesWebapp.Controllers.Api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AddReviewDTO>>> GetReviews()
         {
-            return _mapper.Map<List<AddReviewDTO>>(await _context.Review.ToListAsync());
+            return _mapper.Map<List<AddReviewDTO>>(await _context.Review.Where(r => !r.Blocked).ToListAsync());
         }
 
         // GET: api/Review/1
@@ -35,7 +36,7 @@ namespace RudesWebapp.Controllers.Api
         public async Task<ActionResult<AddReviewDTO>> GetReview(int id)
         {
             var review = await _context.Review.FindAsync(id);
-            if (review == null)
+            if (review == null || review.Blocked)
             {
                 return NotFound();
             }
@@ -44,9 +45,12 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpPost]
-        [Authorize(Roles = Roles.CoachOrAbove)]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<IActionResult> PostReview(AddReviewDTO addReviewDto)
         {
+            // TODO validation
+            // TODO additional checks - can the user add a review at all?
+
             var review = _mapper.Map<Review>(addReviewDto);
             _context.Review.Add(review);
             await _context.SaveChangesAsync();
@@ -55,9 +59,13 @@ namespace RudesWebapp.Controllers.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = Roles.AdminOnly)]
+        [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<AddReviewDTO>> DeleteReview(int id)
         {
+            // TODO validation
+            // TODO additional checks - is this the user that wrote the review?
+            // TODO additional checks - can the user delete this review at all?
+
             var review = await _context.Review.FindAsync(id);
             if (review == null)
             {

@@ -56,6 +56,10 @@
                 @if(@item.Image != null){
                     <img src="@item.Image.GetPathToResized(50, 50)" asp-append-version="true" alt="@item.Image.AltText" caption="@item.Image.Caption">
                 }
+                else
+                {
+                    @Html.Raw("No picture")
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

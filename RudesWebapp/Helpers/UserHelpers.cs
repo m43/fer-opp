@@ -22,13 +22,18 @@ namespace RudesWebapp.Helpers
         {
             return roles.Split(", ").Any(principal.IsInRole);
         }
-        
+
+        public static async Task<string> GetRole(this User user, UserManager<User> userManager)
+        {
+            return (await userManager.GetRolesAsync(user)).First();
+        }
+
         public static async Task<bool> SetRole(this User user, UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager, string role)
         {
             if (!await Roles.CheckRoleExists(roleManager, role))
                 return false;
-            
+
             var roles = await userManager.GetRolesAsync(user);
             foreach (var currentRole in roles)
             {

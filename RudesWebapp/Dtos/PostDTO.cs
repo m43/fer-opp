@@ -19,18 +19,19 @@ namespace RudesWebapp.Dtos
         [Required(ErrorMessage = "It's necessary to specify the post type")]
         public string PostType { get; set; }
 
-        [Display(Name = "Start of post")] // TODO better name
+        [Display(Name = "Date of post being active")]
         [DataType(DataType.Date)]
         [SqlDateTimeFormat]
         public DateTime? StartDate { get; set; }
 
-        [Display(Name = "End of post")] // TODO better name
+        [Display(Name = "Date of post being no more active")]
         [DataType(DataType.Date)]
         [SqlDateTimeFormat]
+        [AttributeGreaterThan(nameof(StartDate), ErrorMessage = "The end date must be after the start date.")]
         public DateTime? EndDate { get; set; }
 
         [Display(Name = "Post image")] public int? ImageId { get; set; }
 
-        // TODO additional validation - images, delta(Start, End)
+        [Display(Name = "Image")] public ImageDTO Image { get; set; }
     }
 }

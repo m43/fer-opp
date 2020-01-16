@@ -19,8 +19,10 @@ namespace RudesWebapp.Dtos
             CreateMap<ShoppingCartArticle, ShoppingCartArticleDTO>();
             CreateMap<ShoppingCartArticleDTO, ShoppingCartArticle>();
 
-            CreateMap<Image, ImageDTO>();
-            CreateMap<ImageDTO, Image>();
+            CreateMap<Image, AddImageDTO>();
+            CreateMap<AddImageDTO, Image>();
+
+            CreateMap<Image, ImageDTO>().ForMember(d => d.Path, m => m.MapFrom(s => s.GetPath()));
 
             CreateMap<Review, AddReviewDTO>();
             CreateMap<AddReviewDTO, Review>();
@@ -39,9 +41,9 @@ namespace RudesWebapp.Dtos
 
             CreateMap<ArticleAvailability, ArticleAvailabilityDTO>();
             CreateMap<ArticleAvailabilityDTO, ArticleAvailability>();
-            
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
+
+            CreateMap<User, ManageUserDTO>();
+            CreateMap<ManageUserDTO, User>();
         }
     }
 }

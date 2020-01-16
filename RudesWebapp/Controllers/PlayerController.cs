@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+using RudesWebapp.Services;
 
 namespace RudesWebapp.Controllers
 {
@@ -16,11 +17,13 @@ namespace RudesWebapp.Controllers
     {
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly ImageService _imageService;
 
-        public PlayerController(RudesDatabaseContext context, IMapper mapper)
+        public PlayerController(RudesDatabaseContext context, IMapper mapper, ImageService imageService)
         {
             _context = context;
             _mapper = mapper;
+            _imageService = imageService;
         }
 
         // GET: Player
@@ -54,17 +57,32 @@ namespace RudesWebapp.Controllers
         }
 
         // POST: Player/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,LastName,BirthDate,PlayerType,Position,ImageId")]
             PlayerDTO playerDto)
         {
+            if (playerDto.Id != 0)
+            {
+                ModelState.AddModelError(nameof(ArticleDTO.Id),
+                    "Id should not be provided on create. Found id: " + playerDto.Id);
+                await PrepareDropDowns();
+                return View(playerDto);
+            }
+
             if (ModelState.IsValid)
             {
-                // TODO is id for sure 0?
-                // playerDto.Id = 0;
+                if (playerDto.ImageId != null)
+                {
+                    var result = await _imageService.ValidateThatImageExists(nameof(PlayerDTO.ImageId), playerDto.ImageId.Value);
+                    if (!result.Succeeded)
+                    {
+                        result.FillModelState(ModelState);
+                        await PrepareDropDowns();
+                        return View(playerDto);
+                    }
+                }
+
                 _context.Add((object) _mapper.Map<Player>(playerDto));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -93,8 +111,6 @@ namespace RudesWebapp.Controllers
         }
 
         // POST: Player/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,LastName,BirthDate,PlayerType,Position,ImageId")]
@@ -107,6 +123,17 @@ namespace RudesWebapp.Controllers
 
             if (ModelState.IsValid)
             {
+                if (playerDto.ImageId != null)
+                {
+                    var result = await _imageService.ValidateThatImageExists(nameof(PlayerDTO.ImageId), playerDto.ImageId.Value);
+                    if (!result.Succeeded)
+                    {
+                        result.FillModelState(ModelState);
+                        await PrepareDropDowns();
+                        return View(playerDto);
+                    }
+                }
+                
                 try
                 {
                     // NOTE: https://stackoverflow.com/questions/13314666/using-automapper-to-update-an-existing-entity-poco/25242322
@@ -164,7 +191,7 @@ namespace RudesWebapp.Controllers
         private async Task PrepareDropDowns()
         {
             var images = await _context.Image.ToListAsync();
-            ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Name));
+            ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Title));
         }
 
         private bool PlayerExists(int id)

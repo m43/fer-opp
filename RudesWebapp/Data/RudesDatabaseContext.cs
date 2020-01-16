@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ using RudesWebapp.Triggers;
 
 namespace RudesWebapp.Data
 {
-    public partial class RudesDatabaseContext : IdentityDbContext<User>
+    public class RudesDatabaseContext : IdentityDbContext<User>
     {
         public RudesDatabaseContext()
         {
@@ -73,8 +72,11 @@ namespace RudesWebapp.Data
                     .HasColumnName("name")
                     .HasMaxLength(120)
                     .IsRequired();
-                entity.HasAlternateKey(e => e.Name);
+
                 // An article has an unique name, not to confuse the costumers 
+                entity.HasIndex(a => a.Name)
+                    .IsUnique();
+                // entity.HasAlternateKey(e => e.Name); Not an alternate key so that it can be edited.
 
                 entity.Property(e => e.Price)
                     .HasColumnName("price")
@@ -529,11 +531,7 @@ namespace RudesWebapp.Data
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK__shopping___shopp__4316F928");
             });
-
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
         public override int SaveChanges()
         {

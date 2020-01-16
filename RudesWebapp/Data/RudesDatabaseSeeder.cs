@@ -96,6 +96,20 @@ namespace RudesWebapp.Data
             {
                 new Image
                 {
+                    Name = "predsjednik.jpeg",
+                    Title = "dummyimage.png",
+                    AltText = "Dummy image alt text",
+                    Caption = "Dummy image caption"
+                },
+                new Image
+                {
+                    Name = "instagram-logo.png",
+                    Title = "dummyimage.png",
+                    AltText = "Dummy image alt text",
+                    Caption = "Dummy image caption"
+                },
+                new Image
+                {
                     Name = "dummy1.png",
                     Title = "dummyimage.png",
                     AltText = "Dummy image alt text",
@@ -104,20 +118,6 @@ namespace RudesWebapp.Data
                 new Image
                 {
                     Name = "dummy2.png",
-                    Title = "dummyimage.png",
-                    AltText = "Dummy image alt text",
-                    Caption = "Dummy image caption"
-                },
-                new Image
-                {
-                    Name = "dummy3.png",
-                    Title = "dummyimage.png",
-                    AltText = "Dummy image alt text",
-                    Caption = "Dummy image caption"
-                },
-                new Image
-                {
-                    Name = "dummy4.png",
                     Title = "dummyimage.png",
                     AltText = "Dummy image alt text",
                     Caption = "Dummy image caption"
@@ -1193,10 +1193,11 @@ namespace RudesWebapp.Data
             {
                 User user = await userManager.FindByEmailAsync(userId);
                 var roles = await userManager.GetRolesAsync(user);
-                foreach(var role in roles)
+                foreach (var role in roles)
                 {
                     await userManager.RemoveFromRoleAsync(user, role);
                 }
+
                 await userManager.AddToRoleAsync(user, roleName);
             }
         }

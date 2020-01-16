@@ -11,30 +11,31 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageId)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        @* <th> *@
+        @*     @Html.DisplayNameFor(model => model.Color) *@
+        @* </th> *@
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -48,11 +49,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
+            @* <td> *@
+            @*     @Html.DisplayFor(modelItem => item.Color) *@
+            @* </td> *@
             <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageId)
+                @if (@item.Image != null)
+                {
+                    <img src="@item.Image.Path?width=72" asp-append-version="true" alt="@item.Image.AltText" caption="@item.Image.Caption">
+                }
+                else
+                {
+                    @Html.Raw("None")
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -60,6 +68,6 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

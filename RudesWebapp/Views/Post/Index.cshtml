@@ -28,7 +28,7 @@
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ImageId)
+            @Html.DisplayNameFor(model => model.Image)
         </th>
         <th></th>
     </tr>
@@ -53,7 +53,14 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageId)
+                @if (@item.Image != null)
+                {
+                    <img src="@item.Image.Path?width=200" asp-append-version="true" alt="@item.Image.AltText" caption="@item.Image.Caption">
+                }
+                else
+                {
+                    @Html.Raw("None")
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

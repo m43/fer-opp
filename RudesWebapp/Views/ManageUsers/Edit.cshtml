@@ -1,4 +1,4 @@
-@model RudesWebapp.Dtos.UserDTO
+@model RudesWebapp.Dtos.UpdateUserRoleDTO
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,18 +7,12 @@
 <h1>Edit</h1>
 
 <h4>User</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="Email" />
-            <input type="hidden" asp-for="Password" />
-            <input type="hidden" asp-for="ConfirmPassword" />
-            <input type="hidden" asp-for="FirstName" />
-            <input type="hidden" asp-for="LastName" />
-           
+            <input type="hidden" asp-for="Id"/>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
                 <select asp-for="Role" asp-items="ViewBag.Roles" class="form-control">
@@ -27,7 +21,7 @@
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -38,5 +32,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

@@ -49,6 +49,10 @@
             {
                 <img src="@Model.Image.GetPath()" asp-append-version="true" alt="@Model.Image.AltText" caption="@Model.Image.Caption">
             }
+            else
+            {
+                @Html.Raw("None")
+            }
         </dd>
     </dl>
     

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
 using RudesWebapp.Models;
+using RudesWebapp.Services;
 
 namespace RudesWebapp.Controllers
 {
@@ -17,18 +18,20 @@ namespace RudesWebapp.Controllers
     {
         private readonly RudesDatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly ImageService _imageService;
 
-        public PostController(RudesDatabaseContext context, IMapper mapper)
+        public PostController(RudesDatabaseContext context, IMapper mapper, ImageService imageService)
         {
             _context = context;
             _mapper = mapper;
+            _imageService = imageService;
         }
 
 
         // GET: Post
         public async Task<IActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<PostDTO>>(await _context.Post.ToListAsync()));
+            return View(_mapper.Map<IEnumerable<PostDTO>>(await _context.Post.Include(p => p.Image).ToListAsync()));
         }
 
         // GET: Post/Details/5
@@ -39,7 +42,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post.FirstOrDefaultAsync(m => m.Id == id);
+            var post = await _context.Post.Include(p => p.Image).FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {
                 return NotFound();
@@ -56,16 +59,32 @@ namespace RudesWebapp.Controllers
         }
 
         // POST: Post/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Content,PostType,StartDate,EndDate,ImageId")]
             PostDTO postDto)
         {
+            if (postDto.Id != 0)
+            {
+                ModelState.AddModelError(nameof(ArticleDTO.Id),
+                    "Id should not be provided on create. Found id: " + postDto.Id);
+                await PrepareDropDowns();
+                return View(postDto);
+            }
+
             if (ModelState.IsValid)
             {
-                // TODO is id for sure 0?
+                if (postDto.ImageId != null)
+                {
+                    var result =
+                        await _imageService.ValidateThatImageExists(nameof(PlayerDTO.ImageId), postDto.ImageId.Value);
+                    if (!result.Succeeded)
+                    {
+                        result.FillModelState(ModelState);
+                        await PrepareDropDowns();
+                        return View(postDto);
+                    }
+                }
 
                 _context.Add((object) _mapper.Map<Post>(postDto));
                 await _context.SaveChangesAsync();
@@ -95,8 +114,6 @@ namespace RudesWebapp.Controllers
         }
 
         // POST: Post/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,PostType,StartDate,EndDate,ImageId")]
@@ -109,6 +126,18 @@ namespace RudesWebapp.Controllers
 
             if (ModelState.IsValid)
             {
+                if (postDto.ImageId != null)
+                {
+                    var result =
+                        await _imageService.ValidateThatImageExists(nameof(PlayerDTO.ImageId), postDto.ImageId.Value);
+                    if (!result.Succeeded)
+                    {
+                        result.FillModelState(ModelState);
+                        await PrepareDropDowns();
+                        return View(postDto);
+                    }
+                }
+
                 try
                 {
                     var post = await _context.Post.FindAsync(id);
@@ -142,7 +171,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post.FirstOrDefaultAsync(m => m.Id == id);
+            var post = await _context.Post.Include(p => p.Image).FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {
                 return NotFound();
@@ -165,7 +194,7 @@ namespace RudesWebapp.Controllers
         private async Task PrepareDropDowns()
         {
             var images = await _context.Image.ToListAsync();
-            ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Name));
+            ViewBag.Images = new SelectList(images, nameof(Image.Id), nameof(Image.Title));
         }
 
         private bool PostExists(int id)

@@ -26,7 +26,6 @@ namespace RudesWebapp.Controllers
         private readonly RudesDatabaseContext _context;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
@@ -35,14 +34,12 @@ namespace RudesWebapp.Controllers
             RudesDatabaseContext context,
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
-            _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -51,7 +48,7 @@ namespace RudesWebapp.Controllers
         public async Task<IActionResult> Index()
         {
             var userList = await _context.User.ToListAsync();
-            var result = new List<UserDTO>();
+            var result = new List<ManageUserDTO>();
             foreach (var user in userList)
             {
                 if (user == null)
@@ -59,7 +56,7 @@ namespace RudesWebapp.Controllers
                     continue;
                 }
 
-                result.Add(new UserDTO
+                result.Add(new ManageUserDTO
                 {
                     Id = user.Id,
                     Email = user.Email,
@@ -88,7 +85,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var userDto = new UserDTO
+            var userDto = new ManageUserDTO
             {
                 Id = user.Id,
                 Email = user.Email,
@@ -116,24 +113,27 @@ namespace RudesWebapp.Controllers
         [ValidateAntiForgeryToken]
         [ValidateModel]
         public async Task<IActionResult> Create([Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")]
-            UserDTO userDto)
+            ManageUserDTO manageUserDto)
         {
-            if (!await Roles.CheckRoleExists(_roleManager, userDto.Role))
+            if (!await Roles.CheckRoleExists(_roleManager, manageUserDto.Role))
             {
-                ModelState.AddModelError(nameof(UserDTO.Role), "Given role does not exist.");
+                ModelState.AddModelError(nameof(ManageUserDTO.Role), "Given role does not exist.");
                 PrepareDropDowns();
-                return View(userDto);
+                return View(manageUserDto);
             }
-            
+
             var user = new User
-                {UserName = userDto.Email, Email = userDto.Email, Name = userDto.FirstName, LastName = userDto.LastName};
-            
-            var result = await _userManager.CreateAsync(user, userDto.Password);
+            {
+                UserName = manageUserDto.Email, Email = manageUserDto.Email, Name = manageUserDto.FirstName,
+                LastName = manageUserDto.LastName
+            };
+
+            var result = await _userManager.CreateAsync(user, manageUserDto.Password);
             if (result.Succeeded)
             {
                 _logger.LogInformation("User created a new account with password.");
-                
-                await _userManager.AddToRoleAsync(user, userDto.Role);
+
+                await _userManager.AddToRoleAsync(user, manageUserDto.Role);
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -143,19 +143,19 @@ namespace RudesWebapp.Controllers
                     values: new {area = "Identity", userId = user.Id, code = code},
                     protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(userDto.Email, "Confirm your email",
+                await _emailSender.SendEmailAsync(manageUserDto.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                return RedirectToAction(nameof(Details), new { id = user.Id });
+                return RedirectToAction(nameof(Details), new {id = user.Id});
             }
 
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
-            
+
             PrepareDropDowns();
-            return View(userDto);
+            return View(manageUserDto);
         }
 
         // GET: Article/Edit/5
@@ -172,14 +172,9 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var userDto = new UserDTO
+            var userDto = new UpdateUserRoleDTO
             {
                 Id = user.Id,
-                FirstName = user.Name,
-                LastName = user.LastName,
-                Password = user.PasswordHash,
-                ConfirmPassword = user.PasswordHash,
-                Email = user.Email,
                 Role = (await _userManager.GetRolesAsync(user)).First()
             };
 
@@ -188,16 +183,12 @@ namespace RudesWebapp.Controllers
         }
 
         // POST: Article/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id,
-            [Bind("Id,Email,Password,ConfirmPassword,FirstName,LastName,Role")]
-            UserDTO userDto)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Role")] UpdateUserRoleDTO updateUserRoleDto)
         {
-            if (id != userDto.Id)
+            if (id != updateUserRoleDto.Id)
             {
                 return NotFound();
             }
@@ -207,7 +198,7 @@ namespace RudesWebapp.Controllers
                 try
                 {
                     var user = await _context.User.FindAsync(id);
-                    if (!await user.SetRole(_userManager, _roleManager, userDto.Role))
+                    if (!await user.SetRole(_userManager, _roleManager, updateUserRoleDto.Role))
                     {
                         return BadRequest();
                     }
@@ -216,7 +207,7 @@ namespace RudesWebapp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(userDto.Id))
+                    if (!UserExists(updateUserRoleDto.Id))
                     {
                         return NotFound();
                     }
@@ -230,7 +221,7 @@ namespace RudesWebapp.Controllers
             }
 
             PrepareDropDowns();
-            return View(userDto);
+            return View(updateUserRoleDto);
         }
 
         // GET: Article/Delete/5
@@ -247,7 +238,7 @@ namespace RudesWebapp.Controllers
                 return NotFound();
             }
 
-            var userDto = new UserDTO
+            var userDto = new ManageUserDTO
             {
                 Id = user.Id,
                 FirstName = user.Name,
