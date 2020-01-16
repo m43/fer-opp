@@ -61,6 +61,24 @@ namespace RudesWebapp.Controllers.Api
 
             foreach (var shoppingCartArticle in shoppingCartArticles)
             {
+                var availability = await _context.ArticleAvailability
+                    .FindAsync(shoppingCartArticle.ArticleId, shoppingCartArticle.Size);
+                if (availability != null)
+                {
+                    if (shoppingCartArticle.Quantity > availability.Quantity)
+                    {
+                        _context.ShoppingCartArticle.Remove(shoppingCartArticle);
+                        await _context.SaveChangesAsync();
+                        continue;
+                    }
+                }
+                else
+                {
+                    _context.ShoppingCartArticle.Remove(shoppingCartArticle);
+                    await _context.SaveChangesAsync();
+                    continue;
+                }
+
                 var article = await _context.Article
                     .FirstOrDefaultAsync(a => a.Id == shoppingCartArticle.ArticleId);
 
@@ -97,6 +115,20 @@ namespace RudesWebapp.Controllers.Api
 
             if (selectedArticle != null)
             {
+                var availability = await _context.ArticleAvailability
+                    .FindAsync(articleId, size);
+                if (availability != null)
+                {
+                    if (quantity > availability.Quantity)
+                    {
+                        return NotFound(); // TODO change to something more appropriate
+                    }
+                }
+                else
+                {
+                    return NotFound(); // TODO change to something more appropriate
+                }
+
                 var services = new ShoppingCartService(shoppingCart);
                 services.AddArticle(_context, selectedArticle, size);
 
