@@ -80,15 +80,10 @@
                     <label for="inputPostalCode">Poštanski broj</label>
                     <input type="text" class="form-control" id="inputPostalCode" placeholder="Upišite poštanski broj" v-model="postalCode">
                 </div>
-                <div>
-                    {{ totalPrice }}
-                </div>
+                
             </div>
 
             <div class="modal-footer">
-                {{ address }}
-                {{ city }}
-                {{ postalCode }}
                 <button type="button" class="btn btn-primary" @@click="payment(address, city, postalCode, items)">Plati</button>
                 <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
             </div>
