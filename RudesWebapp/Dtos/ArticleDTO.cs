@@ -19,7 +19,7 @@ namespace RudesWebapp.Dtos
 
         [Required]
         [Range(0, 9999999999999999.99, ErrorMessage = "Only positive integers allowed")]
-        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        [RegularExpression(@"^\d+(\.\d{0,2})?$")]
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
 
@@ -32,10 +32,10 @@ namespace RudesWebapp.Dtos
             set => ArticleColor = value == null ? (Color?) null : ColorTranslator.FromHtml(value);
         }
 
-        [NotMapped] private Color? ArticleColor { get; set; }
+        [NotMapped] public Color? ArticleColor { get; set; }
 
         public int? ImageId { get; set; }
 
-        // TODO validate that image exists (if not null)
+        [Display(Name = "Image")] public ImageDTO Image { get; set; }
     }
 }

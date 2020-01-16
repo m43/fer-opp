@@ -112,8 +112,17 @@ namespace RudesWebapp
                 .AddProcessor<FormatWebProcessor>();
 
             services.TryAddEnumerable(new[] {ServiceDescriptor.Transient<ITrigger, CreateShoppingCartTrigger>()});
-            
+
+            AddServiceLayerToServices(services);
+        }
+
+        private static void AddServiceLayerToServices(IServiceCollection services)
+        {
+            services.AddScoped<ArticleInStoreService>();
+            services.AddScoped<ArticleService>();
             services.AddScoped<ImageService>();
+            services.AddScoped<ItemService>();
+            services.AddScoped<ShoppingCartService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)

@@ -58,10 +58,13 @@ namespace RudesWebapp.Services
         public void DeleteImageFile(Image image)
         {
             var fileInfo = _fileProvider.GetFileInfo(image.GetPath());
-            File.Delete(fileInfo.PhysicalPath);
+            if (fileInfo.Exists)
+            {
+                File.Delete(fileInfo.PhysicalPath);
+            }
         }
 
-        public async Task<Image> SaveImage(ImageDTO imageDto)
+        public async Task<Image> SaveImage(AddImageDTO imageDto)
         {
             // CheckIfValidExtension(imageDto.Picture); // TODO
             // CheckIfValidSize(imageDto.Picture); // TODO
@@ -82,11 +85,17 @@ namespace RudesWebapp.Services
             return image;
         }
 
-        private bool CheckIfValidExtension(IFormFile picture)
+        private static bool CheckIfValidExtension(IFormFile picture)
         {
-            var ext = Path.GetExtension(picture.FileName).ToLowerInvariant();
+            return CheckIfValidExtension(picture.FileName);
+        }
+
+        private static bool CheckIfValidExtension(string fileName)
+        {
+            var ext = Path.GetExtension(fileName).ToLowerInvariant();
             return !string.IsNullOrEmpty(ext) && PermittedExtensions.Contains(ext);
         }
+
 
         private bool CheckIfValidSize(IFormFile picture)
         {
@@ -108,7 +117,7 @@ namespace RudesWebapp.Services
             return fileName;
         }
 
-        public async Task<Image> Update(int id, ImageDTO imageDto)
+        public async Task<Image> Update(int id, AddImageDTO imageDto)
         {
             try
             {
@@ -135,7 +144,7 @@ namespace RudesWebapp.Services
             {
                 if (!ImageExists(imageDto.Id))
                 {
-                    return null;
+                    return null; // TODO
                 }
                 else
                 {
@@ -152,6 +161,52 @@ namespace RudesWebapp.Services
         private bool ImageExists(int id)
         {
             return _context.Image.Any(e => e.Id == id);
+        }
+
+        public async Task<ServiceResult<Image>> ValidateThatImageExists(string propertyName, int imageId)
+        {
+            var image = await _context.Image.FirstOrDefaultAsync(i => i.Id == imageId);
+
+            return image == null
+                ? new ServiceResult<Image>(new ServiceError
+                    {Property = propertyName, Description = "The image does not exist."})
+                : ServiceResult<Image>.Success();
+        }
+
+        public async Task ScanImages()
+        {
+            var oldImages = await _context.Image.ToListAsync();
+            var fileNames = _fileProvider
+                .GetDirectoryContents(ImagesFolder)
+                .AsEnumerable()
+                .Select(info => info.Name)
+                .Where(CheckIfValidExtension)
+                .ToList();
+
+            foreach (var image in oldImages)
+            {
+                if (fileNames.Contains(image.Name))
+                {
+                    fileNames.Remove(image.Name);
+                }
+                else
+                {
+                    _context.Remove(image);
+                }
+            }
+
+            fileNames.Select(fileName => new Image()
+                    {Name = fileName, Title = GuessTitleFromFileName(fileName), Caption = "", AltText = ""}).ToList()
+                .ForEach(image => _context.Image.Add(image));
+
+            _context.SaveChanges();
+        }
+
+        public static string GuessTitleFromFileName(string fileName)
+        {
+            var result = Path.GetFileNameWithoutExtension(fileName);
+            result = result.Substring(result.LastIndexOf('_') + 1);
+            return result;
         }
     }
 }

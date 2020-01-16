@@ -24,12 +24,14 @@ namespace RudesWebapp.Models
         public string Description { get; set; }
         public int? ImageId { get; set; }
 
+        // NOTE: Took color for granted. Articles should not have hex color but string color. gg wp.
+        //       The color of an article should be either a string or an ColorID that
+        //       navigates to a model specifically made to store colors.
         public int? Argb
         {
             get => ArticleColor?.ToArgb();
             set => ArticleColor = value == null ? (Color?) null : Color.FromArgb(value.Value);
         }
-
         [NotMapped] public Color? ArticleColor { get; set; }
 
         public virtual Image Image { get; set; }
