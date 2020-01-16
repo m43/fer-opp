@@ -393,30 +393,13 @@ namespace RudesWebapp.Controllers
             var selectedArticle = await _context.Article.FindAsync(articleId);
 
             if (selectedArticle != null)
-            {
-
-                var availability = await _context.ArticleAvailability.FindAsync(articleId, size);
-                if (availability != null)
-                {
-                    if (quantity > availability.Quantity)
-                    {
-                        return NotFound();
-                    }
-                }
-                else
-                {
-                    return NotFound();
-                }
-
+            { 
                 ShoppingCartService services = new ShoppingCartService(shoppingCart);
                 services.AddArticle(_context, selectedArticle, size);
                 
                 var resultArticle = await _context.ShoppingCartArticle
                     .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id
                                                  && cart.ArticleId == selectedArticle.Id);
-
-                availability.Quantity -= quantity;
-                await _context.SaveChangesAsync();
 
                 return Ok(ItemService.CreateItem(_context, resultArticle, selectedArticle));
             }

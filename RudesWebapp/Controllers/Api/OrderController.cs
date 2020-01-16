@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -45,38 +46,81 @@ namespace RudesWebapp.Controllers.Api
 
         [HttpPost]
         [Authorize(Roles = Roles.UserOrAbove)]
-        public async Task<IActionResult> PostOrder([FromBody] OrderDTO orderDTO)
+        public async Task<ActionResult<Order>> PostOrder([FromBody] OrderDTO orderDTO)
         {
+            await Task.Delay(5000); // Payment simulation - just wait 5 seconds
+
+            // Using a random number generator to decide whether or not the transaction will succeed.
+            // Relax, it's just a simulation :)
+            Random random = new Random();
+            int randomNumber = random.Next();
+
+            if (randomNumber % 4 == 0)
+            {
+                // TODO put something more appropriate
+                return null; // returns null if the transaction failed
+            }
+
             var orderArticles = new List<OrderArticle>();
-            var items = new List<ItemDTO>();
+            var items = orderDTO.Items;
             
-            foreach (var article in items)
+            if (items.Count() == 0)
+            {
+                return null;
+            }
+
+            foreach (var item in items)
             {
                 
-                var availability = await _context.ArticleAvailability.FindAsync(article.ArticleId, article.Size);
+                var availability = await _context.ArticleAvailability
+                    .FindAsync(item.ArticleId, item.Size);
                 if (availability != null)
                 {
-                    if (article.Quantity > availability.Quantity)
+                    if (item.Quantity > availability.Quantity)
                     {
-                        return NotFound();
+                        return NotFound(); // TODO change to something more appropriate
                     }
                 }
                 else
                 {
-                    return NotFound();
+                    return NotFound(); // TODO change to something more appropriate
                 }
-                availability.Quantity -= article.Quantity;
+                availability.Quantity -= item.Quantity;
                 await _context.SaveChangesAsync();
                 
                 orderArticles.Add(_mapper.Map<OrderArticle>(new OrderArticleDTO
                 {
-                    ArticleId = article.ArticleId,
-                    Quantity = article.Quantity,
-                    Size = article.Size,
-                    PurchaseDiscount = article.Percentage,
-                    PurchasePrice = article.Price
+                    ArticleId = item.ArticleId,
+                    Quantity = item.Quantity,
+                    Size = item.Size,
+                    PurchaseDiscount = item.Percentage,
+                    PurchasePrice = item.Price
                 }));
             }
+
+            // Remove order articles from the shopping cart
+            var shoppingCartId = items.ElementAt(0).ShoppingCartId;
+
+            foreach (var orderArticle in orderArticles)
+            {
+                var shoppingCartArticle = await _context.ShoppingCartArticle
+                    .Where(scArticle => 
+                        scArticle.ShoppingCartId == shoppingCartId &&
+                        scArticle.ArticleId == orderArticle.ArticleId &&
+                        scArticle.Size == orderArticle.Size)
+                    .FirstOrDefaultAsync();
+
+                if (shoppingCartArticle.Quantity - (orderArticle.Quantity ?? 0) == 0)
+                {
+                    _context.ShoppingCartArticle.Remove(shoppingCartArticle);
+                }
+                else
+                {
+                    shoppingCartArticle.Quantity -= (orderArticle.Quantity ?? 0);
+                }
+            }
+            await _context.SaveChangesAsync();
+
             var order = new Order
             {
                 Fulfilled = false,
@@ -87,10 +131,9 @@ namespace RudesWebapp.Controllers.Api
             };
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
-        
+
+            order.OrderArticle = null;
             return Ok(order);
-            
-            // return CreatedAtAction("GetOrder", new {id = editOrderDto.Id}, editOrderDto);
         }
 
         [HttpDelete("{id}")]
