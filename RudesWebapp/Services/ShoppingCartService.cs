@@ -26,7 +26,7 @@ namespace RudesWebapp.Services
             return shoppingCart;
         }
 
-        public void AddArticle(RudesDatabaseContext context, Article article, string size)
+        public void AddArticle(RudesDatabaseContext context, Article article, string size, int quantity)
         {
             var shoppingCartArticle = context.ShoppingCartArticle
                 .SingleOrDefault(s => s.ArticleId == article.Id && s.ShoppingCartId == _shoppingCart.Id);
@@ -37,7 +37,7 @@ namespace RudesWebapp.Services
                 {
                     Article = article,
                     ShoppingCartId = _shoppingCart.Id,
-                    Quantity = 1,
+                    Quantity = quantity,
                     Size = size
                 };
 
@@ -45,7 +45,7 @@ namespace RudesWebapp.Services
             }
             else
             {
-                shoppingCartArticle.Quantity++;
+                shoppingCartArticle.Quantity += quantity;
             }
 
             context.SaveChanges();

@@ -78,7 +78,7 @@ namespace RudesWebapp.Controllers.Api
                 {
                     if (item.Quantity > availability.Quantity)
                     {
-                        return NotFound(); // TODO change to something more appropriate
+                        return NoContent(); // TODO change to something more appropriate
                     }
                 }
                 else

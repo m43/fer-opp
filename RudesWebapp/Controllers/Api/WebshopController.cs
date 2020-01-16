@@ -117,20 +117,30 @@ namespace RudesWebapp.Controllers.Api
             {
                 var availability = await _context.ArticleAvailability
                     .FindAsync(articleId, size);
+
                 if (availability != null)
                 {
-                    if (quantity > availability.Quantity)
+                    var shoppingCartArticle = await _context.ShoppingCartArticle
+                        .FindAsync(shoppingCart.Id, articleId);
+                    
+                    int currentQuantity = 0;
+                    if (shoppingCartArticle != null)
                     {
-                        return NotFound(); // TODO change to something more appropriate
+                        currentQuantity = shoppingCartArticle.Quantity;
+                    }
+                    
+                    if (currentQuantity + quantity > availability.Quantity)
+                    {
+                        return null; // TODO change to something more appropriate
                     }
                 }
                 else
                 {
-                    return NotFound(); // TODO change to something more appropriate
+                    return null; // TODO change to something more appropriate
                 }
 
                 var services = new ShoppingCartService(shoppingCart);
-                services.AddArticle(_context, selectedArticle, size);
+                services.AddArticle(_context, selectedArticle, size, quantity);
 
                 var resultArticle = await _context.ShoppingCartArticle
                     .FirstOrDefaultAsync(cart => cart.ShoppingCartId == shoppingCart.Id
@@ -161,9 +171,6 @@ namespace RudesWebapp.Controllers.Api
 
             var service = new ShoppingCartService(shoppingCart);
             var removedArticle = service.RemoveArticle(_context, selectedArticle, quantity, size);
-
-            availability.Quantity += quantity;
-            await _context.SaveChangesAsync();
 
             return Ok(ItemService.CreateItem(_context, removedArticle, selectedArticle));
         }
