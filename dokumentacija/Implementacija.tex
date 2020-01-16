@@ -40,7 +40,7 @@
 	
 		\section{Ispitivanje programskog rješenja}
 			
-			\textbf{\textit{dio 2. revizije}}\\
+		
 			
 			 \textnormal{Popularni pristup razvoju testiranja (TDD) je pisanje testa prije implementacije ciljanog koda.  	Testiranje aplikacija postalo je uobičajena praksa za današnje softvere, a xUnit je jedan od najpopularnijih okvira za testiranje jedinica dostupan za .NET. Pisan je u jeziku C\#. U našoj aplikaciji smo također koristili xUnit te smo testiranja pisali po obrascima uporabe. Uvijek smo ponavljali isti pristup, pisali smo neuspjeli test i zatim ažurirali ciljni kod koji treba proći.Napisali smo 24 xUnit testa kako bismo testirali većinu naših obrazaca uporabe (za one jako jednostavne nisu ni bili potrebni testovi), no zbog jednostavnosti opisat ćemo samo tri integracijska testa.}
 			 \bigbreak
@@ -184,15 +184,22 @@
 		
 		\section{Dijagram razmještaja}
 			
-			\textbf{\textit{dio 2. revizije}}
+		
 			
-			 \textit{Potrebno je umetnuti \textbf{specifikacijski} dijagram razmještaja i opisati ga. Moguće je umjesto specifikacijskog dijagrama razmještaja umetnuti dijagram razmještaja instanci, pod uvjetom da taj dijagram bolje opisuje neki važniji dio sustava.}
+			 \textnormal{Dijagrami razmještaja opisuju topologiju sklopovlja i programsku potporu koja se koristi u implementaciji sustava u njegovom radnom okruženju. Na poslužiteljskom računalu se nalaze web poslužitelj i poslužitelj baze podataka. Klijenti koriste web preglednik kako bi pristupili web aplikaciji. Sustav je baziran na arhitekturi ”kli- jent – poslužitelj”, a komunikacija izmedu računala korisnika (klijent, zaposlenik, vlasnik, administrator) i poslužitelja odvija se preko HTTP veze.}
+			 
+			 \begin{figure}[H]
+			 	\includegraphics[width=\linewidth]{dijagrami/Dijagram_razmjestaja.png}
+			 	\centering
+			 	\caption{Dijagram razmjestaja}
+			 	\label{fig:ClassDiagram1}
+			 \end{figure}
 			
 			\eject 
 		
 		\section{Upute za puštanje u pogon}
 		
-			\textbf{\textit{dio 2. revizije}}\\
+
 			 
 			 \textnormal{Aplikacija je razvijena u okviru ASP.NET Core 3 uz korištenje SQL Server relacijske baze podataka. Prilikom izrade baze podataka koristili smo pristup "Database First". To znači da smo prvo konstruirali bazu, izgenerirali SQL kod za nju te pomoću .NET Core-a izgenerirali C\# razrede koji opisuju strukturu baze. Kako bismo osigurali da se aplikacija može spojiti na bazu, potrebno je u datoteci "appsettings.json" podesiti connection string na vrijednost: "\textit{Server=(localdb)\\mssqllocaldb;Database=RudesDatabase;Trusted\_Connection=True;}". Prilikom prvog pokretanja aplikacije, potrebno je ispuniti bazu podacima iz seeder razreda, a to se radi pomoću linije "\textit{RudesDatabaseSeeder.Initialize(app);}" u datoteci Startup.cs. Nakon toga, dovoljno je aplikaciju pokrenuti odabirom "Run" pa "Start without Debugging".}
 			 
