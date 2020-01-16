@@ -193,11 +193,9 @@
 		\section{Upute za puštanje u pogon}
 		
 			\textbf{\textit{dio 2. revizije}}\\
-		
-			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
-			
-			
-			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
-			
+			 
+			 \textnormal{Aplikacija je razvijena u okviru ASP.NET Core 3 uz korištenje SQL Server relacijske baze podataka. Prilikom izrade baze podataka koristili smo pristup database first. To znači da smo prvo konstruirali bazu, izgenerirali SQL kod za nju te pomoću .NET Core-a izgenerirali C\# razrede koji opisuju strukturu baze. Kako bismo osigurali da se aplikacija može spojiti na bazu, potrebno je u datoteci appsettings.json podesiti connection string na vrijednost: "\textit{Server=(localdb)\\mssqllocaldb;Database=RudesDatabase;Trusted\_Connection=True;}". Prilikom prvog pokretanja aplikacije, potrebno je ispuniti bazu podacima iz seeder razreda, a to se radi pomoću linije "\textit{RudesDatabaseSeeder.Initialize(app);}" u datoteci Startup.cs. Nakon toga, dovoljno je aplikaciju pokrenuti odabirom "Run" pa "Start without Debugging".}
+			 
+			 \textnormal{Ukoliko je došlo do promjena u bazi podataka, prije idućeg pokretanja aplikacije potrebno je u Package Manager Console pokrenuti naredbu "Update-Database" kako bi se ažurirale vrijednosti u tablicama baze. Nakon toga se aplikacija može ponovno pokrenuti.}		
 			
 			\eject 
