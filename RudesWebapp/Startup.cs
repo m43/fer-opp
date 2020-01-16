@@ -132,7 +132,7 @@ namespace RudesWebapp
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                // RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
+                //RudesDatabaseSeeder.Initialize(app); // uncomment to seed the database
             }
             else
             {

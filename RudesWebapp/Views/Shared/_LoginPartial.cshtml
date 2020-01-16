@@ -8,12 +8,12 @@
 {
     <li class="nav-item active btn my-navbar-button">
         <a class="nav-link" href="#" role="button" data-toggle="modal" data-target="#shoppingCartModal">
-            <i class="fas fa-shopping-cart"></i>
+            <i class="fas fa-shopping-cart" style="color: #424242;"></i>
         </a>
     </li>
 
     <li class="nav-item dropdown active btn my-navbar-button">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage" style="color: #424242; font-family: 'Montserrat', sans-serif">
             @UserManager.GetUserName(User)
         </a>
 
@@ -48,7 +48,7 @@
 
     <li class="nav-item btn my-navbar-button">
         <form id="logoutForm" class="form-inline justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <a href="#" id="logout" role="button" onclick="document.getElementById('logoutForm').submit()" class="nav-link text-dark">
+            <a href="#" id="logout" role="button" onclick="document.getElementById('logoutForm').submit()" class="nav-link text-dark" style="color: #424242; font-family: 'Montserrat', sans-serif">
                 Logout
             </a>
 
@@ -61,13 +61,13 @@
 else
 {
     <li class="nav-item btn my-navbar-button">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register" style="color: #424242; font-family: 'Montserrat', sans-serif">
             Register
         </a>
     </li>
 
     <li class="nav-item btn my-navbar-button">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login" style="color: #424242; font-family: 'Montserrat', sans-serif">
             Login
         </a>
     </li>

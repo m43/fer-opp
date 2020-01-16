@@ -2,33 +2,28 @@
     el: "#articleDetailsModal",
     data: {
         selectedArticle: {},
+        sizes: [],
         probneDostupneVelicine: [3, 0, 5, 0, 7],
-        kolicina1: 3,
-        kolicina2: 0
-        //kolicina
+        quantity: 0,
     },
-  
-    computed: {
-        isDisabled1: function () {
-            return (this.kolicina1 <= 0);
+    methods: {
+        addItemToCart: function (articleId, quantity, size) {
+            console.log(articleId);
+            console.log(quantity);
+            console.log(size);
+            axios({
+                method: 'post',
+                url: '/api/webshop/AddToShoppingCart',
+                data: 'articleId=' + articleId + '&quantity=' + quantity + '&size=' + size,
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            }).then(() => {
+                shoppingCartModal.updateCurrentCart();
+                finalPaymentModal.updateCurrentCart();
+            }).catch(error => {
+                console.log(error);
+            });
         },
-        isDisabled2: function () {
-            return (this.kolicina2 <= 0);
-        },
-        isDisabled: function () {
-            return true;
-        },
-        isNotDisabled: function () {
-            return false;
-        }
-
-       /*
-        isDisabled: function(){
-            return (this.kolicina <=0);
-        }
-        */
     }
-
 });
-
-
