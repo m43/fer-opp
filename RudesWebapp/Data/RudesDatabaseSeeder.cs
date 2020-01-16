@@ -139,6 +139,7 @@ namespace RudesWebapp.Data
                     Price = 250,
                     Type = "hoodie",
                     ArticleColor = Color.Indigo
+                  
                 },
                 new Article
                 {
@@ -149,6 +150,7 @@ namespace RudesWebapp.Data
                     Price = 200,
                     Type = "t-shirt",
                     ArticleColor = Color.Indigo
+
                 },
                 new Article
                 {
@@ -370,7 +372,566 @@ namespace RudesWebapp.Data
                     Article = context.Article.OrderByDescending(e => e.Id).First(),
                     Size = "L",
                     Quantity = 5
+                },
+                new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).First(),
+                    Size = "S",
+                    Quantity = 3
+                },
+                new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).First(),
+                    Size = "XS",
+                    Quantity = 2
+                },
+                new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).First(),
+                    Size = "XL",
+                    Quantity = 4
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(1).First(),
+                    Size = "XS",
+                    Quantity = 4
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(1).First(),
+                    Size = "S",
+                    Quantity = 4
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(1).First(),
+                    Size = "M",
+                    Quantity = 4
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(1).First(),
+                    Size = "L",
+                    Quantity = 4
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(1).First(),
+                    Size = "XL",
+                    Quantity = 0
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(2).First(),
+                    Size = "XS",
+                    Quantity = 0
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(2).First(),
+                    Size = "S",
+                    Quantity = 0
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(2).First(),
+                    Size = "M",
+                    Quantity = 0
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(2).First(),
+                    Size = "L",
+                    Quantity = 0
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(2).First(),
+                    Size = "XL",
+                    Quantity = 0
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(3).First(),
+                    Size = "XS",
+                    Quantity = 2
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(3).First(),
+                    Size = "S",
+                    Quantity = 2
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(3).First(),
+                    Size = "M",
+                    Quantity = 3
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(3).First(),
+                    Size = "L",
+                    Quantity = 3
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(3).First(),
+                    Size = "XL",
+                    Quantity = 3
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(4).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(4).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(4).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(4).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(4).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(5).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(5).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(5).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(5).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(5).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(6).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(6).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(6).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(6).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(6).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(7).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(7).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(7).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(7).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(7).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(8).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(8).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(8).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(8).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(8).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(9).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(9).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(9).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(9).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(9).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(10).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(10).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(10).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(10).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(10).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(11).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(11).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(11).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(11).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(11).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(12).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(12).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(13).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(13).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(13).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(14).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(14).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(14).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(14).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(14).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(15).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(15).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(15).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(15).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(15).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(16).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(16).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(16).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(16).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(16).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(17).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(17).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(17).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(17).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(17).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(18).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(18).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(18).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(18).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(18).First(),
+                    Size = "XL",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(19).First(),
+                    Size = "XS",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(19).First(),
+                    Size = "S",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(19).First(),
+                    Size = "M",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(19).First(),
+                    Size = "L",
+                    Quantity = 5
+                },
+                 new ArticleAvailability
+                {
+                    Article = context.Article.OrderByDescending(e => e.Id).Skip(19).First(),
+                    Size = "XL",
+                    Quantity = 5
                 }
+
             };
             return articleAvailabilities;
         }
