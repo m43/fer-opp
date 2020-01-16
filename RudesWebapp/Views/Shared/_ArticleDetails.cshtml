@@ -23,7 +23,7 @@
                             {{ selectedArticle.description }}
                         </div>
                         <div id="modalArticleReview" class="col-12">
-                            {{ selectedArticle.review }}
+                            {{ selectedArticleReview.comment }}
                         </div>
                         <div id="modalArticleSizes" class="col-12">
                             <template v-if="Object.entries(selectedArticle).length != 0 && selectedArticle.quantities.length != 0">

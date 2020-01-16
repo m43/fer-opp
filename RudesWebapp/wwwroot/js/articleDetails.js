@@ -2,16 +2,15 @@
     el: "#articleDetailsModal",
     data: {
         selectedArticle: {},
+        selectedArticleReview: {},
         sizes: [],
         probneDostupneVelicine: [3, 0, 5, 0, 7],
         quantity: 1,
         size: '',
+        review: '',
     },
     methods: {
         addItemToCart: function (articleId, quantity, size) {
-            console.log(articleId);
-            console.log(quantity);
-            console.log(size);
             axios({
                 method: 'post',
                 url: '/api/webshop/AddToShoppingCart',
@@ -33,6 +32,16 @@
             }).catch(error => {
                 console.log(error);
             });
+        },
+        getReview: function (id) {
+            axios.get("/api/Review/" + id)
+                .then(response => {
+                    console.log(response);
+                    this.selectedArticleReview = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
     }
 });
