@@ -17,6 +17,7 @@
                     <div class="modalContentDiv col-6">
                         <div id="modalArticleName" class="col-12">
                             {{ selectedArticle.name }}
+                            {{ selectedArticle }}
                             <br />
                         </div>
                         <div id="modalArticleDescription" class="col-12">
@@ -26,16 +27,18 @@
                             {{ selectedArticle.review }}
                         </div>
                         <div id="modalArticleSizes" class="col-12">
-
+                            proba
+                            {{selectedArticle.quantities}}
+                            {{selectedArticle.quantities.length}}
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Odaberite veličinu
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <div v-if="probneDostupneVelicine.length != 0">
-                                        <div style="display: inline" v-for="velicina in probneDostupneVelicine">
+                                    <div v-if="Object.entries(selectedArticle).length != 0 && selectedArticle.quantities.length != 0">
+                                        <div style="display: inline" v-for="(velicina, index) in selectedArticle.quantities">
                                             <template v-if="velicina > 0">
-                                                <a class="dropdown-item" href="#">velicina</a>
+                                                <a class="dropdown-item" href="#">{{selectedArticle.sizes[index]}}</a>
                                             </template>
                                         </div>
                                     </div>
@@ -44,7 +47,7 @@
                             <div id="modalArticleQuantity" class="col-12" style="padding-left: 0; margin-left:0;">
                                 Unesite broj artikala
                                 <br />
-                                <input type="number" step="1" min="1" max="" size="2" pattern="" inputmode="" v-model="quantity">
+                                <input type="number" step="1" min="1" max="" size="2" pattern="" inputmode="" v-model.number="quantity">
                             </div>
                         </div>
                     </div>

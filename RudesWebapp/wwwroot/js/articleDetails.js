@@ -2,6 +2,7 @@
     el: "#articleDetailsModal",
     data: {
         selectedArticle: {},
+        sizes: [],
         probneDostupneVelicine: [3, 0, 5, 0, 7],
         quantity: 0,
     },
@@ -24,8 +25,5 @@
                 console.log(error);
             });
         },
-    },
-    beforeMount: function () {
-
     }
 });
