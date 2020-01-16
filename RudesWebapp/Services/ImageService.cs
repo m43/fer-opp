@@ -22,7 +22,7 @@ namespace RudesWebapp.Services
         private const string ImagesFolder = "images";
         private static readonly int[] SupportedSizes = {72, 240, 480, 640, 960, 1280};
 
-        private static readonly string[] PermittedExtensions = {".jpf", ".png", ".jpeg", "gif"};
+        private static readonly string[] PermittedExtensions = {".jpg", ".png", ".jpeg", "gif"};
 
         public ImageService(IWebHostEnvironment hostEnvironment, RudesDatabaseContext context)
         {
