@@ -9,7 +9,7 @@
                 <figcaption class="articleDescription">{{ article.price }} kn </figcaption>
                 <figcaption>
                     <button type="button" class="buttonStyle" @click="updateSelectedArticle(article)" data-toggle="modal" data-target="#articleDetailsModal">
-                        Stavi u košaricu
+                        STAVI U KOŠARICU
                      </button>
                 </figcaption>
                 <hr />

@@ -17,16 +17,21 @@
 }
 
 .buttonStyle {
-    background-color: #267fde;
+    background-color: #A89435;
     border: none;
     color: white;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     padding: 1% 2% 1% 2%;
-    margin: 2%;
+    margin: 5%;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
+
+
 
 .priceButton {
     background-color: Transparent;
