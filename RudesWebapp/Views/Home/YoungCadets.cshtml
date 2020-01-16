@@ -2,15 +2,29 @@
     ViewData["Title"] = "Mlađi kadeti";
 }
 
-<div style="background-color: antiquewhite;">
-    <h4 style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">Mlađi kadeti 2019./2020.</h4>
+<div style="background-color: white;">
+    <h4 style="        font-size: 25px;
+        font-family: 'Cinzel', sans-serif;
+        color: #A89435;
+        font-weight: 700;
+        margin-bottom: 20px;
+        margin-left: 40px;">Mlađi kadeti 2019./2020.</h4>
 </div>
+
+<hr />
 
 <div>
-    <img src="~/images/timska-seniori.jpg" alt="Timska slika" style="margin-bottom: 10px; min-width: 100%;" />
+    <img src="~/images/timska-seniori.jpg" alt="Timska slika" style="margin-bottom: 10px;
+        min-width: 92%;
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+" />
 </div>
 
-<div class="container" id="teams" style="padding: 0;">
+<hr />
+
+<div class="container" id="teams" style="padding: 0; margin-top: 20px;">
     <div v-for="playerGroup in youngCadetPlayers" class="row">
         <div v-for="player in playerGroup" class="col-lg-3 text-center" style="padding: 0; margin-right: 0px; margin-left: 0px;">
             <player-component :player="player"></player-component>
