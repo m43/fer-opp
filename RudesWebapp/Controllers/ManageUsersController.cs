@@ -63,7 +63,6 @@ namespace RudesWebapp.Controllers
                     FirstName = user.Name,
                     LastName = user.LastName,
                     Password = user.PasswordHash,
-                    ConfirmPassword = user.PasswordHash,
                     Role = (await _userManager.GetRolesAsync(user)).First()
                 });
             }
