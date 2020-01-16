@@ -73,20 +73,111 @@
 	
 			
 			\subsection{Ispitivanje komponenti}
-			\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
 			
-			
-			
-			\subsection{Ispitivanje sustava}
-			
-			 \textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
-			 
-			 \textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
-			 \begin{itemize}
-			 	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
-			 	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
-			 \end{itemize}
-		 	\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			\textnormal{Ispitni slučajevi su testirani pomoću alata Selenium IDE. Određeni su redovni i rubni slučajevi koji opisuju moguće akcije korisnika na web aplikaciji.\\}
+		 	
+		 	\textnormal{\textbf{Ispitni slučaj 1: Interakcija s web-shopom i pregledavanje dostupnih artikala\\}}
+		 	
+		 	\textnormal{\textbf{Ulaz:}}
+		 	
+		 	\begin{packed_enum}
+		 		\item Otvaranje početne stranice u web pregledniku.
+		 		\item Otvaranje login stranice i unos e-maila i lozinke.
+		 		\item Otvaranje stranice web-shopa.
+		 		\item Pomicanje kotačića na mišu i pregledavanje artikala web-shopa.
+		 		\item Klik na gumb artikla \textit{Dodaj u košaricu}.
+		 		\item Otvaranje korisničke košarice.
+		 		\item Klik na gumb brisanja artikla.
+		 		\item Klik na gumb \textit{Isprazni košaricu}.
+		 	\end{packed_enum}
+	 	
+	 		\textnormal{\textbf{Očekivani rezultat:}}
+	 		
+	 		\begin{packed_enum}
+	 			\item Prikazuje se web-shop logiranog korisnika.
+	 			\item Odabrani artikl se dodaje u košaricu.
+	 			\item Otvaranje i prikaz košarice artikala.
+	 			\item Brisanje jednog artikla.
+	 			\item Brisanje svih artikala.
+	 		\end{packed_enum}
+ 		
+ 			\textnormal{\textbf{Rezultat:}}
+ 			
+ 			\textnormal{Akcije pregledavanja web-shopa, dodavanja artikala u košaricu i brisanje artikala košarice su funkcionalne. \textcolor{green}{Aplikacija je prošla test.\\}}
+ 			
+ 			\textnormal{\textbf{Ispitni slučaj 2: Login korisnika}\\}
+ 			
+ 			\textnormal{\textbf{Ulaz:}}
+ 			
+ 			\begin{packed_enum}
+ 				\item Otvaranje početne stranice u web pregledniku.
+ 				\item Otvaranje login stranice.
+ 				\item Unos e-mail korisnika.
+ 				\item Unos lozinke korisnika.
+ 				\item Klik na gumb \textit{Login}.
+ 			\end{packed_enum}
+ 			
+ 			\textnormal{\textbf{Očekivani rezultat:}}
+ 			
+ 			\begin{packed_enum}
+ 				\item Otvaranje stranice login obrasca.
+ 				\item Unos i provjera korisničkih podataka u bazi podataka.
+ 				\item Prikaz početne stranice sa korisničim profilom u gornjem desnom kutu.
+ 			\end{packed_enum}
+ 			
+ 			\textnormal{\textbf{Rezultat:}}
+ 			
+ 			\textnormal{Prikaz login stranice i provjera unešenih podataka. \textcolor{green}{Aplikacija je prošla test.}\\}
+ 			
+ 			\textnormal{\textbf{Ispitni slučaj 3: Registracija korisnika}\\}
+ 			
+ 			\textnormal{\textbf{Ulaz:}}
+ 			
+ 			\begin{packed_enum}
+ 				\item Otvaranje početne stranice u web pregledniku.
+ 				\item Otvaranje stranice za registraciju.
+ 				\item Unos željenog e-mail korisnika.
+ 				\item Unos željene lozinke korisnika.
+ 				\item Popunjavanje ostalih podataka.
+ 				\item Klik na gumb \textit{Registriraj se}.
+ 			\end{packed_enum}
+ 			
+ 			\textnormal{\textbf{Očekivani rezultat:}}
+ 			
+ 			\begin{packed_enum}
+ 				\item Otvaranje stranice obrasca za registriranje.
+ 				\item Unos korisničkih podataka.
+ 				\item Zapis unešenih korisničkih podataka u bazi podataka.
+ 				\item Prikaz početne stranice sa korisničim profilom u gornjem desnom kutu.
+ 			\end{packed_enum}
+ 			
+ 			\textnormal{\textbf{Rezultat:}}
+ 			
+ 			\textnormal{Prikaz stranice za registraciju i zapis unešenih podataka u bazi podataka. \textcolor{green}{Aplikacija je prošla test.}\\}
+ 			
+ 			\textnormal{\textbf{Ispitni slučaj 4: Rubni slučaj prilikom korisničkog logina}\\}
+ 			
+ 			\textnormal{\textbf{Ulaz:}}
+ 			
+ 			\begin{packed_enum}
+ 				\item Otvaranje početne stranice web aplikacije.
+ 				\item Otvaranje stranice za login korisnika.
+ 				\item Nepotpun unos podataka (e-mail i/ili lozinka nedostaje) ili pogrešan unos.
+ 				\item Klik na gumb \textit{Login}.
+ 			\end{packed_enum}
+ 			
+ 			\textnormal{\textbf{Očekivani rezultat:}}
+ 			
+ 			\begin{packed_enum}
+ 				\item Otvaranje stranice login obrasca.
+ 				\item Nepotpun ili pogrešan unos podataka.
+ 				\item Klik na gumb \textit{Login}.
+ 				\item Ispis poruke upozorenja da određeni podatak mora biti unijet ili je pogrešan.
+ 			\end{packed_enum}
+ 			
+ 			\textnormal{\textbf{Rezultat:}}
+ 			
+ 			\textnormal{Korsnik dobiva obavijest da je unos podataka nepotpun ili pogrešan. \textcolor{green}{Aplikacija je prošla test.}}
 			
 			\eject 
 		
