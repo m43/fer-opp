@@ -83,7 +83,7 @@ namespace RudesWebapp.Controllers.Api
                 }
                 else
                 {
-                    return NotFound(); // TODO change to something more appropriate
+                    return NoContent(); // TODO change to something more appropriate
                 }
                 availability.Quantity -= item.Quantity;
                 await _context.SaveChangesAsync();

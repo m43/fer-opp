@@ -131,12 +131,12 @@ namespace RudesWebapp.Controllers.Api
                     
                     if (currentQuantity + quantity > availability.Quantity)
                     {
-                        return null; // TODO change to something more appropriate
+                        return NoContent(); // TODO change to something more appropriate
                     }
                 }
                 else
                 {
-                    return null; // TODO change to something more appropriate
+                    return NoContent(); // TODO change to something more appropriate
                 }
 
                 var services = new ShoppingCartService(shoppingCart);
@@ -162,12 +162,6 @@ namespace RudesWebapp.Controllers.Api
 
             var selectedArticle = await _context.Article.FindAsync(articleId);
             if (selectedArticle == null) return NotFound();
-
-            var availability = await _context.ArticleAvailability.FindAsync(articleId, size);
-            if (availability == null)
-            {
-                return NotFound();
-            }
 
             var service = new ShoppingCartService(shoppingCart);
             var removedArticle = service.RemoveArticle(_context, selectedArticle, quantity, size);
