@@ -21,6 +21,7 @@
         //},
         updateSelectedArticle: function (article) {
             articleDetailsModal.selectedArticle = article;
+            articleDetailsModal.getReview(article.id);
         }
     }
 });

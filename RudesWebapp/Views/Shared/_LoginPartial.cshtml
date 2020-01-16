@@ -13,7 +13,7 @@
     </li>
 
     <li class="nav-item dropdown active btn my-navbar-button">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage" style="color: #424242; font-family: 'Montserrat', sans-serif">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage" style="color: white; font-weight: 400; border-radius: 5px; font-family: 'Cinzel', sans-serif; background-color: #A89435;">
             @UserManager.GetUserName(User)
         </a>
 
@@ -28,7 +28,8 @@
             }
             @if (User.IsInRoles(Roles.BoardOrAbove))
             {
-                <a class="dropdown-item" asp-controller="Article" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi artikle</a>
+                <a class="dropdown-item" asp-controller="Article" asp-action="" style="        color: #424242;
+        font-family: 'Montserrat', sans-serif">Uredi artikle</a>
                 <a class="dropdown-item" asp-controller="Discount" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi popuste</a>
                 <a class="dropdown-item" asp-controller="Order" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi narudzbe</a>
                 <hr/>

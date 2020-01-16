@@ -24,15 +24,15 @@
     text-decoration: none;
     font-size: 14px;
     cursor: pointer;
-    padding: 4% 6% 4% 6% !important; 
-    margin: 5%; 
+    padding: 4% 6% 4% 6% !important;
+    margin: 5%;
     border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-family: 'Cinzel', sans-serif;
+    font-weight: 400;
 }
 
 .buttonStyleTwo {
-    background-color: #A89435;
+    background-color: #06244A;
     border: none;
     color: white;
     text-align: center;
@@ -41,8 +41,8 @@
     cursor: pointer;
     padding: 1% 2% 1% 2%;
     border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-family: 'Cinzel', sans-serif;
+    font-weight: 400;
 }
 
 

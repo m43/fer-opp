@@ -3,39 +3,45 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="shoppingCartModalTitle">Košarica</h5>
+                <h5 class="modal-title" id="shoppingCartModalTitle" style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 20px; font-weight: 400;">Košarica</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div>
+                <div style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">
                     Ukupna cijena: {{ totalPrice }} kn
                 </div>
                 <p></p>
                 <table v-if="items.length != 0">
-                    <tr>
+                    <tr style="border-bottom: 0.02px solid #EBEBEB;">
                         <th></th>
-                        <th>Naziv</th>
-                        <th>Opis</th>
-                        <th>Tip</th>
-                        <th>Cijena</th>
-                        <th>Količina</th>
-                        <th>Veličina</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Naziv</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Opis</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Tip</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Cijena</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Količina</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Veličina</th>
                     </tr>
-
+                    
                     <tr v-for="item in items">
                         <td>
                             <div class="deleteButton" @@click="removeArticleFromCart(item.articleId, 1, item.size)">
                                 <i class="fas fa-times"></i>
                             </div>
                         </td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.description }}</td>
-                        <td>{{ item.type }}</td>
-                        <td>{{ item.price }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.size }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.name }}</td>
+                        <td style="        font-family: 'Montserrat', sans-serif;
+        color: #424242;
+        font-size: 15px;
+        font-weight: 400;">{{ item.description }}</td>
+                        <td style="        font-family: 'Montserrat', sans-serif;
+        color: #424242;
+        font-size: 15px;
+        font-weight: 400;">{{ item.type }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.price }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.quantity }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.size }}</td>
                     </tr>
                 </table>
             </div>

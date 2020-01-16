@@ -21,7 +21,9 @@
     <link rel="stylesheet" href="~/css/shoppingCart.css" />
     <link rel="stylesheet" href="~/css/webshop.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700,900&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,500,600,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
 
     <script src="~/lib/axios/axios.min.js"></script>
     <script src="~/lib/underscore/underscore-min.js"></script>
@@ -45,6 +47,18 @@
                     <div class="col-auto">
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="navbar-nav mr-auto">
+
+
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index" style="color: #06244A; font-family: 'Dancing Script', cursive; font-weight: 500; font-size: 23px;">
+                                        Košarkaški klub <span style="font-family:'Libre Baskerville', serif; margin-left: 10px;">RUDEŠ</span>
+                                    </a>
+
+                                </li>
+                                
+
+
                                 <li class="nav-item dropdown active btn my-navbar-button">
                                     <a class="nav-link dropdown-toggle" href="#" id="teamsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #424242; font-family: 'Montserrat', sans-serif">
                                         Timovi
@@ -110,8 +124,11 @@
         <div class="container-fluid" style="background-color: #06244A;">
             <div class="row align-items-center text-center">
                 <div class="col">
-                    <h4 style="color: #A89435; font-family: 'Montserrat', sans-serif; font-size: medium; font-weight: 300;">KOŠARKAŠKI KLUB RUDEŠ</h4>
-                    <p style="color: #C0C0C0; font-family: 'Montserrat', sans-serif; font-size: small; font-weight: 300;">Dragutina Freudenriecha 19</p>
+                    <h4 style="color: #A89435; font-family: 'Montserrat', sans-serif; font-size: medium; font-weight: 500;">KOŠARKAŠKI KLUB RUDEŠ</h4>
+                    <p style="        color: #C0C0C0;
+        font-family: 'Montserrat', sans-serif;
+        font-size: small;
+        font-weight: 300;">Dragutina Freudenriecha 19</p>
                     <p style="color: #C0C0C0; font-family: 'Montserrat', sans-serif; font-size: small; font-weight: 300;">10000 Zagreb</p>
                     <p style="color: #C0C0C0; font-family: 'Montserrat', sans-serif; font-size: small; font-weight: 300;">Kontakt broj: 091 2542 354 (Danko Miholić)</p>
                 </div>
