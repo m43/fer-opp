@@ -62,6 +62,7 @@ body {
     /* Margin bottom by footer height */
     padding-top: 70px;
     margin-bottom: 200px;
+    overflow-x: hidden;
 }
 
 .my-footer {

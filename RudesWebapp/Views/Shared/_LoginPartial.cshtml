@@ -17,8 +17,6 @@
             @UserManager.GetUserName(User)
         </a>
 
-        <!-- asp-area="Identity" asp-page="/Account/Manage/Index" -->
-
         <div class="dropdown-menu" aria-labelledby="userDropdown">
             @if (User.IsInRoles(Roles.CoachOrAbove))
             {
@@ -43,19 +41,16 @@
             }
             <a class="dropdown-item" asp-controller="AddReview" asp-action="">Dodaj recenziju</a>
             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Uredi postavke računa</a>
+            <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <a href="#" class="dropdown-item" id="logout" role="button" onclick="document.getElementById('logoutForm').submit()">
+                    Logout
+                </a>
+
+                <noscript>
+                    <input type="submit" value="Logout" />
+                </noscript>
+            </form>
         </div>
-    </li>
-
-    <li class="nav-item btn my-navbar-button">
-        <form id="logoutForm" class="form-inline justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <a href="#" id="logout" role="button" onclick="document.getElementById('logoutForm').submit()" class="nav-link text-dark" style="color: #424242; font-family: 'Montserrat', sans-serif">
-                Logout
-            </a>
-
-            <noscript>
-                <input type="submit" value="Logout" />
-            </noscript>
-        </form>
     </li>
 }
 else
