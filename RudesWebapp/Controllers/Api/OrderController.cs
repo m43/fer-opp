@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
+using RudesWebapp.Helpers;
 using RudesWebapp.Models;
 using RudesWebapp.Services;
 
@@ -127,7 +128,8 @@ namespace RudesWebapp.Controllers.Api
                 Address = orderDTO.Address,
                 City = orderDTO.City,
                 PostalCode = orderDTO.PostalCode,
-                OrderArticle = orderArticles
+                OrderArticle = orderArticles,
+                UserId = User.GetUserId()
             };
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
