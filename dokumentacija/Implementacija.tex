@@ -103,8 +103,22 @@
 		
 			\textbf{\textit{dio 2. revizije}}\\
 			 
-			 \textnormal{Aplikacija je razvijena u okviru ASP.NET Core 3 uz korištenje SQL Server relacijske baze podataka. Prilikom izrade baze podataka koristili smo pristup database first. To znači da smo prvo konstruirali bazu, izgenerirali SQL kod za nju te pomoću .NET Core-a izgenerirali C\# razrede koji opisuju strukturu baze. Kako bismo osigurali da se aplikacija može spojiti na bazu, potrebno je u datoteci appsettings.json podesiti connection string na vrijednost: "\textit{Server=(localdb)\\mssqllocaldb;Database=RudesDatabase;Trusted\_Connection=True;}". Prilikom prvog pokretanja aplikacije, potrebno je ispuniti bazu podacima iz seeder razreda, a to se radi pomoću linije "\textit{RudesDatabaseSeeder.Initialize(app);}" u datoteci Startup.cs. Nakon toga, dovoljno je aplikaciju pokrenuti odabirom "Run" pa "Start without Debugging".}
+			 \textnormal{Aplikacija je razvijena u okviru ASP.NET Core 3 uz korištenje SQL Server relacijske baze podataka. Prilikom izrade baze podataka koristili smo pristup "Database First". To znači da smo prvo konstruirali bazu, izgenerirali SQL kod za nju te pomoću .NET Core-a izgenerirali C\# razrede koji opisuju strukturu baze. Kako bismo osigurali da se aplikacija može spojiti na bazu, potrebno je u datoteci "appsettings.json" podesiti connection string na vrijednost: "\textit{Server=(localdb)\\mssqllocaldb;Database=RudesDatabase;Trusted\_Connection=True;}". Prilikom prvog pokretanja aplikacije, potrebno je ispuniti bazu podacima iz seeder razreda, a to se radi pomoću linije "\textit{RudesDatabaseSeeder.Initialize(app);}" u datoteci Startup.cs. Nakon toga, dovoljno je aplikaciju pokrenuti odabirom "Run" pa "Start without Debugging".}
 			 
-			 \textnormal{Ukoliko je došlo do promjena u bazi podataka, prije idućeg pokretanja aplikacije potrebno je u Package Manager Console pokrenuti naredbu "Update-Database" kako bi se ažurirale vrijednosti u tablicama baze. Nakon toga se aplikacija može ponovno pokrenuti.}		
+			 \begin{figure}[H]
+			 	\includegraphics[width=\linewidth]{deployment/database_seeder.png}
+			 	\centering
+			 	\caption{Inicijalizacija Database Seeder-a}
+			 	\label{fig:ClassDiagram1}
+			 \end{figure}
+			 
+			 \textnormal{Ukoliko je došlo do promjena u bazi podataka, prije idućeg pokretanja aplikacije potrebno je u Package Manager Console pokrenuti naredbu "Update-Database" kako bi se ažurirale vrijednosti u tablicama baze. Nakon toga se aplikacija može ponovno pokrenuti.}
+			 
+			 \begin{figure}[H]
+			 	\includegraphics[width=\linewidth]{deployment/pmc_update_database.png}
+			 	\centering
+			 	\caption{Update-Database naredba u Package Manager Console}
+			 	\label{fig:ClassDiagram1}
+			 \end{figure}	
 			
 			\eject 
