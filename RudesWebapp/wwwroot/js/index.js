@@ -15,7 +15,7 @@ var index = new Vue({
     },
     methods: {
         getPosts: function () {
-            axios.get("/Home/GetPosts")
+            axios.get("/api/post")
                 .then(response => {
                     this.posts = response.data;
                 })

@@ -19,7 +19,7 @@
                 <div class="carousel-inner" style="max-height: 400px;">
                     <template v-for="(post, index) in posts">
                         <div v-if="index == 0" class="carousel-item active">
-                            <img src="~/images/solid-black-large.png" class="d-block carousel-image" alt="First Post">
+                            <img :src="post.image == null? '/images/solid-black-large.png' : post.image.path" class="d-block carousel-image" alt="First Post">
                             <div class="carousel-caption d-none d-md-block">
                                 <div>
                                     <h5>{{ post.title }}</h5>
@@ -30,7 +30,7 @@
                         </div>
 
                         <div v-else class="carousel-item">
-                            <img src="~/images/solid-black-large.png" class="d-block carousel-image" alt="First Post">
+                            <img :src="post.image == null? '/images/solid-black-large.png' : post.image.path" class="d-block carousel-image" alt="First Post">
                             <div class="carousel-caption d-none d-md-block">
                                 <div>
                                     <h5>{{ post.title }}</h5>

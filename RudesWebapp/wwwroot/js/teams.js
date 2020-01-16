@@ -2,7 +2,7 @@
     props: ["player"],
     template: `
             <div class="d-inline" style="margin-right: 0px; margin-left: 0px; margin-bottom: 13px; padding: 0;">
-                <img src="/images/rudes-logo.jpg" />
+                <img :src="player.image==null?'/images/rudes-logo.jpg':player.image.path+'?width=100'" />
                 <div class="tempDiv">
                     <p class="playerInfo">{{ player.name }} {{ player.lastName }}</p>
                 </div>
@@ -21,7 +21,7 @@ var teams = new Vue({
     },
     methods: {
         getPlayers: function () {
-            axios.get("/Api/Player")
+            axios.get("/api/player")
                 .then(response => {
                     this.players = response.data;
                 })

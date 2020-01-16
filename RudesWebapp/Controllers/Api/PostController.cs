@@ -30,7 +30,7 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Post/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostDTO>> GetPostDto(int id)
+        public async Task<ActionResult<PostDTO>> GetPost(int id)
         {
             var post = await _context.Post.Include(p => p.Image).FirstAsync(p => p.Id == id);
             if (post == null)

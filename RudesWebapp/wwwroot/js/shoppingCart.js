@@ -7,7 +7,7 @@
     },
     methods: {
         updateCurrentCart: function () {
-            axios.get("/Webshop/GetCurrentShoppingCartArticles")
+            axios.get("/api/webshop/GetCurrentShoppingCartArticles")
                 .then(response => {
                     this.items = response.data;
                     this.calculateTotalPrice();
@@ -20,7 +20,7 @@
         removeArticleFromCart: function (articleId, quantity, size) {
             axios({
                 method: 'delete',
-                url: '/Webshop/RemoveFromShoppingCart',
+                url: '/api/webshop/RemoveFromShoppingCart',
                 data: 'articleId=' + articleId + '&quantity=' + quantity + '&size=' + size,
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -41,7 +41,7 @@
             this.totalPrice = total;
         },
         clearShoppingCart: function () {
-            axios.get("/Webshop/ClearShoppingCart")
+            axios.get("/api/webshop/ClearShoppingCart")
                 .then(response => {
                     this.updateCurrentCart();
                     finalPaymentModal.updateCurrentCart();
@@ -70,7 +70,7 @@ var finalPaymentModal = new Vue({
     },
     methods: {
         updateCurrentCart: function () {
-            axios.get("/Webshop/GetCurrentShoppingCartArticles")
+            axios.get("/api/webshop/GetCurrentShoppingCartArticles")
                 .then(response => {
                     this.items = response.data;
                     this.calculateTotalPrice();
@@ -88,7 +88,7 @@ var finalPaymentModal = new Vue({
             this.totalPrice = total;
         },
         getArticles: function () {
-            axios.get("/Webshop/GetArticlesInStore")
+            axios.get("/api/webshop/GetArticlesInStore")
                 .then(response => {
                     this.allArticles = response.data;
                 })
@@ -99,7 +99,7 @@ var finalPaymentModal = new Vue({
         addItemToCart: function (articleId, quantity, size) {
             axios({
                 method: 'post',
-                url: '/Webshop/AddToShoppingCart',
+                url: '/api/webshop/AddToShoppingCart',
                 data: 'articleId=' + articleId + '&quantity=' + quantity + '&size=' + size,
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -117,7 +117,7 @@ var finalPaymentModal = new Vue({
             console.log(items);
             axios({
                 method: 'post',
-                url: '/Api/Order',
+                url: '/api/order',
                 data: {
                     address: address,
                     city: city,
@@ -125,12 +125,11 @@ var finalPaymentModal = new Vue({
                     items: items
                 },
                 headers: {
-                    'content-type':'application/json;charset=utf-8'
+                    'content-type': 'application/json;charset=utf-8'
                 }
-            }).then(() => {  
-                console.log("bravo");
+            }).then(() => {
             }).catch(error => {
-                console.log("GLUPSI");
+                console.log(error);
             });
         }
     },

@@ -53,7 +53,7 @@ var webshop = new Vue({
     },
     methods: {
         getArticles: function () {
-            axios.get("/Webshop/GetArticlesInStore")
+            axios.get("/api/webshop/GetArticlesInStore")
                 .then(response => {
                     this.allArticles = response.data;
                     this.filteredArticles = this.allArticles;
@@ -65,7 +65,7 @@ var webshop = new Vue({
         addItemToCart: function (articleId, quantity, size) {
             axios({
                 method: 'post',
-                url: '/Webshop/AddToShoppingCart',
+                url: '/api/webshop/AddToShoppingCart',
                 data: 'articleId=' + articleId + '&quantity=' + quantity + '&size=' + size,
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded;charset=utf-8'

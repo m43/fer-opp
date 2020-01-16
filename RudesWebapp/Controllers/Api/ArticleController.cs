@@ -20,20 +20,15 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Article
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArticleDTO>>> GetArticle()
+        public async Task<ActionResult<IEnumerable<ArticleDTO>>> GetArticles()
         {
             return Ok(await _articleService.GetArticles());
         }
 
         // GET: api/Article/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ArticleDTO>> GetArticle(int? id)
+        public async Task<ActionResult<ArticleDTO>> GetArticle(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var tResult = await _articleService.GetArticle(id);
             if (!tResult.Succeeded)
             {

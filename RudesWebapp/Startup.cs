@@ -59,7 +59,7 @@ namespace RudesWebapp
                 });
 
             services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
-            
+
             services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
 
             services.AddImageSharpCore(
@@ -151,9 +151,8 @@ namespace RudesWebapp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default","{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("api","api/{controller}/{action}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

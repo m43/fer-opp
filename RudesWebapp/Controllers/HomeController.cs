@@ -1,22 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly RudesDatabaseContext _context;
-
-        public HomeController(RudesDatabaseContext context)
-        {
-            _context = context;
-        }
-
         public IActionResult Index()
         {
             return View();
@@ -62,37 +51,10 @@ namespace RudesWebapp.Controllers
             return View();
         }
 
-        public IActionResult Post(int id)
-        {
-            Post post = _context.Post.Find(id);
-            ViewData["post"] = post;
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
-        }
-
-        // Post TODO should use /controllers/api/post controller!
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
-        {
-            return await _context.Post.ToListAsync();
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<Post>> GetPost(int id)
-        {
-            var post = await _context.Post.FindAsync(id);
-
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            return post;
         }
     }
 }
