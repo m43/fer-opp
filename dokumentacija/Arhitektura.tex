@@ -436,9 +436,15 @@
 			\label{fig:ClassDiagram1}
 		\end{figure}
 			
-		% 	\eject
-		% \section{Dijagram komponenti}
+			\eject
+		\section{Dijagram komponenti}
 		
-		% 	\textbf{\textit{dio 2. revizije}}\\
+	
 		
-		% 	 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+		 \textnormal{Dijagram komponenti prikazan na slici 4.8 opisuje organizaciju i meduovisnost komponenti, interne strukture i odnose prema okolini. Sustavu se pristupa preko dva različita sučelja. Preko sučelja za dohvat HTML, CSS i JS datoteka poslužuju se datoteke koje pripadaju frontend dijelu aplikacije. Frontend dio se sastoji od niza JavaScript datoteka koje su rasporedene u logičke cjeline nazvane po tipovima aktora koji im pristupaju. Sve JavaScript datoteke ovise o VueJS. Preko sučelja za dohvat JSON podataka pristupa se RESTful API komponenti. REST API poslužuje podatke koji pripadaju backend dijelu aplikacije. EntityFrameworkCore je zadužen za dohvaćanje tablica iz baze podataka pomoću SQL upita. Podaci koji su pristigli iz baze se šalju dalje MVC arhitekturi u obliku DTO (Data transfer object).}
+		 	\begin{figure}[H]
+		 	\includegraphics[width=\linewidth]{dijagrami/Dijagram_komponenti.png}
+		 	\centering
+		 	\caption{Dijagram komponenti }
+		 	\label{fig:ClassDiagram1}
+		 \end{figure}
