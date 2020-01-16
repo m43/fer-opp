@@ -33,3 +33,24 @@
     top: 0;
     width: 100%;
 }
+
+div.transbox {
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #ede6c5;
+    #A89435;
+    opacity: 0.85;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+    div.transbox p {
+        margin: 1px;
+        font-family: 'Montserrat';
+        color: #06244a;
+    }
+
+    div.transbox h5 {
+        font-family: 'Montserrat';
+        font-weight: bold;
+        color: #06244a;
+    }
