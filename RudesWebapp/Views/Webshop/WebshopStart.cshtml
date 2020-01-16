@@ -2,57 +2,64 @@
     ViewData["Title"] = "Webshop";
 }
 
-<div id="webshop">
-    <div class="outerFiltersDiv">
-        <div>
-            <button id="buttonFilter" class="buttonStyle" @@click="prikaziFiltere()">Filteri</button>
-        </div>
 
-        <div id="myDIV" class="container-fluid">
-            <div class="row allFilters">
-                <div class="filtersDiv col-md-6 col-lg-4">
-                    <div class="row typesOfArticles">
-                        <div class="col-12">
-                            <input type="checkbox" v-model="hoodieFilter"> Hoodie<br>
-                            <span class="checkmark"></span>
-                            <input type="checkbox" v-model="tshirtFilter"> T-shirt<br>
-                            <span class="checkmark"></span>
+
+    <div id="webshop">
+        <hr />
+        <div class="outerFiltersDiv">
+            <div>
+                <button id="buttonFilter" class="buttonStyleTwo" @@click="prikaziFiltere()">FILTERI</button>
+            </div>
+
+            <div id="myDIV" class="container-fluid">
+                <div class="row allFilters">
+                    <div class="filtersDiv col-md-4 col-lg-4">
+                        <div class="row typesOfArticles">
+                            <div class="col-12">
+                                <input type="checkbox" v-model="hoodieFilter"> <span style="margin-left: 1px; font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">Hoodie</span><br>
+                                <span class="checkmark"></span>
+                                <input type="checkbox" v-model="tshirtFilter"> <span style="margin-left: 1px;font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">T-shirt</span><br>
+                                <span class="checkmark"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filtersDiv col-md-4 col-lg-4">
+                        <div class="priceOfArticles">
+                            <input type="radio" name="price" :value="100" v-model="maxPrice"><span style="margin-left: 5px;font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">100 kn</span><br>
+                            <input type="radio" name="price" :value="200" v-model="maxPrice"><span style="margin-left: 5px;font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">200 kn</span><br>
+                            <input type="radio" name="price" :value="300" v-model="maxPrice"><span style="margin-left: 5px;font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">300 kn</span><br>
+                        </div>
+                    </div>
+
+                    <div class="filtersDiv col-md-4 col-lg-4">
+                        <div class="sorting">
+                            <input type="radio" name="sort" value="asc" v-model="sortOrder"><span style="  margin-left: 5px;      font-family: 'Montserrat', sans-serif;
+        color: #424242;
+        font-size: 15px;
+        font-weight: 400;">Sortiraj od najniže prema najvišoj cijeni</span><br>
+                            <input type="radio" name="sort" value="desc" v-model="sortOrder"><span style="margin-left: 5px;font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">Sortiraj od najviše prema najnižoj cijeni</span><br>
                         </div>
                     </div>
                 </div>
 
-                <div class="filtersDiv col-md-6 col-lg-4">
-                    <div class="priceOfArticles">
-                        <input type="radio" name="price" :value="100" v-model="maxPrice">< 100 kn<br>
-                        <input type="radio" name="price" :value="200" v-model="maxPrice">< 200 kn<br>
-                        <input type="radio" name="price" :value="300" v-model="maxPrice">< 300 kn<br>
-                    </div>
+                <div>
+                    <button id="buttonFilter" class="buttonStyleTwo" @@click="filterArticles()">FILTRIRAJ</button>
                 </div>
-
-                <div class="filtersDiv col-md-6 col-lg-4">
-                    <div class="sorting">
-                        <input type="radio" name="sort" value="asc" v-model="sortOrder">Sortiraj od najniže prema najvišoj cijeni<br>
-                        <input type="radio" name="sort" value="desc" v-model="sortOrder">Sortiraj od najviše prema najnižoj cijeni<br>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <button id="buttonFilter" class="buttonStyle" @@click="filterArticles()">Filtriraj</button>
+                <hr />
             </div>
         </div>
-    </div>
 
-    <div class="container-fluid">
-        <div v-if="filteredArticles.length != 0" class="outerArticlesDiv">
-            <div v-for="articleGroup in groupedFilteredArticles" class="row">
-                <div v-for="article in articleGroup" class="col-md-6 col-lg-3 text-center">
-                    <article-component :article="article"></article-component>
+        <div class="container-fluid">
+            <div v-if="filteredArticles.length != 0" class="outerArticlesDiv">
+                <div v-for="articleGroup in groupedFilteredArticles" class="row">
+                    <div v-for="article in articleGroup" class="col-md-6 col-lg-3 text-center">
+                        <article-component :article="article"></article-component>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <partial name="_ArticleDetails" />
 

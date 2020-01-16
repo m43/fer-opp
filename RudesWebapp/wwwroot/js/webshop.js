@@ -3,13 +3,13 @@
     template: `
             <div class="articleDiv">
                 <img class="productImages" src="/images/rudes-logo.jpg" >
-                <figcaption class="articleDescription">
+                <figcaption class="articleDescription" style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">
                     {{ article.name }}
                 </figcaption>
-                <figcaption class="articleDescription">{{ article.price }} kn </figcaption>
+                <figcaption class="articleDescription" style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ article.price }} kn </figcaption>
                 <figcaption>
-                    <button type="button" class="buttonStyle" @click="updateSelectedArticle(article)" data-toggle="modal" data-target="#articleDetailsModal">
-                        Stavi u košaricu
+                    <button class="buttonStyle" @click="updateSelectedArticle(article)" data-toggle="modal" data-target="#articleDetailsModal">
+                        STAVI U KOŠARICU
                      </button>
                 </figcaption>
                 <hr />
@@ -21,6 +21,7 @@
         //},
         updateSelectedArticle: function (article) {
             articleDetailsModal.selectedArticle = article;
+            articleDetailsModal.getReview(article.id);
         }
     }
 });

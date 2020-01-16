@@ -13,49 +13,45 @@
     </li>
 
     <li class="nav-item dropdown active btn my-navbar-button">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage" style="color: #424242; font-family: 'Montserrat', sans-serif">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage" style="color: white; font-weight: 400; border-radius: 5px; font-family: 'Cinzel', sans-serif; background-color: #A89435;">
             @UserManager.GetUserName(User)
         </a>
-
-        <!-- asp-area="Identity" asp-page="/Account/Manage/Index" -->
 
         <div class="dropdown-menu" aria-labelledby="userDropdown">
             @if (User.IsInRoles(Roles.CoachOrAbove))
             {
-                <a class="dropdown-item" asp-controller="Post" asp-action="">Uredi postove</a>
-                <a class="dropdown-item" asp-controller="Image" asp-action="">Uredi slike</a>
-                <a class="dropdown-item" asp-controller="Player" asp-action="">Uredi igrače</a>
-                <a class="dropdown-item" asp-controller="Match" asp-action="">Uredi utakmice</a>
+                <a class="dropdown-item" asp-controller="Post" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi postove</a>
+                <a class="dropdown-item" asp-controller="Image" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi slike</a>
+                <a class="dropdown-item" asp-controller="Player" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi igrače</a>
+                <a class="dropdown-item" asp-controller="Match" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi utakmice</a>
                 <hr/>
             }
             @if (User.IsInRoles(Roles.BoardOrAbove))
             {
-                <a class="dropdown-item" asp-controller="Article" asp-action="">Uredi artikle</a>
-                <a class="dropdown-item" asp-controller="Discount" asp-action="">Uredi popuste</a>
-                <a class="dropdown-item" asp-controller="Order" asp-action="">Uredi narudzbe</a>
+                <a class="dropdown-item" asp-controller="Article" asp-action="" style="        color: #424242;
+        font-family: 'Montserrat', sans-serif">Uredi artikle</a>
+                <a class="dropdown-item" asp-controller="Discount" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi popuste</a>
+                <a class="dropdown-item" asp-controller="Order" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi narudzbe</a>
                 <hr/>
             }
             @if (User.IsInRoles(Roles.BoardOrAbove))
             {
-                <a class="dropdown-item" asp-controller="Review" asp-action="">Upravljaj recenzijama</a>
-                <a class="dropdown-item" asp-controller="ManageUsers" asp-action="">Uredi korisnike sustava</a>
+                <a class="dropdown-item" asp-controller="Review" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Upravljaj recenzijama</a>
+                <a class="dropdown-item" asp-controller="ManageUsers" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi korisnike sustava</a>
                 <hr/>
             }
-            <a class="dropdown-item" asp-controller="AddReview" asp-action="">Dodaj recenziju</a>
-            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Uredi postavke računa</a>
+            <a class="dropdown-item" asp-controller="AddReview" asp-action="" style="color: #424242; font-family: 'Montserrat', sans-serif">Dodaj recenziju</a>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" style="color: #424242; font-family: 'Montserrat', sans-serif">Uredi postavke računa</a>
+            <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <a href="#" class="dropdown-item" id="logout" style="color: #424242; font-family: 'Montserrat', sans-serif" role="button" onclick="document.getElementById('logoutForm').submit()">
+                    Logout
+                </a>
+
+                <noscript>
+                    <input type="submit" value="Logout" />
+                </noscript>
+            </form>
         </div>
-    </li>
-
-    <li class="nav-item btn my-navbar-button">
-        <form id="logoutForm" class="form-inline justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <a href="#" id="logout" role="button" onclick="document.getElementById('logoutForm').submit()" class="nav-link text-dark" style="color: #424242; font-family: 'Montserrat', sans-serif">
-                Logout
-            </a>
-
-            <noscript>
-                <input type="submit" value="Logout" />
-            </noscript>
-        </form>
     </li>
 }
 else

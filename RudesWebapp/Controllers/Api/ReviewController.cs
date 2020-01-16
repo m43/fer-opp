@@ -33,15 +33,11 @@ namespace RudesWebapp.Controllers.Api
 
         // GET: api/Review/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<AddReviewDTO>> GetReview(int id)
+        public async Task<ActionResult<Review>> GetReview(int id)
         {
-            var review = await _context.Review.FindAsync(id);
-            if (review == null || review.Blocked)
-            {
-                return NotFound();
-            }
-
-            return _mapper.Map<AddReviewDTO>(review);
+            var review = await _context.Review
+                .FirstOrDefaultAsync(r => r.ArticleId == id);
+            return review;
         }
 
         [HttpPost]

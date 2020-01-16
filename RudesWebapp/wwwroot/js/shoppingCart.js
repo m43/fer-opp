@@ -111,10 +111,6 @@ var finalPaymentModal = new Vue({
             });
         },
         payment: function (address, city, postalCode, items) {
-            console.log(address);
-            console.log(city);
-            console.log(postalCode);
-            console.log(items);
             axios({
                 method: 'post',
                 url: '/api/order',
@@ -127,7 +123,15 @@ var finalPaymentModal = new Vue({
                 headers: {
                     'content-type': 'application/json;charset=utf-8'
                 }
-            }).then(() => {
+            }).then(response => {
+                console.log(response);
+                if (response == null) {
+                    toastr.error("Transakcija neuspješna!", "Transaction Info");
+                } else if (response.status == 200) {
+                    toastr.success("Transakcija uspješno izvršena!", "Transaction Info");
+                } else if (response.status == 204) {
+                    toastr.error("Transakcija neuspješna! Nema dovoljno artikala na skladištu!", "Transaction Info");
+                }
             }).catch(error => {
                 console.log(error);
             });
