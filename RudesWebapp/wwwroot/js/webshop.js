@@ -8,27 +8,17 @@
                 </figcaption>
                 <figcaption class="articleDescription">{{ article.price }} kn </figcaption>
                 <figcaption>
-                    <div>
-                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XS</label>
-                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">S</label>
-                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">M</label>
-                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">L</label>
-                        <label class="checkbox-inline" style="margin: 0.5%"><input type="checkbox" value="">XL</label>
-                    </div>
-                </figcaption>
-                <figcaption>
-                    <button type="button" class="priceButton" @click="updateSelectedArticle(article)" data-toggle="modal" data-target="#articleDetailsModal">
-                        Više detalja
+                    <button type="button" class="buttonStyle" @click="updateSelectedArticle(article)" data-toggle="modal" data-target="#articleDetailsModal">
+                        Stavi u košaricu
                      </button>
                 </figcaption>
-                <button class="buttonStyle" @click="passArticle(article)">Dodaj u košaricu</button>
                 <hr />
             </div>
         `,
     methods: {
-        passArticle: function (article) {
-            webshop.addItemToCart(article.id, 1, "XL");
-        },
+        //passArticle: function (article) {
+        //    webshop.addItemToCart(article.id, 1, "XL");
+        //},
         updateSelectedArticle: function (article) {
             articleDetailsModal.selectedArticle = article;
         }
