@@ -1,0 +1,40 @@
+﻿td, th {
+    border: 1px #424242;
+    text-align: center;
+    padding: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #424242;
+}
+
+.deleteButton {
+    font-size: 1.2em;
+    border-radius: 25%;
+    padding: 5px;
+}
+
+    .deleteButton:hover {
+        color: red;
+        background-color: lightgray;
+        transition: background-color 1s;
+    }
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #06244A !important;
+    border: none !important;
+    color: white !important;
+    text-align: center !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    padding: 1% 2% 1% 2% !important;
+    border-radius: 5px !important;
+    font-family: 'Cinzel', sans-serif !important;
+    font-weight: 400 !important;
+}
+
+    .btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+        font-size: 14px !important;
+        padding: 0.8% 2% 0.8% 2% !important;
+        border-radius: 5px !important;
+        font-family: 'Cinzel', sans-serif !important;
+        font-weight: 400 !important;
+    }

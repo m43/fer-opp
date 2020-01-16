@@ -1,0 +1,185 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RudesWebapp.Helpers
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/toastr/css/toastr.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/teams.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/about.css" />
+    <link rel="stylesheet" href="~/css/shoppingCart.css" />
+    <link rel="stylesheet" href="~/css/webshop.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700,900&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,500,600,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/lib/underscore/underscore-min.js"></script>
+    <script src="~/lib/vuejs/vue.js"></script>
+    <script src="~/lib/fontawesome/js/all.min.js" defer></script>
+</head>
+
+<body>
+    <a class="my-navbar-brand fixed-top" asp-controller="Home" asp-action="Index">
+        <img src="~/images/rudes-logo.jpg" alt="Rudeš Logo" style="border-radius: 50%; width: 100%; height: 100%;" />
+    </a>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top mr-auto" style="padding: 0;">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="container-fluid justify-content-center">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="navbar-nav mr-auto">
+
+
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index" style="color: #06244A; font-family: 'Dancing Script', cursive; font-weight: 500; font-size: 23px;">
+                                        Košarkaški klub <span style="font-family:'Libre Baskerville', serif; margin-left: 10px;">RUDEŠ</span>
+                                    </a>
+
+                                </li>
+                                
+
+
+                                <li class="nav-item dropdown active btn my-navbar-button">
+                                    <a class="nav-link dropdown-toggle" href="#" id="teamsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #424242; font-family: 'Montserrat', sans-serif">
+                                        Timovi
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="teamsDropdown">
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="Seniors" style="color: #424242; font-family: 'Montserrat', sans-serif">Seniori</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="Juniors" style="color: #424242; font-family: 'Montserrat', sans-serif">Juniori</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="Cadets" style="color: #424242; font-family: 'Montserrat', sans-serif">Kadeti</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="YoungCadets" style="color: #424242; font-family: 'Montserrat', sans-serif">Mlađi kadeti</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropdown active btn my-navbar-button">
+                                    <a class="nav-link dropdown-toggle" href="#" id="schoolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #424242; font-family: 'Montserrat', sans-serif">
+                                        Škola košarke
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="schoolsDropdown">
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="MiniBasketball" style="color: #424242; font-family: 'Montserrat', sans-serif">Mini košarka</a>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="SportSchools" style="color: #424242; font-family: 'Montserrat', sans-serif">Sportske škole</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Gallery" style="color: #424242; font-family: 'Montserrat', sans-serif">
+                                        Galerija
+                                    </a>
+                                </li>
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Home" asp-action="About" style="color: #424242; font-family: 'Montserrat', sans-serif">
+                                        O klubu
+                                    </a>
+                                </li>
+
+                                <li class="nav-item active btn my-navbar-button">
+                                    <a class="nav-link" asp-controller="Webshop" asp-action="WebshopStart" style="color: #424242; font-family: 'Montserrat', sans-serif">
+                                        <i class="fas fa-shopping-bag" style="font-size: 20px; margin-right: 3px; color: #424242;"></i>
+                                        Webshop
+                                    </a>
+                                </li>
+
+                                <partial name="_LoginPartial" />
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div style="background-color: #06244A; width: 100.04%; height: 30px; -webkit-transform: rotate(-2deg); background-color: #06244A; margin-top: 100px;">
+        <div style="background-color: #06244A; width: 100%; height: 80px; background-color: #06244A;"></div>
+    </div>
+    <footer class="my-border-top my-footer text-muted" style="background-color: #06244A; width: 100%;">
+        <div class="container-fluid" style="background-color: #06244A;">
+            <div class="row align-items-center text-center">
+                <div class="col">
+                    <h4 style="color: #A89435; font-family: 'Montserrat', sans-serif; font-size: medium; font-weight: 500;">KOŠARKAŠKI KLUB RUDEŠ</h4>
+                    <p style="        color: #C0C0C0;
+        font-family: 'Montserrat', sans-serif;
+        font-size: small;
+        font-weight: 300;">Dragutina Freudenriecha 19</p>
+                    <p style="color: #C0C0C0; font-family: 'Montserrat', sans-serif; font-size: small; font-weight: 300;">10000 Zagreb</p>
+                    <p style="color: #C0C0C0; font-family: 'Montserrat', sans-serif; font-size: small; font-weight: 300;">Kontakt broj: 091 2542 354 (Danko Miholić)</p>
+                </div>
+
+                <div class="col">
+                    <a href="https://www.instagram.com/kosarkaski_klub_rudes/"
+                       class="mr-3"
+                       target="_blank">
+                        <img src="~/images/instagram-logo.png" width="70" />
+                    </a>
+                    <a href="https://www.facebook.com/kkrudes.basketball/"
+                       class="mr-3"
+                       target="_blank">
+                        <img src="~/images/facebook-logo.png" width="70" />
+                    </a>
+
+                    <div class="footer-copyright text-center pt-5" style="color: #C0C0C0; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: small;">
+                        © 2020 Copyright:
+                        <a href="#" style="font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: small;">KK Rudeš</a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <h4 class="mb-3" style="color: #A89435; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: medium;">NAČINI PLAĆANJA</h4>
+                    <span style="        color: #C0C0C0;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+        font-size: small;">Maestro <img src="~/images/maestro.jpg" width="60" /><br /></span>
+                    <span style="        color: #C0C0C0;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+        font-size: small;
+">Visa <img src="~/images/visa-logo.png" width="60" /><br /></span>
+                    <span style="color: #C0C0C0; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: small;">Mastercard <img src="~/images/mc.png" width="60" /><br /></span>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <partial name="_ShoppingCart" />
+    }
+
+    <script src="~/lib/jquery/jquery-3.4.1.min.js"></script>
+    <script src="~/lib/toastr/js/toastr.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

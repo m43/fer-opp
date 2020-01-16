@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Mini košarka";
+}
+
+<div style="background-color: white;">
+    <h4 style="        font-size: 25px;
+        font-family: 'Cinzel', sans-serif;
+        color: #A89435;
+        font-weight: 700;
+        margin-bottom: 20px;
+        margin-left: 40px;">MINI KOŠARKA</h4>
+</div>
+
+<hr />
+
+<div>
+    <img src="~/images/mini-kosarka.png" alt="Timska slika" style="margin-bottom: 10px; min-width: 92%; display: block; margin: 0 auto; max-width: 100%;"/>
+</div>
+
+<hr />
+
+<div style="margin-top: 20px;
+        text-align: justify;
+        margin-left: 43px;
+        margin-right: 43px;
+        font-family: 'Montserrat', sans-seri;
+        color: #424242;
+        font-size: 16px;
+        ">
+    STOJE S LIJEVA: trener Luka Jelaska, Borna Balašević, Toma Jakšić, Andrej Vasiljević, Leon Bogović, Vigo Goleš, Vigo Tarle,
+    Mihael Jeleč, Gabrijel Čutuk, Ivan Paun, Filip Konta, Ivano Šojić, Luka Šunjo, Ivan Tolić, Maks Pandžić, Ivan Ivančević-Kovačević,
+    Rafael Brčić, Marin Veža
+</div>
+
+<div style="margin-top: 20px; text-align: justify; margin-bottom: 30px; margin-left: 43px; margin-right: 43px; font-family: 'Montserrat', sans-seri;
+        color: #424242; font-size: 16px;">
+    SJEDE S LIJEVA: Dorja Salopek, Matej Lončar, Petar Frančić, Šimun Gojić, Marin Rinčić, Matej Tirić, Jerko Mravinac,
+    Frane Ličina, Vlatko jakšić, Lovro Selak, Leon Mlinar, Grgur Butorac, Karlo Habek, Lana Rebić
+</div>
+
+<hr />
+
+<div class="container" id="teams" style="padding: 0;">
+    <div v-for="playerGroup in miniBasketballPlayers" class="row">
+        <div v-for="player in playerGroup" class="col-lg-3 text-center" style="padding: 0; margin-right: 0px; margin-left: 0px;">
+            <player-component :player="player"></player-component>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/teams.js"></script>

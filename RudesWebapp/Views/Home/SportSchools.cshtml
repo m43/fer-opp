@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Sportske škole";
+}
+
+<div style="background-color: white;">
+    <h4 style="        font-size: 25px;
+        font-family: 'Cinzel', sans-serif;
+        color: #A89435;
+        font-weight: 700;
+        margin-bottom: 20px;
+        margin-left: 40px;">SPORTSKE ŠKOLE</h4>
+</div>
+
+<hr />
+
+<div>
+    <img src="~/images/sportske-skole.png" alt="Timska slika" style="margin-bottom: 10px;min-width: 92%;display: block;margin: 0 auto;max-width: 100%;"/>
+</div>
+
+<hr />
+
+<div style="margin-top: 20px;
+        text-align: justify;
+        margin-left: 43px;
+        margin-right: 43px;
+        font-family: 'Montserrat', sans-seri;
+        color: #424242;
+        ">
+    STOJE S LIJEVA: trener Robert Kovačev, Luka Bilić-Prcić, Petar Jokanović, Matteo Sudar, Mihovil Šunjić, Ivan Maksim Duvnjak, Marko Alešković,
+    Luka Petanović, trener Edin Hadžić
+</div>
+
+<div style="margin-top: 20px; text-align: justify; margin-bottom: 30px; margin-left: 43px; margin-right: 43px; font-family: 'Montserrat', sans-seri;
+        color: #424242;">
+    SJEDE S LIJEVA: Franko Gluhović, Vito Kraljević, Sven Raić, Roko Ivanković, Ante Bubalo, Roko Matek, Ivan Martić
+</div>
+
+<hr />
+
+<div class="container" id="teams" style="padding: 0;">
+    <div v-for="playerGroup in sportSchoolPlayers" class="row">
+        <div v-for="player in playerGroup" class="col-lg-3 text-center" style="padding: 0; margin-right: 0px; margin-left: 0px;">
+            <player-component :player="player"></player-component>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/teams.js"></script>
+

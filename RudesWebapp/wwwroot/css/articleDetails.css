@@ -1,0 +1,30 @@
+﻿#modalArticleName {
+    color: #2a67c9;
+    font-size: 150%;
+    font-weight: bold;
+    margin: 2%;
+}
+
+#modalArticleReview {
+    font-style: italic;
+    color: #59afff;
+    margin: 2%;
+}
+
+#modalArticleDescription {
+    font-style: italic;
+    margin: 2%;
+}
+
+#modalArticleSizes {
+    margin: 2%;
+}
+
+#modalArticleQuantity{
+    margin: 2%;
+}
+
+#modalPictureDiv {
+    display: flex;
+    align-items: center;
+}

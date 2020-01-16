@@ -1,0 +1,94 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="shoppingCartModal" tabindex="-1" role="dialog" aria-labelledby="shoppingCartModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="shoppingCartModalTitle" style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 20px; font-weight: 400;">Košarica</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">
+                    Ukupna cijena: {{ totalPrice }} kn
+                </div>
+                <p></p>
+                <table v-if="items.length != 0">
+                    <tr style="border-bottom: 0.02px solid #EBEBEB;">
+                        <th></th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Naziv</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Opis</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Tip</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Cijena</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Količina</th>
+                        <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Veličina</th>
+                    </tr>
+                    
+                    <tr v-for="item in items">
+                        <td>
+                            <div class="deleteButton" @@click="removeArticleFromCart(item.articleId, 1, item.size)">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        </td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.name }}</td>
+                        <td style="        font-family: 'Montserrat', sans-serif;
+        color: #424242;
+        font-size: 15px;
+        font-weight: 400;">{{ item.description }}</td>
+                        <td style="        font-family: 'Montserrat', sans-serif;
+        color: #424242;
+        font-size: 15px;
+        font-weight: 400;">{{ item.type }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.price }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.quantity }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.size }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" @@click="clearShoppingCart()">Isprazni košaricu</button>
+                <!-- do we still need Zatvori button if we have x on the top right?  -->
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#finalPaymentModal" data-dismiss="modal">Plaćanje</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="finalPaymentModal" tabindex="-1" role="dialog" aria-labelledby="finalPaymentModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finalPaymentModalTitle">Plaćanje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputAddress">Adresa</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Upišite adresu" v-model="address">
+                </div>
+                <div class="form-group">
+                    <label for="inputCity">Grad</label>
+                    <input type="text" class="form-control" id="inputCity" placeholder="Upišite grad" v-model="city">
+                </div>
+                <div class="form-group">
+                    <label for="inputPostalCode">Poštanski broj</label>
+                    <input type="text" class="form-control" id="inputPostalCode" placeholder="Upišite poštanski broj" v-model="postalCode">
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @@click="payment(address, city, postalCode, items)">Plati</button>
+                <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/shoppingCart.js"></script>
