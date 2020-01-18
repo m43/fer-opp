@@ -1,11 +1,20 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using RudesWebapp.Data;
 using RudesWebapp.Models;
 
 namespace RudesWebapp.Controllers
 {
     public class HomeController : Controller
     {
+        private RudesDatabaseContext _context;
+
+        public HomeController(RudesDatabaseContext context)
+        {
+            _context = context;
+        }
+
+
         public IActionResult Index()
         {
             return View();
@@ -48,6 +57,13 @@ namespace RudesWebapp.Controllers
 
         public IActionResult SportSchools()
         {
+            return View();
+        }
+
+        public IActionResult Post(int id)
+        {
+            var post = _context.Post.Find(id);
+            ViewData["post"] = post;
             return View();
         }
 
