@@ -1,7 +1,6 @@
 ﻿var shoppingCartModal = new Vue({
     el: "#shoppingCartModal",
     data: {
-        allArticles: [],
         items: [],
         totalPrice: 0
     },
@@ -52,16 +51,19 @@
                 });
         }
     },
+    computed: {
+        isCartEmpty: function () {
+            return this.items.length == 0;
+        }
+    },
     beforeMount: function () {
         this.updateCurrentCart();
-        // this.interval = setInterval(() => this.updateCurrentCart(), 10000);
     }
 });
 
 var finalPaymentModal = new Vue({
     el: "#finalPaymentModal",
     data: {
-        allArticles: [],
         items: [],
         totalPrice: 0,
         address: "",
@@ -86,15 +88,6 @@ var finalPaymentModal = new Vue({
             );
 
             this.totalPrice = total;
-        },
-        getArticles: function () {
-            axios.get("/api/webshop/GetArticlesInStore")
-                .then(response => {
-                    this.allArticles = response.data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
         },
         addItemToCart: function (articleId, quantity, size) {
             axios({
@@ -124,7 +117,6 @@ var finalPaymentModal = new Vue({
                     'content-type': 'application/json;charset=utf-8'
                 }
             }).then(response => {
-                console.log(response);
                 if (response == null) {
                     toastr.error("Transakcija neuspješna!", "Transaction Info");
                 } else if (response.status == 200) {
@@ -137,7 +129,12 @@ var finalPaymentModal = new Vue({
             });
         }
     },
+    computed: {
+        isCartEmpty: function () {
+            return this.items.length == 0;
+        }
+    },
     beforeMount: function () {
-        this.getArticles();
+        this.updateCurrentCart();
     }
 });
