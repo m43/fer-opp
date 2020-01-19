@@ -49,6 +49,11 @@ namespace RudesWebapp.Controllers.Api
         [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Order>> PostOrder([FromBody] OrderDTO orderDTO)
         {
+            if (orderDTO.Items.Count() == 0)
+            {
+                return null;
+            }
+
             await Task.Delay(5000); // Payment simulation - just wait 5 seconds
 
             // Using a random number generator to decide whether or not the transaction will succeed.
