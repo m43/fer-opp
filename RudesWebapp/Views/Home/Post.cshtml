@@ -3,10 +3,12 @@
     var post = (Post)ViewData["post"];
 }
 
-<div id="index">
+<div id="index" class="container">
     <h1>@post.Title</h1>
 
     @post.Content
+
+    <div v-for="i in 30">&nbsp;</div>
 </div>
 
 <script src="~/js/index.js"></script>
