@@ -8,12 +8,12 @@
 {
     <li class="nav-item active btn my-navbar-button">
         <a class="nav-link" href="#" role="button" data-toggle="modal" data-target="#shoppingCartModal">
-            <i class="fas fa-shopping-cart" style="color: #424242;"></i>
+            <i class="fas fa-shopping-cart" style="color: #424242; margin-top: 10px;"></i>
         </a>
     </li>
 
     <li class="nav-item dropdown active btn my-navbar-button">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage" style="color: white; font-weight: 400; border-radius: 5px; font-family: 'Cinzel', sans-serif; background-color: #A89435;">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="manage" class="nav-link text-dark" title="Manage" style="color: white; font-weight: 400; border-radius: 5px; font-family: 'Cinzel', sans-serif; background-color: #A89435; margin-top: 7px;">
             @UserManager.GetUserName(User)
         </a>
 
@@ -57,13 +57,13 @@
 else
 {
     <li class="nav-item btn my-navbar-button">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register" style="color: #424242; font-family: 'Montserrat', sans-serif">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register" style="color: #424242; font-family: 'Montserrat', sans-serif; margin-top: 5px;">
             Register
         </a>
     </li>
 
     <li class="nav-item btn my-navbar-button">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login" style="color: #424242; font-family: 'Montserrat', sans-serif">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login" style="color: #424242; font-family: 'Montserrat', sans-serif; margin-top: 5px;">
             Login
         </a>
     </li>

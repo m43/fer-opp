@@ -103,3 +103,6 @@ nav a {
         text-decoration: none;
     }
 
+hr.new1 {
+    border-top: 1px solid #A89435;
+}
