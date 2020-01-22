@@ -44,7 +44,25 @@ namespace RudesWebapp.Services
 
         public static IEnumerable<ArticleInStoreDTO> CreateArticlesInStore(RudesDatabaseContext context)
         {
-            return context.Article.Include(a => a.ArticleAvailability).Select(CreateArticleInStore);
+            var result = context.Article
+                .Include(a => a.ArticleAvailability)
+                .Select(CreateArticleInStore);
+
+            var removeList = new List<ArticleInStoreDTO>();
+            foreach (var article in result)
+            {
+                if (article.Quantities.Sum() == 0)
+                {
+                    removeList.Add(article);
+                }
+            }
+
+            foreach (var removeArticle in removeList)
+            {
+                result = result.Where(a => a.Id != removeArticle.Id).ToList();
+            }
+
+            return result;
         }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RudesWebapp.Data;
 using RudesWebapp.Dtos;
+using RudesWebapp.Helpers;
 using RudesWebapp.Models;
 using RudesWebapp.Services;
 
@@ -48,6 +49,11 @@ namespace RudesWebapp.Controllers.Api
         [Authorize(Roles = Roles.UserOrAbove)]
         public async Task<ActionResult<Order>> PostOrder([FromBody] OrderDTO orderDTO)
         {
+            if (orderDTO.Items.Count() == 0)
+            {
+                return null;
+            }
+
             await Task.Delay(5000); // Payment simulation - just wait 5 seconds
 
             // Using a random number generator to decide whether or not the transaction will succeed.
@@ -127,7 +133,8 @@ namespace RudesWebapp.Controllers.Api
                 Address = orderDTO.Address,
                 City = orderDTO.City,
                 PostalCode = orderDTO.PostalCode,
-                OrderArticle = orderArticles
+                OrderArticle = orderArticles,
+                UserId = User.GetUserId()
             };
             _context.Order.Add(order);
             await _context.SaveChangesAsync();

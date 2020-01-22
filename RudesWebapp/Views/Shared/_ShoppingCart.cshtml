@@ -23,22 +23,17 @@
                         <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Količina</th>
                         <th style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 600;">Veličina</th>
                     </tr>
-                    
+
                     <tr v-for="item in items">
                         <td>
                             <div class="deleteButton" @@click="removeArticleFromCart(item.articleId, 1, item.size)">
                                 <i class="fas fa-times"></i>
                             </div>
                         </td>
+
                         <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.name }}</td>
-                        <td style="        font-family: 'Montserrat', sans-serif;
-        color: #424242;
-        font-size: 15px;
-        font-weight: 400;">{{ item.description }}</td>
-                        <td style="        font-family: 'Montserrat', sans-serif;
-        color: #424242;
-        font-size: 15px;
-        font-weight: 400;">{{ item.type }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.description }}</td>
+                        <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.type }}</td>
                         <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.price }}</td>
                         <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.quantity }}</td>
                         <td style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">{{ item.size }}</td>
@@ -46,10 +41,8 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" @@click="clearShoppingCart()">Isprazni košaricu</button>
-                <!-- do we still need Zatvori button if we have x on the top right?  -->
-                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>-->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#finalPaymentModal" data-dismiss="modal">Plaćanje</button>
+                <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" @@click="clearShoppingCart()" :disabled="isCartEmpty">Isprazni košaricu</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#finalPaymentModal" data-dismiss="modal" :disabled="isCartEmpty">Plaćanje</button>
             </div>
         </div>
     </div>
@@ -80,11 +73,10 @@
                     <label for="inputPostalCode">Poštanski broj</label>
                     <input type="text" class="form-control" id="inputPostalCode" placeholder="Upišite poštanski broj" v-model="postalCode">
                 </div>
-                
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @@click="payment(address, city, postalCode, items)">Plati</button>
+                <button type="button" class="btn btn-primary" @@click="payment(address, city, postalCode, items)" :disabled="isCartEmpty">Plati</button>
                 <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
             </div>
         </div>

@@ -16,9 +16,6 @@
             </div>
         `,
     methods: {
-        //passArticle: function (article) {
-        //    webshop.addItemToCart(article.id, 1, "XL");
-        //},
         updateSelectedArticle: function (article) {
             articleDetailsModal.selectedArticle = article;
             articleDetailsModal.getReview(article.id);
@@ -53,20 +50,33 @@ var webshop = new Vue({
                     console.log(error);
                 });
         },
-        addItemToCart: function (articleId, quantity, size) {
-            axios({
-                method: 'post',
-                url: '/api/webshop/AddToShoppingCart',
-                data: 'articleId=' + articleId + '&quantity=' + quantity + '&size=' + size,
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+        groupArticles: function (array, subArraySize) {
+            return _.chunk(array, subArraySize);
+        },
+        filterArticles: function () {
+            if (this.isFilteringActive) {
+                let filteredArray = [];
+                for (var i = 0; i < this.allArticles.length; ++i) {
+                    let article = this.allArticles[i];
+                    let filterPass = true;
+
+                    if (article.type == "hoodie" && !this.hoodieFilter) filterPass = false;
+                    if (article.type == "t-shirt" && !this.tshirtFilter) filterPass = false;
+
+                    if (this.maxPrice != 0 && article.price >= this.maxPrice) filterPass = false;
+
+                    if (filterPass) {
+                        filteredArray.push(article);
+                    }
                 }
-            }).then(() => {
-                shoppingCartModal.updateCurrentCart();
-                finalPaymentModal.updateCurrentCart();
-            }).catch(error => {
-                console.log(error);
-            });
+
+                if (this.sortOrder == "asc") filteredArray.sort((a1, a2) => a1.price - a2.price);
+                else if (this.sortOrder == "desc") filteredArray.sort((a1, a2) => a2.price - a1.price);
+
+                this.filteredArticles = filteredArray;
+            } else {
+                this.filteredArticles = this.allArticles;
+            }
         },
         prikaziFiltere: function () {
             const x = document.getElementById("myDIV");
@@ -86,34 +96,6 @@ var webshop = new Vue({
                 x.style.display = "";
             } else {
                 x.style.display = "none";
-            }
-        },
-        groupArticles: function (array, subArraySize) {
-            return _.chunk(array, subArraySize);
-        },
-        filterArticles: function () {
-            if (this.isFilteringActive) {
-                let filteredArray = [];
-                for (var i = 0; i < this.allArticles.length; ++i) {
-                    let article = this.allArticles[i];
-                    let filterPass = true;
-
-                    if (article.type == "hoodie" && this.tshirtFilter) filterPass = false;
-                    if (article.type == "t-shirt" && this.hoodieFilter) filterPass = false;
-
-                    if (this.maxPrice != 0 && article.price >= this.maxPrice) filterPass = false;
-
-                    if (filterPass) {
-                        filteredArray.push(article);
-                    }
-                }
-
-                if (this.sortOrder == "asc") filteredArray.sort((a1, a2) => a1.price - a2.price);
-                else if (this.sortOrder == "desc") filteredArray.sort((a1, a2) => a2.price - a1.price);
-
-                this.filteredArticles = filteredArray;
-            } else {
-                this.filteredArticles = this.allArticles;
             }
         }
     },

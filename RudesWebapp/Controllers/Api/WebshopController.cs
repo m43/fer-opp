@@ -110,6 +110,12 @@ namespace RudesWebapp.Controllers.Api
             // TODO remove quantity parameter from all function calls
             // TODO Well, actually quantity is needed and frontend should use it (F.)
             // TODO check if validation of received parameters works as expected
+
+            if (quantity <= 0)
+            {
+                return null;
+            }
+
             var shoppingCart = await ShoppingCartService.GetCurrentShoppingCart(_context, User.GetUserId());
             var selectedArticle = await _context.Article.FindAsync(articleId);
 

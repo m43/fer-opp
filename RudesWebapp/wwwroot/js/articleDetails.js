@@ -21,7 +21,7 @@
             }).then(response => {
                 shoppingCartModal.updateCurrentCart();
                 finalPaymentModal.updateCurrentCart();
-                console.log(response);
+
                 if (response == null) {
                     toastr.error("Dodavanje u košaricu neuspješno!", "");
                 } else if (response.status == 200) {
@@ -36,7 +36,6 @@
         getReview: function (id) {
             axios.get("/api/Review/" + id)
                 .then(response => {
-                    console.log(response);
                     this.selectedArticleReview = response.data;
                 })
                 .catch(error => {

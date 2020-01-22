@@ -18,7 +18,7 @@ namespace RudesWebapp.Dtos
 
         [Required(ErrorMessage = "It's necessary to specify the size.")]
         [Display(Name = "Size")]
-        [RegularExpression("S|M|L|XL|XXL|U")] // TODO ex. a bottle does not have S/M/L.. size. Maybe U like universal?
+        [RegularExpression("S|XS|M|L|XL|XXL|U")] // TODO ex. a bottle does not have S/M/L.. size. Maybe U like universal?
         public string Size { get; set; }
 
         [Required] public string Type { get; set; }
