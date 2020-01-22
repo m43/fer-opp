@@ -76,11 +76,14 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @@click="payment(address, city, postalCode, items)" :disabled="isCartEmpty">Plati</button>
+               
+               
+                <button id="loadingButton" type="button" class="btn btn-primary" @@click="payment(address, city, postalCode, items)" :disabled="isCartEmpty">Plati</button>
                 <button type="button" class="btn btn-secondary" style="position: absolute; left: 2%;" data-toggle="modal" data-target="#shoppingCartModal" data-dismiss="modal">Vrati se u košaricu</button>
             </div>
         </div>
     </div>
 </div>
 
+<script src="~/js/loadingButton.js"></script>    
 <script src="~/js/shoppingCart.js"></script>
