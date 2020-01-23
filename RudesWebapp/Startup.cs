@@ -112,6 +112,7 @@ namespace RudesWebapp
                 .AddProcessor<FormatWebProcessor>();
 
             services.TryAddEnumerable(new[] {ServiceDescriptor.Transient<ITrigger, CreateShoppingCartTrigger>()});
+            // services.TryAddEnumerable(new[] {ServiceDescriptor.Transient<ITrigger, UpdateArticleAvailabilityTrigger>()}); // TODO
 
             AddServiceLayerToServices(services);
         }
