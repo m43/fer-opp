@@ -14,11 +14,13 @@ namespace RudesWebapp.Controllers.Api
 {
     public class WebshopController : ControllerBase
     {
-        private RudesDatabaseContext _context;
+        private readonly RudesDatabaseContext _context;
+        private readonly ArticleInStoreService _articleInStoreService;
 
-        public WebshopController(RudesDatabaseContext context)
+        public WebshopController(RudesDatabaseContext context, ArticleInStoreService articleInStoreService)
         {
             _context = context;
+            _articleInStoreService = articleInStoreService;
         }
 
         // Item
@@ -27,7 +29,7 @@ namespace RudesWebapp.Controllers.Api
         {
             try
             {
-                return Ok(ArticleInStoreService.CreateArticlesInStore(_context));
+                return Ok(_articleInStoreService.CreateArticlesInStore(_context));
             }
             catch (Exception)
             {
@@ -40,7 +42,7 @@ namespace RudesWebapp.Controllers.Api
         {
             try
             {
-                return Ok(await ArticleInStoreService.CreateArticleInStore(_context, id));
+                return Ok(await _articleInStoreService.CreateArticleInStore(_context, id));
             }
             catch (Exception)
             {

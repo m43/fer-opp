@@ -6,12 +6,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace RudesWebapp.Services
 {
     public class ArticleInStoreService
     {
-        private static ArticleInStoreDTO CreateArticleInStore(Article article)
+        private readonly IMapper _mapper;
+
+        public ArticleInStoreService(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        private ArticleInStoreDTO CreateArticleInStore(Article article)
         {
             var availability = article.ArticleAvailability;
             return new ArticleInStoreDTO
@@ -23,6 +31,7 @@ namespace RudesWebapp.Services
                 Price = article.Price,
                 ArticleColor = article.ArticleColor,
                 ImageId = article.ImageId,
+                Image = _mapper.Map<ImageDTO>(article.Image),
                 Sizes = availability
                     .Select(a => a.Size)
                     .ToList(),
@@ -32,9 +41,10 @@ namespace RudesWebapp.Services
             };
         }
 
-        public async static Task<ArticleInStoreDTO> CreateArticleInStore(RudesDatabaseContext context, int articleId)
+        public async Task<ArticleInStoreDTO> CreateArticleInStore(RudesDatabaseContext context, int articleId)
         {
             var article = await context.Article
+                .Include(a=>a.Image)
                 .Include(a => a.ArticleAvailability)
                 .Where(a => a.Id == articleId)
                 .FirstOrDefaultAsync();
@@ -42,9 +52,10 @@ namespace RudesWebapp.Services
             return CreateArticleInStore(article);
         }
 
-        public static IEnumerable<ArticleInStoreDTO> CreateArticlesInStore(RudesDatabaseContext context)
+        public IEnumerable<ArticleInStoreDTO> CreateArticlesInStore(RudesDatabaseContext context)
         {
             var result = context.Article
+                .Include(a=>a.Image)
                 .Include(a => a.ArticleAvailability)
                 .Select(CreateArticleInStore);
 

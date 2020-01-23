@@ -2,7 +2,7 @@
     props: ["article"],
     template: `
             <div class="articleDiv">
-                <img class="productImages" src="/images/rudes-logo.jpg" >
+                <img class="productImages" :src="article.image==null?'/images/rudes-logo.jpg':article.image.path+'?width=300'"" >
                 <figcaption class="articleDescription" style="font-family: 'Montserrat', sans-serif; color: #424242; font-size: 15px; font-weight: 400;">
                     {{ article.name }}
                 </figcaption>
@@ -12,7 +12,6 @@
                         STAVI U KOŠARICU
                      </button>
                 </figcaption>
-                <hr />
             </div>
         `,
     methods: {
