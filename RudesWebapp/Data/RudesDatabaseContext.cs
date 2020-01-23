@@ -500,7 +500,7 @@ namespace RudesWebapp.Data
 
             modelBuilder.Entity<ShoppingCartArticle>(entity =>
             {
-                entity.HasKey(e => new {e.ShoppingCartId, e.ArticleId})
+                entity.HasKey(e => new {e.ShoppingCartId, e.ArticleId}) // TODO add size to key
                     .HasName("PK__shopping__B7E583C151B3360B");
 
                 entity.ToTable("shopping_cart_article");

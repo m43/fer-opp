@@ -44,7 +44,7 @@ namespace RudesWebapp.Triggers
 
         protected override Task TriggerAsyncInternal(TriggerEntityVersion<User> trackedTriggerEntity)
         {
-            _logger.LogInformation($"Update attendance for user {trackedTriggerEntity.New.Id}");
+            _logger.LogInformation($"Shopping cart created for user {trackedTriggerEntity.New.Id}");
             return Task.CompletedTask;
         }
     }
